@@ -1,6 +1,6 @@
-import {env} from '@/env.mjs';
-import {PrismaClient} from '@prisma/client/extension';
-import {fieldEncryptionMiddleware} from "prisma-field-encryption";
+import { env } from '@/env.mjs';
+import { PrismaClient } from '@prisma/client/extension';
+import { fieldEncryptionMiddleware } from 'prisma-field-encryption';
 
 const logThreshold = 500;
 
@@ -30,26 +30,26 @@ function getClient(): PrismaClient {
 	// re-run per request like everything else is.
 	const client = new PrismaClient({
 		log: [
-			{level: 'query', emit: 'event'},
-			{level: 'error', emit: 'stdout'},
-			{level: 'info', emit: 'stdout'},
-			{level: 'warn', emit: 'stdout'},
+			{ level: 'query', emit: 'event' },
+			{ level: 'error', emit: 'stdout' },
+			{ level: 'info', emit: 'stdout' },
+			{ level: 'warn', emit: 'stdout' },
 		],
 	});
 	client.$on('query', async (e: any) => {
 		if (e.duration < logThreshold) return;
-		const {default: chalk} = await import('chalk');
+		const { default: chalk } = await import('chalk');
 
 		const color =
 			e.duration < logThreshold * 1.1
 				? 'green'
 				: e.duration < logThreshold * 1.2
-					? 'blue'
-					: e.duration < logThreshold * 1.3
-						? 'yellow'
-						: e.duration < logThreshold * 1.4
-							? 'redBright'
-							: 'red';
+				? 'blue'
+				: e.duration < logThreshold * 1.3
+				? 'yellow'
+				: e.duration < logThreshold * 1.4
+				? 'redBright'
+				: 'red';
 		const dur = chalk[color](`${e.duration}ms`);
 		console.log(`prisma:query - ${dur} - ${e.query}`);
 	});
