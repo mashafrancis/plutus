@@ -37,3 +37,9 @@ next-env.d.ts
 .idea
 .env
 .env.production
+
+.react-email
+react-email/node_modules/
+
+# others
+.husky

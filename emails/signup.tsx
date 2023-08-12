@@ -15,7 +15,7 @@ import {
 import ButtonLink from './button-link';
 import Footer from './footer';
 import Footnote from './footnote';
-import url from '@/constants/url';
+import url from '../constants/url';
 
 export const SignUpEmail = ({ action_link = '' }: { action_link?: string }) => {
 	return (

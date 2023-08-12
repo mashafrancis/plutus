@@ -14,13 +14,10 @@ datasource db {
 }
 
 model subscriptions {
-  id           String   @id @default(uuid())
-  /// @encrypted
-  name         String
-  /// @encrypted
+  id           String   @id @default(uuid()) /// @encrypted
+  name         String /// @encrypted
   notes        String?
-  url          String
-  /// @encrypted
+  url          String /// @encrypted
   price        String   @default("0")
   paid         String
   notify       Boolean  @default(false)
@@ -35,12 +32,9 @@ model subscriptions {
 }
 
 model expenses {
-  id         String   @id @default(uuid())
-  /// @encrypted
-  name       String
-  /// @encrypted
-  notes      String?
-  /// @encrypted
+  id         String   @id @default(uuid()) /// @encrypted
+  name       String /// @encrypted
+  notes      String? /// @encrypted
   price      String   @default("0")
   paid_via   String   @default("")
   category   String
@@ -53,12 +47,9 @@ model expenses {
 }
 
 model income {
-  id         String   @id @default(uuid())
-  /// @encrypted
-  name       String
-  /// @encrypted
-  notes      String?
-  /// @encrypted
+  id         String   @id @default(uuid()) /// @encrypted
+  name       String /// @encrypted
+  notes      String? /// @encrypted
   price      String   @default("0")
   category   String
   date       String
@@ -70,14 +61,10 @@ model income {
 }
 
 model investments {
-  id         String   @id @default(uuid())
-  /// @encrypted
-  name       String
-  /// @encrypted
-  notes      String?
-  /// @encrypted
-  price      String   @default("0")
-  /// @encrypted
+  id         String   @id @default(uuid()) /// @encrypted
+  name       String /// @encrypted
+  notes      String? /// @encrypted
+  price      String   @default("0") /// @encrypted
   units      String   @default("0")
   category   String
   date       String

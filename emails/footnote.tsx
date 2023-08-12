@@ -10,7 +10,7 @@ export default function Footnote({ hideNote }: { hideNote?: boolean }) {
 			) : null}
 			<Text style={{ ...text, color: '#666666' }}>
 				Cheers, <br />
-				Gokul from Expense.fyi
+				Francis Masha from Plutus
 			</Text>
 		</>
 	);
