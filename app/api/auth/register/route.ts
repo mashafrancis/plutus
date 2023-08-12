@@ -7,7 +7,7 @@ import resend from '@/lib/email';
 
 import messages, { emails } from '@/constants/messages';
 import { Database } from '@/lib/database.types';
-import { prisma } from '@/lib/db';
+import { prisma } from '@/lib/prisma';
 import { getURL } from '@/lib/helpers';
 import { env } from '@/env.mjs';
 

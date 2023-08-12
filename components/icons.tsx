@@ -125,6 +125,23 @@ export const Icons = {
 	monitor: Globe,
 	radio: Radio,
 	reload: RotateCw,
+	arrowNext: ({ ...props }: LucideProps) => (
+		<svg
+			width='16'
+			height='8'
+			viewBox='0 0 16 8'
+			fill='none'
+			xmlns='http://www.w3.org/2000/svg'
+			{...props}
+		>
+			<path
+				id='Vector 1'
+				d='M0 4H14M14 4L11.5 1M14 4L11.5 7'
+				stroke='#212330'
+				strokeWidth='2'
+			/>
+		</svg>
+	),
 	user: ({ ...props }: LucideProps) => (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'

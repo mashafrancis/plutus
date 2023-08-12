@@ -17,6 +17,7 @@ import { apiUrls } from '@/lib/apiUrls';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import url from '@/constants/url';
 import { Form } from '@/components/ui/form';
+import { Database } from '@/lib/database.types';
 
 type UserAuthFormProps = HTMLAttributes<HTMLDivElement>;
 
@@ -35,7 +36,7 @@ export function AuthForm({ className, ...props }: UserAuthFormProps) {
 		formState: { errors, isSubmitting, isValid, isDirty },
 	} = form;
 
-	const supabase = createClientComponentClient();
+	const supabase = createClientComponentClient<Database>();
 	const router = useRouter();
 
 	useEffect(() => {
@@ -57,16 +58,13 @@ export function AuthForm({ className, ...props }: UserAuthFormProps) {
 
 	async function onSubmit(data: FormData) {
 		try {
+			// await supabase.auth.signIn({ email: data.email });
+
 			const res = await fetch(authApiUrl, {
 				method: 'POST',
 				body: JSON.stringify({ email: data.email }),
 				headers: { 'Content-Type': 'application/json' },
 			});
-
-			console.log(
-				'Class: onSubmit, Function: onSubmit, Line 66 await res():',
-				await res
-			);
 
 			if (!res.ok) {
 				const error = await res.json();

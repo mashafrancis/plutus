@@ -10,7 +10,6 @@ import type { ComponentProps, ReactNode } from 'react';
 
 import type { ElementState } from '@/hooks/use-element-state';
 import { useElementState } from '@/hooks/use-element-state';
-import { H6 } from './typography';
 
 type ArrowIconProps = ComponentProps<typeof ArrowIcon>;
 
@@ -113,7 +112,9 @@ function ArrowButtonContent({
 			(direction === 'right' ||
 				direction === 'up' ||
 				direction === 'top-right') ? (
-				<span className='mr-8 text-xl font-medium'>{children}</span>
+				<span className='mr-8 text-base font-medium text-primary-foreground'>
+					{children}
+				</span>
 			) : null}
 
 			<div className='relative inline-flex h-14 w-14 flex-none items-center justify-center p-1'>
@@ -160,7 +161,9 @@ function ArrowButtonContent({
 			</div>
 
 			{children && (direction === 'left' || direction === 'down') ? (
-				<span className='ml-8 text-xl font-medium'>{children}</span>
+				<span className='ml-4 text-base font-medium text-primary-foreground'>
+					{children}
+				</span>
 			) : null}
 		</>
 	);
@@ -225,27 +228,20 @@ function BackLink({
 }: {
 	to: LinkProps['href'];
 } & Pick<ArrowLinkProps, 'className' | 'children'>) {
-	const [ref, state] = useElementState();
-	const shouldReduceMotion = useReducedMotion();
 	return (
-		<MotionLink
-			href={to}
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ delay: 1 }}
 			className={clsx(
-				'flex items-center space-x-4 text-primary focus:outline-none',
+				'flex items-center space-x-2 text-primary focus:outline-none',
 				className
 			)}
-			ref={ref}
-			animate={state}
-			transition={shouldReduceMotion ? { duration: 0 } : {}}
 		>
-			<motion.span
-				variants={shouldReduceMotion ? {} : arrowVariants.left}
-				transition={shouldReduceMotion ? { duration: 0 } : {}}
-			>
-				<ArrowIcon direction='left' />
-			</motion.span>
-			<H6 as='span'>{children}</H6>
-		</MotionLink>
+			<ArrowLink to={to} direction='left' textSize='small'>
+				{children}
+			</ArrowLink>
+		</motion.div>
 	);
 }
 

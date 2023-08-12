@@ -8,7 +8,7 @@ import { Database } from '@/lib/database.types';
 import resend from '@/lib/email';
 
 import messages, { emails } from '@/constants/messages';
-import { prisma } from '@/lib/db';
+import { prisma } from '@/lib/prisma';
 import { getURL } from '@/lib/helpers';
 
 const supabaseAdmin = createClient<Database>(

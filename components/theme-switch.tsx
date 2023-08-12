@@ -12,10 +12,6 @@ const ThemeSwitch = () => {
 	// When mounted on a client, now we can show the UI
 	useEffect(() => setMounted(true), []);
 
-	const ThemeSwitch = () => {
-		setTheme(theme === 'dark' || resolvedTheme === 'dark' ? 'light' : 'dark');
-	};
-
 	const selectedTheme = {
 		light: 'bg-gray-200 text-gray-800',
 		dark: 'bg-gray-800 text-gray-200',
@@ -60,35 +56,6 @@ const ThemeSwitch = () => {
 					<path d='M21 12h2'></path>
 					<path d='M4.22 19.78l1.42-1.42'></path>
 					<path d='M18.36 5.64l1.42-1.42'></path>
-				</svg>
-			</button>
-			<button
-				aria-checked={theme === 'system' ? 'true' : 'false'}
-				aria-label='Switch to system theme'
-				className={cn(
-					'flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition hover:text-gray-800 hover:dark:text-gray-200',
-					theme === 'system' && selectedTheme.system
-				)}
-				role='radio'
-				type='button'
-				onClick={() => setTheme('system')}
-			>
-				<svg
-					data-testid='geist-icon'
-					fill='none'
-					height='16'
-					shapeRendering='geometricPrecision'
-					stroke='currentColor'
-					strokeLinecap='round'
-					strokeLinejoin='round'
-					strokeWidth='1.5'
-					viewBox='0 0 24 24'
-					width='16'
-					// style='color: currentcolor;'
-				>
-					<rect x='2' y='3' width='20' height='14' rx='2' ry='2'></rect>
-					<path d='M8 21h8'></path>
-					<path d='M12 17v4'></path>
 				</svg>
 			</button>
 			<button
