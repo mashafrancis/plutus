@@ -3,12 +3,14 @@ import { MainNavItem } from '@/types';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import { Icons } from '@/components/icons';
 import MobileNav from '@/components/mobile-nav';
 import { Nav } from '@/components/nav';
-import LogoutButton from '@/components/logout-button';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import Image from 'next/image';
+
+import plutusLogo from '../public/logo.svg';
+import { UserAccountNav } from '@/components/user/user-account-nav';
 
 interface Props {
 	items: MainNavItem[];
@@ -40,13 +42,15 @@ const TopBarNavigation = async ({
 						<div className='col-span-full flex items-center justify-between lg:col-span-8 lg:col-start-3'>
 							<MobileNav items={items} />
 
-							{showLogo ? (
-								<Link href='/' className='hidden items-center md:flex'>
-									<Icons.logo />
-								</Link>
-							) : (
-								<div></div>
-							)}
+							<Link href='/' className='hidden items-center md:flex'>
+								<Image
+									src={plutusLogo}
+									alt='Safaricom Logo Icon'
+									width={48}
+									height={48}
+									className='mx-auto h-auto rounded-md'
+								/>
+							</Link>
 
 							<div className='ml-[-0.60rem] lg:flex lg:items-center lg:justify-center'>
 								<Nav items={items} />
@@ -54,10 +58,7 @@ const TopBarNavigation = async ({
 
 							<div className='flex items-center gap-3 text-base leading-5'>
 								{user ? (
-									<div className='flex items-center gap-4'>
-										Hey, {user.email}!
-										<LogoutButton />
-									</div>
+									<UserAccountNav user={user} />
 								) : (
 									<Link
 										href='/login'
