@@ -3,6 +3,7 @@ import { ClientProvider } from '@/components/client-provider';
 import { fontHeading, fontMono, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
+import SupabaseProvider from '@/app/supabase-provider';
 
 export const metadata = {
 	title: 'Create Next App',
@@ -21,7 +22,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 			)}
 		>
 			<body className='antialiased'>
-				<ClientProvider>{children}</ClientProvider>
+				<SupabaseProvider>
+					<ClientProvider>{children}</ClientProvider>
+				</SupabaseProvider>
 			</body>
 		</html>
 	);
