@@ -1,11 +1,9 @@
 import { PrismaClient } from '@prisma/client';
-import { fieldEncryptionExtension } from 'prisma-field-encryption';
 
 const createPrismaClient = () => {
-	const globalClient = new PrismaClient({
+	return new PrismaClient({
 		log: ['warn', 'query', 'error'],
 	});
-	return globalClient.$extends(fieldEncryptionExtension());
 };
 
 const globalForPrisma = globalThis as unknown as {

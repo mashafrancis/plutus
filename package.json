@@ -10,6 +10,7 @@
     "lint": "next lint",
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
+    "postinstall": "prisma generate",
     "prebuild": "prisma format && prisma generate",
     "predev": "prisma format && prisma generate",
     "dbpush": "pnpm run predev && prisma db push",

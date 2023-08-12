@@ -2,11 +2,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator fieldEncryptionMigrations {
-  provider = "prisma-field-encryption"
-  output   = "./migrations"
-}
-
 datasource db {
   provider  = "postgresql"
   url       = env("POSTGRES_PRISMA_URL")
@@ -14,10 +9,10 @@ datasource db {
 }
 
 model subscriptions {
-  id           String   @id @default(uuid()) /// @encrypted
-  name         String /// @encrypted
+  id           String   @id @default(uuid())
+  name         String
   notes        String?
-  url          String /// @encrypted
+  url          String
   price        String   @default("0")
   paid         String
   notify       Boolean  @default(false)
@@ -32,9 +27,9 @@ model subscriptions {
 }
 
 model expenses {
-  id         String   @id @default(uuid()) /// @encrypted
-  name       String /// @encrypted
-  notes      String? /// @encrypted
+  id         String   @id @default(uuid())
+  name       String
+  notes      String?
   price      String   @default("0")
   paid_via   String   @default("")
   category   String
@@ -47,9 +42,9 @@ model expenses {
 }
 
 model income {
-  id         String   @id @default(uuid()) /// @encrypted
-  name       String /// @encrypted
-  notes      String? /// @encrypted
+  id         String   @id @default(uuid())
+  name       String
+  notes      String?
   price      String   @default("0")
   category   String
   date       String
@@ -61,10 +56,10 @@ model income {
 }
 
 model investments {
-  id         String   @id @default(uuid()) /// @encrypted
-  name       String /// @encrypted
-  notes      String? /// @encrypted
-  price      String   @default("0") /// @encrypted
+  id         String   @id @default(uuid())
+  name       String
+  notes      String?
+  price      String   @default("0")
   units      String   @default("0")
   category   String
   date       String
