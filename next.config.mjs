@@ -10,9 +10,8 @@ const nextConfig = {
 	swcMinify: true,
 	reactStrictMode: true,
 	experimental: {
-		appDir: true,
-		instrumentationHook: true,
-		typedRoutes: true
+		serverActions: true,
+		// typedRoutes: true
 	},
 }
 
