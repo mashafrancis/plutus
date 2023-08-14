@@ -1,7 +1,7 @@
 .content {
 	/*height: fit-content;*/
 	/*max-width: 640px;*/
-	background-image: url("/hero.svg");
+	background-image: url('/hero.svg');
 	width: 268px;
 	height: 812px;
 	/*flex-shrink: 0;*/
@@ -48,8 +48,8 @@
 }
 
 .main:after {
-	content: "";
-	background-image: url("/hero.svg");
+	content: '';
+	background-image: url('/hero.svg');
 	z-index: 1;
 	position: absolute;
 	width: 100%;

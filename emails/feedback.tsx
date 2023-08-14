@@ -12,8 +12,6 @@ import {
 
 import Footer from './footer';
 
-const baseUrl = 'https://expense.fyi';
-
 export default function FeedbackEmail({
 	message = '',
 	email = '',
@@ -29,7 +27,7 @@ export default function FeedbackEmail({
 				<Container style={container}>
 					<Section style={{ marginTop: '20px' }}>
 						<Img
-							src={`${baseUrl}/icons/logo.png`}
+							src='https://plutus.francismasha.com/logo.svg'
 							width='50'
 							height='50'
 							alt='Logo'

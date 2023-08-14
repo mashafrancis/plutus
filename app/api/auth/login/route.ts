@@ -9,7 +9,7 @@ import resend from '@/lib/email';
 
 import messages, { emails } from '@/constants/messages';
 import { prisma } from '@/lib/prisma';
-import { getURL } from '@/lib/helpers';
+import { getRedirectUrl } from '@/lib/helpers';
 
 const supabaseAdmin = createClient<Database>(
 	process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
@@ -38,8 +38,13 @@ export async function POST(request: NextRequest) {
 			const { data, error } = await supabaseAdmin.auth.admin.generateLink({
 				type: 'magiclink',
 				email,
-				options: { redirectTo: getURL() },
+				options: { redirectTo: getRedirectUrl() },
 			});
+
+			console.log(
+				'Class: POST, Function: POST, Line 44 getRedirectUrl()():',
+				getRedirectUrl()
+			);
 
 			if (error) {
 				throw error;

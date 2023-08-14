@@ -9,7 +9,7 @@ export type Json =
 export interface Database {
 	public: {
 		Tables: {
-			posts: {
+			users: {
 				Row: {
 					content: string;
 					created_at: string;

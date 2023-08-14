@@ -16,9 +16,6 @@ import ButtonLink from './button-link';
 import Footer from './footer';
 import Footnote from './footnote';
 
-const baseUrl = 'https://plutus.francismasha.com';
-const logoUrl = `${baseUrl}/icons/logo.png`;
-
 export const SignInEmail = ({ action_link = '' }: { action_link?: string }) => {
 	return (
 		<Html>
@@ -27,7 +24,7 @@ export const SignInEmail = ({ action_link = '' }: { action_link?: string }) => {
 			<Body style={main}>
 				<Container style={container}>
 					<Img
-						src={`${logoUrl}`}
+						src='https://plutus.francismasha.com/logo.svg'
 						width='50'
 						height='50'
 						alt='Logo'

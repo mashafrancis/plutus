@@ -1,29 +1,47 @@
+'use client';
+
 import { ArrowIcon, Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import CurrentDateDisplay from '@/components/current-date-display';
 
-export default function RightSection() {
+interface Props {
+	data: {
+		current: {
+			temp_c: number;
+		};
+	};
+}
+
+export default function RightSection({ data }: Props) {
+	const [currentTime, setCurrentTime] = useState('');
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			const date = new Date();
+			const hours = date.getHours();
+			const minutes = date.getMinutes();
+			const ampm = hours >= 12 ? 'PM' : 'AM';
+			setCurrentTime(`${hours}:${minutes} ${ampm}`);
+		}, 1000);
+		return () => clearInterval(interval);
+	}, []);
+
 	return (
-		<div className='absolute left-[159px] top-[30px] h-screen w-48 md:hidden'>
+		<div className='absolute left-[159px] top-[30px] md:hidden'>
 			<div className='absolute left-0 top-0 h-14 w-48'>
 				<div className='absolute left-0 top-0 text-2xl font-bold text-gray-900'>
-					06:20 PM
+					{currentTime}
 				</div>
 				<div className='absolute left-0 top-[40px] text-xs font-medium leading-tight text-slate-500'>
-					Nov.10.2020 | Wednesday
+					<CurrentDateDisplay />
 				</div>
 				<div className='absolute left-[153px] top-[5px] text-xs font-semibold leading-tight text-gray-900'>
-					34° C
+					{data.current.temp_c}° C
 				</div>
 			</div>
-			<div className='absolute left-0 top-[625px] h-12 w-48'>
-				<Link href='/login'>
-					<Button className='mt-6 h-12 w-48 rounded-lg' size='lg'>
-						Login
-						<ArrowIcon direction='right' />
-					</Button>
-				</Link>
-			</div>
+
 			<div className='absolute left-0 top-[246px] h-52 w-48'>
 				<div className='absolute left-0 top-[57.60px] h-40 w-48'>
 					<div className='absolute left-0 top-[48px] w-48 text-sm font-medium leading-snug text-slate-500'>
@@ -38,6 +56,15 @@ export default function RightSection() {
 				<div className='absolute left-0 top-0 h-10 w-16'>
 					<Icons.logo className='mx-auto h-14 w-14' />
 				</div>
+			</div>
+
+			<div className='absolute left-0 top-[625px] h-12 w-48'>
+				<Link href='/login'>
+					<Button className='mt-6 h-12 w-48 rounded-lg' size='lg'>
+						Login
+						<ArrowIcon direction='right' />
+					</Button>
+				</Link>
 			</div>
 		</div>
 	);

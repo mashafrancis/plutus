@@ -14,7 +14,6 @@ import ButtonLink from './button-link';
 import Footer from './footer';
 import Footnote from './footnote';
 
-const baseUrl = 'https://plutus.francismasha.com';
 const settingUrl = 'https://plutus.francismasha.com/settings';
 
 type PlanExpiredProps = { plan?: string };
@@ -30,7 +29,7 @@ export default function PlanExpiredEmail({
 				<Container style={container}>
 					<Section style={{ marginTop: '20px' }}>
 						<Img
-							src={`${baseUrl}/icons/logo.png`}
+							src='https://plutus.francismasha.com/logo.svg'
 							width='50'
 							height='50'
 							alt='Logo'

@@ -8,8 +8,8 @@ const local = 'localhost:3000';
 const home = isProduction ? domain : local;
 
 const url = {
-	homeWithoutApp: home,
-	home: `//${home}`,
+	homeWithoutApp: `//plutus.${home}`,
+	home: `//plutus.${home}`,
 	api: `${isProduction ? 'https://plutus.' : 'http://plutus.'}${home}`,
 	serverApi: `${isProduction ? 'https://' : 'http://'}${home}`,
 	app: {
@@ -18,8 +18,8 @@ const url = {
 		overview: `//plutus.${home}`,
 	},
 	twitter: 'https://twitter.com/FrancisMasha',
-	github: 'https://github.com/mashafrancus/plutus',
-	logoUrl: `//plutus.${home}/logo.svg`,
+	github: 'https://github.com/mashafrancis/plutus',
+	logoUrl: 'https://plutus.francismasha.com/logo.svg',
 };
 
 export const getApiUrl = (

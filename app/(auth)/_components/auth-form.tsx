@@ -8,15 +8,21 @@ import * as z from 'zod';
 
 import { cn } from '@/lib/utils';
 import { authSchema } from '@/lib/validations/auth';
-import { buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/use-toast';
 import { Icons } from '@/components/icons';
 import { apiUrls } from '@/lib/apiUrls';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import url from '@/constants/url';
-import { Form } from '@/components/ui/form';
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@/components/ui/form';
 import { Database } from '@/lib/database.types';
 
 type UserAuthFormProps = HTMLAttributes<HTMLDivElement>;
@@ -27,11 +33,12 @@ export function AuthForm({ className, ...props }: UserAuthFormProps) {
 	const pathname = usePathname();
 	const form = useForm<FormData>({
 		resolver: zodResolver(authSchema),
-		mode: 'onChange',
+		mode: 'onSubmit',
 	});
 
 	const {
 		register,
+		control,
 		handleSubmit,
 		formState: { errors, isSubmitting, isValid, isDirty },
 	} = form;
@@ -58,19 +65,23 @@ export function AuthForm({ className, ...props }: UserAuthFormProps) {
 
 	async function onSubmit(data: FormData) {
 		try {
-			// await supabase.auth.signIn({ email: data.email });
-
-			const res = await fetch(authApiUrl, {
-				method: 'POST',
-				body: JSON.stringify({ email: data.email }),
-				headers: { 'Content-Type': 'application/json' },
+			const { data: response, error } = await supabase.auth.signInWithOtp({
+				email: data.email,
+				options: {
+					emailRedirectTo: `${location.origin}/auth/callback`,
+				},
 			});
 
-			if (!res.ok) {
-				const error = await res.json();
+			// const res = await fetch(authApiUrl, {
+			// 	method: 'POST',
+			// 	body: JSON.stringify({ email: data.email }),
+			// 	headers: { 'Content-Type': 'application/json' },
+			// });
+			//
+			if (error) {
 				toast({
 					title: 'Authentication Failure',
-					description: error.statusText,
+					description: error.message,
 					variant: 'destructive',
 				});
 				throw new Error(error.message);
@@ -84,7 +95,7 @@ export function AuthForm({ className, ...props }: UserAuthFormProps) {
 		} catch (error: any) {
 			toast({
 				title: 'Authentication Failure',
-				description: error.statusText,
+				description: error.message,
 				variant: 'destructive',
 			});
 		}
@@ -93,36 +104,42 @@ export function AuthForm({ className, ...props }: UserAuthFormProps) {
 	return (
 		<Form {...form}>
 			<div className={cn('grid gap-6', className)} {...props}>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<div className='grid gap-2'>
-						<div className='grid gap-1'>
-							<Label className='sr-only' htmlFor='email'>
-								Email
-							</Label>
-							<Input
-								id='email'
-								placeholder='name@example.com'
-								type='email'
-								autoCapitalize='none'
-								autoComplete='email'
-								autoCorrect='off'
-								disabled={isSubmitting}
-								{...register('email')}
-							/>
-							{errors?.email && (
-								<p className='px-1 text-red-600'>{errors.email.message}</p>
-							)}
-						</div>
-						<button
-							className={cn(buttonVariants())}
-							disabled={isSubmitting || !isDirty || !isValid}
-						>
-							{isSubmitting && (
-								<Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
-							)}
-							Sign In with Email
-						</button>
-					</div>
+				<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+					<FormField
+						control={control}
+						name='email'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className='sr-only'>Email</FormLabel>
+								<FormControl>
+									<Input
+										autoFocus
+										placeholder='panic@thedis.co'
+										type='email'
+										autoCapitalize='none'
+										autoComplete='email'
+										autoCorrect='off'
+										disabled={isSubmitting}
+										{...field}
+										required
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+
+					<Button
+						size='lg'
+						className='w-full uppercase'
+						type='submit'
+						disabled={isSubmitting || !isDirty || !isValid}
+					>
+						{isSubmitting && (
+							<Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
+						)}
+						{pathname === '/login' ? 'Send magic link' : 'Sign up here'}
+					</Button>
 				</form>
 			</div>
 		</Form>
