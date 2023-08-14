@@ -1,8 +1,7 @@
-import { ArrowIcon, Icons } from '@/components/icons';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { Icons } from '@/components/icons';
 import CurrentDateDisplay from '@/components/current-date-display';
 import CurrentTimeDisplay from '@/components/current-time-display';
+import LoginButton from '@/app/(home)/_components/login-button';
 
 interface Props {
 	data: {
@@ -44,12 +43,13 @@ export default function RightSection({ data }: Props) {
 			</div>
 
 			<div className='absolute left-0 top-[625px] h-12 w-48'>
-				<Link href='/login'>
-					<Button className='mt-6 h-12 w-48 rounded-lg' size='lg'>
-						Get started
-						<ArrowIcon direction='right' />
-					</Button>
-				</Link>
+				<LoginButton />
+				{/*<Link href='/login'>*/}
+				{/*	<Button className='mt-6 h-12 w-48 rounded-lg' size='lg'>*/}
+				{/*		Get started*/}
+				{/*		<ArrowIcon direction='right' />*/}
+				{/*	</Button>*/}
+				{/*</Link>*/}
 			</div>
 		</div>
 	);

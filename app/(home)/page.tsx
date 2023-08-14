@@ -1,10 +1,9 @@
-import { ArrowIcon, Icons } from '@/components/icons';
-import { Button } from '@/components/ui/button';
-import RightSection from '@/app/(home)/_components/RightSection';
-import Link from 'next/link';
+import { Icons } from '@/components/icons';
+import RightSection from '@/app/(home)/_components/right-section';
 import heroStyles from '@/styles/hero.module.css';
 import { headers } from 'next/headers';
 import { getWeatherData } from '@/lib/utils';
+import LoginButton from '@/app/(home)/_components/login-button';
 
 export const runtime = 'edge';
 
@@ -30,12 +29,14 @@ export default async function MarketingPage() {
 							Track and manage your expenses with ease.
 						</h4>
 
-						<Link href='/login'>
-							<Button className='mt-6' size='lg'>
-								Login
-								<ArrowIcon direction='right' />
-							</Button>
-						</Link>
+						<LoginButton />
+
+						{/*<Link href='/login'>*/}
+						{/*	<Button className='mt-6' size='lg'>*/}
+						{/*		Login*/}
+						{/*		<ArrowIcon direction='right' />*/}
+						{/*	</Button>*/}
+						{/*</Link>*/}
 					</div>
 				</div>
 			</div>

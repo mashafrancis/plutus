@@ -37,7 +37,6 @@ export function AuthForm({ className, ...props }: UserAuthFormProps) {
 	});
 
 	const {
-		register,
 		control,
 		handleSubmit,
 		formState: { errors, isSubmitting, isValid, isDirty },
@@ -72,12 +71,12 @@ export function AuthForm({ className, ...props }: UserAuthFormProps) {
 				},
 			});
 
-			// const res = await fetch(authApiUrl, {
-			// 	method: 'POST',
-			// 	body: JSON.stringify({ email: data.email }),
-			// 	headers: { 'Content-Type': 'application/json' },
-			// });
-			//
+			const res = await fetch(authApiUrl, {
+				method: 'POST',
+				body: JSON.stringify({ email: data.email }),
+				headers: { 'Content-Type': 'application/json' },
+			});
+
 			if (error) {
 				toast({
 					title: 'Authentication Failure',
