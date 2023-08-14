@@ -1,10 +1,8 @@
-'use client';
-
 import { ArrowIcon, Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import CurrentDateDisplay from '@/components/current-date-display';
+import CurrentTimeDisplay from '@/components/current-time-display';
 
 interface Props {
 	data: {
@@ -15,24 +13,11 @@ interface Props {
 }
 
 export default function RightSection({ data }: Props) {
-	const [currentTime, setCurrentTime] = useState('');
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			const date = new Date();
-			const hours = date.getHours();
-			const minutes = date.getMinutes();
-			const ampm = hours >= 12 ? 'PM' : 'AM';
-			setCurrentTime(`${hours}:${minutes} ${ampm}`);
-		}, 1000);
-		return () => clearInterval(interval);
-	}, []);
-
 	return (
 		<div className='absolute left-[159px] top-[30px] md:hidden'>
 			<div className='absolute left-0 top-0 h-14 w-48'>
 				<div className='absolute left-0 top-0 text-2xl font-bold text-gray-900'>
-					{currentTime}
+					<CurrentTimeDisplay />
 				</div>
 				<div className='absolute left-0 top-[40px] text-xs font-medium leading-tight text-slate-500'>
 					<CurrentDateDisplay />
@@ -61,7 +46,7 @@ export default function RightSection({ data }: Props) {
 			<div className='absolute left-0 top-[625px] h-12 w-48'>
 				<Link href='/login'>
 					<Button className='mt-6 h-12 w-48 rounded-lg' size='lg'>
-						Login
+						Get started
 						<ArrowIcon direction='right' />
 					</Button>
 				</Link>

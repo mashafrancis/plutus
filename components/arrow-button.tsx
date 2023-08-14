@@ -10,6 +10,7 @@ import type { ComponentProps, ReactNode } from 'react';
 
 import type { ElementState } from '@/hooks/use-element-state';
 import { useElementState } from '@/hooks/use-element-state';
+import { cn } from '@/lib/utils';
 
 type ArrowIconProps = ComponentProps<typeof ArrowIcon>;
 
@@ -228,20 +229,27 @@ function BackLink({
 }: {
 	to: LinkProps['href'];
 } & Pick<ArrowLinkProps, 'className' | 'children'>) {
+	const [ref, state] = useElementState();
+	const shouldReduceMotion = useReducedMotion();
 	return (
-		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			transition={{ delay: 1 }}
-			className={clsx(
-				'flex items-center space-x-2 text-primary focus:outline-none',
+		<MotionLink
+			href={to}
+			className={cn(
+				'flex items-center space-x-1 text-gray-500 focus:outline-none dark:text-slate-400',
 				className
 			)}
+			ref={ref}
+			animate={state}
+			transition={shouldReduceMotion ? { duration: 0 } : {}}
 		>
-			<ArrowLink to={to} direction='left' textSize='small'>
-				{children}
-			</ArrowLink>
-		</motion.div>
+			<motion.span
+				variants={shouldReduceMotion ? {} : arrowVariants.left}
+				transition={shouldReduceMotion ? { duration: 0 } : {}}
+			>
+				<ArrowIcon direction='left' />
+			</motion.span>
+			<span className='text-sm'>{children}</span>
+		</MotionLink>
 	);
 }
 

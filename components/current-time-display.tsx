@@ -41,12 +41,21 @@ const formatDate = (date: Date): string => {
 	return `${formattedDate} | ${dayOfWeek}`;
 };
 
-const CurrentDateDisplay: React.FC = () => {
-	const [currentDate, setCurrentDate] = useState<Date>(new Date());
+const formatTime = (date: Date): string => {
+	const options = {
+		hour: 'numeric',
+		minute: 'numeric',
+		// second: 'numeric',
+	} as DateTimeFormatOptions;
+	return new Intl.DateTimeFormat('en-US', options).format(date);
+};
+
+const CurrentTimeDisplay: React.FC = () => {
+	const [currentTime, setCurrentTime] = useState<Date>(new Date());
 
 	useEffect(() => {
 		const intervalId = setInterval(() => {
-			setCurrentDate(new Date());
+			setCurrentTime(new Date());
 		}, 1000); // Update every second
 
 		return () => {
@@ -56,9 +65,9 @@ const CurrentDateDisplay: React.FC = () => {
 
 	return (
 		<div>
-			<p>{formatDate(currentDate)}</p>
+			<p>{formatTime(currentTime)}</p>
 		</div>
 	);
 };
 
-export default CurrentDateDisplay;
+export default CurrentTimeDisplay;
