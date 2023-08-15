@@ -11,7 +11,7 @@ export default function Dashboard() {
 		<div className='flex h-full flex-1 flex-col space-y-8 p-1'>
 			<DashboardDetails
 				heading='Account Overview'
-				buttonTitle='Add'
+				buttonTitle='Add expense'
 				buttonLink='/task'
 			/>
 		</div>

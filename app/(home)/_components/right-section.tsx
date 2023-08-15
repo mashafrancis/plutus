@@ -45,11 +45,11 @@ export default function RightSection({ data, session }: Props) {
 				</div>
 			</div>
 
-			<div className='absolute left-0 top-[625px] h-12 w-48'>
+			<div className='absolute left-0 top-[625px] h-12 w-56'>
 				{session ? (
 					<Link href='/app'>
 						<Button className='mt-6' size='lg'>
-							Manage you expenses
+							Go to app
 							<ArrowIcon direction='right' />
 						</Button>
 					</Link>
