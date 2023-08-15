@@ -6,6 +6,8 @@ import { ReactNode } from 'react';
 import SupabaseProvider from '@/app/supabase-provider';
 import { Toaster } from '@/components/ui/toaster';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
 	title: 'Plutus',
 	description: 'Organize your finances like never before.',

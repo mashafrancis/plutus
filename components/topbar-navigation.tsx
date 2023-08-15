@@ -29,7 +29,7 @@ const TopBarNavigation = async () => {
 						<Link
 							href='/'
 							aria-label='plutus'
-							className='underlined block whitespace-nowrap font-heading text-2xl font-medium text-primary transition focus:outline-none'
+							className='block whitespace-nowrap font-heading text-2xl font-medium text-primary transition focus:outline-none'
 						>
 							Plutus.
 						</Link>

@@ -21,7 +21,7 @@ export async function getSession() {
 }
 
 export async function getCurrentUser() {
-	const supabase = createServerComponentClient({ cookies });
+	const supabase = createServerSupabaseClient();
 
 	try {
 		const {

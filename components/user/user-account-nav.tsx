@@ -4,7 +4,6 @@ import ThemeSwitch from '@/components/theme-switch';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
@@ -13,6 +12,7 @@ import { UserAvatar } from '@/components/user/user-avatar';
 import { HTMLAttributes } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSupabase } from '@/app/supabase-provider';
+import LogoutButton from '@/components/logout-button';
 
 interface UserAccountNavProps extends HTMLAttributes<HTMLDivElement> {
 	user: any;
@@ -26,7 +26,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
 		<DropdownMenu>
 			<DropdownMenuTrigger>
 				<UserAvatar
-					className='h-8 w-8 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-600'
+					className='h-12 w-12 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-600'
 					user={user}
 				/>
 			</DropdownMenuTrigger>
@@ -51,15 +51,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
 				</DropdownMenuLabel>
 
 				<DropdownMenuSeparator />
-				<DropdownMenuItem
-					className='cursor-pointer text-foreground/60'
-					onSelect={async () => {
-						await supabase.auth.signOut();
-						router.push('/login');
-					}}
-				>
-					Sign out
-				</DropdownMenuItem>
+				<LogoutButton />
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

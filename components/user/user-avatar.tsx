@@ -7,7 +7,6 @@ interface UserAvatarProps extends AvatarProps {
 }
 
 export function UserAvatar({ user, ...props }: UserAvatarProps) {
-	const userInitials = user?.name ?? 'SA';
 	return (
 		<Avatar {...props}>
 			{user.image ? (

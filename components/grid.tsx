@@ -25,8 +25,8 @@ const Grid = forwardRef<HTMLElement, GridProps>(function Grid(
 			})}
 		>
 			{featured ? (
-				<div className='-mx-5vw absolute inset-0'>
-					<div className='max-w-8xl mx-auto h-full w-full rounded-lg bg-secondary' />
+				<div className='absolute inset-0'>
+					<div className='mx-auto h-full w-full rounded-lg bg-secondary' />
 				</div>
 			) : null}
 

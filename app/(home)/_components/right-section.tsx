@@ -1,7 +1,9 @@
-import { Icons } from '@/components/icons';
+import { ArrowIcon, Icons } from '@/components/icons';
 import CurrentDateDisplay from '@/components/current-date-display';
 import CurrentTimeDisplay from '@/components/current-time-display';
 import LoginButton from '@/app/(home)/_components/login-button';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 interface Props {
 	data: {
@@ -9,9 +11,10 @@ interface Props {
 			temp_c: number;
 		};
 	};
+	session: any;
 }
 
-export default function RightSection({ data }: Props) {
+export default function RightSection({ data, session }: Props) {
 	return (
 		<div className='absolute left-[159px] top-[30px] md:hidden'>
 			<div className='absolute left-0 top-0 h-14 w-48'>
@@ -43,13 +46,16 @@ export default function RightSection({ data }: Props) {
 			</div>
 
 			<div className='absolute left-0 top-[625px] h-12 w-48'>
-				<LoginButton />
-				{/*<Link href='/login'>*/}
-				{/*	<Button className='mt-6 h-12 w-48 rounded-lg' size='lg'>*/}
-				{/*		Get started*/}
-				{/*		<ArrowIcon direction='right' />*/}
-				{/*	</Button>*/}
-				{/*</Link>*/}
+				{session ? (
+					<Link href='/app'>
+						<Button className='mt-6' size='lg'>
+							Manage you expenses
+							<ArrowIcon direction='right' />
+						</Button>
+					</Link>
+				) : (
+					<LoginButton />
+				)}
 			</div>
 		</div>
 	);
