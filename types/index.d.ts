@@ -15,6 +15,7 @@ export type NavItem = {
 export type MainNavItem = NavItem;
 
 export type SidebarNavItem = {
+	id: string;
 	title: string;
 	disabled?: boolean;
 	external?: boolean;
@@ -50,7 +51,7 @@ export type MarketingConfig = {
 	mainNav: MainNavItem[];
 };
 
-export type DashboardConfig = {
+export type AppConfig = {
 	mainNav: MainNavItem[];
 	sidebarNav: SidebarNavItem[];
 };

@@ -1,6 +1,6 @@
-import { DashboardConfig } from '@/types';
+import { AppConfig } from '@/types';
 
-export const dashboardConfig: DashboardConfig = {
+export const appConfig: AppConfig = {
 	mainNav: [
 		{
 			title: 'Uptime',
@@ -13,24 +13,34 @@ export const dashboardConfig: DashboardConfig = {
 	],
 	sidebarNav: [
 		{
-			title: 'General',
-			href: '/dashboard',
-			icon: 'monitor',
+			id: 'overview',
+			title: 'Overview',
+			href: '/app',
+			icon: 'chart',
 		},
 		{
-			title: 'Status',
-			href: '/dashboard',
-			icon: 'radio',
+			id: 'income',
+			title: 'Income',
+			href: '/app/income',
+			icon: 'income',
 		},
 		{
-			title: 'Reports',
-			href: '/dashboard',
-			icon: 'reports',
+			id: 'expenses',
+			title: 'Expenses',
+			href: '/app/expenses',
+			icon: 'expenses',
 		},
 		{
-			title: 'Notifications',
-			href: '/dashboard',
-			icon: 'settings',
+			id: 'investments',
+			title: 'Investments',
+			href: '/app/investments',
+			icon: 'investments',
+		},
+		{
+			id: 'subscriptions',
+			title: 'Subscriptions',
+			href: '/app/subscriptions',
+			icon: 'subscriptions',
 		},
 	],
 };

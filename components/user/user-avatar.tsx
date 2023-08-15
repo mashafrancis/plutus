@@ -1,5 +1,6 @@
-import { Avatar } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { AvatarProps } from '@radix-ui/react-avatar';
+import { Icons } from '../icons';
 
 interface UserAvatarProps extends AvatarProps {
 	user: any;
@@ -8,15 +9,15 @@ interface UserAvatarProps extends AvatarProps {
 export function UserAvatar({ user, ...props }: UserAvatarProps) {
 	const userInitials = user?.name ?? 'SA';
 	return (
-		<Avatar
-			{...props}
-			className='inline-flex h-8 w-8 items-center justify-center bg-primary text-white transition-colors'
-		>
-			<span className='text-sm uppercase text-primary-foreground'>
-				{userInitials.length > 2
-					? userInitials.split('').slice(0, 2)
-					: userInitials}
-			</span>
+		<Avatar {...props}>
+			{user.image ? (
+				<AvatarImage alt='Picture' src={user.image} />
+			) : (
+				<AvatarFallback>
+					<span className='sr-only'>{user.name}</span>
+					<Icons.user className='h-4 w-4' />
+				</AvatarFallback>
+			)}
 		</Avatar>
 	);
 }

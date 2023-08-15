@@ -6,6 +6,7 @@ import fetcher from '@/lib/fetcher';
 import { ReactNode } from 'react';
 import { SWRConfig } from 'swr';
 import { ThemeProvider } from '@/components/client-provider/theme-provider';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 export function ClientProvider({ children }: { children: ReactNode }) {
 	return (
@@ -20,7 +21,7 @@ export function ClientProvider({ children }: { children: ReactNode }) {
 						fetcher,
 					}}
 				>
-					{children}
+					<TooltipProvider delayDuration={100}>{children}</TooltipProvider>
 				</SWRConfig>
 			</ThemeProvider>
 		</ErrorBoundary>

@@ -20,6 +20,20 @@ export async function getSession() {
 	}
 }
 
+export async function getCurrentUser() {
+	const supabase = createServerComponentClient({ cookies });
+
+	try {
+		const {
+			data: { user },
+		} = await supabase.auth.getUser();
+		return user;
+	} catch (error) {
+		console.error('Error:', error);
+		return null;
+	}
+}
+
 export async function getUserDetails() {
 	const supabase = createServerSupabaseClient();
 	try {
