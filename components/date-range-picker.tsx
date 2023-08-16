@@ -50,7 +50,7 @@ function DatePickerWithRange({
 						id='date'
 						variant={'outline'}
 						className={cn(
-							'mr-[1px] w-full justify-start rounded-r-none border-r !border-border p-2 text-left font-normal hover:bg-accent focus:bg-accent focus-visible:!ring-1 focus-visible:!ring-gray-400 dark:bg-muted dark:hover:opacity-[0.8] sm:min-w-[235px]',
+							'mr-1 w-full justify-start rounded-r-none border-r !border-border p-2 text-left font-normal shadow-none hover:bg-accent focus:bg-accent focus-visible:!ring-1 focus-visible:!ring-gray-400 dark:bg-muted dark:hover:opacity-[0.8] sm:min-w-[235px]',
 							!date && 'text-muted-foreground'
 						)}
 					>
@@ -139,7 +139,7 @@ function DatePickerSelect({
 				}
 			}}
 		>
-			<SelectTrigger className='w-full min-w-[120px] rounded-l-none !border-border bg-background p-2 hover:bg-accent focus:ring-0 focus-visible:!ring-1 focus-visible:!ring-gray-400 dark:bg-muted dark:hover:opacity-[0.8]'>
+			<SelectTrigger className='w-full min-w-[120px] rounded-l-none !border-border bg-background p-2 shadow-none hover:bg-accent focus:ring-0 focus-visible:!ring-1 focus-visible:!ring-gray-400 dark:bg-muted dark:hover:opacity-[0.8]'>
 				<SelectValue className='truncate' placeholder='Select' />
 			</SelectTrigger>
 			<SelectContent className='!border-border' position='popper'>

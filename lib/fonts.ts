@@ -1,5 +1,5 @@
 import { JetBrains_Mono } from 'next/font/google';
-import localFont from 'next/font/local';
+import localFont from 'next/font/local'; // export const fontSans = localFont({
 
 export const fontSans = localFont({
 	src: '../assets/fonts/sf-pro-text-regular.woff2',
