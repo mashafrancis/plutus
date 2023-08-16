@@ -1,7 +1,5 @@
-import { dateFormat } from '@/constants/date';
-
-const defaultCurrency = 'INR';
-const defaultLocale = 'en-IN';
+const defaultCurrency = 'KES';
+const defaultLocale = 'en-KE';
 const defaultDateStyle = { day: '2-digit', month: 'short', year: 'numeric' };
 const timeStyle = { hour: 'numeric', minute: 'numeric' };
 const currencyStyle = {

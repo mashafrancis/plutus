@@ -31,7 +31,9 @@ export default async function DashboardLayout({
 						</div>
 						<main className='mb-16 flex w-full flex-1 flex-col overflow-hidden'>
 							<div className='container my-2 grid flex-1 md:my-8'>
-								{children}
+								<div className='flex h-full flex-1 flex-col space-y-4 p-1'>
+									{children}
+								</div>
 							</div>
 							<BottomNavigation items={appConfig.sidebarNav} />
 						</main>

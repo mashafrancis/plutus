@@ -10,6 +10,7 @@ import {
 import { Overview } from '@/app/(dashboard)/app/_components/overview';
 import OverviewCardLayout from '@/app/(dashboard)/app/_components/overview-card-layout';
 import SubscriptionCard from '@/app/(dashboard)/app/_components/subscription-card';
+import { Fragment } from 'react';
 
 export const metadata: Metadata = {
 	title: 'Overview',
@@ -45,7 +46,7 @@ const items = [
 
 export default function Dashboard() {
 	return (
-		<div className='flex h-full flex-1 flex-col space-y-4 p-1'>
+		<Fragment>
 			<AppLayoutHeader
 				heading='Account Overview'
 				buttonTitle='ADD EXPENSE'
@@ -75,6 +76,6 @@ export default function Dashboard() {
 					</CardContent>
 				</Card>
 			</div>
-		</div>
+		</Fragment>
 	);
 }

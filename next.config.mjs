@@ -1,10 +1,4 @@
-import pwa from 'next-pwa';
 import million from 'million/compiler';
-
-const withPWA = pwa({
-	dest: 'public',
-	disable: process.env.NODE_ENV === 'development',
-});
 
 const millionConfig = {
 	// auto: true,
@@ -84,4 +78,4 @@ const nextConfig = {
 	},
 }
 
-export default million.next(withPWA(nextConfig), millionConfig)
+export default million.next(nextConfig, millionConfig)

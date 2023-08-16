@@ -23,14 +23,11 @@ export default function SubscriptionSummary() {
 
 	return (
 		<>
-			<h2 className='mb-4 font-semibold text-primary dark:text-white'>
-				Summary
-			</h2>
 			{loading ? (
 				<CardLoader cards={4} className='mb-6' />
 			) : (
-				<div className='mb-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5'>
-					<OverviewCard heading='total subscriptions' data={data.length} />
+				<div className='grid grid-cols-2 gap-2 lg:grid-cols-4'>
+					<OverviewCard heading='Total Subscriptions' data={data.length} />
 					<OverviewCard
 						heading='Active - Cancelled'
 						data={`${data.filter((datum: any) => datum.active).length} - ${

@@ -3,6 +3,7 @@ import AppLayoutHeader from '@/components/app-layout-header';
 import { DataContextProvider } from '@/components/client-provider/data-provider';
 import SubscriptionSummary from '@/app/(dashboard)/app/subscriptions/summary';
 import SubscriptionTable from '@/app/(dashboard)/app/subscriptions/table';
+import { Fragment } from 'react';
 
 export const metadata: Metadata = {
 	title: 'Subscriptions',
@@ -11,18 +12,18 @@ export const metadata: Metadata = {
 
 export default function Subscriptions() {
 	return (
-		<div className='flex h-full flex-1 flex-col space-y-8 p-1'>
+		<Fragment>
 			<AppLayoutHeader
 				heading='Subscriptions'
 				buttonTitle='Add subscription'
 				buttonLink='/task'
 			/>
 			<DataContextProvider name='subscriptions' isNotRange={true}>
-				<div className='w-full overflow-x-auto p-4 pt-3'>
+				<div className='w-full overflow-x-auto'>
 					<SubscriptionSummary />
 					<SubscriptionTable />
 				</div>
 			</DataContextProvider>
-		</div>
+		</Fragment>
 	);
 }
