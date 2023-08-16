@@ -19,13 +19,13 @@ export const metadata: Metadata = {
 const items = [
 	{
 		title: 'Total Income',
-		icon: 'chart',
+		icon: 'income',
 		subTitle: 'Ksh 120,000',
 		caption: '+20.1% from last month',
 	},
 	{
 		title: 'Available Balance',
-		icon: 'chart',
+		icon: 'expenses',
 		subTitle: 'Ksh 120,000',
 		caption: '+20.1% from last month',
 	},
@@ -37,7 +37,7 @@ const items = [
 	},
 	{
 		title: 'Total Investments',
-		icon: 'chart',
+		icon: 'investments',
 		subTitle: 'Ksh 120,000',
 		caption: '+20.1% from last month',
 	},
@@ -48,7 +48,7 @@ export default function Dashboard() {
 		<div className='flex h-full flex-1 flex-col space-y-4 p-1'>
 			<AppLayoutHeader
 				heading='Account Overview'
-				buttonTitle='expense'
+				buttonTitle='ADD EXPENSE'
 				buttonLink='/task'
 				showDatePicker
 			/>
@@ -65,8 +65,10 @@ export default function Dashboard() {
 
 				<Card className='col-span-4 md:col-span-3'>
 					<CardHeader>
-						<CardTitle>Recent Sales</CardTitle>
-						<CardDescription>You made 265 sales this month.</CardDescription>
+						<CardTitle>Subscriptions</CardTitle>
+						<CardDescription>
+							You made 265 subscription this month.
+						</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<SubscriptionCard />

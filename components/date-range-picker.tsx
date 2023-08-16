@@ -26,7 +26,7 @@ export default function DatePicker() {
 	const { date, onChange } = useDate();
 
 	return (
-		<div className='flex w-full'>
+		<div className='flex'>
 			<DatePickerWithRange date={date} onChange={onChange} />
 			<DatePickerSelect onChange={onChange} selectedValue={date?.selected} />
 		</div>
@@ -50,7 +50,7 @@ function DatePickerWithRange({
 						id='date'
 						variant={'outline'}
 						className={cn(
-							'mr-1 w-full justify-start rounded-r-none border-r !border-border p-2 text-left font-normal shadow-none hover:bg-accent focus:bg-accent focus-visible:!ring-1 focus-visible:!ring-gray-400 dark:bg-muted dark:hover:opacity-[0.8] sm:min-w-[235px]',
+							'w-full justify-start rounded-r-none border border-r-0 !border-border p-2 text-left font-normal shadow-none hover:bg-accent focus:bg-accent focus-visible:!ring-1 focus-visible:!ring-gray-400 dark:bg-muted dark:hover:opacity-[0.8] sm:min-w-[235px]',
 							!date && 'text-muted-foreground'
 						)}
 					>

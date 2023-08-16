@@ -1,5 +1,3 @@
-'use client';
-
 import ThemeSwitch from '@/components/theme-switch';
 import {
 	DropdownMenu,
@@ -10,8 +8,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { UserAvatar } from '@/components/user/user-avatar';
 import { HTMLAttributes } from 'react';
-import { useRouter } from 'next/navigation';
-import { useSupabase } from '@/app/supabase-provider';
 import LogoutButton from '@/components/logout-button';
 
 interface UserAccountNavProps extends HTMLAttributes<HTMLDivElement> {
@@ -19,9 +15,6 @@ interface UserAccountNavProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
-	const router = useRouter();
-	const { supabase } = useSupabase();
-
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>

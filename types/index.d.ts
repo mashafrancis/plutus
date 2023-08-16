@@ -5,6 +5,13 @@ import { User } from '@prisma/client';
 
 import { Icons } from '@/components/icons';
 
+declare module 'text-filter';
+
+declare module '*.svg' {
+	const content: string;
+	export default content;
+}
+
 export type NavItem = {
 	title: string;
 	href: NextRouter<string> | URL;

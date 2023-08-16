@@ -12,7 +12,7 @@ export default function OverviewCardLayout({ items }: { items: any[] }) {
 						<OverviewCard
 							heading={title}
 							icon={icon}
-							value={subTitle}
+							data={subTitle}
 							caption={caption}
 						/>
 					);

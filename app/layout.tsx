@@ -3,7 +3,6 @@ import { ClientProvider } from '@/components/client-provider';
 import { fontHeading, fontMono, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
-import SupabaseProvider from '@/app/supabase-provider';
 import { Toaster } from '@/components/ui/toaster';
 
 export const dynamic = 'force-dynamic';
@@ -25,12 +24,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 			)}
 		>
 			<body className='antialiased'>
-				<SupabaseProvider>
-					<ClientProvider>
-						{children}
-						<Toaster />
-					</ClientProvider>
-				</SupabaseProvider>
+				<ClientProvider>
+					{children}
+					<Toaster />
+				</ClientProvider>
 			</body>
 		</html>
 	);

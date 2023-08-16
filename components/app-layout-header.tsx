@@ -1,7 +1,6 @@
 import { DashboardShell } from '@/components/shell';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import DatePicker from '@/components/date-range-picker';
 import { Icons } from '@/components/icons';
@@ -44,7 +43,6 @@ export default function AppLayoutHeader({
 							'hidden items-center px-4 text-center lg:flex'
 						)}
 					>
-						<Plus className='mr-2 h-4 w-4' />
 						{buttonTitle}
 					</Link>
 					{/*<Link*/}
