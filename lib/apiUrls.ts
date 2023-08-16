@@ -3,6 +3,7 @@ export const apiUrls = {
 		upgrade: '/api/user/upgrade',
 		modify: '/api/user',
 		usage: 'api/user/usage',
+		onboarding: '/api/user/onboarding',
 	},
 	auth: {
 		login: '/api/auth/login',

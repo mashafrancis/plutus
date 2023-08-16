@@ -1,6 +1,6 @@
 import '@/styles/globals.css';
 import { ClientProvider } from '@/components/client-provider';
-import { fontHeading, fontMono, fontSans } from '@/lib/fonts';
+import { fontHeading, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
 import { Toaster } from '@/components/ui/toaster';
@@ -43,8 +43,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 			className={cn(
 				'min-h-screen bg-background font-sans text-black',
 				fontSans.variable,
-				fontHeading.variable,
-				fontMono.variable
+				fontHeading.variable
 			)}
 		>
 			<body className='antialiased'>

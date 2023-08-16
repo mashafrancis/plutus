@@ -49,6 +49,7 @@
 		"@t3-oss/env-nextjs": "^0.6.0",
 		"@tailwindcss/typography": "^0.5.9",
 		"@tanstack/react-table": "^8.9.3",
+		"@tremor/react": "^3.6.1",
 		"@vercel/edge": "^0.3.4",
 		"class-variance-authority": "^0.7.0",
 		"cloudinary-build-url": "^0.2.4",

@@ -6,15 +6,20 @@ import { getWeatherData } from '@/lib/utils';
 import LoginButton from '@/app/(home)/_components/login-button';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { getSession } from '@/app/supabase-server';
+import { getSession, getUserDetails } from '@/app/supabase-server';
 
 export const runtime = 'edge';
 
-export default async function MarketingPage() {
+export default async function HomePage() {
 	const parsedCity = headers().get('x-vercel-ip-city');
 	const city = !parsedCity || parsedCity === 'null' ? 'Nairobi' : parsedCity;
 	const data = await getWeatherData(city);
-	const session = await getSession();
+	const [session, user] = await Promise.all([getSession(), getUserDetails()]);
+
+	console.log(
+		'Class: default, Function: MarketingPage, Line 18 session():',
+		user
+	);
 
 	return (
 		<div className='container grid h-screen w-screen flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0'>
@@ -31,7 +36,7 @@ export default async function MarketingPage() {
 						</h4>
 
 						{session ? (
-							<Link href='/app'>
+							<Link href={user ? '/app' : '/onboarding'}>
 								<Button className='mt-6' size='lg'>
 									Manage you expenses
 									<ArrowIcon direction='right' />

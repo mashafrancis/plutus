@@ -9,3 +9,5 @@ export default function Loading() {
 		</div>
 	);
 }
+
+// https://plutus.francismasha.com/auth/callback

@@ -205,8 +205,5 @@ export const columns: ColumnDef<SubscriptionData>[] = [
 				</div>
 			);
 		},
-		meta: {
-			isTogglable: false,
-		},
 	},
 ];

@@ -5,12 +5,6 @@ import { useEffect, useState } from 'react';
 import { PlusIcon } from 'lucide-react';
 import { useHotkeys } from 'react-hotkeys-hook';
 
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipTrigger,
-} from '@/components/ui/tooltip';
-
 import shortcuts from '@/constants/shortcuts';
 
 import AddExpense from './add/expenses';
@@ -49,24 +43,15 @@ export default function Add({
 
 	return (
 		<>
-			<Tooltip>
-				<TooltipTrigger asChild>
-					<Button
-						className='z-100 fixed bottom-[20px] right-[20px] flex h-[56px] w-[56px] items-center justify-between rounded-full p-[12px] text-sm font-medium uppercase text-white shadow-lg sm:h-[48px] sm:w-[48px]'
-						onClick={() => {
-							setShow(!show);
-						}}
-					>
-						<PlusIcon className='h-12 w-12' />
-					</Button>
-				</TooltipTrigger>
-				<TooltipContent className='mb-1 mr-1' hideWhenDetached side='top'>
-					{shortcuts.modal.open.text}
-					<kbd className='border-gray ml-[6px] inline-flex h-[19px] w-[19px] items-center justify-center rounded-[4px] border-[1px] border-gray-400 text-xs font-semibold uppercase'>
-						{shortcuts.modal.open.shortcut}
-					</kbd>
-				</TooltipContent>
-			</Tooltip>
+			<Button
+				size='icon'
+				className='fixed bottom-[72px] right-[20px] z-40 flex h-[56px] w-[56px] items-center justify-between rounded-lg p-[12px] text-sm font-medium uppercase text-white shadow-lg sm:h-[48px] sm:w-[48px]'
+				onClick={() => {
+					setShow(!show);
+				}}
+			>
+				<PlusIcon className='h-12 w-12' />
+			</Button>
 			{type === 'expenses' ? (
 				<AddExpense
 					lookup={(value: string) => {
