@@ -1,6 +1,5 @@
 'use client';
 
-import { Fragment } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarNavItem } from '@/types';
@@ -24,7 +23,7 @@ export default function AppNav({ items, user }: DashboardNavProps) {
 	}
 
 	return (
-		<Fragment>
+		<div className='fixed inset-0 z-[1] hidden h-screen w-24 flex-col justify-between overflow-y-hidden border-r bg-background p-2 backdrop-blur md:flex'>
 			<ul className='flex flex-col space-y-8'>
 				<Link href='/' className='my-6 hidden justify-center md:flex'>
 					<Icons.logo />
@@ -59,7 +58,7 @@ export default function AppNav({ items, user }: DashboardNavProps) {
 									>
 										<Icon className='h-5 w-5' />
 									</Button>
-									<span className='text-xs'>{title}</span>
+									<span className='mt-1 text-xs'>{title}</span>
 								</Link>
 							)
 						);
@@ -78,6 +77,6 @@ export default function AppNav({ items, user }: DashboardNavProps) {
 					/>
 				</div>
 			</ul>
-		</Fragment>
+		</div>
 	);
 }

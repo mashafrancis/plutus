@@ -9,9 +9,7 @@ export default function CardLoader({
 	className?: string;
 }) {
 	return (
-		<div
-			className={`grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 ${className}`}
-		>
+		<div className={`grid grid-cols-2 gap-2 lg:grid-cols-4 ${className}`}>
 			{Array(cards)
 				.fill(0)
 				.map((card, index) => (

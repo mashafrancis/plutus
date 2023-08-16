@@ -42,12 +42,7 @@ const items = [
 export default function Dashboard() {
 	return (
 		<Fragment>
-			<AppLayoutHeader
-				heading='Account Overview'
-				buttonTitle='ADD EXPENSE'
-				buttonLink='/task'
-				showDatePicker
-			/>
+			<AppLayoutHeader heading='Account Overview' showDatePicker />
 			<OverviewContextProvider>
 				<OverviewCardLayout />
 				<OverviewCharts />

@@ -19,10 +19,8 @@ export default function Subscriptions() {
 				buttonLink='/task'
 			/>
 			<DataContextProvider name='subscriptions' isNotRange={true}>
-				<div className='w-full overflow-x-auto'>
-					<SubscriptionSummary />
-					<SubscriptionTable />
-				</div>
+				<SubscriptionSummary />
+				<SubscriptionTable />
 			</DataContextProvider>
 		</Fragment>
 	);

@@ -3,19 +3,17 @@ import { views } from './table';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const domain = 'francismasha.com';
-const local = 'localhost:3000';
-const home = isProduction ? domain : local;
+const prod = 'https://plutus.francismasha.com';
+const dev = 'http://localhost:3000';
+const home = isProduction ? prod : dev;
 
 const url = {
-	homeWithoutApp: `//plutus.${home}`,
-	home: `//plutus.${home}`,
-	api: `${isProduction ? 'https://plutus.' : 'http://plutus.'}${home}`,
-	serverApi: `${isProduction ? 'https://' : 'http://'}${home}`,
+	homeWithoutApp: home,
+	home: home,
+	api: home,
+	serverApi: home,
 	app: {
-		login: `//plutus.${home}/login`,
-		register: `//plutus.${home}/register`,
-		overview: `//plutus.${home}`,
+		overview: home,
 	},
 	twitter: 'https://twitter.com/FrancisMasha',
 	github: 'https://github.com/mashafrancis/plutus',
