@@ -1,9 +1,16 @@
 import pwa from 'next-pwa';
+import million from 'million/compiler';
 
 const withPWA = pwa({
 	dest: 'public',
 	disable: process.env.NODE_ENV === 'development',
 });
+
+const millionConfig = {
+	// auto: true,
+	// if you're using RSC:
+	auto: {rsc: true},
+}
 
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
@@ -77,4 +84,4 @@ const nextConfig = {
 	},
 }
 
-export default withPWA(nextConfig)
+export default million.next(withPWA(nextConfig), millionConfig)

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import DashboardDetails from '@/components/dashboard-details';
+import AppLayoutHeader from '@/components/app-layout-header';
 
 export const metadata: Metadata = {
 	title: 'Investments',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function Investments() {
 	return (
 		<div className='flex h-full flex-1 flex-col space-y-8 p-1'>
-			<DashboardDetails
+			<AppLayoutHeader
 				heading='Investments'
 				buttonTitle='Add investment'
 				buttonLink='/task'
