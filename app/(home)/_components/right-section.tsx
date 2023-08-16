@@ -2,13 +2,15 @@ import { ArrowIcon, Icons } from '@/components/icons';
 import LoginButton from '@/app/(home)/_components/login-button';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { lazy } from 'react';
+import dynamic from 'next/dynamic';
 
-const CurrentDateDisplay = lazy(
-	() => import('@/components/current-date-display')
+const CurrentDateDisplay = dynamic(
+	() => import('@/components/current-date-display'),
+	{ ssr: false }
 );
-const CurrentTimeDisplay = lazy(
-	() => import('@/components/current-time-display')
+const CurrentTimeDisplay = dynamic(
+	() => import('@/components/current-time-display'),
+	{ ssr: false }
 );
 
 interface Props {
