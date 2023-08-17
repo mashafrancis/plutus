@@ -102,9 +102,9 @@ export default function DataTable<TData, TValue>(props: DataTableProps) {
 				table={table}
 				hideViewOptions={hideViewOptions}
 			/>
-			<div className='rounded-md border border-border'>
+			<div className='rounded-md border border-border bg-background'>
 				<Table>
-					<TableHeader className='bg-muted'>
+					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map((header) => {

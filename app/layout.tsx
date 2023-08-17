@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import '@/styles/overwrites.css';
 import { ClientProvider } from '@/components/client-provider';
 import { fontHeading, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';

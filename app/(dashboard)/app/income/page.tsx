@@ -1,5 +1,9 @@
 import { Metadata } from 'next';
 import AppLayoutHeader from '@/components/app-layout-header';
+import { DataContextProvider } from '@/components/client-provider/data-provider';
+import { Fragment } from 'react';
+import IncomeSummary from '@/app/(dashboard)/app/income/summary';
+import IncomeTable from '@/app/(dashboard)/app/income/table';
 
 export const metadata: Metadata = {
 	title: 'Income',
@@ -8,12 +12,16 @@ export const metadata: Metadata = {
 
 export default function Income() {
 	return (
-		<div className='flex h-full flex-1 flex-col space-y-8 p-1'>
+		<Fragment>
 			<AppLayoutHeader
 				heading='Income'
 				buttonTitle='Add income'
 				buttonLink='/task'
 			/>
-		</div>
+			<DataContextProvider name='income'>
+				<IncomeSummary />
+				<IncomeTable />
+			</DataContextProvider>
+		</Fragment>
 	);
 }
