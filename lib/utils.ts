@@ -11,3 +11,7 @@ export async function getWeatherData(location: string) {
 		{ next: { revalidate: 60 } }
 	).then((res) => res.json());
 }
+
+export function isMobileView() {
+	return window.innerWidth <= 768;
+}

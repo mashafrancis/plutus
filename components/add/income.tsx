@@ -39,6 +39,7 @@ import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
 import debounce from 'debounce';
 import { useForm } from 'react-hook-form';
+import { Drawer } from 'vaul';
 
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
@@ -132,9 +133,15 @@ export default function AddIncome({
 					className='md:[420px] grid w-full grid-cols-1 items-center gap-3'
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					<DialogTitle className='text-xl text-primary'>{`${
-						selected.id ? 'Edit' : 'Add'
-					} Income`}</DialogTitle>
+					{window.innerWidth <= 768 ? (
+						<Drawer.Title className='text-xl text-primary font-semibold mb-4'>{`${
+							selected.id ? 'Edit' : 'Add'
+						} Income`}</Drawer.Title>
+					) : (
+						<DialogTitle className='text-xl text-primary'>{`${
+							selected.id ? 'Edit' : 'Add'
+						} Income`}</DialogTitle>
+					)}
 					<div className='relative'>
 						<FormField
 							control={form.control}
