@@ -32,6 +32,8 @@ export default function Add({
 }: AddProps) {
 	const [show, setShow] = useState(false);
 	const [hideButton, setHideButton] = useState(false);
+	const [keyboardHeight, setKeyboardHeight] = useState(0);
+
 	useHotkeys(openShortcutKey, () => setShow(true));
 
 	const onButtonHide = () => setHideButton((prevState) => !prevState);
@@ -41,6 +43,24 @@ export default function Add({
 			setShow(true);
 		}
 	}, [selected.id]);
+
+	useEffect(() => {
+		const handleResize = () => {
+			const visualViewportHeight = window?.visualViewport?.height as number;
+			const windowHeight = window.innerHeight;
+			const keyboardHeight = windowHeight - visualViewportHeight;
+			setKeyboardHeight(keyboardHeight);
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
+	console.log(
+		'Class: default, Function: Add, Line 60 keyboardHeight():',
+		keyboardHeight
+	);
 
 	return window.innerWidth <= 768 ? (
 		<Drawer.Root shouldScaleBackground onOpenChange={onButtonHide}>
@@ -60,7 +80,12 @@ export default function Add({
 			</Drawer.Trigger>
 			<Drawer.Overlay className='fixed inset-0 bg-black/40' />
 			<Drawer.Portal>
-				<Drawer.Content className='bg-background flex flex-col rounded-t-[10px] mt-24 h-[82vh] fixed bottom-0 left-0 right-0'>
+				<Drawer.Content
+					style={{
+						bottom: keyboardHeight ? `${keyboardHeight}px` : '0',
+					}}
+					className={`bg-background flex flex-col rounded-t-[10px] z-40 mt-24 fixed left-0 right-0`}
+				>
 					<div className='p-4 bg-white rounded-t-[10px] flex-1'>
 						<div className='mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-8' />
 						<AddButtonContent
