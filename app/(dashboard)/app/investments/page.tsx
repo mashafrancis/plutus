@@ -1,6 +1,11 @@
 import { Metadata } from 'next';
 
+import { Fragment } from 'react';
+
+import InvestmentSummary from '@/app/(dashboard)/app/investments/summary';
+import InvestmentTable from '@/app/(dashboard)/app/investments/table';
 import AppLayoutHeader from '@/components/app-layout-header';
+import { DataContextProvider } from '@/components/client-provider/data-provider';
 
 export const metadata: Metadata = {
 	title: 'Investments',
@@ -9,12 +14,16 @@ export const metadata: Metadata = {
 
 export default function Investments() {
 	return (
-		<div className='flex h-full flex-1 flex-col space-y-8 p-1'>
+		<Fragment>
 			<AppLayoutHeader
 				heading='Investments'
 				buttonTitle='Add investment'
 				buttonLink='/task'
 			/>
-		</div>
+			<DataContextProvider name='investments'>
+				<InvestmentSummary />
+				<InvestmentTable />
+			</DataContextProvider>
+		</Fragment>
 	);
 }

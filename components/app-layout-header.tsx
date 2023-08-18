@@ -25,7 +25,7 @@ export default function AppLayoutHeader({
 						<div className='block md:hidden'>
 							<Icons.logo height={36} width={36} />
 						</div>
-						<h1 className='bg-clip-text font-semibold leading-none md:text-xl'>
+						<h1 className='bg-clip-text font-semibold text-primary leading-none md:text-xl'>
 							{heading}
 						</h1>
 					</div>
