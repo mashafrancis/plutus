@@ -2,14 +2,12 @@
 
 import { useMemo } from 'react';
 
-import { BarList } from '@tremor/react';
-
+import { useUser } from '@/components/client-provider/auth-provider';
+import { useOverview } from '@/components/client-provider/overview-provider';
 import ChartLoader from '@/components/loader/chart';
-
 import { extractTopExpenseCategories } from '@/lib/extractor';
 import { formatCurrency } from '@/lib/formatter';
-import { useOverview } from '@/components/client-provider/overview-provider';
-import { useUser } from '@/components/client-provider/auth-provider';
+import { BarList } from '@tremor/react';
 
 export default function TopSpentExpenses() {
 	const user = useUser();

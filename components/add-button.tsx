@@ -2,16 +2,15 @@
 
 import { useEffect, useState } from 'react';
 
+import { Button } from '@/components/ui/button';
+import shortcuts from '@/constants/shortcuts';
 import { PlusIcon } from 'lucide-react';
 import { useHotkeys } from 'react-hotkeys-hook';
-
-import shortcuts from '@/constants/shortcuts';
 
 import AddExpense from './add/expenses';
 import AddIncome from './add/income';
 import AddInvestments from './add/investments';
 import AddSubscriptions from './add/subscriptions';
-import { Button } from '@/components/ui/button';
 
 const openShortcutKey = Object.values(shortcuts.modal.open.shortcut);
 

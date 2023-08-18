@@ -2,12 +2,11 @@
 
 import { useMemo } from 'react';
 
-import CardLoader from '@/components/loader/card';
-
-import { formatCurrency } from '@/lib/formatter';
 import OverviewCard from '@/app/(dashboard)/app/_components/overview-card';
-import { useData } from '@/components/client-provider/data-provider';
 import { useUser } from '@/components/client-provider/auth-provider';
+import { useData } from '@/components/client-provider/data-provider';
+import CardLoader from '@/components/loader/card';
+import { formatCurrency } from '@/lib/formatter';
 
 export default function SubscriptionSummary() {
 	const user = useUser();

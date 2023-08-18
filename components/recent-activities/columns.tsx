@@ -1,8 +1,7 @@
 'use client';
 
-import { ColumnDef } from '@tanstack/react-table';
-
 import { formatCurrency } from '@/lib/formatter';
+import { ColumnDef } from '@tanstack/react-table';
 
 export type recentActivities = {
 	no: string;

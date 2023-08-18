@@ -1,6 +1,6 @@
 import { ArrowIcon, Icons } from '@/components/icons';
-import heroStyles from '@/styles/hero.module.css';
 import { Button } from '@/components/ui/button';
+import heroStyles from '@/styles/hero.module.css';
 
 export const runtime = 'edge';
 

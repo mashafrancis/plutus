@@ -1,19 +1,17 @@
 'use client';
 
-import {
-	DropdownMenuRadioGroup,
-	DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu';
-import { Filter } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuRadioItem,
 } from '@/components/ui/dropdown-menu';
-
 import { views } from '@/constants/table';
+import {
+	DropdownMenuRadioGroup,
+	DropdownMenuTrigger,
+} from '@radix-ui/react-dropdown-menu';
+import { Filter } from 'lucide-react';
 
 export default function DataTableFilterOptions<TData>({
 	filter,

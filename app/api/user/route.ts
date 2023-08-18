@@ -1,15 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { createClient } from '@supabase/supabase-js';
-import { addYears } from 'date-fns';
+import messages, { emails } from '@/constants/messages';
 import AccountedDeleteEmail from '@/emails/account-deleted';
-
 import { checkAuth } from '@/lib/auth';
 import { Database } from '@/lib/database.types';
 import resend from '@/lib/email';
 import { prisma } from '@/lib/prisma';
-
-import messages, { emails } from '@/constants/messages';
+import { createClient } from '@supabase/supabase-js';
+import { addYears } from 'date-fns';
 
 const supabaseAdmin = createClient<Database>(
 	process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',

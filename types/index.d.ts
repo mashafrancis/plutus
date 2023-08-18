@@ -1,9 +1,8 @@
 // import { Route } from 'next/dist/server/router';
-
 import { NextRouter } from 'next/router';
-import { User } from '@prisma/client';
 
 import { Icons } from '@/components/icons';
+import { User } from '@prisma/client';
 
 declare module 'text-filter';
 

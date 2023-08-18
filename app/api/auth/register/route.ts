@@ -1,15 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { createClient } from '@supabase/supabase-js';
-import SignUpEmail from '@/emails/signup';
-
-import resend from '@/lib/email';
-
 import messages, { emails } from '@/constants/messages';
-import { Database } from '@/lib/database.types';
-import { prisma } from '@/lib/prisma';
-import { getRedirectUrl } from '@/lib/helpers';
+import SignUpEmail from '@/emails/signup';
 import { env } from '@/env.mjs';
+import { Database } from '@/lib/database.types';
+import resend from '@/lib/email';
+import { getRedirectUrl } from '@/lib/helpers';
+import { prisma } from '@/lib/prisma';
+import { createClient } from '@supabase/supabase-js';
 
 const supabaseAdmin = createClient<Database>(
 	env.NEXT_PUBLIC_SUPABASE_URL ?? '',

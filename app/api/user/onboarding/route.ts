@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { emails } from '@/constants/messages';
-import resend from '@/lib/email';
 import WelcomeEmail from '@/emails/welcome';
+import resend from '@/lib/email';
 
 type UserData = {
 	email: string;

@@ -1,8 +1,8 @@
 import { HTMLAttributes } from 'react';
 
+import ThemeSwitch from '@/components/theme-switch';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
-import ThemeSwitch from '@/components/theme-switch';
 
 export function SiteFooter({ className }: HTMLAttributes<HTMLElement>) {
 	return (

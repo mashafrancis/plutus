@@ -1,5 +1,10 @@
 'use client';
 
+import ExpenseChart from '@/components/chart/bar';
+import TopSpentExpenses from '@/components/chart/bar-list';
+import DonutChart from '@/components/chart/donut';
+import { useUser } from '@/components/client-provider/auth-provider';
+import RecentActivitiesTable from '@/components/recent-activities/table';
 import {
 	Card,
 	CardContent,
@@ -7,11 +12,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
-import TopSpentExpenses from '@/components/chart/bar-list';
-import DonutChart from '@/components/chart/donut';
-import { useUser } from '@/components/client-provider/auth-provider';
-import RecentActivitiesTable from '@/components/recent-activities/table';
-import ExpenseChart from '@/components/chart/bar';
 
 export default function OverviewCharts() {
 	const user = useUser();

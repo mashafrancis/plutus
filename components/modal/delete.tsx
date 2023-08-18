@@ -2,15 +2,14 @@
 
 import { useState } from 'react';
 
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-
+import { deleteUser } from '@/app/(dashboard)/app/settings/apis';
+import { useUser } from '@/components/client-provider/auth-provider';
 import CircleLoader from '@/components/loader/circle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import Modal from '.';
-import { deleteUser } from '@/app/(dashboard)/app/settings/apis';
-import { useUser } from '@/components/client-provider/auth-provider';
 
 export default function DeleteModal({
 	show,

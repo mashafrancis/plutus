@@ -1,13 +1,14 @@
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { MainNavItem } from '@/types';
-import useDelayedRender from 'use-delayed-render';
 
+import { ReactNode, useEffect, useState } from 'react';
+
+import { lockScroll } from '@/lib/lock-scroll';
 import { cn } from '@/lib/utils';
 import styles from '@/styles/mobile-menu.module.css';
-import { lockScroll } from '@/lib/lock-scroll';
+import { MainNavItem } from '@/types';
+import useDelayedRender from 'use-delayed-render';
 
 interface MobileNavProps {
 	items: MainNavItem[];

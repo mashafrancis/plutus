@@ -1,11 +1,13 @@
-import Link from 'next/link';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
-import { UserAccountNav } from '@/components/user/user-account-nav';
-import plutusLogo from '../public/logo.svg';
-import { cn } from '@/lib/utils';
+import Link from 'next/link';
+
 import { buttonVariants } from '@/components/ui/button';
+import { UserAccountNav } from '@/components/user/user-account-nav';
+import { cn } from '@/lib/utils';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+
+import plutusLogo from '../public/logo.svg';
 
 const TopBarNavigation = async () => {
 	const supabase = createServerComponentClient({ cookies });

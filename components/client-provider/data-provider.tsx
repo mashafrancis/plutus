@@ -8,10 +8,9 @@ import {
 	useState,
 } from 'react';
 
-import useSWR from 'swr';
-
 import { views } from '@/constants/table';
 import { getApiUrl } from '@/constants/url';
+import useSWR from 'swr';
 
 const DataContext = createContext(null);
 

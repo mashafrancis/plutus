@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+
 import AppLayoutHeader from '@/components/app-layout-header';
 
 export const metadata: Metadata = {

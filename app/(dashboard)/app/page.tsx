@@ -1,11 +1,13 @@
 import { Metadata } from 'next';
-import AppLayoutHeader from '@/components/app-layout-header';
+
+import { Fragment } from 'react';
+
+import AddData from '@/app/(dashboard)/app/_components/add-data';
 import { Overview } from '@/app/(dashboard)/app/_components/overview';
 import OverviewCardLayout from '@/app/(dashboard)/app/_components/overview-card-layout';
-import { Fragment } from 'react';
-import { OverviewContextProvider } from '@/components/client-provider/overview-provider';
-import AddData from '@/app/(dashboard)/app/_components/add-data';
 import OverviewCharts from '@/app/(dashboard)/app/_components/overview-charts';
+import AppLayoutHeader from '@/components/app-layout-header';
+import { OverviewContextProvider } from '@/components/client-provider/overview-provider';
 
 export const metadata: Metadata = {
 	title: 'Overview',

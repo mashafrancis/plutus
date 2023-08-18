@@ -1,9 +1,9 @@
 import {
+	type RefCallback,
 	useCallback,
 	useEffect,
 	useRef,
 	useState,
-	type RefCallback,
 } from 'react';
 
 export type ElementState = 'active' | 'focus' | 'hover' | 'initial';

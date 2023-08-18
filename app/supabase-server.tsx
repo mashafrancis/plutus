@@ -1,7 +1,9 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+
 import { cache } from 'react';
+
 import { Database } from '@/lib/database.types';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const createServerSupabaseClient = cache(() =>
 	createServerComponentClient<Database>({ cookies })

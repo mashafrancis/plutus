@@ -2,12 +2,10 @@
 
 import { createContext, useContext } from 'react';
 
+import { dateFormat } from '@/constants/date';
+import { apiUrls } from '@/lib/apiUrls';
 import { format } from 'date-fns';
 import useSWR from 'swr';
-
-import { apiUrls } from '@/lib/apiUrls';
-
-import { dateFormat } from '@/constants/date';
 
 import { useDate } from './datepicker-provider';
 

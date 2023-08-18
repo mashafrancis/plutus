@@ -1,9 +1,10 @@
 'use client';
 
+import { ReactNode } from 'react';
+
+import { ThemeProvider } from '@/components/client-provider/theme-provider';
 import { ErrorBoundary } from '@/components/error-boundary';
 import ErrorBoundaryPage from '@/components/error-boundary-page';
-import { ReactNode } from 'react';
-import { ThemeProvider } from '@/components/client-provider/theme-provider';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
 export function ClientProvider({ children }: { children: ReactNode }) {

@@ -3,18 +3,16 @@
 import { useCallback, useState } from 'react';
 
 import Add from '@/components/add-button';
+import { useUser } from '@/components/client-provider/auth-provider';
+import { useData } from '@/components/client-provider/data-provider';
 import DataTable from '@/components/table/data-table';
 import { useToast } from '@/components/ui/use-toast';
-
-import { lookup } from '@/lib/lookup';
-
 import { incomeCategory } from '@/constants/categories';
 import messages from '@/constants/messages';
+import { lookup } from '@/lib/lookup';
 
-import { deleteIncome, IncomeData } from './apis';
+import { IncomeData, deleteIncome } from './apis';
 import { columns } from './columns';
-import { useData } from '@/components/client-provider/data-provider';
-import { useUser } from '@/components/client-provider/auth-provider';
 
 const categories = Object.keys(incomeCategory)
 	.filter(Boolean)

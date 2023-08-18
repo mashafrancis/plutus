@@ -1,15 +1,16 @@
-import { ReactNode } from 'react';
+import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import { appConfig } from '@/config/dashboard';
-import AppNav from '@/components/app-nav';
+import { ReactNode } from 'react';
+
 import { getSession } from '@/app/supabase-server';
+import AppNav from '@/components/app-nav';
 import BottomNavigation from '@/components/bottom-navigation';
-import { DatePickerProvider } from '@/components/client-provider/datepicker-provider';
 import { AuthProvider } from '@/components/client-provider/auth-provider';
+import { DatePickerProvider } from '@/components/client-provider/datepicker-provider';
+import { appConfig } from '@/config/dashboard';
 import url from '@/constants/url';
 import { apiUrls } from '@/lib/apiUrls';
-import { cookies } from 'next/headers';
 
 interface DashboardLayoutProps {
 	children?: ReactNode;

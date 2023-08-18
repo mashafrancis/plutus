@@ -1,12 +1,13 @@
-import { ArrowIcon, Icons } from '@/components/icons';
-import RightSection from '@/app/(home)/_components/right-section';
-import heroStyles from '@/styles/hero.module.css';
 import { headers } from 'next/headers';
-import { getWeatherData } from '@/lib/utils';
-import LoginButton from '@/app/(home)/_components/login-button';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+
+import LoginButton from '@/app/(home)/_components/login-button';
+import RightSection from '@/app/(home)/_components/right-section';
 import { getSession, getUserDetails } from '@/app/supabase-server';
+import { ArrowIcon, Icons } from '@/components/icons';
+import { Button } from '@/components/ui/button';
+import { getWeatherData } from '@/lib/utils';
+import heroStyles from '@/styles/hero.module.css';
 
 export const runtime = 'edge';
 

@@ -1,11 +1,13 @@
-import '@/styles/globals.css';
-import '@/styles/overwrites.css';
+import { Metadata } from 'next';
+
+import { ReactNode } from 'react';
+
 import { ClientProvider } from '@/components/client-provider';
+import { Toaster } from '@/components/ui/toaster';
 import { fontHeading, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
-import { ReactNode } from 'react';
-import { Toaster } from '@/components/ui/toaster';
-import { Metadata } from 'next';
+import '@/styles/globals.css';
+import '@/styles/overwrites.css';
 
 export const dynamic = 'force-dynamic';
 

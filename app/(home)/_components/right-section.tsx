@@ -1,8 +1,9 @@
-import { ArrowIcon, Icons } from '@/components/icons';
-import LoginButton from '@/app/(home)/_components/login-button';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
+
+import LoginButton from '@/app/(home)/_components/login-button';
+import { ArrowIcon, Icons } from '@/components/icons';
+import { Button } from '@/components/ui/button';
 
 const CurrentDateDisplay = dynamic(
 	() => import('@/components/current-date-display'),

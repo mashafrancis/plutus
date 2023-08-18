@@ -61,7 +61,7 @@ export default function AutoCompleteList({
 						}
 						return (
 							<Button
-								className='w-full justify-start rounded-none border-border px-3 py-2 [&:not(:last-child)]:border-b'
+								className='border-border w-full justify-start rounded-none px-3 py-2 [&:not(:last-child)]:border-b'
 								variant={'ghost'}
 								key={id}
 								onClick={() => onClick(datum)}

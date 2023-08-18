@@ -1,14 +1,11 @@
 'use client';
 
-import { ColumnDef } from '@tanstack/react-table';
-import { Pencil, Trash2 } from 'lucide-react';
-
 import DataTableColumnHeader from '@/components/table/data-table-column-header';
 import { Button } from '@/components/ui/button';
-
-import { formatCurrency, formatDate } from '@/lib/formatter';
-
 import { incomeCategory } from '@/constants/categories';
+import { formatCurrency, formatDate } from '@/lib/formatter';
+import { ColumnDef } from '@tanstack/react-table';
+import { Pencil, Trash2 } from 'lucide-react';
 
 export type Income = {
 	name: string;

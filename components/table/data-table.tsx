@@ -3,20 +3,6 @@
 import { useState } from 'react';
 
 import {
-	ColumnFiltersState,
-	flexRender,
-	getCoreRowModel,
-	getFacetedRowModel,
-	getFacetedUniqueValues,
-	getFilteredRowModel,
-	getSortedRowModel,
-	RowData,
-	SortingState,
-	useReactTable,
-	VisibilityState,
-} from '@tanstack/react-table';
-
-import {
 	Table,
 	TableBody,
 	TableCell,
@@ -24,6 +10,19 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
+import {
+	ColumnFiltersState,
+	RowData,
+	SortingState,
+	VisibilityState,
+	flexRender,
+	getCoreRowModel,
+	getFacetedRowModel,
+	getFacetedUniqueValues,
+	getFilteredRowModel,
+	getSortedRowModel,
+	useReactTable,
+} from '@tanstack/react-table';
 
 import TableLoader from './data-table-loader';
 import DataTableToolbar from './data-table-toolbar';

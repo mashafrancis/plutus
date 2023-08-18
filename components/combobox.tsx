@@ -2,8 +2,6 @@
 
 import * as React from 'react';
 
-import { Check, ChevronsUpDown } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import {
 	Command,
@@ -18,8 +16,8 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from '@/components/ui/popover';
-
 import { cn } from '@/lib/utils';
+import { Check, ChevronsUpDown } from 'lucide-react';
 
 export function Combobox({
 	data,

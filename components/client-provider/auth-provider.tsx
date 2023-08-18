@@ -4,14 +4,13 @@ import { useRouter } from 'next/navigation';
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
+import { Database } from '@/lib/database.types';
+import fetcher from '@/lib/fetcher';
 import {
-	createClientComponentClient,
 	SupabaseClient,
+	createClientComponentClient,
 } from '@supabase/auth-helpers-nextjs';
 import { SWRConfig } from 'swr';
-
-import fetcher from '@/lib/fetcher';
-import { Database } from '@/lib/database.types';
 
 interface User {
 	currency: string;

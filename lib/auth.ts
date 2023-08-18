@@ -1,16 +1,15 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
-import { addYears } from 'date-fns';
-import PlanExpiredEmail from '@/emails/plan-expired';
-import UsageExceededEmail from '@/emails/usage-limit-exceeded';
-
 import messages, { emails } from '@/constants/messages';
 import { basicPlan, premiumPlan } from '@/constants/usage';
+import PlanExpiredEmail from '@/emails/plan-expired';
+import UsageExceededEmail from '@/emails/usage-limit-exceeded';
+import { prisma } from '@/lib/prisma';
+import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
+import { addYears } from 'date-fns';
 
 import resend from './email';
-import { prisma } from '@/lib/prisma';
 
 type UserData = {
 	email: string;

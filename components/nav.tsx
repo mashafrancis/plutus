@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { MainNavItem } from '@/types';
 
 import { cn } from '@/lib/utils';
+import { MainNavItem } from '@/types';
 
 interface DashboardNavProps {
 	items: MainNavItem[];

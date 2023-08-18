@@ -2,13 +2,12 @@
 
 import { useMemo } from 'react';
 
+import { useUser } from '@/components/client-provider/auth-provider';
+import { useOverview } from '@/components/client-provider/overview-provider';
 import { DataTable } from '@/components/recent-activities/data-table';
-
 import { extractRecentData } from '@/lib/extractor';
 
 import { columns } from './columns';
-import { useUser } from '@/components/client-provider/auth-provider';
-import { useOverview } from '@/components/client-provider/overview-provider';
 
 const dummy = {
 	no: '1.',

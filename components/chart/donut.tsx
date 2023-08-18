@@ -2,17 +2,15 @@
 
 import { useMemo } from 'react';
 
-import { DonutChart, Legend } from '@tremor/react';
-
+import { useUser } from '@/components/client-provider/auth-provider';
+import { useOverview } from '@/components/client-provider/overview-provider';
 import ChartLoader from '@/components/loader/chart';
-
 import {
 	extractSubscriptionCategories,
 	extractSubscriptions,
 } from '@/lib/extractor';
 import { formatCurrency } from '@/lib/formatter';
-import { useUser } from '@/components/client-provider/auth-provider';
-import { useOverview } from '@/components/client-provider/overview-provider';
+import { DonutChart, Legend } from '@tremor/react';
 
 export default function Donut() {
 	const user = useUser();

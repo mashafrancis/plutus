@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
@@ -8,7 +10,6 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from '@/components/ui/popover';
-import { useRouter } from 'next/navigation';
 
 const notifications = [
 	{

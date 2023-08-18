@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTheme } from 'next-themes';
 
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 
 const ThemeSwitch = () => {
 	const [mounted, setMounted] = useState<boolean>(false);

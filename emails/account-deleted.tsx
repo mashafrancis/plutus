@@ -9,6 +9,7 @@ import {
 	Section,
 	Text,
 } from '@react-email/components';
+
 import Footer from './footer';
 import Footnote from './footnote';
 

@@ -1,12 +1,14 @@
 'use client';
 
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+
+import { ReactNode } from 'react';
+
 import Conditional from '@/components/conditional';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import errorStack from 'error-stack-parser';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { ReactNode } from 'react';
 
 function ErrorPage({
 	error,

@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
-import AppLayoutHeader from '@/components/app-layout-header';
-import { DataContextProvider } from '@/components/client-provider/data-provider';
+
+import { Fragment } from 'react';
+
 import SubscriptionSummary from '@/app/(dashboard)/app/subscriptions/summary';
 import SubscriptionTable from '@/app/(dashboard)/app/subscriptions/table';
-import { Fragment } from 'react';
+import AppLayoutHeader from '@/components/app-layout-header';
+import { DataContextProvider } from '@/components/client-provider/data-provider';
 
 export const metadata: Metadata = {
 	title: 'Subscriptions',

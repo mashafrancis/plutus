@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import messages from '@/constants/messages';
 import { checkAuth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-
-import messages from '@/constants/messages';
 
 export async function POST(request: NextRequest) {
 	const { notes, name, price, category, date } = await request.json();

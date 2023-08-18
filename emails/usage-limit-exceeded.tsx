@@ -10,11 +10,10 @@ import {
 	Text,
 } from '@react-email/components';
 
+import url from '../constants/url';
 import ButtonLink from './button-link';
 import Footer from './footer';
 import Footnote from './footnote';
-
-import url from '../constants/url';
 
 type UsageProps = {
 	plan?: string;

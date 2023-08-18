@@ -1,4 +1,5 @@
-import { createElement, type ElementType, type ReactNode } from 'react';
+import { type ElementType, type ReactNode, createElement } from 'react';
+
 import { cn } from '@/lib/utils';
 
 type TitleProps = {

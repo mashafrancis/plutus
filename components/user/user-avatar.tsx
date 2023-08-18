@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { AvatarProps } from '@radix-ui/react-avatar';
+
 import { Icons } from '../icons';
 
 interface UserAvatarProps extends AvatarProps {

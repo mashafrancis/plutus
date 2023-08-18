@@ -1,9 +1,6 @@
 'use client';
 
-import { CalendarIcon } from '@radix-ui/react-icons';
-import { addDays, format, startOfMonth, startOfYear, subDays } from 'date-fns';
-import { DateRange } from 'react-day-picker';
-
+import { useDate } from '@/components/client-provider/datepicker-provider';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -18,9 +15,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select';
-
 import { cn } from '@/lib/utils';
-import { useDate } from '@/components/client-provider/datepicker-provider';
+import { CalendarIcon } from '@radix-ui/react-icons';
+import { addDays, format, startOfMonth, startOfYear, subDays } from 'date-fns';
+import { DateRange } from 'react-day-picker';
 
 export default function DatePicker() {
 	const { date, onChange } = useDate();

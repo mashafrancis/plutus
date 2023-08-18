@@ -2,18 +2,16 @@
 
 import { useMemo } from 'react';
 
-import { BarChart } from '@tremor/react';
-
+import { useUser } from '@/components/client-provider/auth-provider';
+import { useOverview } from '@/components/client-provider/overview-provider';
 import ChartLoader from '@/components/loader/chart';
-
 import {
 	extractChartAxis,
 	extractExpenses,
 	extractExpensesCategory,
 } from '@/lib/extractor';
 import { formatCurrency } from '@/lib/formatter';
-import { useUser } from '@/components/client-provider/auth-provider';
-import { useOverview } from '@/components/client-provider/overview-provider';
+import { BarChart } from '@tremor/react';
 
 const dataFormatter = (number: number) => {
 	return '$ ' + Intl.NumberFormat('us').format(number).toString();

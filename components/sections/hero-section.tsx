@@ -1,13 +1,14 @@
 'use client';
 
-import type { ElementType, ReactNode } from 'react';
 import { NextRouter } from 'next/router';
-import { getImgProps, type ImageBuilder } from '@/lib/images';
+
+import type { ElementType, ReactNode } from 'react';
+
+import { Grid } from '@/components/grid';
+import { type ImageBuilder, getImgProps } from '@/lib/images';
 import type { TransformerOption } from '@cld-apis/types';
 import clsx from 'clsx';
 import { type HTMLMotionProps, motion, useReducedMotion } from 'framer-motion';
-
-import { Grid } from '@/components/grid';
 
 import { ArrowButton, ArrowLink } from '../arrow-button';
 import { H2, H5 } from '../typography';

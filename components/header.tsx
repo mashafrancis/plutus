@@ -1,6 +1,7 @@
-import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
+
 import { Icons } from '@/components/icons';
+import { cn } from '@/lib/utils';
 
 interface DashboardHeaderProps {
 	heading: string;

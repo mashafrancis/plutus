@@ -1,16 +1,17 @@
 'use client';
 
-import { ArrowIcon } from '@/components/icons';
-import clsx from 'clsx';
-import type { Variant } from 'framer-motion';
-import { motion, useReducedMotion } from 'framer-motion';
 import type { LinkProps } from 'next/link';
 import Link from 'next/link';
+
 import type { ComponentProps, ReactNode } from 'react';
 
+import { ArrowIcon } from '@/components/icons';
 import type { ElementState } from '@/hooks/use-element-state';
 import { useElementState } from '@/hooks/use-element-state';
 import { cn } from '@/lib/utils';
+import clsx from 'clsx';
+import type { Variant } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 type ArrowIconProps = ComponentProps<typeof ArrowIcon>;
 

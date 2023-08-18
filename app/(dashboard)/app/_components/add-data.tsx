@@ -3,9 +3,8 @@
 import { useCallback } from 'react';
 
 import Add from '@/components/add-button';
-
-import { lookup } from '@/lib/lookup';
 import { useOverview } from '@/components/client-provider/overview-provider';
+import { lookup } from '@/lib/lookup';
 
 const AddData = () => {
 	const { data } = useOverview();

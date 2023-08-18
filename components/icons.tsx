@@ -19,6 +19,7 @@ import {
 	Image as ImageIcon,
 	LayoutGrid,
 	Loader2,
+	type XIcon as LucideIcon,
 	type LucideProps,
 	MoreVertical,
 	PieChart,
@@ -33,7 +34,6 @@ import {
 	Wallet,
 	Webhook,
 	X,
-	type XIcon as LucideIcon,
 } from 'lucide-react';
 
 export type XIcon = typeof LucideIcon;

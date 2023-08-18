@@ -1,3 +1,6 @@
+import { HTMLAttributes } from 'react';
+
+import LogoutButton from '@/components/logout-button';
 import ThemeSwitch from '@/components/theme-switch';
 import {
 	DropdownMenu,
@@ -7,8 +10,6 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { UserAvatar } from '@/components/user/user-avatar';
-import { HTMLAttributes } from 'react';
-import LogoutButton from '@/components/logout-button';
 
 interface UserAccountNavProps extends HTMLAttributes<HTMLDivElement> {
 	user: any;

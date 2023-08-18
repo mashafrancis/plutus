@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { geolocation } from '@vercel/edge';
+
 import { getWeatherData } from '@/lib/utils';
+import { geolocation } from '@vercel/edge';
 
 export const runtime = 'edge';
 
