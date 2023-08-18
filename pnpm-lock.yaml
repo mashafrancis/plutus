@@ -161,6 +161,9 @@ dependencies:
   use-delayed-render:
     specifier: ^0.0.7
     version: 0.0.7(react@18.2.0)
+  vaul:
+    specifier: ^0.3.4
+    version: 0.3.4(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
   zod:
     specifier: ^3.22.1
     version: 3.22.1
@@ -7536,6 +7539,20 @@ packages:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
+
+  /vaul@0.3.4(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-a+fUsQp14yaengaCJeR/tLPsOQLJNVE52W+2Rb72NvuAdlPji9yvTOlXt4DQV6oNitX99LGzh1ZQx8nW8SL33A==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      '@radix-ui/react-dialog': 1.0.4(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+    dev: false
 
   /victory-vendor@36.6.11:
     resolution: {integrity: sha512-nT8kCiJp8dQh8g991J/R5w5eE2KnO8EAIP0xocWlh9l2okngMWglOPoMZzJvek8Q1KUc4XE/mJxTZnvOB1sTYg==}

@@ -1,24 +1,46 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useMemo } from 'react';
 
+import * as z from 'zod';
 import { incrementUsage } from '@/app/(dashboard)/app/apis';
 import { addIncome, editIncome } from '@/app/(dashboard)/app/income/apis';
 import AutoCompleteList from '@/components/autocomplete-list';
 import { useUser } from '@/components/client-provider/auth-provider';
 import CircleLoader from '@/components/loader/circle';
-import Modal from '@/components/modal';
 import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import {
+	Command,
+	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+} from '@/components/ui/command';
+import { DialogTitle } from '@/components/ui/dialog';
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { incomeCategory } from '@/constants/categories';
-import { dateFormat, datePattern } from '@/constants/date';
+import { dateFormat } from '@/constants/date';
 import messages from '@/constants/messages';
 import { getCurrencySymbol } from '@/lib/formatter';
+import { cn } from '@/lib/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
 import debounce from 'debounce';
+import { useForm } from 'react-hook-form';
+
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 interface AddIncome {
 	show: boolean;
@@ -28,9 +50,20 @@ interface AddIncome {
 	lookup: (value: any) => void;
 }
 
-const todayDate = format(new Date(), dateFormat);
+const todayDate = new Date();
 
-const initialState = {
+const incomeFormSchema = z.object({
+	category: z.string(),
+	date: z.date(),
+	name: z.string(),
+	price: z.string(),
+	notes: z.string(),
+	autocomplete: z.array(z.string()).optional(),
+});
+
+type IncomeFormSchema = z.infer<typeof incomeFormSchema>;
+
+const defaultValues: Partial<IncomeFormSchema> = {
 	category: '',
 	date: todayDate,
 	name: '',
@@ -40,199 +73,279 @@ const initialState = {
 };
 
 export default function AddIncome({
-	show,
 	onHide,
 	mutate,
 	selected,
 	lookup,
 }: AddIncome) {
 	const user = useUser();
-	const [state, setState] = useState<any>(initialState);
-	const [loading, setLoading] = useState(false);
 	const { toast } = useToast();
-	const inputRef = useRef<any>(null);
 
-	useEffect(() => {
-		inputRef.current?.focus();
-	}, []);
+	const form = useForm<IncomeFormSchema>({
+		defaultValues,
+		resolver: zodResolver(incomeFormSchema),
+	});
 
-	useEffect(() => setState(selected.id ? selected : initialState), [selected]);
+	const {
+		handleSubmit,
+		control,
+		setValue,
+		watch,
+		reset,
+		formState: { isSubmitting, errors, isDirty, isValid },
+	} = form;
+
+	const name = watch('name');
+	const autocomplete = watch('autocomplete');
 
 	const onLookup = useMemo(() => {
 		const callbackHandler = (value: string) => {
-			setState((prev: any) => ({ ...prev, autocomplete: lookup(value) }));
+			// @ts-expect-error
+			setValue('autocomplete', lookup(value));
 		};
 		return debounce(callbackHandler, 500);
 	}, [lookup]);
 
-	const onSubmit = async () => {
+	const onSubmit = async (data: IncomeFormSchema) => {
 		try {
-			setLoading(true);
 			const isEditing = selected?.id;
 			if (isEditing) {
-				await editIncome(state);
+				await editIncome(data);
 			} else {
-				await addIncome(state);
+				await addIncome(data);
 				await incrementUsage();
 			}
-			setLoading(false);
 			toast({
 				description: `${isEditing ? messages.updated : messages.success}`,
 			});
 			if (mutate) mutate();
 			onHide();
-			setState({ ...initialState });
 		} catch {
-			setLoading(false);
 			toast({ description: messages.error, variant: 'destructive' });
 		}
 	};
 
 	return (
-		<Modal
-			someRef={inputRef}
-			show={show}
-			title={`${selected.id ? 'Edit' : 'Add'} Income`}
-			onHide={onHide}
-		>
+		<Form {...form}>
 			<div className='sm:flex sm:items-start'>
 				<form
 					className='md:[420px] grid w-full grid-cols-1 items-center gap-3'
-					onSubmit={(event) => {
-						event.preventDefault();
-						onSubmit();
-						if (!selected.id) setState({ ...initialState });
-					}}
+					onSubmit={handleSubmit(onSubmit)}
 				>
+					<DialogTitle className='text-xl text-primary'>{`${
+						selected.id ? 'Edit' : 'Add'
+					} Income`}</DialogTitle>
 					<div className='relative'>
-						<Label htmlFor='name'>Name</Label>
-						<Input
-							id='name'
-							className='mt-1.5'
-							placeholder='Salary'
-							maxLength={30}
-							required
-							ref={inputRef}
-							autoFocus
-							autoComplete='off'
-							onChange={({ target }) => {
-								const { value } = target;
-								if (value.length) {
-									setState({ ...state, name: value, autocomplete: [] });
-									if (value.length > 2) onLookup(value);
-								} else {
-									setState({
-										...state,
-										name: '',
-										category: '',
-										autocomplete: [],
-									});
-								}
-							}}
-							value={state.name}
-						/>
-						<AutoCompleteList
-							onHide={() => {
-								setState({ ...state, autocomplete: [] });
-							}}
-							data={state.autocomplete}
-							searchTerm={state.name.length > 2 ? state.name.toLowerCase() : ''}
-							onClick={({ name, category }) => {
-								setState({ ...state, name, category, autocomplete: [] });
-							}}
-							show={Boolean(state.autocomplete?.length)}
-						/>
-					</div>
-					<div className='grid grid-cols-[32%,38%,30%] gap-1'>
-						<div className='mr-3'>
-							<Label htmlFor='amount'>
-								Amount
-								<span className='ml-2 font-mono text-xs text-muted-foreground'>
-									({getCurrencySymbol(user.currency, user.locale)})
-								</span>
-							</Label>
-							<Input
-								className='mt-1.5'
-								id='amount'
-								type='number'
-								placeholder='10000'
-								required
-								min='0'
-								step='any'
-								onChange={(event) =>
-									setState({
-										...state,
-										price: event.target.value,
-									})
-								}
-								value={state.price}
-							/>
-						</div>
-						<div className='mr-3'>
-							<Label htmlFor='date'>Received Date</Label>
-							<Input
-								className='mt-1.5 appearance-none'
-								id='date'
-								type='date'
-								required
-								max={todayDate}
-								pattern={datePattern}
-								onChange={(event) => {
-									setState({ ...state, date: event.target.value });
-								}}
-								value={state.date}
-							/>
-						</div>
-						<div className='mr-3'>
-							<Label htmlFor='category'>Category</Label>
-							<select
-								id='category'
-								className='mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
-								onChange={(event) => {
-									setState({ ...state, category: event.target.value });
-								}}
-								value={state.category}
-								required
-							>
-								{Object.keys(incomeCategory).map((categoryKey) => {
-									return (
-										<option key={categoryKey} value={categoryKey}>
-											{incomeCategory[categoryKey]}
-										</option>
-									);
-								})}
-							</select>
-						</div>
-					</div>
-					<div>
-						<Label className='block'>
-							Notes{' '}
-							<span className='text-center text-sm text-muted-foreground'>
-								(optional)
-							</span>
-						</Label>
-						<Textarea
-							className='mt-2 h-20'
-							onChange={(event) =>
-								setState({
-									...state,
-									notes: event.target.value,
-								})
-							}
-							value={state.notes}
-							maxLength={60}
+						<FormField
+							control={form.control}
+							name='name'
+							render={({ field: { onChange, onBlur, value } }) => (
+								<FormItem>
+									<FormLabel>Name</FormLabel>
+									<FormControl>
+										<Fragment>
+											<Input
+												id='name'
+												className='mt-1.5'
+												placeholder='Salary'
+												maxLength={30}
+												required
+												autoFocus
+												autoComplete='off'
+												onBlur={onBlur}
+												onChange={(e) => {
+													const { value } = e.target;
+													if (value.length) {
+														onChange(e);
+														if (value.length > 2) onLookup(value);
+													} else {
+														reset({ autocomplete: [], name: '', category: '' });
+													}
+												}}
+												value={value}
+											/>
+											<AutoCompleteList
+												onHide={() => {
+													reset({ autocomplete: [] });
+												}}
+												data={autocomplete as unknown as string[]}
+												searchTerm={name.length > 2 ? name.toLowerCase() : ''}
+												onClick={({ name, category }) => {
+													setValue('name', name);
+													reset({ autocomplete: [] });
+												}}
+												show={Boolean(autocomplete?.length)}
+											/>
+										</Fragment>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
 						/>
 					</div>
 
-					<Button disabled={loading} className='mt-1.5' type='submit'>
-						{loading ? (
-							<CircleLoader />
-						) : (
-							`${selected?.id ? 'Update' : 'Submit'}`
-						)}
+					<div className='grid grid-cols-[32%,38%,30%] gap-1'>
+						<FormField
+							control={control}
+							name='price'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>
+										Amount
+										<span className='text-muted-foreground ml-1 text-xs'>
+											({getCurrencySymbol(user.currency, user.locale)})
+										</span>
+									</FormLabel>
+									<FormControl>
+										<Input
+											type='number'
+											placeholder='10000'
+											required
+											min='0'
+											step='any'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={control}
+							name='date'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Received Date</FormLabel>
+									<Popover>
+										<PopoverTrigger asChild>
+											<FormControl>
+												<Button
+													variant={'outline'}
+													className={cn(
+														'w-full text-left font-normal',
+														!field.value && 'text-muted-foreground'
+													)}
+												>
+													{field.value ? (
+														format(field.value, dateFormat)
+													) : (
+														<span>Pick a date</span>
+													)}
+													<CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+												</Button>
+											</FormControl>
+										</PopoverTrigger>
+										<PopoverContent className='w-auto p-0' align='start'>
+											<Calendar
+												mode='single'
+												selected={field.value}
+												onSelect={field.onChange}
+												disabled={(date) =>
+													date > new Date() || date < new Date('1900-01-01')
+												}
+												initialFocus
+											/>
+										</PopoverContent>
+									</Popover>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={control}
+							name='category'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Category</FormLabel>
+									<Popover>
+										<PopoverTrigger asChild>
+											<FormControl>
+												<Button
+													variant='outline'
+													role='combobox'
+													className={cn(
+														'w-full justify-between',
+														!field.value && 'text-muted-foreground'
+													)}
+												>
+													{field.value
+														? incomeCategory[
+																Object.keys(incomeCategory).find(
+																	(categoryKey) => categoryKey === field.value
+																) as string
+														  ]
+														: 'Select'}
+													<CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+												</Button>
+											</FormControl>
+										</PopoverTrigger>
+										<PopoverContent className='w-[200px] p-0'>
+											<Command>
+												<CommandInput placeholder='Search category...' />
+												<CommandEmpty>No category found.</CommandEmpty>
+												<CommandGroup>
+													{Object.keys(incomeCategory).map((categoryKey) => (
+														<CommandItem
+															value={categoryKey}
+															key={categoryKey}
+															onSelect={() => {
+																setValue('category', categoryKey);
+															}}
+														>
+															<CheckIcon
+																className={cn(
+																	'mr-2 h-4 w-4',
+																	categoryKey === field.value
+																		? 'opacity-100'
+																		: 'opacity-0'
+																)}
+															/>
+															{incomeCategory[categoryKey]}
+														</CommandItem>
+													))}
+												</CommandGroup>
+											</Command>
+										</PopoverContent>
+									</Popover>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
+
+					<div>
+						<FormField
+							control={control}
+							name='notes'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>
+										Notes{' '}
+										<span className='text-center text-sm text-muted-foreground'>
+											(optional)
+										</span>
+									</FormLabel>
+									<FormControl>
+										<Textarea className='mt-2 h-20' maxLength={60} {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
+
+					<Button
+						disabled={isSubmitting || !isDirty || !isValid}
+						size='lg'
+						type='submit'
+					>
+						{isSubmitting ? <CircleLoader /> : null}
+						{selected?.id ? 'Update' : 'Submit'}
 					</Button>
 				</form>
 			</div>
-		</Modal>
+		</Form>
 	);
 }

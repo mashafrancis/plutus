@@ -26,7 +26,5 @@
 	],
 	"importOrderSeparation": true,
 	"importOrderSortSpecifiers": true,
-	"importOrderGroupNamespaceSpecifiers": true,
-	"importOrderMergeDuplicateImports": true,
-	"importOrderCombineTypeAndValueImports": true
+	"importOrderGroupNamespaceSpecifiers": true
 }

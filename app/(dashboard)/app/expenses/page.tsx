@@ -20,7 +20,7 @@ export default function Income() {
 				buttonTitle='Add expense'
 				buttonLink='/task'
 			/>
-			<DataContextProvider name='investments'>
+			<DataContextProvider name='expenses'>
 				<ExpensesSummary />
 				<ExpenseTable />
 			</DataContextProvider>

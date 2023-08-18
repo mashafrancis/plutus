@@ -48,7 +48,7 @@ export default function DataTableFacetedFilter<TData, TValue>({
 			<PopoverTrigger asChild>
 				<Button
 					variant='outline'
-					className={`h-8 border-dashed ${cn({
+					className={`h-8 ${cn({
 						'pointer-events-none opacity-50': disabled,
 						'max:sm:w-full': selectedValues.size < 1,
 					})}`}

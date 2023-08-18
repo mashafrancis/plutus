@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import shortcuts from '@/constants/shortcuts';
 import { PlusIcon } from 'lucide-react';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -41,72 +42,76 @@ export default function Add({
 	}, [selected.id]);
 
 	return (
-		<>
-			<Button
-				size='icon'
-				className='fixed bottom-[72px] right-[20px] z-40 flex h-[56px] w-[56px] items-center justify-between rounded-lg p-[12px] text-sm font-medium uppercase text-white shadow-lg sm:h-[48px] sm:w-[48px]'
-				onClick={() => {
-					setShow(!show);
-				}}
-			>
-				<PlusIcon className='h-12 w-12' />
-			</Button>
-			{type === 'expenses' ? (
-				<AddExpense
-					lookup={(value: string) => {
-						if (onLookup) return onLookup(value);
+		<Dialog>
+			<DialogTrigger asChild>
+				<Button
+					size='icon'
+					className='fixed bottom-[72px] right-[20px] z-40 flex h-[56px] w-[56px] items-center justify-between rounded-lg p-[12px] text-sm font-medium uppercase text-white shadow-lg sm:h-[48px] sm:w-[48px]'
+					onClick={() => {
+						setShow(!show);
 					}}
-					show={show}
-					selected={selected}
-					mutate={mutate}
-					onHide={() => {
-						if (onHide) onHide();
-						setShow(false);
-					}}
-				/>
-			) : null}
-			{type === 'income' ? (
-				<AddIncome
-					lookup={(value: string) => {
-						if (onLookup) return onLookup(value);
-					}}
-					show={show}
-					selected={selected}
-					mutate={mutate}
-					onHide={() => {
-						if (onHide) onHide();
-						setShow(false);
-					}}
-				/>
-			) : null}
-			{type === 'investments' ? (
-				<AddInvestments
-					lookup={(value: string) => {
-						if (onLookup) return onLookup(value);
-					}}
-					show={show}
-					selected={selected}
-					mutate={mutate}
-					onHide={() => {
-						if (onHide) onHide();
-						setShow(false);
-					}}
-				/>
-			) : null}
-			{type === 'subscriptions' ? (
-				<AddSubscriptions
-					lookup={(value: string) => {
-						if (onLookup) return onLookup(value);
-					}}
-					show={show}
-					selected={selected}
-					mutate={mutate}
-					onHide={() => {
-						if (onHide) onHide();
-						setShow(false);
-					}}
-				/>
-			) : null}
-		</>
+				>
+					<PlusIcon className='h-12 w-12' />
+				</Button>
+			</DialogTrigger>
+			<DialogContent>
+				{type === 'expenses' ? (
+					<AddExpense
+						lookup={(value: string) => {
+							if (onLookup) return onLookup(value);
+						}}
+						show={show}
+						selected={selected}
+						mutate={mutate}
+						onHide={() => {
+							if (onHide) onHide();
+							setShow(false);
+						}}
+					/>
+				) : null}
+				{type === 'income' ? (
+					<AddIncome
+						lookup={(value: string) => {
+							if (onLookup) return onLookup(value);
+						}}
+						show={show}
+						selected={selected}
+						mutate={mutate}
+						onHide={() => {
+							if (onHide) onHide();
+							setShow(false);
+						}}
+					/>
+				) : null}
+				{type === 'investments' ? (
+					<AddInvestments
+						lookup={(value: string) => {
+							if (onLookup) return onLookup(value);
+						}}
+						show={show}
+						selected={selected}
+						mutate={mutate}
+						onHide={() => {
+							if (onHide) onHide();
+							setShow(false);
+						}}
+					/>
+				) : null}
+				{type === 'subscriptions' ? (
+					<AddSubscriptions
+						lookup={(value: string) => {
+							if (onLookup) return onLookup(value);
+						}}
+						show={show}
+						selected={selected}
+						mutate={mutate}
+						onHide={() => {
+							if (onHide) onHide();
+							setShow(false);
+						}}
+					/>
+				) : null}
+			</DialogContent>
+		</Dialog>
 	);
 }

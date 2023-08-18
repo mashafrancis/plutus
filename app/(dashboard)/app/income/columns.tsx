@@ -85,6 +85,7 @@ export const columns: ColumnDef<Income>[] = [
 	{ accessorKey: 'notes', header: 'Notes' },
 	{
 		accessorKey: 'actions',
+		header: 'Actions',
 		cell: (props) => {
 			const {
 				row,
@@ -118,9 +119,6 @@ export const columns: ColumnDef<Income>[] = [
 					</Button>
 				</div>
 			);
-		},
-		meta: {
-			isTogglable: false,
 		},
 	},
 ];

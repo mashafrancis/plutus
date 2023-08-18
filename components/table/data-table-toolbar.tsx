@@ -76,12 +76,12 @@ export default function DataTableToolbar<TData>(
 				) : null}
 				{isFiltered && (
 					<Button
-						variant='secondary'
+						// variant='secondary'
 						onClick={() => {
 							filter.onFilter?.([]);
 							table.resetColumnFilters();
 						}}
-						className='h-8 px-2 text-primary lg:px-3'
+						className='h-8'
 					>
 						Reset
 						<Cross2Icon className='ml-3 h-4 w-4' />

@@ -116,6 +116,7 @@ export const columns: ColumnDef<Investments>[] = [
 	{ accessorKey: 'notes', header: 'Notes' },
 	{
 		accessorKey: 'actions',
+		header: 'Actions',
 		cell: (props) => {
 			const {
 				row,

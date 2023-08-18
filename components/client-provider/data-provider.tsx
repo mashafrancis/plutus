@@ -1,6 +1,7 @@
 'use client';
 
 import {
+	ReactNode,
 	createContext,
 	useCallback,
 	useContext,
@@ -19,7 +20,7 @@ interface Data {
 }
 
 type Props = {
-	children: React.ReactNode;
+	children: ReactNode;
 	name: string;
 	isNotRange?: boolean;
 };

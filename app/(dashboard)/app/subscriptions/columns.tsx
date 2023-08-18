@@ -152,6 +152,7 @@ export const columns: ColumnDef<SubscriptionData>[] = [
 	},
 	{
 		accessorKey: 'actions',
+		header: 'Actions',
 		cell: (props) => {
 			const {
 				row,

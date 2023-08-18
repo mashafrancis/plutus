@@ -95,9 +95,10 @@ export const columns: ColumnDef<Expenses>[] = [
 			return <div className=''>{expensesPay[paid_via]?.name}</div>;
 		},
 	},
-	{ accessorKey: 'notes' },
+	{ accessorKey: 'notes', header: 'Notes' },
 	{
 		accessorKey: 'actions',
+		header: 'Actions',
 		cell: (props) => {
 			const {
 				row,

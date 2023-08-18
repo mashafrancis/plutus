@@ -5,7 +5,7 @@ export type IncomeData = {
 	name: string;
 	price: string;
 	category: string;
-	date: string;
+	date: Date;
 };
 
 export const addIncome = async (data: IncomeData) => {
