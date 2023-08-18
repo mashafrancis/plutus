@@ -5,6 +5,7 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
 
 interface OverviewCardProps {
 	heading: string;
@@ -12,6 +13,7 @@ interface OverviewCardProps {
 	icon?: keyof typeof Icons;
 	caption?: string;
 	tooltip?: string;
+	className?: string;
 }
 
 export default function OverviewCard({
@@ -20,6 +22,7 @@ export default function OverviewCard({
 	data,
 	caption,
 	tooltip = '',
+	className,
 }: OverviewCardProps) {
 	const Icon = Icons[icon];
 
@@ -35,15 +38,13 @@ export default function OverviewCard({
 	);
 
 	return (
-		<Card className='relative'>
-			<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-				<CardTitle className='text-xs text-muted-foreground'>
-					{heading}
-				</CardTitle>
+		<Card className={cn(className, 'relative p-0')}>
+			<CardHeader className='flex text-sm flex-row items-center justify-between space-y-0 pb-2'>
+				<CardTitle className='text-muted-foreground'>{heading}</CardTitle>
 				{icon && tooltip ? (
 					<IconWithTooltip />
 				) : Icon ? (
-					<Icon className='absolute right-3 top-1 h-4 w-4' />
+					<Icon className='absolute right-3 top-3 h-6 w-6 text-muted-foreground' />
 				) : null}
 			</CardHeader>
 			<CardContent>

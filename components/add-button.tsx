@@ -57,11 +57,6 @@ export default function Add({
 		return () => window.removeEventListener('resize', handleResize);
 	}, []);
 
-	console.log(
-		'Class: default, Function: Add, Line 60 keyboardHeight():',
-		keyboardHeight
-	);
-
 	return window.innerWidth <= 768 ? (
 		<Drawer.Root shouldScaleBackground onOpenChange={onButtonHide}>
 			<Drawer.Trigger asChild>
@@ -69,7 +64,7 @@ export default function Add({
 					size='icon'
 					className={cn(
 						hideButton ? 'hidden' : 'flex',
-						'fixed bottom-[72px] right-[20px] z-40 h-[56px] w-[56px] items-center justify-between rounded-lg p-[12px] text-sm font-medium uppercase text-white shadow-lg sm:h-[48px] sm:w-[48px]'
+						'fixed bottom-[72px] right-[20px] z-40 h-[56px] w-[56px] items-center justify-between rounded-2xl p-[12px] text-sm font-medium uppercase text-white shadow sm:h-[48px] sm:w-[48px]'
 					)}
 					onClick={() => {
 						setShow(!show);

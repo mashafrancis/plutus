@@ -29,7 +29,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
 					<div className='flex flex-col space-y-1 leading-none'>
 						{user.name && <p className='font-medium'>{user.name}</p>}
 						{user.email && (
-							<p className='w-[200px] truncate text-sm text-muted-foreground'>
+							<p className='w-[200px] truncate text-xs text-muted-foreground'>
 								{user.email}
 							</p>
 						)}
@@ -39,7 +39,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
 
 				<DropdownMenuLabel className='font-normal'>
 					<div className='flex flex-row items-center justify-between space-y-1'>
-						<span>Theme</span>
+						<span className='text-sm'>Theme</span>
 						<ThemeSwitch />
 					</div>
 				</DropdownMenuLabel>

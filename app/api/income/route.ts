@@ -48,7 +48,6 @@ export async function GET(request: NextRequest) {
 					updated_at: true,
 				},
 			});
-			console.log('Class: GET, Function: , Line 51 data():', data);
 			return NextResponse.json(
 				data.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
 			);

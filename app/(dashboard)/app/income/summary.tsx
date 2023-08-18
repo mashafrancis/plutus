@@ -16,7 +16,11 @@ export default function IncomeSummary() {
 				<CardLoader cards={2} className='mb-6' />
 			) : (
 				<div className='mb-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5'>
-					<OverviewCard heading='Total income' data={data.length} />
+					<OverviewCard
+						heading='Total income'
+						data={data.length}
+						className='bg-[#D9E9BA] text-[#3E4E56]'
+					/>
 					<OverviewCard
 						heading='Total amount'
 						data={formatCurrency({
@@ -27,6 +31,7 @@ export default function IncomeSummary() {
 							currency: user?.currency,
 							locale: user?.locale,
 						})}
+						className='bg-[#D5E4EB] text-[#34383B]'
 					/>
 					{/* <SummaryCard title="top spent category" data={formatCurrency({ value: 1 })} /> */}
 				</div>

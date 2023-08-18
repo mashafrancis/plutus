@@ -17,11 +17,6 @@ export default async function HomePage() {
 	const data = await getWeatherData(city);
 	const [session, user] = await Promise.all([getSession(), getUserDetails()]);
 
-	console.log(
-		'Class: default, Function: MarketingPage, Line 18 session():',
-		user
-	);
-
 	return (
 		<div className='container grid h-screen w-screen flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0'>
 			<div className='hidden h-full bg-slate-100 lg:block' />

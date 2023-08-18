@@ -3,6 +3,7 @@
 import OverviewCard from '@/app/(dashboard)/app/_components/overview-card';
 import { useUser } from '@/components/client-provider/auth-provider';
 import { useOverview } from '@/components/client-provider/overview-provider';
+import CardLoader from '@/components/loader/card';
 import { formatCurrency } from '@/lib/formatter';
 
 export default function OverviewCardLayout() {
@@ -29,46 +30,52 @@ export default function OverviewCardLayout() {
 	const totalSpent = totalExpenses + totalInvestment + totalSubscriptions;
 	const totalBalance = totalIncome - totalSpent;
 
-	return (
+	return loading ? (
+		<CardLoader cards={4} />
+	) : (
 		<div className='grid grid-cols-2 gap-2 lg:grid-cols-4'>
 			<OverviewCard
-				heading='Total Income'
+				heading='Income'
 				icon='income'
 				data={formatCurrency({
 					value: totalIncome,
 					currency: user.currency,
 					locale: user.locale,
 				})}
+				className='bg-[#D9E9BA] text-[#3E4E56]'
 				// caption={caption}
 			/>
 			<OverviewCard
-				heading='Total Spent'
+				heading='Spendings'
 				icon='expenses'
 				data={formatCurrency({
 					value: totalSpent,
 					currency: user.currency,
 					locale: user.locale,
 				})}
+				className='bg-[#D5E4EB] text-[#34383B]'
 				// caption={caption}
 			/>
 			<OverviewCard
-				heading='Available Balance'
+				heading='Balance'
 				icon='chart'
 				data={formatCurrency({
 					value: totalBalance,
 					currency: user.currency,
 					locale: user.locale,
 				})}
+				className='bg-[#B9E3FD] text-[#282B2D]'
 				// caption={caption}
 			/>
 			<OverviewCard
-				heading='Total Subscriptions'
+				heading='Subscriptions'
 				icon='subscriptions'
 				data={formatCurrency({
 					value: totalSubscriptions,
 					currency: user.currency,
 					locale: user.locale,
 				})}
+				className='bg-[#efebe9] text-[#3e2723]'
 				// caption={caption}
 			/>
 		</div>

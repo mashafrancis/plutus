@@ -273,7 +273,7 @@ export default function AddIncome({
 													variant='outline'
 													role='combobox'
 													className={cn(
-														'w-full justify-between',
+														'w-full justify-between truncate',
 														!field.value && 'text-muted-foreground'
 													)}
 												>

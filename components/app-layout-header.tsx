@@ -19,7 +19,7 @@ export default function AppLayoutHeader({
 }: DashboardHeaderProps) {
 	return (
 		<DashboardShell>
-			<div className='flex flex-col items-start justify-between gap-2 md:flex-row'>
+			<div className='flex flex-col justify-between gap-2 md:flex-row'>
 				<div className='grid gap-1'>
 					<div className='flex items-center space-x-2'>
 						<div className='block md:hidden'>
