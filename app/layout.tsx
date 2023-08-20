@@ -7,7 +7,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { fontHeading, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
-import '@/styles/overwrites.css';
 
 export const dynamic = 'force-dynamic';
 

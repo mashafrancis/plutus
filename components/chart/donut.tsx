@@ -53,7 +53,8 @@ export default function Donut() {
 				showAnimation={false}
 				showTooltip
 				showLabel
-				className='mt-8 h-80'
+				className='mt-8 h-80 text-3xl font-bold'
+				colors={['slate', 'violet', 'indigo', 'rose', 'cyan', 'amber']}
 			/>
 		</>
 	);

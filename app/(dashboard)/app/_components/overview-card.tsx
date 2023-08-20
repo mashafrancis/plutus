@@ -39,16 +39,16 @@ export default function OverviewCard({
 
 	return (
 		<Card className={cn(className, 'relative p-0')}>
-			<CardHeader className='flex text-sm flex-row items-center justify-between space-y-0 pb-2'>
-				<CardTitle className='text-muted-foreground'>{heading}</CardTitle>
+			<CardHeader className='flex flex-row items-center justify-between space-y-0 p-4 pb-2'>
+				<CardTitle className='text-xl font-bold md:text-2xl'>{data}</CardTitle>
 				{icon && tooltip ? (
 					<IconWithTooltip />
 				) : Icon ? (
-					<Icon className='absolute right-3 top-3 h-6 w-6 text-muted-foreground' />
+					<Icon className='absolute right-3 top-4 h-6 w-6' />
 				) : null}
 			</CardHeader>
-			<CardContent>
-				<div className='text-xl font-bold md:text-2xl'>{data}</div>
+			<CardContent className='px-4'>
+				<div className='text-sm'>{heading}</div>
 				<p className='text-xs text-muted-foreground'>{caption}</p>
 			</CardContent>
 		</Card>

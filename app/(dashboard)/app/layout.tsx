@@ -11,6 +11,7 @@ import { DatePickerProvider } from '@/components/client-provider/datepicker-prov
 import { appConfig } from '@/config/dashboard';
 import url from '@/constants/url';
 import { apiUrls } from '@/lib/apiUrls';
+import '@/styles/overwrites.css';
 
 interface DashboardLayoutProps {
 	children?: ReactNode;

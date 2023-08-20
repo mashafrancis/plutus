@@ -1,24 +1,25 @@
 const millionConfig = {
 	// auto: true,
 	// if you're using RSC:
-	auto: {rsc: true},
-}
+	auto: { rsc: true },
+};
 
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
-await import("./env.mjs");
+await import('./env.mjs');
 
 const ContentSecurityPolicy = `
     default-src 'self' francismasha.com;
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' plutus.francismasha.com *.cloudfront.net assets.lemonsqueezy.com *.googletagmanager.com;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' plutus.francismasha.com fonts.googleapis.com fonts.gstatic.com *.cloudfront.net assets.lemonsqueezy.com *.googletagmanager.com;
     child-src 'self' francismasha.lemonsqueezy.com;
-    style-src 'self' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline' fonts.googleapis.com;
     img-src * blob: data:;
     media-src 'self';
     connect-src *;
-    font-src 'self';
+    font-src 'self' fonts.googleapis.com fonts.gstatic.com;
+    manifest-src 'self' plutus.francismasha.com;
 `;
 
 const securityHeaders = [
@@ -72,8 +73,8 @@ const nextConfig = {
 		domains: ['www.google.com', 'francismasha.com', 'plutus.francismasha.com'],
 	},
 	async headers() {
-		return [{source: '/(.*)', headers: securityHeaders}];
+		return [{ source: '/(.*)', headers: securityHeaders }];
 	},
-}
+};
 
-export default nextConfig
+export default nextConfig;
