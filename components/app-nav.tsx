@@ -25,7 +25,7 @@ export default function AppNav({ items, user }: DashboardNavProps) {
 	return (
 		<div className='fixed inset-0 z-[1] hidden h-screen w-24 flex-col justify-between overflow-y-hidden border-r bg-background p-2 backdrop-blur md:flex'>
 			<ul className='flex flex-col space-y-8'>
-				<Link href='/' className='my-6 hidden justify-center md:flex'>
+				<Link href='/' className='my-4 hidden justify-center md:flex'>
 					<Icons.logo width={36} />
 				</Link>
 				<For each={items}>
@@ -66,6 +66,12 @@ export default function AppNav({ items, user }: DashboardNavProps) {
 				</For>
 			</ul>
 			<ul className='flex flex-col justify-center space-y-2'>
+				<Link
+					href='/app/settings'
+					className='my-4 hidden justify-center md:flex'
+				>
+					<Icons.settings width={36} />
+				</Link>
 				<div className='my-4 hidden justify-center md:flex'>
 					<UserAccountNav
 						user={{
