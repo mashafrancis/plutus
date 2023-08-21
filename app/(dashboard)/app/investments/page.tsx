@@ -15,11 +15,7 @@ export const metadata: Metadata = {
 export default function Investments() {
 	return (
 		<Fragment>
-			<AppLayoutHeader
-				heading='Investments'
-				buttonTitle='Add investment'
-				buttonLink='/task'
-			/>
+			<AppLayoutHeader heading='Investments' />
 			<DataContextProvider name='investments'>
 				<InvestmentSummary />
 				<InvestmentTable />

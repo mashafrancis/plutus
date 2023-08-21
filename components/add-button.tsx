@@ -106,7 +106,7 @@ export default function Add({
 						setShow(!show);
 					}}
 				>
-					<PlusIcon className='h-6 w-6 mr-2' />
+					<PlusIcon className='h-5 w-5 mr-2' />
 					<span className='font-semibold uppercase'>{type}</span>
 				</Button>
 			</DialogTrigger>

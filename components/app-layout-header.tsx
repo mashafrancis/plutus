@@ -1,21 +1,21 @@
+import { ReactNode } from 'react';
+
 import DatePicker from '@/components/date-range-picker';
 import { Icons } from '@/components/icons';
 import { DashboardShell } from '@/components/shell';
 
 interface DashboardHeaderProps {
-	buttonLink?: any;
-	buttonTitle?: string;
 	heading: string;
 	subHeading?: string;
 	showDatePicker?: boolean;
+	addButton?: ReactNode;
 }
 
 export default function AppLayoutHeader({
 	heading,
 	subHeading,
-	buttonTitle,
-	buttonLink,
 	showDatePicker = false,
+	addButton,
 }: DashboardHeaderProps) {
 	return (
 		<DashboardShell>
@@ -31,7 +31,10 @@ export default function AppLayoutHeader({
 					</div>
 					{subHeading && <p className='text-muted-foreground'>{subHeading}</p>}
 				</div>
-				{showDatePicker ? <DatePicker /> : null}
+				<div className='md:flex md:items-center md:justify-between md:space-x-2'>
+					{showDatePicker ? <DatePicker /> : null}
+					{addButton}
+				</div>
 			</div>
 		</DashboardShell>
 	);

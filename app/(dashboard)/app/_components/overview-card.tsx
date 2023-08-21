@@ -44,12 +44,12 @@ export default function OverviewCard({
 				{icon && tooltip ? (
 					<IconWithTooltip />
 				) : Icon ? (
-					<Icon className='absolute right-3 top-4 h-6 w-6' />
+					<Icon className='absolute right-3 top-4 h-5 w-5' />
 				) : null}
 			</CardHeader>
 			<CardContent className='px-4'>
 				<div className='text-sm'>{heading}</div>
-				<p className='text-xs text-muted-foreground'>{caption}</p>
+				<p className='text-xs'>{caption}</p>
 			</CardContent>
 		</Card>
 	);

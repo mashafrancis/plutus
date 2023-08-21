@@ -20,7 +20,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
 		<DropdownMenu>
 			<DropdownMenuTrigger>
 				<UserAvatar
-					className='h-12 w-12 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-600'
+					className='h-10 w-10 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-600'
 					user={user}
 				/>
 			</DropdownMenuTrigger>

@@ -42,7 +42,7 @@ export default function OverviewCardLayout() {
 					currency: user.currency,
 					locale: user.locale,
 				})}
-				className='bg-[#D9E9BA] text-[#3E4E56]'
+				className='bg-[#EADDFF] text-[#21005D]'
 				// caption={caption}
 			/>
 			<OverviewCard

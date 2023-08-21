@@ -15,11 +15,7 @@ export const metadata: Metadata = {
 export default function Income() {
 	return (
 		<Fragment>
-			<AppLayoutHeader
-				heading='Expenses'
-				buttonTitle='Add expense'
-				buttonLink='/task'
-			/>
+			<AppLayoutHeader heading='Expenses' />
 			<DataContextProvider name='expenses'>
 				<ExpensesSummary />
 				<ExpenseTable />

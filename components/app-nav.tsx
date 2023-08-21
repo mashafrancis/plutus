@@ -23,10 +23,10 @@ export default function AppNav({ items, user }: DashboardNavProps) {
 	}
 
 	return (
-		<div className='fixed inset-0 z-[1] hidden h-screen w-20 flex-col justify-between overflow-y-hidden border-r bg-background p-2 backdrop-blur md:flex'>
+		<div className='fixed inset-0 z-[1] hidden h-screen w-24 flex-col justify-between overflow-y-hidden border-r bg-background p-2 backdrop-blur md:flex'>
 			<ul className='flex flex-col space-y-8'>
 				<Link href='/' className='my-6 hidden justify-center md:flex'>
-					<Icons.logo />
+					<Icons.logo width={36} />
 				</Link>
 				<For each={items}>
 					{({ id, href, disabled, title, icon }) => {
@@ -37,7 +37,7 @@ export default function AppNav({ items, user }: DashboardNavProps) {
 									key={id}
 									href={disabled ? '/' : href}
 									className={cn(
-										'm-4 flex flex-col items-center justify-center text-center font-medium transition-colors hover:text-foreground/80',
+										'hover:text-foreground/80 m-4 flex flex-col items-center justify-center text-center font-medium transition-colors',
 										pathname === href
 											? 'text-foreground'
 											: 'text-foreground/60',
@@ -58,7 +58,7 @@ export default function AppNav({ items, user }: DashboardNavProps) {
 									>
 										<Icon className='h-5 w-5' />
 									</Button>
-									<span className='mt-1 text-[10px]'>{title}</span>
+									<span className='mt-1 text-xs'>{title}</span>
 								</Link>
 							)
 						);

@@ -15,11 +15,7 @@ export const metadata: Metadata = {
 export default function Subscriptions() {
 	return (
 		<Fragment>
-			<AppLayoutHeader
-				heading='Subscriptions'
-				buttonTitle='Add subscription'
-				buttonLink='/task'
-			/>
+			<AppLayoutHeader heading='Subscriptions' />
 			<DataContextProvider name='subscriptions' isNotRange={true}>
 				<SubscriptionSummary />
 				<SubscriptionTable />
