@@ -1,5 +1,3 @@
-import million from 'million/compiler';
-
 const millionConfig = {
 	// auto: true,
 	// if you're using RSC:
@@ -79,4 +77,4 @@ const nextConfig = {
 	},
 };
 
-export default million.next(nextConfig, millionConfig);
+export default nextConfig;

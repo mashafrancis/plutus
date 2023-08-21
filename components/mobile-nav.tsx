@@ -2,20 +2,14 @@
 
 import Link from 'next/link';
 
-import { ReactNode, useEffect, useState } from 'react';
+import { JSX, SVGProps, useEffect, useState } from 'react';
 
 import { lockScroll } from '@/lib/lock-scroll';
 import { cn } from '@/lib/utils';
 import styles from '@/styles/mobile-menu.module.css';
-import { MainNavItem } from '@/types';
 import useDelayedRender from 'use-delayed-render';
 
-interface MobileNavProps {
-	items: MainNavItem[];
-	children?: ReactNode;
-}
-
-function MenuIcon(props: JSX.IntrinsicElements['svg']) {
+function MenuIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
 	return (
 		<svg
 			className='absolute h-7 w-7 text-gray-900 dark:text-gray-100'
@@ -43,7 +37,7 @@ function MenuIcon(props: JSX.IntrinsicElements['svg']) {
 	);
 }
 
-function CrossIcon(props: JSX.IntrinsicElements['svg']) {
+function CrossIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
 	return (
 		<svg
 			className='absolute h-7 w-7 text-gray-900 dark:text-gray-100'
@@ -64,7 +58,7 @@ function CrossIcon(props: JSX.IntrinsicElements['svg']) {
 	);
 }
 
-const MobileNav = ({ children, items }: MobileNavProps) => {
+const MobileNav = () => {
 	const [navShow, setNavShow] = useState(false);
 	const { mounted: isMenuMounted, rendered: isMenuRendered } = useDelayedRender(
 		navShow,
@@ -107,7 +101,7 @@ const MobileNav = ({ children, items }: MobileNavProps) => {
 				<ul
 					className={cn(
 						styles.menu,
-						'absolute flex flex-col bg-background antialiased transition duration-500',
+						'absolute flex flex-col bg-white antialiased transition duration-500 dark:bg-gray-900',
 						isMenuRendered && styles.menuRendered
 					)}
 				>
@@ -120,20 +114,24 @@ const MobileNav = ({ children, items }: MobileNavProps) => {
 							Home
 						</Link>
 					</li>
-					{items.map(({ title, href, transitionDelay = '150ms' }, index) => {
-						return (
-							<li
-								key={title}
-								onClick={onToggleNav}
-								className='border-b border-gray-300 px-8 text-lg font-medium text-gray-900 dark:border-gray-700 dark:text-gray-100'
-								style={{ transitionDelay }}
-							>
-								<Link href={href} className='flex w-auto pb-4'>
-									{title}
-								</Link>
-							</li>
-						);
-					})}
+					<li
+						onClick={onToggleNav}
+						className='border-b border-gray-300 px-8 text-lg font-medium text-gray-900 dark:border-gray-700 dark:text-gray-100'
+						style={{ transitionDelay: '175ms' }}
+					>
+						<Link href='/app/settings' className='flex w-auto pb-4'>
+							Settings
+						</Link>
+					</li>
+					<li
+						onClick={onToggleNav}
+						className='border-b border-gray-300 px-8 text-lg font-medium text-gray-900 dark:border-gray-700 dark:text-gray-100'
+						style={{ transitionDelay: '300ms' }}
+					>
+						<Link href='/about' className='flex w-auto pb-4'>
+							Logout
+						</Link>
+					</li>
 				</ul>
 			)}
 		</div>

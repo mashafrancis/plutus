@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 
+import { Fragment } from 'react';
+
 import Account from '@/app/(dashboard)/app/settings/account';
 import DeleteAccount from '@/app/(dashboard)/app/settings/delete-account';
 import Plans from '@/app/(dashboard)/app/settings/plans';
@@ -14,10 +16,10 @@ export const metadata: Metadata = {
 
 export default function Investments() {
 	return (
-		<div className='flex h-full flex-1 flex-col space-y-8 p-1'>
+		<Fragment>
 			<AppLayoutHeader heading='Settings' />
-			<div className='mt-6 w-full overflow-x-auto p-4 pt-3'>
-				<div className='m-auto flex w-full max-w-2xl flex-col items-center space-y-6'>
+			<div className='mt-6 w-full overflow-x-auto pt-3'>
+				<div className='m-auto flex w-full max-w-2xl flex-col items-center space-y-2 md:space-y-6'>
 					<Account />
 					<Theme />
 					<Usage />
@@ -25,6 +27,6 @@ export default function Investments() {
 					<DeleteAccount />
 				</div>
 			</div>
-		</div>
+		</Fragment>
 	);
 }
