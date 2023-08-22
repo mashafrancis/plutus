@@ -58,7 +58,7 @@ export default function OverviewCardLayout() {
 			/>
 			<OverviewCard
 				heading='Balance'
-				icon='chart'
+				icon='balance'
 				data={formatCurrency({
 					value: totalBalance,
 					currency: user.currency,

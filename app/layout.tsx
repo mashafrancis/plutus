@@ -55,6 +55,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html
 			lang='en'
+			suppressHydrationWarning
 			className={cn(
 				'min-h-screen bg-background font-sans text-black',
 				fontSans.variable,
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 					<Loglib
 						config={{
 							id: 'plutus',
+							consent: 'granted',
 						}}
 					/>
 				</ClientProvider>

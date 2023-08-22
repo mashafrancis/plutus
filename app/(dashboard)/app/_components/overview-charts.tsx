@@ -22,7 +22,7 @@ export default function OverviewCharts() {
 				<CardHeader>
 					<CardTitle>Expenses</CardTitle>
 				</CardHeader>
-				<CardContent className='pl-2'>
+				<CardContent className='md:pl-0 pl-1'>
 					<ExpenseChart />
 				</CardContent>
 			</Card>
@@ -43,7 +43,7 @@ export default function OverviewCharts() {
 				<>
 					<Card className='col-span-3'>
 						<CardHeader>
-							<h3 className='pb-0 font-medium'>Recent Activities</h3>
+							<CardTitle>Recent Activities</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<RecentActivitiesTable />
@@ -52,7 +52,7 @@ export default function OverviewCharts() {
 
 					<Card className='col-span-3'>
 						<CardHeader>
-							<h3 className='pb-0 font-medium'>Top Spent Expenses</h3>
+							<CardTitle>Top Spent Expenses</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<TopSpentExpenses />

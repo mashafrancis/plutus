@@ -57,17 +57,18 @@ const tailwindConfig = {
 			},
 			tremor: {
 				brand: {
-					faint: '#eff6ff', // blue-50
-					muted: '#bfdbfe', // blue-200
-					subtle: '#60a5fa', // blue-400
-					DEFAULT: '#3b82f6', // blue-500
-					emphasis: '#1d4ed8', // blue-700
+					faint: '#e1f4fa', // blue-50
+					muted: '#82d1ea', // blue-200
+					subtle: '#35b2de', // blue-400
+					DEFAULT: '#17a5da', // blue-500
+					emphasis: '#0085b9', // blue-700
 					inverted: '#ffffff', // white
 				},
 				background: {
 					muted: '#f9fafb', // gray-50
 					subtle: '#f3f4f6', // gray-100
 					DEFAULT: '#ffffff', // white
+					default: '#ffffff', // white
 					emphasis: '#374151', // gray-700
 				},
 				border: {
@@ -155,6 +156,11 @@ const tailwindConfig = {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
+				typing: 'typing 2s steps(14), blink 0.1s infinite',
+				text: 'text 6s linear infinite',
+				border: 'border 30s ease infinite -2s',
+				'background-pan': 'background-pan 3s linear infinite',
+				'spin-slow': 'spin-slow 10s linear infinite',
 			},
 		},
 	},
@@ -191,6 +197,7 @@ const tailwindConfig = {
 		require('tailwindcss-animate'),
 		require('@tailwindcss/typography'),
 		require('@headlessui/tailwindcss'),
+		require('@tailwindcss/container-queries'),
 	],
 } satisfies Config;
 

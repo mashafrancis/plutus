@@ -29,8 +29,38 @@ export const fontSans = localFont({
 		},
 	],
 	variable: '--font-sans',
-	display: 'swap',
 });
+
+// export const fontSans = localFont({
+// 	src: [
+// 		{
+// 			path: '../assets/fonts/Satoshi-Regular.woff2',
+// 			weight: '400',
+// 			style: 'normal',
+// 		},
+// 		{
+// 			path: '../assets/fonts/Satoshi-Medium.woff2',
+// 			weight: '500',
+// 			style: 'normal',
+// 		},
+// 		{
+// 			path: '../assets/fonts/Satoshi-Medium.woff2',
+// 			weight: '600',
+// 			style: 'semibold',
+// 		},
+// 		{
+// 			path: '../assets/fonts/Satoshi-Bold.woff2',
+// 			weight: '700',
+// 			style: 'bold',
+// 		},
+// 		{
+// 			path: '../assets/fonts/Satoshi-Black.woff2',
+// 			weight: '900',
+// 			style: 'black',
+// 		},
+// 	],
+// 	variable: '--font-sans',
+// });
 
 // export const fontSans = localFont({
 // 	src: '../assets/fonts/sf-pro-text-regular-webfont.woff2',
