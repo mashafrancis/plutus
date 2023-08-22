@@ -11,6 +11,9 @@ dependencies:
   '@hookform/resolvers':
     specifier: ^3.2.0
     version: 3.2.0(react-hook-form@7.45.4)
+  '@loglib/tracker':
+    specifier: ^0.6.2
+    version: 0.6.2(react@18.2.0)
   '@prisma/client':
     specifier: ^5.1.1
     version: 5.1.1(prisma@5.1.1)
@@ -949,6 +952,14 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+
+  /@loglib/tracker@0.6.2(react@18.2.0):
+    resolution: {integrity: sha512-0lo4Ug85W2i7VYmyOFqFZIW9suIIbhmCafa+xcJNtuROsT5p1iAppXfO/0l4XDEJlntuok7Z6fPEYbcI3vdVKQ==}
+    peerDependencies:
+      react: ^16.8||^17||^18
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@manypkg/find-root@2.1.0:
     resolution: {integrity: sha512-NEYRVlZCJYhRTqQURhv+WBpDcvmsp/M423Wcdvggv8lYJYD4GtqnTMLrQaTjA10fYt/PIc3tSdwV+wxJnWqPfQ==}

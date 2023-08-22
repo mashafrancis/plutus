@@ -15,3 +15,7 @@ export async function getWeatherData(location: string) {
 export function isMobileView() {
 	return window.innerWidth <= 768;
 }
+
+export function fancyId() {
+	return Math.random().toString(36).substr(2, 9);
+}

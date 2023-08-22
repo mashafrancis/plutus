@@ -10,8 +10,9 @@ import { useToast } from '@/components/ui/use-toast';
 import messages from '@/constants/messages';
 import { sortByKey } from '@/lib/extractor';
 import { lookup } from '@/lib/lookup';
+import { SubscriptionData } from '@/lib/validations/subscriptions';
 
-import { SubscriptionData, deleteSubscription, editSubscription } from './apis';
+import { deleteSubscription, editSubscription } from './apis';
 import { columns } from './columns';
 
 export default function SubscriptionTable() {

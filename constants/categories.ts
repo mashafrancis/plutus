@@ -117,19 +117,10 @@ export const investmentCategory: Investments = {
 };
 
 interface Subscriptions {
-	[key: string]: {
-		name: string;
-		key: string;
-	};
+	[key: string]: string;
 }
 
 export const subscriptionCategory: Subscriptions = {
-	monthly: {
-		name: 'Monthly',
-		key: 'monthly',
-	},
-	yearly: {
-		name: 'Yearly',
-		key: 'yearly',
-	},
+	monthly: 'Monthly',
+	yearly: 'Yearly',
 };

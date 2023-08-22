@@ -6,11 +6,10 @@ import DataTableColumnHeader from '@/components/table/data-table-column-header';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { formatCurrency, formatDate } from '@/lib/formatter';
+import { SubscriptionData } from '@/lib/validations/subscriptions';
 import { ColumnDef } from '@tanstack/react-table';
 import { isThisMonth } from 'date-fns';
 import { Pencil, Trash2 } from 'lucide-react';
-
-import { SubscriptionData } from './apis';
 
 export const columns: ColumnDef<SubscriptionData>[] = [
 	{

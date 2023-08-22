@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { fontHeading, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
+import Loglib from '@loglib/tracker/react';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,10 +15,22 @@ const title = 'Plutus';
 const description = 'Organize your finances like never before.';
 
 export const metadata: Metadata = {
-	title,
+	title: {
+		default: title,
+		template: `%s | ${title}`,
+	},
 	description,
 	manifest: 'https://plutus.francismasha.com/manifest.json',
-	themeColor: '#ffffff',
+	keywords: [
+		'Finance Analytics',
+		'Open Source finance analytics',
+		'plutus',
+		'plutus analytics',
+	],
+	themeColor: [
+		{ media: '(prefers-color-scheme: light)', color: 'white' },
+		{ media: '(prefers-color-scheme: dark)', color: 'black' },
+	],
 	viewport: {
 		width: 'device-width',
 		initialScale: 1,
@@ -52,6 +65,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				<ClientProvider>
 					{children}
 					<Toaster />
+					<Loglib
+						config={{
+							id: 'plutus',
+						}}
+					/>
 				</ClientProvider>
 			</body>
 		</html>

@@ -1,7 +1,9 @@
+import million from 'million/compiler';
+
 const millionConfig = {
 	// auto: true,
 	// if you're using RSC:
-	auto: { rsc: true },
+	auto: { rsc: true, threshold: 0.5, ignore: ['**/node_modules/**'] },
 };
 
 /**
@@ -65,6 +67,7 @@ const nextConfig = {
 	output: 'standalone',
 	swcMinify: true,
 	reactStrictMode: true,
+	generateRobotsTxt: true,
 	experimental: {
 		serverActions: true,
 		// typedRoutes: true
@@ -72,9 +75,15 @@ const nextConfig = {
 	images: {
 		domains: ['www.google.com', 'francismasha.com', 'plutus.francismasha.com'],
 	},
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
+	compiler: {
+		removeConsole: process.env.NODE_ENV === 'production',
+	},
 	async headers() {
 		return [{ source: '/(.*)', headers: securityHeaders }];
 	},
 };
 
-export default nextConfig;
+export default million.next(nextConfig, millionConfig);

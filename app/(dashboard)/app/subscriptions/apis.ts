@@ -1,6 +1,7 @@
 import { apiUrls } from '@/lib/apiUrls';
+import { SubscriptionData } from '@/lib/validations/subscriptions';
 
-export type SubscriptionData = {
+export type SubscriptionDatas = {
 	id: string;
 	notes: string;
 	name: string;

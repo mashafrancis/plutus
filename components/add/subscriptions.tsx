@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useMemo, useRef, useState } from 'react';
 
 import { incrementUsage } from '@/app/(dashboard)/app/apis';
 import {
@@ -12,18 +12,44 @@ import {
 import AutoCompleteList from '@/components/autocomplete-list';
 import { useUser } from '@/components/client-provider/auth-provider';
 import CircleLoader from '@/components/loader/circle';
-import Modal from '@/components/modal';
 import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import {
+	Command,
+	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+} from '@/components/ui/command';
+import { DialogTitle } from '@/components/ui/dialog';
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { subscriptionCategory } from '@/constants/categories';
-import { dateFormat, datePattern } from '@/constants/date';
+import { dateFormat } from '@/constants/date';
 import messages from '@/constants/messages';
 import { getCurrencySymbol } from '@/lib/formatter';
+import { cn, fancyId } from '@/lib/utils';
+import {
+	SubscriptionData,
+	subscriptionCreateOrPatchSchema,
+} from '@/lib/validations/subscriptions';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
 import debounce from 'debounce';
+import { useForm } from 'react-hook-form';
+import { Drawer } from 'vaul';
+
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 const checkUrl = (urlString: string) => {
 	let url;
@@ -43,14 +69,14 @@ interface AddSubscriptions {
 	lookup: (name: string) => void;
 }
 
-const todayDate = format(new Date(), dateFormat);
+const todayDate = new Date();
 
-const initialState = {
+const defaultValues: Partial<SubscriptionData> = {
 	date: todayDate,
 	name: '',
 	notes: '',
-	url: '',
 	price: '',
+	autocomplete: [],
 	paid: 'monthly',
 };
 
@@ -62,34 +88,49 @@ export default function AddSubscriptions({
 	lookup,
 }: AddSubscriptions) {
 	const user = useUser();
-	const [state, setState] = useState<any>(initialState);
+	// const [state, setState] = useState<any>(initialState);
 	const [loading, setLoading] = useState(false);
 	const { toast } = useToast();
 	const [hasValidUrl, setHasValidUrl] = useState(false);
 	const inputRef = useRef<any>(null);
 
-	useEffect(() => {
-		inputRef.current?.focus();
-	}, []);
+	const form = useForm<SubscriptionData>({
+		defaultValues,
+		resolver: zodResolver(subscriptionCreateOrPatchSchema),
+	});
 
-	useEffect(() => setState(selected.id ? selected : initialState), [selected]);
-	useEffect(() => setHasValidUrl(checkUrl(state.url)), [state.url]);
+	const {
+		handleSubmit,
+		control,
+		setValue,
+		watch,
+		reset,
+		formState: { isSubmitting, errors, isDirty, isValid },
+	} = form;
+
+	// useEffect(() => setState(selected.id ? selected : initialState), [selected]);
+	// useEffect(() => setHasValidUrl(checkUrl(state.url)), [state.url]);
+
+	const name = watch('name');
+	const autocomplete = watch('autocomplete');
+	const url = watch('url');
 
 	const onLookup = useMemo(() => {
 		const callbackHandler = (value: string) => {
-			setState((prev: any) => ({ ...prev, autocomplete: lookup(value) }));
+			// @ts-expect-error
+			setValue('autocomplete', lookup(value));
 		};
 		return debounce(callbackHandler, 500);
 	}, [lookup]);
 
-	const onSubmit = async () => {
+	const onSubmit = async (data: SubscriptionData) => {
 		try {
 			setLoading(true);
 			const isEditing = selected?.id;
 			if (isEditing) {
-				await editSubscription(state);
+				await editSubscription(data);
 			} else {
-				await addSubscription(state);
+				await addSubscription(data);
 				await incrementUsage();
 			}
 			setLoading(false);
@@ -98,7 +139,6 @@ export default function AddSubscriptions({
 			});
 			if (mutate) mutate();
 			onHide();
-			setState({ ...initialState });
 		} catch {
 			setLoading(false);
 			toast({ description: messages.error, variant: 'destructive' });
@@ -106,175 +146,332 @@ export default function AddSubscriptions({
 	};
 
 	return (
-		<Modal
-			someRef={inputRef}
-			show={show}
-			title={`${selected.id ? 'Edit' : 'Add'} Subscription`}
-			onHide={onHide}
-		>
+		<Form {...form}>
 			<div className='sm:flex sm:items-start'>
-				<form
-					className='md:[420px] grid w-full grid-cols-1 items-center gap-3'
-					onSubmit={(event) => {
-						event.preventDefault();
-						onSubmit();
-						if (!selected.id) setState({ ...initialState });
-					}}
-				>
-					<div className='relative'>
-						<Label htmlFor='name'>Name</Label>
-						<Input
-							className='mt-1.5'
-							id='name'
-							placeholder='Netflix or Amazon Prime'
-							maxLength={30}
-							required
-							ref={inputRef}
-							autoFocus
-							autoComplete='off'
-							onChange={({ target }) => {
-								const { value } = target;
-								if (value.length) {
-									setState({ ...state, name: value });
-									if (value.length > 2) onLookup(value);
-								} else {
-									setState({ ...state, name: '', paid: 'monthly' });
-								}
-							}}
-							value={state.name}
-						/>
-						<AutoCompleteList
-							onHide={() => {
-								setState({ ...state, autocomplete: [] });
-							}}
-							data={state.autocomplete}
-							searchTerm={state.name.length > 2 ? state.name.toLowerCase() : ''}
-							onClick={({ name, paid, url }) => {
-								setState({ ...state, name, paid, url, autocomplete: [] });
-							}}
-							show={Boolean(state.autocomplete?.length)}
-						/>
-					</div>
-					<div className='grid grid-cols-[100%] gap-1'>
-						<Label className='flex grow-0 items-center' htmlFor='website'>
-							Website
-							{hasValidUrl && state.url ? (
-								<Image
-									src={`http://www.google.com/s2/favicons?domain=${state.url}&sz=125`}
-									width={15}
-									height={15}
-									alt={state?.name}
-									className='ml-2'
-								/>
-							) : null}
-						</Label>
-						<Input
-							className='mt-1.5'
-							id='website'
-							type='url'
-							pattern='https://.*|http://.*'
-							maxLength={30}
-							placeholder='https://netflix.com'
-							required
-							onChange={(event) =>
-								setState({
-									...state,
-									url: event.target.value,
-								})
-							}
-							value={state.url}
-						/>
-					</div>
-					<div className='grid grid-cols-[34%,36%,30%] gap-1'>
-						<div className='mr-3'>
-							<Label htmlFor='price'>
-								Price
-								<span className='ml-2 font-mono text-xs text-muted-foreground'>
-									({getCurrencySymbol(user.currency, user.locale)})
-								</span>
-							</Label>
-							<Input
-								className='mt-1.5'
-								id='price'
-								type='number'
-								placeholder='699'
-								required
-								min='0'
-								step='any'
-								onChange={(event) =>
-									setState({
-										...state,
-										price: event.target.value,
-									})
-								}
-								value={state.price}
-							/>
-						</div>
-						<div className='mr-3'>
-							<Label htmlFor='date'>Bought Date</Label>
-							<Input
-								className='mt-1.5 appearance-none'
-								id='date'
-								type='date'
-								required
-								max={todayDate}
-								pattern={datePattern}
-								onChange={(event) => {
-									setState({ ...state, date: event.target.value });
-								}}
-								value={state.date}
-							/>
-						</div>
-						<div className='mr-3'>
-							<Label htmlFor='paying'>Paying</Label>
-							<select
-								id='paying'
-								className='mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
-								onChange={(event) => {
-									setState({ ...state, paid: event.target.value });
-								}}
-								value={state.paid}
-								required
-							>
-								{Object.keys(subscriptionCategory).map((key) => {
-									return (
-										<option key={key} value={key}>
-											{subscriptionCategory[key].name}
-										</option>
-									);
-								})}
-							</select>
-						</div>
-					</div>
-					<div>
-						<Label className='block'>
-							Notes{' '}
-							<span className='text-center text-sm text-muted-foreground'>
-								(optional)
-							</span>
-						</Label>
-						<Textarea
-							className='mt-2 h-20'
-							onChange={(event) =>
-								setState({
-									...state,
-									notes: event.target.value,
-								})
-							}
-							value={state.notes}
-							maxLength={60}
-						/>
-					</div>
-
-					<Button disabled={loading} className='mt-2' type='submit'>
-						{loading ? (
-							<CircleLoader />
+				<form autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+					<fieldset
+						disabled={isSubmitting}
+						className='group md:[420px] grid w-full grid-cols-1 items-center gap-3'
+					>
+						{window.innerWidth <= 768 ? (
+							<Drawer.Title className='text-xl text-primary font-semibold mb-4'>{`${
+								selected.id ? 'Edit' : 'Add'
+							} Subscription`}</Drawer.Title>
 						) : (
-							`${selected?.id ? 'Update' : 'Submit'}`
+							<DialogTitle className='text-xl text-primary'>{`${
+								selected.id ? 'Edit' : 'Add'
+							} Subscription`}</DialogTitle>
 						)}
-					</Button>
+						<div className='relative group-disabled:opacity-90'>
+							<FormField
+								control={form.control}
+								name='name'
+								render={({ field: { onChange, onBlur, value } }) => (
+									<FormItem>
+										<FormLabel>Name</FormLabel>
+										<FormControl>
+											<Fragment>
+												<Input
+													id='name'
+													className='mt-1.5'
+													placeholder='Salary'
+													maxLength={30}
+													required
+													autoFocus
+													autoComplete='off'
+													onBlur={onBlur}
+													onChange={(e) => {
+														const { value } = e.target;
+														if (value.length) {
+															onChange(e);
+															if (value.length > 2) onLookup(value);
+														} else {
+															reset({
+																autocomplete: [],
+																name: '',
+																category: '',
+															});
+														}
+													}}
+													value={value}
+												/>
+												<AutoCompleteList
+													onHide={() => {
+														reset({ autocomplete: [] });
+													}}
+													data={autocomplete as unknown as string[]}
+													searchTerm={name.length > 2 ? name.toLowerCase() : ''}
+													onClick={({ name, category }) => {
+														setValue('name', name);
+														reset({ autocomplete: [] });
+													}}
+													show={Boolean(autocomplete?.length)}
+												/>
+											</Fragment>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+
+						<div className='group-disabled:opacity-90'>
+							<FormField
+								control={control}
+								name='url'
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>
+											Website
+											{errors.url && url ? (
+												<Image
+													src={`http://www.google.com/s2/favicons?domain=${url}&sz=125`}
+													width={15}
+													height={15}
+													alt={name}
+													className='ml-2'
+												/>
+											) : null}
+										</FormLabel>
+										<FormControl>
+											<Input
+												className='mt-1.5'
+												id='website'
+												type='url'
+												pattern='https://.*|http://.*'
+												maxLength={30}
+												placeholder='https://netflix.com'
+												required
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+
+						{/*<div className='grid grid-cols-[100%] gap-1'>*/}
+						{/*	<Label className='flex grow-0 items-center' htmlFor='website'>*/}
+						{/*		Website*/}
+						{/*		{errors.url && url ? (*/}
+						{/*			<Image*/}
+						{/*				src={`http://www.google.com/s2/favicons?domain=${url}&sz=125`}*/}
+						{/*				width={15}*/}
+						{/*				height={15}*/}
+						{/*				alt={state?.name}*/}
+						{/*				className='ml-2'*/}
+						{/*			/>*/}
+						{/*		) : null}*/}
+						{/*	</Label>*/}
+						{/*	<Input*/}
+						{/*		className='mt-1.5'*/}
+						{/*		id='website'*/}
+						{/*		type='url'*/}
+						{/*		pattern='https://.*|http://.*'*/}
+						{/*		maxLength={30}*/}
+						{/*		placeholder='https://netflix.com'*/}
+						{/*		required*/}
+						{/*		onChange={(event) =>*/}
+						{/*			setState({*/}
+						{/*				...state,*/}
+						{/*				url: event.target.value,*/}
+						{/*			})*/}
+						{/*		}*/}
+						{/*		value={state.url}*/}
+						{/*	/>*/}
+						{/*</div>*/}
+
+						<div className='grid grid-cols-[34%,36%,30%] gap-1'>
+							<FormField
+								control={control}
+								name='price'
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>
+											Amount
+											<span className='text-muted-foreground ml-1 text-xs'>
+												({getCurrencySymbol(user.currency, user.locale)})
+											</span>
+										</FormLabel>
+										<FormControl>
+											<Input
+												type='number'
+												placeholder='399'
+												required
+												min='0'
+												step='any'
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={control}
+								name='date'
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Bought Date</FormLabel>
+										<Popover>
+											<PopoverTrigger asChild>
+												<FormControl>
+													<Button
+														variant={'outline'}
+														className={cn(
+															'w-full text-left font-normal',
+															!field.value && 'text-muted-foreground'
+														)}
+													>
+														{field.value ? (
+															format(field.value, dateFormat)
+														) : (
+															<span>Pick a date</span>
+														)}
+														<CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+													</Button>
+												</FormControl>
+											</PopoverTrigger>
+											<PopoverContent className='w-auto p-0' align='start'>
+												<Calendar
+													mode='single'
+													selected={field.value}
+													onSelect={field.onChange}
+													disabled={(date) =>
+														date > new Date() || date < new Date('1900-01-01')
+													}
+													initialFocus
+												/>
+											</PopoverContent>
+										</Popover>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={control}
+								name='paid'
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Paying</FormLabel>
+										<Popover>
+											<PopoverTrigger asChild>
+												<FormControl>
+													<Button
+														variant='outline'
+														role='combobox'
+														className={cn(
+															'w-full justify-between truncate',
+															!field.value && 'text-muted-foreground'
+														)}
+													>
+														{field.value
+															? subscriptionCategory[
+																	Object.keys(subscriptionCategory).find(
+																		(categoryKey) => categoryKey === field.value
+																	) as keyof typeof subscriptionCategory
+															  ]
+															: 'Select'}
+														<CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+													</Button>
+												</FormControl>
+											</PopoverTrigger>
+											<PopoverContent className='w-[200px] p-0'>
+												<Command>
+													<CommandInput placeholder='Search category...' />
+													<CommandEmpty>No category found.</CommandEmpty>
+													<CommandGroup>
+														{Object.keys(subscriptionCategory).map(
+															(categoryKey) => (
+																<CommandItem
+																	value={categoryKey}
+																	key={fancyId()}
+																	onSelect={() => {
+																		setValue('paid', categoryKey);
+																	}}
+																>
+																	<CheckIcon
+																		className={cn(
+																			'mr-2 h-4 w-4',
+																			categoryKey === field.value
+																				? 'opacity-100'
+																				: 'opacity-0'
+																		)}
+																	/>
+																	{subscriptionCategory[categoryKey]}
+																</CommandItem>
+															)
+														)}
+													</CommandGroup>
+												</Command>
+											</PopoverContent>
+										</Popover>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							{/*<div className='mr-3'>*/}
+							{/*	<Label htmlFor='paying'>Paying</Label>*/}
+							{/*	<select*/}
+							{/*		id='paying'*/}
+							{/*		className='mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'*/}
+							{/*		onChange={(event) => {*/}
+							{/*			setState({ ...state, paid: event.target.value });*/}
+							{/*		}}*/}
+							{/*		value={state.paid}*/}
+							{/*		required*/}
+							{/*	>*/}
+							{/*		{Object.keys(subscriptionCategory).map((key) => {*/}
+							{/*			return (*/}
+							{/*				<option key={key} value={key}>*/}
+							{/*					{subscriptionCategory[key].name}*/}
+							{/*				</option>*/}
+							{/*			);*/}
+							{/*		})}*/}
+							{/*	</select>*/}
+							{/*</div>*/}
+						</div>
+
+						<div className='group-disabled:opacity-90'>
+							<FormField
+								control={control}
+								name='notes'
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>
+											Notes{' '}
+											<span className='text-center text-sm text-muted-foreground'>
+												(optional)
+											</span>
+										</FormLabel>
+										<FormControl>
+											<Textarea
+												className='mt-2 h-20'
+												maxLength={60}
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+
+						<Button
+							disabled={isSubmitting || !isDirty || !isValid}
+							size='lg'
+							type='submit'
+						>
+							{isSubmitting ? <CircleLoader className='mr-2' /> : null}
+							{selected?.id ? 'Update' : 'Submit'}
+						</Button>
+					</fieldset>
 				</form>
 			</div>
-		</Modal>
+		</Form>
 	);
 }
