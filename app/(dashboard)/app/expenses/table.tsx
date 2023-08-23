@@ -14,10 +14,11 @@ import { lookup } from '@/lib/lookup';
 import { ExpenseData, deleteExpense } from './apis';
 import { columns } from './columns';
 
+
 const categories = Object.keys(expensesCategory)
 	.filter(Boolean)
 	.map((categoryKey) => ({
-		label: expensesCategory[categoryKey].name,
+		label: expensesCategory[categoryKey]?.name,
 		value: categoryKey,
 	}));
 

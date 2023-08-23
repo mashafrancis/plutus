@@ -17,47 +17,58 @@ export default function OverviewCharts() {
 	const user = useUser();
 
 	return (
-		<div className='grid gap-2 md:grid-cols-6'>
-			<Card className='col-span-3'>
-				<CardHeader>
-					<CardTitle>Expenses</CardTitle>
-				</CardHeader>
-				<CardContent className='md:pl-0 pl-1'>
-					<ExpenseChart />
-				</CardContent>
-			</Card>
+		<div className='mb-8 grid grid-cols-1 gap-2 lg:grid-cols-2'>
+			<div className='mr-4 flex min-h-full w-full flex-col'>
+				<Card className='h-full'>
+					<CardHeader>
+						<CardTitle>Expenses</CardTitle>
+						<CardDescription>
+							Amount spent for the selected date range.
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<ExpenseChart />
+					</CardContent>
+				</Card>
+			</div>
 
-			<Card className='col-span-3'>
-				<CardHeader>
-					<CardTitle>Subscriptions</CardTitle>
-					<CardDescription>
-						Estimated total amount spent for selected date range.
-					</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<DonutChart />
-				</CardContent>
-			</Card>
+			<div className='mb-8 flex min-h-full w-full flex-col md:my-0'>
+				<Card className='h-full w-full'>
+					<CardHeader>
+						<CardTitle>Subscriptions</CardTitle>
+						<CardDescription>
+							Estimated total amount spent for selected date range.
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<DonutChart />
+					</CardContent>
+				</Card>
+			</div>
 
 			{!user.isPremium ? (
 				<>
-					<Card className='col-span-3'>
-						<CardHeader>
-							<CardTitle>Recent Activities</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<RecentActivitiesTable />
-						</CardContent>
-					</Card>
+					<div className='mb-8 flex min-h-full w-full flex-col md:my-0'>
+						<Card className='h-full w-full'>
+							<CardHeader>
+								<CardTitle>Recent Activities</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<RecentActivitiesTable />
+							</CardContent>
+						</Card>
+					</div>
 
-					<Card className='col-span-3'>
-						<CardHeader>
-							<CardTitle>Top Spent Expenses</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<TopSpentExpenses />
-						</CardContent>
-					</Card>
+					<div className='mb-8 flex min-h-full w-full flex-col md:my-0'>
+						<Card className='h-full w-full'>
+							<CardHeader>
+								<CardTitle>Top Spent Expenses</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<TopSpentExpenses />
+							</CardContent>
+						</Card>
+					</div>
 				</>
 			) : null}
 		</div>

@@ -48,21 +48,21 @@ function ErrorPage({
 					<div className='max-w-screen-md'>
 						{/* eslint-disable-next-line tailwindcss/no-custom-classname */}
 						{/*<div className='font-dark text-5xl font-bold'>{statusCode}</div>*/}
-						<p className='text-2xl font-light leading-normal md:text-3xl'>
+						<p className='text-xl font-light leading-normal md:text-3xl'>
 							{title}{' '}
 						</p>
-						<p className='font-light leading-normal text-muted-foreground md:text-xl'>
+						<p className='font-light leading-normal text-muted-foreground'>
 							There is a bug on the page you were viewing. Please try reload the
 							application or you can report this to the service availability{' '}
 							<Link
 								className='text-blue-500 underline'
-								href='mailto:ServiceAvailability@safaricom.co.ke'
+								href='mailto:francismasha96@gmail.com'
 							>
 								here
 							</Link>
 							.
 						</p>
-						<p className='my-4 text-xl'>{subtitle}</p>
+						<p className='my-4'>{subtitle}</p>
 						<Conditional condition={hasError}>
 							<div className='mb-8 h-96 overflow-auto rounded-md border border-dashed border-destructive p-4'>
 								<p className='font-semibold uppercase'>Stack trace details:</p>

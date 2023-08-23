@@ -4,10 +4,9 @@ import { fontFamily } from 'tailwindcss/defaultTheme';
 const tailwindConfig = {
 	darkMode: ['class'],
 	content: [
-		'./pages/**/*.{ts,tsx}',
 		'./components/**/*.{ts,tsx}',
 		'./app/**/*.{ts,tsx}',
-		'./node_modules/@tremor/**/*.{js,ts,jsx,tsx}',
+		'./node_modules/@tremor/**/*.{js,ts,jsx,tsx}', // Tremor module
 	],
 	theme: {
 		transparent: 'transparent',
@@ -132,6 +131,9 @@ const tailwindConfig = {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)',
+				'tremor-small': '0.375rem',
+				'tremor-default': '0.5rem',
+				'tremor-full': '9999px',
 			},
 			fontSize: {
 				'tremor-label': ['0.75rem', { lineHeight: '1rem' }],

@@ -28,7 +28,7 @@ textarea {
 
 .tremor-BarList-labelText,
 .recharts-surface text.fill-tremor-content-emphasis {
-	font-variant-numeric: tabular-nums;
+	font-variant-numeric: tabular-nums !important;
 }
 
 .dark .tremor-BarList-labelText {
@@ -37,4 +37,10 @@ textarea {
 
 .dark .recharts-tooltip-wrapper .text-tremor-content {
 	color: #000 !important;
+}
+
+.recharts-tooltip-wrapper {
+	font-variant-numeric: tabular-nums;
+	background-color: #fff !important;
+	z-index: 9999 !important;
 }

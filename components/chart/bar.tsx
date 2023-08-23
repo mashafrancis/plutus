@@ -14,7 +14,7 @@ import { formatCurrency } from '@/lib/formatter';
 import { BarChart } from '@tremor/react';
 
 const dataFormatter = (number: number) => {
-	return '$ ' + Intl.NumberFormat('us').format(number).toString();
+	return Intl.NumberFormat('us').format(number).toString();
 };
 
 export default function ExpenseChart() {
