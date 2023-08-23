@@ -26,15 +26,20 @@ export default function SubscriptionSummary() {
 				<CardLoader cards={4} className='mb-6' />
 			) : (
 				<div className='grid grid-cols-2 gap-2 lg:grid-cols-4'>
-					<OverviewCard heading='Total Subscriptions' data={data.length} />
+					<OverviewCard
+						heading='Total Subscriptions'
+						data={data.length}
+						className='bg-[#EADDFF] text-[#21005D]'
+					/>
 					<OverviewCard
 						heading='Active - Cancelled'
 						data={`${data.filter((datum: any) => datum.active).length} - ${
 							data.filter((datum: any) => !datum.active).length
 						}`}
+						className='bg-[#D5E4EB] text-[#34383B]'
 					/>
 					<OverviewCard
-						heading='Total Active - Monthly'
+						heading='Active - Monthly'
 						data={formatCurrency({
 							value: monthlyData.reduce(
 								(acc: any, datum: any) => Number(datum.price) + acc,
@@ -43,10 +48,11 @@ export default function SubscriptionSummary() {
 							currency: user.currency,
 							locale: user.locale,
 						})}
+						className='bg-[#B9E3FD] text-[#282B2D]'
 					/>
 
 					<OverviewCard
-						heading='Total Active - Yearly'
+						heading='Active - Yearly'
 						data={formatCurrency({
 							value: yearlyData.reduce(
 								(acc: any, datum: any) => Number(datum.price) + acc,
@@ -55,6 +61,7 @@ export default function SubscriptionSummary() {
 							currency: user.currency,
 							locale: user.locale,
 						})}
+						className='bg-[#efebe9] text-[#3e2723]'
 					/>
 				</div>
 			)}

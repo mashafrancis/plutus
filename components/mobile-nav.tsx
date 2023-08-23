@@ -89,7 +89,7 @@ const MobileNav = () => {
 	return (
 		<div className='sm:hidden'>
 			<button
-				className={cn(styles.burger, 'visible md:hidden')}
+				className={cn(styles.burger, 'visible md:hidden text-muted-foreground')}
 				aria-label='Toggle menu'
 				type='button'
 				onClick={onToggleNav}

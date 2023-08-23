@@ -6,6 +6,7 @@ import Add from '@/components/add-button';
 import { useUser } from '@/components/client-provider/auth-provider';
 import { useData } from '@/components/client-provider/data-provider';
 import DataTable from '@/components/table/data-table';
+import MobileTable from '@/components/table/mobile-table';
 import { useToast } from '@/components/ui/use-toast';
 import messages from '@/constants/messages';
 import { sortByKey } from '@/lib/extractor';
@@ -72,6 +73,7 @@ export default function SubscriptionTable() {
 				filename='Subscriptions'
 				hideViewOptions
 			/>
+			<MobileTable data={data} title='Subscriptions' />
 			<Add
 				onHide={onHide}
 				onLookup={onLookup}

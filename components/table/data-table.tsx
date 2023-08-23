@@ -91,7 +91,7 @@ export default function DataTable<TData, TValue>(props: DataTableProps) {
 	});
 
 	return (
-		<div className='mb-8'>
+		<div className='mb-8 hidden md:block'>
 			<DataTableToolbar
 				categories={categories}
 				user={options.user}

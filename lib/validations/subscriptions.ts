@@ -13,7 +13,7 @@ export const subscriptionCreateOrPatchSchema = z.object({
 	category: z.string().optional(),
 	active: z.boolean().optional(),
 	renewal_date: z.string().optional(),
-	prev_renewal_date: z.date().optional(),
+	prev_renewal_date: z.string().optional(),
 	paid_dates: z.array(z.date()).optional(),
 	cancelled_at: z.string().optional(),
 });
