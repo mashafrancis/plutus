@@ -40,7 +40,7 @@ export default async function DashboardLayout({
 	return (
 		<AuthProvider user={user} accessToken={session?.access_token || null}>
 			<DatePickerProvider>
-				<div className='flex min-h-screen flex-col space-y-6'>
+				<div className='flex min-h-screen flex-col space-y-6 bg-gray'>
 					<div className='flex h-full'>
 						<AppNav items={appConfig.sidebarNav} user={session.user} />
 						<main className='mb-16 flex w-full flex-1 flex-col overflow-hidden'>

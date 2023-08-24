@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
+import { DataTablePagination } from '@/components/table/data-table-pagination';
 import {
 	Table,
 	TableBody,
@@ -75,9 +76,11 @@ export default function DataTable<TData, TValue>(props: DataTableProps) {
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
+	const memoizedColumns = useMemo(() => columns, [columns]);
+
 	const table = useReactTable({
 		data,
-		columns,
+		columns: memoizedColumns,
 		getCoreRowModel: getCoreRowModel(),
 		onSortingChange: setSorting,
 		getSortedRowModel: getSortedRowModel(),
@@ -91,7 +94,7 @@ export default function DataTable<TData, TValue>(props: DataTableProps) {
 	});
 
 	return (
-		<div className='mb-8 hidden md:block'>
+		<div className='mb-8 hidden md:block space-y-4'>
 			<DataTableToolbar
 				categories={categories}
 				user={options.user}
@@ -103,7 +106,7 @@ export default function DataTable<TData, TValue>(props: DataTableProps) {
 			/>
 			<div className='rounded-md border border-border bg-background'>
 				<Table>
-					<TableHeader>
+					<TableHeader className='bg-muted/50'>
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map((header) => {
@@ -147,7 +150,7 @@ export default function DataTable<TData, TValue>(props: DataTableProps) {
 							<TableRow>
 								<TableCell
 									colSpan={columns.length}
-									className='h-24 text-center'
+									className='h-[450px] text-center'
 								>
 									No data
 								</TableCell>
@@ -156,6 +159,7 @@ export default function DataTable<TData, TValue>(props: DataTableProps) {
 					</TableBody>
 				</Table>
 			</div>
+			<DataTablePagination table={table} />
 		</div>
 	);
 }

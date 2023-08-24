@@ -23,7 +23,7 @@ export default function AppNav({ items, user }: DashboardNavProps) {
 	}
 
 	return (
-		<div className='fixed inset-0 z-[1] hidden h-screen w-24 flex-col justify-between overflow-y-hidden border-r bg-background p-2 backdrop-blur md:flex'>
+		<div className='bg-background fixed inset-0 z-[1] hidden h-screen w-24 flex-col justify-between overflow-y-hidden p-2 backdrop-blur md:flex'>
 			<ul className='flex flex-col space-y-8'>
 				<Link href='/' className='my-4 hidden justify-center md:flex'>
 					<Icons.logo width={36} />
@@ -68,9 +68,24 @@ export default function AppNav({ items, user }: DashboardNavProps) {
 			<ul className='flex flex-col justify-center space-y-2'>
 				<Link
 					href='/app/settings'
-					className='my-4 hidden justify-center md:flex'
+					className={cn(
+						'hover:text-foreground/80 m-4 flex flex-col items-center justify-center text-center font-medium transition-colors',
+						pathname === 'settings' ? 'text-foreground' : 'text-foreground/60'
+					)}
 				>
-					<Icons.settings width={36} />
+					<Button
+						aria-label='settings'
+						variant='ghost'
+						size='icon'
+						className={cn(
+							pathname === 'settings'
+								? 'bg-primary/10 hover:bg-primary/10 hover:text-primary text-primary'
+								: 'text-gray-500',
+							'h-8 w-14 rounded-full p-0 font-medium ring-primary/40 transition-all hover:bg-primary/10 hover:ring-1 disabled:cursor-not-allowed disabled:text-muted-foreground/50 disabled:opacity-80'
+						)}
+					>
+						<Icons.settings className='h-5 w-5' />
+					</Button>
 				</Link>
 				<div className='my-4 hidden justify-center md:flex'>
 					<UserAccountNav

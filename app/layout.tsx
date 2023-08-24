@@ -58,7 +58,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 			lang='en'
 			suppressHydrationWarning
 			className={cn(
-				'min-h-screen bg-background font-sans text-black',
+				'min-h-screen font-sans text-black',
 				fontSans.variable,
 				fontHeading.variable
 			)}

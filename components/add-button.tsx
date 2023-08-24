@@ -101,7 +101,7 @@ export default function Add({
 			<DialogTrigger asChild>
 				<Button
 					// size='icon'
-					className='fixed bottom-[72px] right-[20px] z-40 flex h-[56px] items-center justify-between rounded-lg p-[12px] text-white shadow-lg sm:h-[48px]'
+					className='fixed bottom-[72px] right-[20px] z-40 flex h-[56px] items-center justify-between rounded-xl p-[12px] text-white shadow-lg sm:h-[48px]'
 					onClick={() => {
 						setShow(!show);
 					}}

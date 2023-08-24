@@ -3,9 +3,11 @@
 import Image from 'next/image';
 
 import DataTableColumnHeader from '@/components/table/data-table-column-header';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { formatCurrency, formatDate } from '@/lib/formatter';
+import { cn } from '@/lib/utils';
 import { SubscriptionData } from '@/lib/validations/subscriptions';
 import { ColumnDef } from '@tanstack/react-table';
 import { isThisMonth } from 'date-fns';
@@ -26,13 +28,13 @@ export const columns: ColumnDef<SubscriptionData>[] = [
 					<Image
 						className='absolute inline-block text-transparent'
 						src={`https://www.google.com/s2/favicons?domain=${url}`}
-						width={14}
-						height={14}
+						width={18}
+						height={18}
 						alt={name}
 					/>
 					<a
 						target='_blank'
-						className='ml-6 underline'
+						className='text-primary ml-6 hover:underline'
 						href={url}
 						rel='noreferrer'
 					>
@@ -63,7 +65,7 @@ export const columns: ColumnDef<SubscriptionData>[] = [
 			return (
 				<div className='my-1 font-medium tabular-nums'>
 					{formatted}
-					<p className='mt-[2px] text-xs text-muted-foreground'>
+					<p className='text-muted-foreground mt-[2px] text-xs'>
 						{' '}
 						per {paid.replace(/ly/, '')}
 					</p>
@@ -119,7 +121,7 @@ export const columns: ColumnDef<SubscriptionData>[] = [
 				<div className='my-1'>
 					{formatted}
 					{cancelledAt ? (
-						<p className='mt-[2px] text-xs text-muted-foreground'>
+						<p className='text-muted-foreground mt-[2px] text-xs'>
 							Cancel: {formatDate({ date: cancelledAt, locale: user.locale })}
 						</p>
 					) : null}
@@ -137,15 +139,16 @@ export const columns: ColumnDef<SubscriptionData>[] = [
 			const { row } = props;
 			const active = row.getValue<boolean>('active');
 			return (
-				<span
-					className={`inline-flex items-center rounded-md px-2 py-1 text-xs  ${
+				<Badge
+					className={cn(
 						active
-							? 'bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20'
-							: 'bg-red-50 text-red-700 ring-1 ring-inset ring-red-600/10'
-					}`}
+							? 'bg-success/10 text-success hover:bg-success/20 hover:text-success/90'
+							: 'bg-destructive/10 hover:bg-destructive/20 text-red-800 hover:text-red-900',
+						'inline-flex items-center rounded-full px-2 py-1 text-xs shadow-sm'
+					)}
 				>
 					{active ? 'Active' : 'Cancelled'}
-				</span>
+				</Badge>
 			);
 		},
 	},

@@ -6,12 +6,9 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
-import {
-	ArrowDownIcon,
-	ArrowUpIcon,
-	CaretSortIcon,
-} from '@radix-ui/react-icons';
+import { ArrowDownIcon, ArrowUpIcon } from '@radix-ui/react-icons';
 import { Column } from '@tanstack/react-table';
+import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
 
 interface DataTableColumnHeaderProps<TData, TValue>
 	extends React.HTMLAttributes<HTMLDivElement> {
@@ -39,11 +36,11 @@ export default function DataTableColumnHeader<TData, TValue>({
 					>
 						<span className='text-sm capitalize'>{title}</span>
 						{column.getIsSorted() === 'desc' ? (
-							<ArrowDownIcon className='ml-1 h-3.5 w-3.5' />
+							<ArrowDown className='ml-1 h-3.5 w-3.5' />
 						) : column.getIsSorted() === 'asc' ? (
-							<ArrowUpIcon className='ml-1 mt-[-1px] h-3.5 w-3.5' />
+							<ArrowUp className='ml-1 mt-[-1px] h-3.5 w-3.5' />
 						) : (
-							<CaretSortIcon className='ml-1 mt-[1px] h-3.5 w-3.5' />
+							<ArrowUpDown className='ml-1 mt-[1px] h-3.5 w-3.5' />
 						)}
 					</Button>
 				</DropdownMenuTrigger>
