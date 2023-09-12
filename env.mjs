@@ -1,5 +1,5 @@
-import {z} from "zod";
-import {createEnv} from "@t3-oss/env-nextjs";
+import { z } from 'zod';
+import { createEnv } from '@t3-oss/env-nextjs';
 
 export const env = createEnv({
 	/**
@@ -7,7 +7,7 @@ export const env = createEnv({
 	 * isn't built with invalid env vars.
 	 */
 	server: {
-		NODE_ENV: z.enum(["development", "test", "production"]),
+		NODE_ENV: z.enum(['development', 'test', 'production']),
 		PRISMA_FIELD_ENCRYPTION_KEY: z.string().min(1),
 		RESEND_API_KEY: z.string().min(1),
 		SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
@@ -21,6 +21,7 @@ export const env = createEnv({
 	client: {
 		NEXT_PUBLIC_SUPABASE_URL: z.string().min(1),
 		NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
+		NEXT_PUBLIC_HEIMDALL_API: z.string().min(1),
 	},
 
 	/**
@@ -34,5 +35,6 @@ export const env = createEnv({
 		NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 		RESEND_API_KEY: process.env.RESEND_API_KEY,
 		SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+		NEXT_PUBLIC_HEIMDALL_API: process.env.NEXT_PUBLIC_HEIMDALL_API,
 	},
 });

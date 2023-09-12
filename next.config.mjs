@@ -1,16 +1,15 @@
 import million from 'million/compiler';
+/**
+ * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
+ * for Docker builds.
+ */
+import { env } from './env.mjs';
 
 const millionConfig = {
 	// auto: true,
 	// if you're using RSC:
 	auto: { rsc: true, threshold: 0.5, ignore: ['**/node_modules/**'] },
 };
-
-/**
- * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
- * for Docker builds.
- */
-await import('./env.mjs');
 
 const ContentSecurityPolicy = `
     default-src 'self' francismasha.com;
@@ -84,6 +83,12 @@ const nextConfig = {
 	async headers() {
 		return [{ source: '/(.*)', headers: securityHeaders }];
 	},
+	rewrites: async () => [
+		{
+			source: '/api/heimdall',
+			destination: env.NEXT_PUBLIC_HEIMDALL_API,
+		},
+	],
 };
 
 export default million.next(nextConfig, millionConfig);

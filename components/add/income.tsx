@@ -2,7 +2,6 @@
 
 import { Fragment, useMemo } from 'react';
 
-import * as z from 'zod';
 import { incrementUsage } from '@/app/(dashboard)/app/apis';
 import { addIncome, editIncome } from '@/app/(dashboard)/app/income/apis';
 import AutoCompleteList from '@/components/autocomplete-list';
@@ -34,6 +33,10 @@ import { dateFormat } from '@/constants/date';
 import messages from '@/constants/messages';
 import { getCurrencySymbol } from '@/lib/formatter';
 import { cn } from '@/lib/utils';
+import {
+	IncomeData,
+	incomeCreateOrPatchSchema,
+} from '@/lib/validations/income';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
@@ -43,7 +46,7 @@ import { Drawer } from 'vaul';
 
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
-interface AddIncome {
+interface AddIncomeProps {
 	show: boolean;
 	selected: any;
 	onHide: () => void;
@@ -53,18 +56,7 @@ interface AddIncome {
 
 const todayDate = new Date();
 
-const incomeFormSchema = z.object({
-	category: z.string(),
-	date: z.date(),
-	name: z.string(),
-	price: z.string(),
-	notes: z.string(),
-	autocomplete: z.array(z.string()).optional(),
-});
-
-type IncomeFormSchema = z.infer<typeof incomeFormSchema>;
-
-const defaultValues: Partial<IncomeFormSchema> = {
+const defaultValues: Partial<IncomeData> = {
 	category: '',
 	date: todayDate,
 	name: '',
@@ -78,13 +70,13 @@ export default function AddIncome({
 	mutate,
 	selected,
 	lookup,
-}: AddIncome) {
+}: AddIncomeProps) {
 	const user = useUser();
 	const { toast } = useToast();
 
-	const form = useForm<IncomeFormSchema>({
+	const form = useForm<IncomeData>({
 		defaultValues,
-		resolver: zodResolver(incomeFormSchema),
+		resolver: zodResolver(incomeCreateOrPatchSchema),
 	});
 
 	const {
@@ -107,7 +99,7 @@ export default function AddIncome({
 		return debounce(callbackHandler, 500);
 	}, [lookup]);
 
-	const onSubmit = async (data: IncomeFormSchema) => {
+	const onSubmit = async (data: IncomeData) => {
 		try {
 			const isEditing = selected?.id;
 			if (isEditing) {

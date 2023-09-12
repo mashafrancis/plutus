@@ -1,14 +1,16 @@
 import { apiUrls } from '@/lib/apiUrls';
+import { ExpenseData } from '@/lib/validations/expenses';
 
-export type ExpenseData = {
-	notes: string;
-	name: string;
-	price: string;
-	category: string;
-	date: string;
-	paid_via: string;
-	id: string | null;
-};
+
+// export type ExpenseData = {
+// 	notes: string;
+// 	name: string;
+// 	price: string;
+// 	category: string;
+// 	date: string;
+// 	paid_via: string;
+// 	id: string | null;
+// };
 
 export const addExpense = async (data: ExpenseData) => {
 	const res = await fetch(apiUrls.expenses.add, {

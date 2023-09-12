@@ -1,14 +1,9 @@
 import { apiUrls } from '@/lib/apiUrls';
+import { IncomeData } from '@/lib/validations/income';
 
-export type IncomeData = {
-	notes: string;
-	name: string;
-	price: string;
-	category: string;
-	date: Date;
-};
+type IncomeCreateOrPatchData = Omit<IncomeData, 'autocomplete'>;
 
-export const addIncome = async (data: IncomeData) => {
+export const addIncome = async (data: IncomeCreateOrPatchData) => {
 	const res = await fetch(apiUrls.income.add, {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -27,7 +22,7 @@ export const deleteIncome = async (id: string) => {
 	return await res.json();
 };
 
-export const editIncome = async (data: IncomeData) => {
+export const editIncome = async (data: IncomeCreateOrPatchData) => {
 	const res = await fetch(apiUrls.income.modify, {
 		method: 'PUT',
 		body: JSON.stringify(data),

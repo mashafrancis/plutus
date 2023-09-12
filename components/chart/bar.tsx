@@ -10,7 +10,6 @@ import {
 	extractExpenses,
 	extractExpensesCategory,
 } from '@/lib/extractor';
-import { formatCurrency } from '@/lib/formatter';
 import { BarChart } from '@tremor/react';
 
 const dataFormatter = (number: number) => {
@@ -50,11 +49,7 @@ export default function ExpenseChart() {
 			index='date'
 			categories={categoryData}
 			valueFormatter={(value) => {
-				return formatCurrency({
-					value,
-					currency: user.currency,
-					locale: user.locale,
-				});
+				return dataFormatter(value);
 			}}
 			yAxisWidth={84}
 			maxValue={maxXAxisValue?.value}

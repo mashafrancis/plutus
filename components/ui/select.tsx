@@ -13,6 +13,8 @@ const SelectGroup = SelectPrimitive.Group;
 
 const SelectValue = SelectPrimitive.Value;
 
+const SelectViewPort = SelectPrimitive.Viewport;
+
 const SelectTrigger = React.forwardRef<
 	React.ElementRef<typeof SelectPrimitive.Trigger>,
 	React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
@@ -118,4 +120,5 @@ export {
 	SelectLabel,
 	SelectItem,
 	SelectSeparator,
+	SelectViewPort,
 };

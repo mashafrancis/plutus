@@ -8,7 +8,7 @@ import { fontHeading, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
 import '@/styles/overwrites.css';
-import Loglib from '@loglib/tracker/react';
+import Heimdall from '@heimdall-logs/tracker/react';
 
 export const dynamic = 'force-dynamic';
 
@@ -67,10 +67,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				<ClientProvider>
 					{children}
 					<Toaster />
-					<Loglib
+					<Heimdall
 						config={{
 							id: 'plutus',
 							consent: 'granted',
+							host: '/api/heimdall',
+							autoTrack: true,
 						}}
 					/>
 				</ClientProvider>

@@ -37,7 +37,7 @@ export default function SubscriptionTable() {
 	);
 
 	const onChange = useCallback(
-		async (data: SubscriptionData | any) => {
+		async (data: SubscriptionData) => {
 			try {
 				await editSubscription(data);
 				toast({ description: messages.updated });
@@ -49,7 +49,7 @@ export default function SubscriptionTable() {
 		[mutate, toast]
 	);
 
-	const onEdit = useCallback((data: SubscriptionData | any) => {
+	const onEdit = useCallback((data: SubscriptionData) => {
 		setSelected(data);
 	}, []);
 

@@ -9,8 +9,6 @@ const tailwindConfig = {
 		'./node_modules/@tremor/**/*.{js,ts,jsx,tsx}', // Tremor module
 	],
 	theme: {
-		transparent: 'transparent',
-		current: 'currentColor',
 		container: {
 			center: true,
 			padding: '0.5rem',

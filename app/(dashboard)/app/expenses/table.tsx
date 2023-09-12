@@ -10,9 +10,11 @@ import { useToast } from '@/components/ui/use-toast';
 import { expensesCategory } from '@/constants/categories';
 import messages from '@/constants/messages';
 import { lookup } from '@/lib/lookup';
+import { ExpenseData } from '@/lib/validations/expenses';
 
-import { ExpenseData, deleteExpense } from './apis';
+import { deleteExpense } from './apis';
 import { columns } from './columns';
+
 
 const categories = Object.keys(expensesCategory)
 	.filter(Boolean)

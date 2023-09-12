@@ -14,13 +14,6 @@ import { useUser } from '@/components/client-provider/auth-provider';
 import CircleLoader from '@/components/loader/circle';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import {
-	Command,
-	CommandEmpty,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-} from '@/components/ui/command';
 import { DialogTitle } from '@/components/ui/dialog';
 import {
 	Form,
@@ -31,6 +24,13 @@ import {
 	FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { subscriptionCategory } from '@/constants/categories';
@@ -43,7 +43,7 @@ import {
 	subscriptionCreateOrPatchSchema,
 } from '@/lib/validations/subscriptions';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import { CalendarIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
 import debounce from 'debounce';
 import { useForm } from 'react-hook-form';
@@ -352,88 +352,40 @@ export default function AddSubscriptions({
 							/>
 
 							<FormField
-								control={control}
+								control={form.control}
 								name='paid'
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Paying</FormLabel>
-										<Popover>
-											<PopoverTrigger asChild>
-												<FormControl>
-													<Button
-														variant='outline'
-														role='combobox'
-														className={cn(
-															'w-full justify-between truncate',
-															!field.value && 'text-muted-foreground'
-														)}
-													>
-														{field.value
-															? subscriptionCategory[
-																	Object.keys(subscriptionCategory).find(
-																		(categoryKey) => categoryKey === field.value
-																	) as keyof typeof subscriptionCategory
-															  ]
-															: 'Select'}
-														<CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
-													</Button>
-												</FormControl>
-											</PopoverTrigger>
-											<PopoverContent className='w-[200px] p-0'>
-												<Command>
-													<CommandInput placeholder='Search category...' />
-													<CommandEmpty>No category found.</CommandEmpty>
-													<CommandGroup>
-														{Object.keys(subscriptionCategory).map(
-															(categoryKey) => (
-																<CommandItem
-																	value={categoryKey}
-																	key={fancyId()}
-																	onSelect={() => {
-																		setValue('paid', categoryKey);
-																	}}
-																>
-																	<CheckIcon
-																		className={cn(
-																			'mr-2 h-4 w-4',
-																			categoryKey === field.value
-																				? 'opacity-100'
-																				: 'opacity-0'
-																		)}
-																	/>
-																	{subscriptionCategory[categoryKey]}
-																</CommandItem>
-															)
-														)}
-													</CommandGroup>
-												</Command>
-											</PopoverContent>
-										</Popover>
+										<Select
+											onValueChange={field.onChange}
+											defaultValue={field.value}
+										>
+											<FormControl>
+												<SelectTrigger>
+													<SelectValue placeholder='Select a verified email to display' />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												{Object.keys(subscriptionCategory).map(
+													(categoryKey) => (
+														<SelectItem
+															value={categoryKey}
+															key={fancyId()}
+															onSelect={() => {
+																setValue('paid', categoryKey);
+															}}
+														>
+															{subscriptionCategory[categoryKey]}
+														</SelectItem>
+													)
+												)}
+											</SelectContent>
+										</Select>
 										<FormMessage />
 									</FormItem>
 								)}
 							/>
-
-							{/*<div className='mr-3'>*/}
-							{/*	<Label htmlFor='paying'>Paying</Label>*/}
-							{/*	<select*/}
-							{/*		id='paying'*/}
-							{/*		className='mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'*/}
-							{/*		onChange={(event) => {*/}
-							{/*			setState({ ...state, paid: event.target.value });*/}
-							{/*		}}*/}
-							{/*		value={state.paid}*/}
-							{/*		required*/}
-							{/*	>*/}
-							{/*		{Object.keys(subscriptionCategory).map((key) => {*/}
-							{/*			return (*/}
-							{/*				<option key={key} value={key}>*/}
-							{/*					{subscriptionCategory[key].name}*/}
-							{/*				</option>*/}
-							{/*			);*/}
-							{/*		})}*/}
-							{/*	</select>*/}
-							{/*</div>*/}
 						</div>
 
 						<div className='group-disabled:opacity-90'>

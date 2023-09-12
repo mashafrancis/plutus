@@ -1,24 +1,9 @@
 import { apiUrls } from '@/lib/apiUrls';
 import { SubscriptionData } from '@/lib/validations/subscriptions';
 
-export type SubscriptionDatas = {
-	id: string;
-	notes: string;
-	name: string;
-	price: string;
-	category: string;
-	cancelled_at: string;
-	paid_dates: any[];
-	prev_renewal_date: string;
-	renewal_date: string;
-	paid: string;
-	url: string;
-	active: boolean;
-	notify: string;
-	date: string;
-};
+type SubscriptionCreateOrPatchData = Omit<SubscriptionData, 'autocomplete'>;
 
-export const addSubscription = async (data: SubscriptionData) => {
+export const addSubscription = async (data: SubscriptionCreateOrPatchData) => {
 	const res = await fetch(apiUrls.subscriptions.add, {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -37,7 +22,7 @@ export const deleteSubscription = async (id: string) => {
 	return await res.json();
 };
 
-export const editSubscription = async (data: SubscriptionData) => {
+export const editSubscription = async (data: SubscriptionCreateOrPatchData) => {
 	const res = await fetch(apiUrls.subscriptions.modify, {
 		method: 'PUT',
 		body: JSON.stringify(data),
