@@ -8,7 +8,6 @@ import { fontHeading, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
 import '@/styles/overwrites.css';
-import Heimdall from '@heimdall-logs/tracker/react';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,15 +27,6 @@ export const metadata: Metadata = {
 		'plutus',
 		'plutus analytics',
 	],
-	themeColor: [
-		{ media: '(prefers-color-scheme: light)', color: 'white' },
-		{ media: '(prefers-color-scheme: dark)', color: 'black' },
-	],
-	viewport: {
-		width: 'device-width',
-		initialScale: 1,
-		userScalable: false,
-	},
 	icons: {
 		icon: 'https://plutus.francismasha.com/logo.svg',
 		shortcut: 'https://plutus.francismasha.com/favicon.ico',
@@ -67,14 +57,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				<ClientProvider>
 					{children}
 					<Toaster />
-					<Heimdall
-						config={{
-							id: 'plutus',
-							consent: 'granted',
-							host: '/api/heimdall',
-							autoTrack: true,
-						}}
-					/>
 				</ClientProvider>
 			</body>
 		</html>

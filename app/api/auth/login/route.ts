@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
 
 			try {
 				if (!user.new_signup_email) {
-					await resend.sendEmail({
+					await resend.emails.send({
 						from: emails.from,
 						subject: emails.welcome.subject,
 						to: user.email,
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
 						data: { new_signup_email: true },
 					});
 				}
-				await resend.sendEmail({
+				await resend.emails.send({
 					from: emails.from,
 					subject: emails.login.subject,
 					to: email,

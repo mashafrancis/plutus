@@ -66,9 +66,8 @@ const nextConfig = {
 	output: 'standalone',
 	swcMinify: true,
 	reactStrictMode: true,
-	generateRobotsTxt: true,
 	experimental: {
-		serverActions: true,
+		instrumentationHook: true,
 		// typedRoutes: true
 	},
 	images: {

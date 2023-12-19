@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
 	// })) as UserData;
 
 	try {
-		await resend.sendEmail({
+		await resend.emails.send({
 			from: emails.from,
 			subject: emails.welcome.subject,
 			to: email,

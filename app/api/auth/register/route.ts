@@ -32,8 +32,6 @@ export async function POST(request: NextRequest) {
 				options: { redirectTo: getRedirectUrl() },
 			});
 
-			console.log('Class: POST, Function: POST, Line 37 ():', data, error);
-
 			if (error) {
 				throw error;
 			}
@@ -41,13 +39,8 @@ export async function POST(request: NextRequest) {
 			const { properties } = data;
 			const { action_link } = properties;
 
-			console.log(
-				'Class: POST, Function: POST, Line 46 action_link():',
-				action_link
-			);
-
 			try {
-				await resend.sendEmail({
+				await resend.emails.send({
 					from: emails.from,
 					subject: emails.register.subject,
 					to: email,

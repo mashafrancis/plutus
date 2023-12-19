@@ -30,7 +30,7 @@ export default function TopSpentExpenses() {
 	return (
 		<BarList
 			data={chartData}
-			valueFormatter={(value) => {
+			valueFormatter={(value: any) => {
 				return formatCurrency({
 					value,
 					currency: user.currency,
