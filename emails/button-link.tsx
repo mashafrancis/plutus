@@ -8,7 +8,7 @@ export default function ButtonLink({
 	btnText: string;
 }) {
 	return (
-		<Button pX={16} pY={8} style={{ ...btn, textAlign: 'center' }} href={href}>
+		<Button style={{ ...btn, textAlign: 'center' }} href={href}>
 			{btnText}
 		</Button>
 	);

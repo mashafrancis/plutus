@@ -1,7 +1,6 @@
 import { apiUrls } from '@/lib/apiUrls';
 import { ExpenseData } from '@/lib/validations/expenses';
 
-
 // export type ExpenseData = {
 // 	notes: string;
 // 	name: string;

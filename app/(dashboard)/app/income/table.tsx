@@ -15,7 +15,6 @@ import { IncomeData } from '@/lib/validations/income';
 import { deleteIncome } from './apis';
 import { columns } from './columns';
 
-
 const categories = Object.keys(incomeCategory)
 	.filter(Boolean)
 	.map((categoryKey) => ({

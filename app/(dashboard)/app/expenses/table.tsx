@@ -15,7 +15,6 @@ import { ExpenseData } from '@/lib/validations/expenses';
 import { deleteExpense } from './apis';
 import { columns } from './columns';
 
-
 const categories = Object.keys(expensesCategory)
 	.filter(Boolean)
 	.map((categoryKey) => ({

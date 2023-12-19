@@ -17,7 +17,7 @@ export const extractExpenses = (data: Array<Object>, locale: string) => {
 					[datum.category]: acc[date][datum.category]
 						? acc[date][datum.category] + Number(datum.price)
 						: Number(datum.price),
-			  }
+				}
 			: { date, [datum.category]: Number(datum.price) };
 
 		return acc;

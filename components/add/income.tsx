@@ -279,7 +279,7 @@ export default function AddIncome({
 																	Object.keys(incomeCategory).find(
 																		(categoryKey) => categoryKey === field.value
 																	) as keyof typeof incomeCategory
-															  ]
+																]
 															: 'Select'}
 														<CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
 													</Button>

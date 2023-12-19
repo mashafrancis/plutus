@@ -91,7 +91,7 @@ export const columns: ColumnDef<SubscriptionData>[] = [
 				? formatDate({
 						date: renewalDate,
 						locale: user?.locale,
-				  })
+					})
 				: '-';
 			return (
 				<div

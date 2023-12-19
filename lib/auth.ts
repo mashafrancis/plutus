@@ -11,7 +11,6 @@ import { addYears } from 'date-fns';
 
 import resend from './email';
 
-
 type UserData = {
 	email: string;
 	basic_usage_limit_email: boolean;

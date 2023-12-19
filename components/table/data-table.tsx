@@ -120,7 +120,7 @@ export default function DataTable<TData, TValue>(props: DataTableProps) {
 												: flexRender(
 														header.column.columnDef.header,
 														header.getContext()
-												  )}
+													)}
 										</TableHead>
 									);
 								})}
