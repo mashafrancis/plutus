@@ -8,6 +8,7 @@ import { fontHeading, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
 import '@/styles/overwrites.css';
+import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const dynamic = 'force-dynamic';
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 					{children}
 					<Toaster />
 				</ClientProvider>
+				<Analytics />
 				<SpeedInsights />
 			</body>
 		</html>

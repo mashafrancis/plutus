@@ -98,6 +98,9 @@ dependencies:
   '@tremor/react':
     specifier: ^3.12.1
     version: 3.12.1(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.7)
+  '@vercel/analytics':
+    specifier: ^1.2.2
+    version: 1.2.2(next@14.0.4)(react@18.2.0)
   '@vercel/edge':
     specifier: ^1.1.1
     version: 1.1.1
@@ -136,7 +139,7 @@ dependencies:
     version: 2.6.4
   next:
     specifier: 14.0.4
-    version: 14.0.4(@babel/core@7.23.6)(@opentelemetry/api@1.6.0)(react-dom@18.2.0)(react@18.2.0)
+    version: 14.0.4(@babel/core@7.23.6)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)
   next-themes:
     specifier: ^0.2.1
     version: 0.2.1(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)
@@ -3832,6 +3835,22 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
+  /@vercel/analytics@1.2.2(next@14.0.4)(react@18.2.0):
+    resolution: {integrity: sha512-X0rctVWkQV1e5Y300ehVNqpOfSOufo7ieA5PIdna8yX/U7Vjz0GFsGf4qvAhxV02uQ2CVt7GYcrFfddXXK2Y4A==}
+    peerDependencies:
+      next: '>= 13'
+      react: ^18 || ^19
+    peerDependenciesMeta:
+      next:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      next: 14.0.4(@babel/core@7.23.6)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      server-only: 0.0.1
+    dev: false
+
   /@vercel/edge@1.1.1:
     resolution: {integrity: sha512-NtKiIbn9Cq6HWGy+qRudz28mz5nxfOJWls5Pnckjw1yCfSX8rhXdvY/il3Sy3Zd5n/sKCM2h7VSCCpJF/oaDrQ==}
     dev: false
@@ -6609,12 +6628,12 @@ packages:
       react: '*'
       react-dom: '*'
     dependencies:
-      next: 14.0.4(@babel/core@7.23.6)(@opentelemetry/api@1.6.0)(react-dom@18.2.0)(react@18.2.0)
+      next: 14.0.4(@babel/core@7.23.6)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /next@14.0.4(@babel/core@7.23.6)(@opentelemetry/api@1.6.0)(react-dom@18.2.0)(react@18.2.0):
+  /next@14.0.4(@babel/core@7.23.6)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-qbwypnM7327SadwFtxXnQdGiKpkuhaRLE2uq62/nRul9cj9KhQ5LhHmlziTNqUidZotw/Q1I9OjirBROdUJNgA==}
     engines: {node: '>=18.17.0'}
     hasBin: true
@@ -6630,7 +6649,7 @@ packages:
         optional: true
     dependencies:
       '@next/env': 14.0.4
-      '@opentelemetry/api': 1.6.0
+      '@opentelemetry/api': 1.7.0
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
       caniuse-lite: 1.0.30001570
