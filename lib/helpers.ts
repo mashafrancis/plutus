@@ -1,6 +1,6 @@
 import urls from '@/constants/url'
 
-const isProduction = process.env.NODE_ENV === 'production'
+const _isProduction = process.env.NODE_ENV === 'production'
 
 export const getRedirectUrl = () => {
   let url =

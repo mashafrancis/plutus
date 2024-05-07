@@ -1,7 +1,7 @@
 const defaultCurrency = 'KES'
 const defaultLocale = 'en-KE'
 const defaultDateStyle = { day: '2-digit', month: 'short', year: 'numeric' }
-const timeStyle = { hour: 'numeric', minute: 'numeric' }
+const _timeStyle = { hour: 'numeric', minute: 'numeric' }
 const currencyStyle = {
   style: 'currency',
   currency: '',

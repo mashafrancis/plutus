@@ -13,7 +13,7 @@ import {
 } from '@radix-ui/react-dropdown-menu'
 import { Filter } from 'lucide-react'
 
-export default function DataTableFilterOptions<TData>({
+export default function DataTableFilterOptions<_TData>({
   filter,
   setFilter,
 }: {

@@ -1,5 +1,3 @@
-
-
 import {
   Container,
   Head,
@@ -102,7 +100,7 @@ const text = {
   lineHeight: '24px',
 }
 
-const btn = {
+const _btn = {
   backgroundColor: '#000',
   borderRadius: '5px',
   color: '#fff',

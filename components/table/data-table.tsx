@@ -29,7 +29,7 @@ import TableLoader from './data-table-loader'
 import DataTableToolbar from './data-table-toolbar'
 
 declare module '@tanstack/react-table' {
-  interface TableMeta<TData extends RowData> {
+  interface TableMeta<_TData extends RowData> {
     user: any
     onDelete: (id: any) => void
     onEdit: (data: any) => void
@@ -61,7 +61,7 @@ type DataTableProps = {
   }[]
 }
 
-export default function DataTable<TData, TValue>(props: DataTableProps) {
+export default function DataTable<_TData, _TValue>(props: DataTableProps) {
   const {
     data,
     columns,

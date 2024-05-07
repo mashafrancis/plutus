@@ -51,7 +51,7 @@ import { Drawer } from 'vaul'
 
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
-const checkUrl = (urlString: string) => {
+const _checkUrl = (urlString: string) => {
   let url
   try {
     url = new URL(urlString)
@@ -89,10 +89,10 @@ export default function AddSubscriptions({
 }: AddSubscriptions) {
   const user = useUser()
   // const [state, setState] = useState<any>(initialState);
-  const [loading, setLoading] = useState(false)
+  const [_loading, setLoading] = useState(false)
   const { toast } = useToast()
-  const [hasValidUrl, setHasValidUrl] = useState(false)
-  const inputRef = useRef<any>(null)
+  const [_hasValidUrl, _setHasValidUrl] = useState(false)
+  const _inputRef = useRef<any>(null)
 
   const form = useForm<SubscriptionData>({
     defaultValues,

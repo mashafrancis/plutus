@@ -1,5 +1,3 @@
-
-
 import {
   Container,
   Head,
@@ -84,7 +82,7 @@ const h1 = {
   padding: '0',
 }
 
-const link = {
+const _link = {
   color: '#0669ce',
   textDecoration: 'none',
 }

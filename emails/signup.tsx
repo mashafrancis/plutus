@@ -1,5 +1,3 @@
-
-
 import {
   Body,
   Container,
@@ -86,7 +84,7 @@ const container = {
   width: '465px',
 }
 
-const button = {
+const _button = {
   backgroundColor: '#007ee6',
   borderRadius: '4px',
   color: '#fff',
@@ -127,6 +125,6 @@ const text = {
   lineHeight: '24px',
 }
 
-const anchor = {
+const _anchor = {
   textDecoration: 'underline',
 }

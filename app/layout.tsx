@@ -11,8 +11,6 @@ import '@/styles/overwrites.css'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
-export const dynamic = 'force-dynamic'
-
 const title = 'Plutus'
 const description = 'Organize your finances like never before.'
 
@@ -41,8 +39,6 @@ export const metadata: Metadata = {
     startupImage: ['https://plutus.francismasha.com/apple-touch-icon.png'],
   },
 }
-
-export const revalidate = 0
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

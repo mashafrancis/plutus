@@ -52,7 +52,7 @@ export const AuthProvider = (props: any) => {
         router.refresh()
       }
 
-      if (event == 'SIGNED_OUT') {
+      if (event === 'SIGNED_OUT') {
         window.location.href = '/'
       }
 

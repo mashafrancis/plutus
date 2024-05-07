@@ -53,7 +53,7 @@ export default function MobileTable({ data, title }: Props) {
         </CardDescription>
       </CardHeader>
       <Accordion type="single" collapsible>
-        {data.map((item, idx) => (
+        {data.map((item, _idx) => (
           <AccordionItem value={item.id as string} key={fancyId()}>
             <AccordionTrigger>
               <div className="flex flex-row items-center justify-between w-full">

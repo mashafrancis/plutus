@@ -71,7 +71,7 @@ export async function PATCH(request: NextRequest) {
   })
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   return await checkAuth(async (user: any) => {
     try {
       const { error } = await supabaseAdmin.auth.admin.deleteUser(user.id)

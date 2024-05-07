@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: 'Plutus finance tracker.',
 }
 
-const items = [
+const _items = [
   {
     title: 'Total Income',
     icon: 'income',

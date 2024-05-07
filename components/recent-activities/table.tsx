@@ -17,7 +17,7 @@ const dummy = {
 }
 
 export default function RecentActivitiesTable() {
-  const user = useUser()
+  const _user = useUser()
   const { data, loading } = useOverview()
 
   const recentData = useMemo(

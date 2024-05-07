@@ -59,7 +59,7 @@ export default function Plans() {
   const { isPremium, isPremiumEnded } = user
   const { toast } = useToast()
 
-  const onSuccess = async ({ order }: { order: any }, close: any) => {
+  const onSuccess = async ({ order }: { order: any }, _close: any) => {
     const { attributes } = order.data
     try {
       const res = await fetch(apiUrls.user.upgrade, {

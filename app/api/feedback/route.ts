@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
         { message: emails.feedback.sent },
         { status: 201 },
       )
-    } catch (error: any) {
+    } catch (_error: any) {
       return NextResponse.json(
         { error: { message: emails.feedback.failed } },
         { status: 500 },

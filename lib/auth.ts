@@ -71,7 +71,7 @@ export const checkAuth = async (callback: Function, isGetMethod = true) => {
             where: { id: user?.id },
             data: { basic_usage_limit_email: true },
           })
-        } catch (error) {
+        } catch (_error) {
           return NextResponse.json(
             { message: messages.serverError },
             { status: 401 },
@@ -97,7 +97,7 @@ export const checkAuth = async (callback: Function, isGetMethod = true) => {
             where: { id: user?.id },
             data: { premium_plan_expired_email: true },
           })
-        } catch (error) {
+        } catch (_error) {
           return NextResponse.json(
             { message: messages.serverError },
             { status: 401 },
@@ -126,7 +126,7 @@ export const checkAuth = async (callback: Function, isGetMethod = true) => {
             where: { id: user?.id },
             data: { premium_usage_limit_email: true },
           })
-        } catch (error) {
+        } catch (_error) {
           return NextResponse.json(
             { message: messages.serverError },
             { status: 401 },

@@ -10,11 +10,11 @@ export const exportTableToCsv = (filename: string) => {
 
   const csv = []
 
-  for (var i = 0; i < rows.length; i++) {
-    var row = []
-    var cols = rows[i].querySelectorAll<any>('td, th')
-    for (var j = 0; j < cols.length - excludeLastColumnIndex; j++) {
-      var data = cols[j]?.innerText
+  for (let i = 0; i < rows.length; i++) {
+    const row = []
+    const cols = rows[i].querySelectorAll<any>('td, th')
+    for (let j = 0; j < cols.length - excludeLastColumnIndex; j++) {
+      let data = cols[j]?.innerText
         ?.replace(/(\r\n|\n|\r)/gm, '')
         .replace(/(\s\s)/gm, ' ')
       data = data.replace(/"/g, '" "')
@@ -23,8 +23,8 @@ export const exportTableToCsv = (filename: string) => {
     csv.push(row.join(separator))
   }
 
-  var csvStr = csv.join('\n')
-  var link = document.createElement('a')
+  const csvStr = csv.join('\n')
+  const link = document.createElement('a')
   link.style.display = 'none'
   link.setAttribute('target', '_blank')
   link.setAttribute(

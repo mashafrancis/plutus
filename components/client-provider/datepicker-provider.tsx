@@ -23,7 +23,7 @@ export const DatePickerProvider = (props: any) => {
   const onChange = useCallback(
     (state: any) => {
       setDate({
-        ...(state == undefined && { ...date }),
+        ...(state === undefined && { ...date }),
         ...state,
         selected: state?.selected ?? 'none',
       })

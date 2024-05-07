@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   const { id } = await request.json()
-  return await checkAuth(async (user: any) => {
+  return await checkAuth(async (_user: any) => {
     if (!id.length) {
       return NextResponse.json(messages.request.invalid, { status: 400 })
     }
