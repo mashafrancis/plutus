@@ -1,36 +1,36 @@
-import { Configuration, registerOTel } from '@vercel/otel';
+import { Configuration, registerOTel } from '@vercel/otel'
 
 export async function register() {
-	if (process.env.NEXT_RUNTIME === 'nodejs') {
-		const { BaselimeSDK, VercelPlugin, BetterHttpInstrumentation } =
-			await import('@baselime/node-opentelemetry');
+  if (process.env.NEXT_RUNTIME === 'nodejs') {
+    const { BaselimeSDK, VercelPlugin, BetterHttpInstrumentation } =
+      await import('@baselime/node-opentelemetry')
 
-		const sdk = new BaselimeSDK({
-			serverless: true,
-			service: 'plutus',
-			instrumentations: [
-				new BetterHttpInstrumentation({
-					plugins: [
-						// Add the Vercel plugin to enable correlation between your logs and traces for projects deployed on Vercel
-						new VercelPlugin(),
-					],
-				}),
-			],
-		});
+    const sdk = new BaselimeSDK({
+      serverless: true,
+      service: 'plutus',
+      instrumentations: [
+        new BetterHttpInstrumentation({
+          plugins: [
+            // Add the Vercel plugin to enable correlation between your logs and traces for projects deployed on Vercel
+            new VercelPlugin(),
+          ],
+        }),
+      ],
+    })
 
-		sdk.start();
-	}
+    sdk.start()
+  }
 
-	const config: Configuration = {
-		serviceName: 'heimdall',
-		instrumentationConfig: {
-			fetch: {
-				ignoreUrls: [/^https:\/\/telemetry.nextjs.org/],
-				propagateContextUrls: [/^http:\/\/localhost:\d+/],
-				dontPropagateContextUrls: [/no-propagation\=1/],
-			},
-		},
-	};
+  const config: Configuration = {
+    serviceName: 'heimdall',
+    instrumentationConfig: {
+      fetch: {
+        ignoreUrls: [/^https:\/\/telemetry.nextjs.org/],
+        propagateContextUrls: [/^http:\/\/localhost:\d+/],
+        dontPropagateContextUrls: [/no-propagation\=1/],
+      },
+    },
+  }
 
-	registerOTel(config);
+  registerOTel(config)
 }

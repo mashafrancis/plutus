@@ -1,5 +1,5 @@
-import * as z from 'zod';
+import * as z from 'zod'
 
 export const authSchema = z.object({
-	email: z.string().email(),
-});
+  email: z.string().email(),
+})
