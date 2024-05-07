@@ -1,3 +1,5 @@
+import { Configuration, registerOTel } from '@vercel/otel';
+
 export async function register() {
 	if (process.env.NEXT_RUNTIME === 'nodejs') {
 		const { BaselimeSDK, VercelPlugin, BetterHttpInstrumentation } =
@@ -5,7 +7,7 @@ export async function register() {
 
 		const sdk = new BaselimeSDK({
 			serverless: true,
-			service: 'your-project-name',
+			service: 'plutus',
 			instrumentations: [
 				new BetterHttpInstrumentation({
 					plugins: [
@@ -18,4 +20,17 @@ export async function register() {
 
 		sdk.start();
 	}
+
+	const config: Configuration = {
+		serviceName: 'heimdall',
+		instrumentationConfig: {
+			fetch: {
+				ignoreUrls: [/^https:\/\/telemetry.nextjs.org/],
+				propagateContextUrls: [/^http:\/\/localhost:\d+/],
+				dontPropagateContextUrls: [/no-propagation\=1/],
+			},
+		},
+	};
+
+	registerOTel(config);
 }

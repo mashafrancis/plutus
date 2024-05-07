@@ -3,7 +3,6 @@ import million from 'million/compiler';
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
-import { env } from './env.mjs';
 
 const millionConfig = {
 	// auto: true,
@@ -68,7 +67,6 @@ const nextConfig = {
 	reactStrictMode: true,
 	experimental: {
 		instrumentationHook: true,
-		// typedRoutes: true
 	},
 	images: {
 		domains: ['www.google.com', 'francismasha.com', 'plutus.francismasha.com'],
@@ -82,12 +80,6 @@ const nextConfig = {
 	async headers() {
 		return [{ source: '/(.*)', headers: securityHeaders }];
 	},
-	rewrites: async () => [
-		{
-			source: '/api/heimdall',
-			destination: env.NEXT_PUBLIC_HEIMDALL_API,
-		},
-	],
 };
 
 export default million.next(nextConfig, millionConfig);
