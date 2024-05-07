@@ -29,6 +29,7 @@ import TableLoader from './data-table-loader'
 import DataTableToolbar from './data-table-toolbar'
 
 declare module '@tanstack/react-table' {
+  // @ts-expect-error
   interface TableMeta<_TData extends RowData> {
     user: any
     onDelete: (id: any) => void
