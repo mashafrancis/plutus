@@ -11,49 +11,70 @@ const tailwindConfig = {
   theme: {
     container: {
       center: true,
-      padding: '0.5rem',
+      padding: '2rem',
       screens: {
         '2xl': '1400px',
       },
     },
     extend: {
       colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        border: 'hsl(var(--border) / <alpha-value>) !important',
+        input: 'hsl(var(--input) / <alpha-value>)',
+        ring: 'hsl(var(--ring) / <alpha-value>)',
+        background: 'hsl(var(--background) / <alpha-value>)',
+        alternative: 'hsl(var(--alternative) / <alpha-value>)',
+        foreground: 'hsl(var(--foreground) / <alpha-value>)',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: 'hsl(var(--primary)/ <alpha-value>)',
+          foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
+        },
+        brand: {
+          DEFAULT: 'hsl(var(--brand)/ <alpha-value>)',
+          foreground: 'hsl(var(--brand-foreground) / <alpha-value>)',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: 'hsl(var(--secondary) / <alpha-value>)',
+          foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)',
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+          DEFAULT: 'hsl(var(--destructive) / <alpha-value>)',
+          foreground: 'hsl(var(--destructive-foreground) / <alpha-value>)',
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+          DEFAULT: 'hsl(var(--muted) / <alpha-value>)',
+          foreground: 'hsl(var(--muted-foreground) / <alpha-value>)',
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
+          DEFAULT: 'hsl(var(--accent) / <alpha-value>)',
+          foreground: 'hsl(var(--accent-foreground) / <alpha-value>)',
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
+          DEFAULT: 'hsl(var(--popover) / <alpha-value>)',
+          foreground: 'hsl(var(--popover-foreground) / <alpha-value>)',
         },
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+          DEFAULT: 'hsl(var(--card) / <alpha-value>)',
+          foreground: 'hsl(var(--card-foreground) / <alpha-value>)',
+        },
+        normal: {
+          DEFAULT: 'hsl(var(--normal) / <alpha-value>)',
+          foreground: 'hsl(var(--normal-foreground) / <alpha-value>)',
+        },
+        info: {
+          DEFAULT: 'hsl(var(--info) / <alpha-value>)',
+          foreground: 'hsl(var(--info-foreground) / <alpha-value>)',
+        },
+        warn: {
+          DEFAULT: 'hsl(var(--warn) / <alpha-value>)',
+          foreground: 'hsl(var(--warn-foreground) / <alpha-value>)',
         },
         success: {
           DEFAULT: 'hsl(var(--success) / <alpha-value>)',
           foreground: 'hsl(var(--success-foreground) / <alpha-value>)',
+        },
+        error: {
+          DEFAULT: 'hsl(var(--error) / <alpha-value>)',
+          foreground: 'hsl(var(--error-foreground) / <alpha-value>)',
         },
       },
       tremor: {
@@ -156,15 +177,168 @@ const tailwindConfig = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        fadeIn: {
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { transform: 'scale(1)', opacity: '1' },
+          '100%': { transform: 'scale(0.95)', opacity: '0' },
+        },
+        overlayContentShow: {
+          '0%': { opacity: '0', transform: 'translate(0%, -2%) scale(.96)' },
+          '100%': { opacity: '1', transform: 'translate(0%, 0%) scale(1)' },
+        },
+        overlayContentHide: {
+          '0%': { opacity: '1', transform: 'translate(0%, 0%) scale(1)' },
+          '100%': { opacity: '0', transform: 'translate(0%, -2%) scale(.96)' },
+        },
+        dropdownFadeIn: {
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        dropdownFadeOut: {
+          '0%': { transform: 'scale(1)', opacity: '1' },
+          '100%': { transform: 'scale(0.95)', opacity: '0' },
+        },
+        fadeInOverlayBg: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '0.75' },
+        },
+        fadeOutOverlayBg: {
+          '0%': { opacity: '0.75' },
+          '100%': { opacity: '0' },
+        },
+        slideDown: {
+          '0%': { height: '1', opacity: '0' },
+          '100%': {
+            height: 'var(--radix-accordion-content-height)',
+            opacity: '1',
+          },
+        },
+        slideUp: {
+          '0%': {
+            height: 'var(--radix-accordion-content-height)',
+            opacity: '1',
+          },
+          '100%': { height: '1', opacity: '0' },
+        },
+
+        slideDownNormal: {
+          '0%': { height: '1', opacity: '0' },
+          '100%': {
+            height: 'inherit',
+            opacity: '1',
+          },
+        },
+        slideUpNormal: {
+          '0%': { height: 'inherit', opacity: '1' },
+          '100%': { height: '1', opacity: '0' },
+        },
+
+        panelSlideLeftOut: {
+          '0%': { transform: 'translateX(-100%)', opacity: '0' },
+          '100%': {
+            transform: 'translate-x-0',
+            opacity: '1',
+          },
+        },
+        panelSlideLeftIn: {
+          '0%': { transform: 'translate-x-0', opacity: '1' },
+          '100%': { transform: 'translateX(-100%)', opacity: '0' },
+        },
+        panelSlideRightOut: {
+          '0%': { transform: 'translateX(100%)', opacity: '0' },
+          '100%': {
+            transform: 'translate-x-0',
+            opacity: '1',
+          },
+        },
+        panelSlideRightIn: {
+          '0%': { transform: 'translate-x-0', opacity: '1' },
+          '100%': { transform: 'translateX(100%)', opacity: '0' },
+        },
+        lineLoading: {
+          '0%': {
+            marginLeft: '-10%',
+            width: '80px',
+          },
+          '25%': {
+            width: ' 240px',
+          },
+          '50%': {
+            marginLeft: '100%',
+            width: '80px',
+          },
+          '75%': {
+            width: '240px',
+          },
+          '100%': {
+            marginLeft: '-10%',
+            width: '80px',
+          },
+        },
+        shimmer: {
+          '0%': {
+            'background-position': '-1000px 0',
+          },
+          '100%': {
+            'background-position': '1000px 0',
+          },
+        },
+        sway: {
+          '0%, 100%': {
+            transform: 'rotate(-10deg) scale(1.5) translateY(4rem)',
+          },
+          '50%': {
+            transform: 'rotate(10deg) scale(1.5) translateY(2rem)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        typing: 'typing 2s steps(14), blink 0.1s infinite',
-        text: 'text 6s linear infinite',
-        border: 'border 30s ease infinite -2s',
-        'background-pan': 'background-pan 3s linear infinite',
-        'spin-slow': 'spin-slow 10s linear infinite',
+        'fade-in': 'fadeIn 300ms both',
+        'fade-out': 'fadeOut 300ms both',
+
+        'dropdown-content-show':
+          'overlayContentShow 100ms cubic-bezier(0.16, 1, 0.3, 1)',
+        'dropdown-content-hide':
+          'overlayContentHide 100ms cubic-bezier(0.16, 1, 0.3, 1)',
+
+        'overlay-show':
+          'overlayContentShow 300ms cubic-bezier(0.16, 1, 0.3, 1)',
+        'overlay-hide':
+          'overlayContentHide 300ms cubic-bezier(0.16, 1, 0.3, 1)',
+
+        'fade-in-overlay-bg': 'fadeInOverlayBg 300ms',
+        'fade-out-overlay-bg': 'fadeOutOverlayBg 300ms',
+
+        'slide-down': 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+        'slide-up': 'slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+
+        'slide-down-normal':
+          'slideDownNormal 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+        'slide-up-normal': 'slideUpNormal 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+
+        'panel-slide-left-out':
+          'panelSlideLeftOut 200ms cubic-bezier(0.87, 0, 0.13, 1)',
+        'panel-slide-left-in':
+          'panelSlideLeftIn 250ms cubic-bezier(0.87, 0, 0.13, 1)',
+        'panel-slide-right-out':
+          'panelSlideRightOut 200ms cubic-bezier(0.87, 0, 0.13, 1)',
+        'panel-slide-right-in':
+          'panelSlideRightIn 250ms cubic-bezier(0.87, 0, 0.13, 1)',
+
+        'line-loading': 'lineLoading 1.8s infinite',
+
+        // tailwind class for this is `animate-dropdownFadeIn`
+        dropdownFadeIn: 'dropdownFadeIn 0.1s ease-out',
+        // tailwind class for this is `animate-dropdownFadeOut`
+        dropdownFadeOut: 'dropdownFadeOut 0.1s ease-out',
+
+        shimmer: 'shimmer 2s infinite linear',
+        sway: 'sway 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },
   },

@@ -1,14 +1,9 @@
-import million from 'million/compiler'
+import MillionLint from '@million/lint'
+
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
-
-const millionConfig = {
-  // auto: true,
-  // if you're using RSC:
-  auto: { rsc: true, threshold: 0.5, ignore: ['**/node_modules/**'] },
-}
 
 const ContentSecurityPolicy = `
     default-src 'self' francismasha.com;
@@ -21,7 +16,6 @@ const ContentSecurityPolicy = `
     font-src 'self' fonts.googleapis.com fonts.gstatic.com;
     manifest-src 'self' plutus.francismasha.com;
 `
-
 const securityHeaders = [
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
   {
@@ -71,15 +65,21 @@ const nextConfig = {
   images: {
     domains: ['www.google.com', 'francismasha.com', 'plutus.francismasha.com'],
   },
-  eslint: {
-    ignoreDuringBuilds: true,
+  logging: {
+    fetches: {
+      fullUrl: process.env.NODE_ENV === 'development',
+    },
   },
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
+  typescript: { ignoreBuildErrors: true },
   async headers() {
-    return [{ source: '/(.*)', headers: securityHeaders }]
+    return [
+      {
+        source: '/(.*)',
+        headers: securityHeaders,
+      },
+    ]
   },
 }
-
-export default million.next(nextConfig, millionConfig)
+export default MillionLint.next({
+  rsc: true,
+})(nextConfig)

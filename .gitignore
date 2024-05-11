@@ -43,3 +43,6 @@ react-email/node_modules/
 
 # others
 .husky
+
+# Turborepo
+.turbo

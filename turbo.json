@@ -1,0 +1,68 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env"],
+  "pipeline": {
+    "topo": {
+      "dependsOn": ["^topo"]
+    },
+    "build": {
+      "dependsOn": ["^build", "^db:generate"],
+      "dotEnv": [
+        ".env.production.local",
+        ".env.local",
+        ".env.production",
+        ".env"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**",
+        "next-env.d.ts",
+        ".output/**"
+      ],
+      "env": ["*"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^db:generate"],
+      "dotEnv": [
+        ".env.development.local",
+        ".env.local",
+        ".env.development",
+        ".env"
+      ]
+    },
+    "start": {
+      "cache": false
+    },
+    "check-types": {},
+    "format": {
+      "outputMode": "new-only"
+    },
+    "lint": {
+      "dependsOn": ["^topo"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "db:setup": {
+      "cache": false
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "typecheck": {
+      "dependsOn": ["build"],
+      "outputs": [],
+      "cache": true
+    },
+    "studio": {
+      "cache": false
+    },
+    "test": {
+      "cache": false
+    }
+  },
+  "globalEnv": ["DATABASE_URL"]
+}

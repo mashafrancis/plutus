@@ -1,7 +1,24 @@
-import { Configuration, registerOTel } from '@vercel/otel'
-
 export async function register() {
+  // const config: Configuration = {
+  //   serviceName: 'plutus',
+  //   traceExporter: new OTLPTraceExporter({
+  //     url: 'http://localhost:4318/v1/traces',
+  //   }),
+  //   instrumentationConfig: {
+  //     fetch: {
+  //       ignoreUrls: [/^https:\/\/telemetry.nextjs.org/],
+  //       propagateContextUrls: [/^http:\/\/localhost:\d+/],
+  //       dontPropagateContextUrls: [/no-propagation\=1/],
+  //     },
+  //   },
+  // }
+  //
+  // registerOTel(config)
+
   if (process.env.NEXT_RUNTIME === 'nodejs') {
+    // const { OTLPTraceExporter } = await import(
+    //   '@opentelemetry/exporter-trace-otlp-grpc'
+    // )
     const { BaselimeSDK, VercelPlugin, BetterHttpInstrumentation } =
       await import('@baselime/node-opentelemetry')
 
@@ -19,18 +36,21 @@ export async function register() {
     })
 
     sdk.start()
-  }
 
-  const config: Configuration = {
-    serviceName: 'heimdall',
-    instrumentationConfig: {
-      fetch: {
-        ignoreUrls: [/^https:\/\/telemetry.nextjs.org/],
-        propagateContextUrls: [/^http:\/\/localhost:\d+/],
-        dontPropagateContextUrls: [/no-propagation\=1/],
-      },
-    },
+    // const config: Configuration = {
+    //   serviceName: 'plutus',
+    //   traceExporter: new OTLPTraceExporter({
+    //     url: 'http://localhost:4318/v1/traces',
+    //   }),
+    //   instrumentationConfig: {
+    //     fetch: {
+    //       ignoreUrls: [/^https:\/\/telemetry.nextjs.org/],
+    //       propagateContextUrls: [/^http:\/\/localhost:\d+/],
+    //       dontPropagateContextUrls: [/no-propagation\=1/],
+    //     },
+    //   },
+    // }
+    //
+    // registerOTel(config)
   }
-
-  registerOTel(config)
 }
