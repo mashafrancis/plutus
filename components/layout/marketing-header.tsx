@@ -1,10 +1,9 @@
 import React from 'react'
 
-import Link from 'next/link'
-
 import SectionContainer from '@/components/layout/section-container'
 import { Button } from '@/components/ui/button'
 import { CTA } from '@/types/ui.types'
+import Link from 'next/link'
 
 interface Props {
   h1: string | React.ReactNode
@@ -14,6 +13,7 @@ interface Props {
   image?: React.ReactNode
   footer?: React.ReactNode
   ctas?: CTA[]
+  logo?: boolean
 }
 
 export default function MarketingHeader(props: Props) {
@@ -21,14 +21,14 @@ export default function MarketingHeader(props: Props) {
   return (
     <div className="w-full max-w-full relative mx-auto py-16 lg:py-24 bg-alternative overflow-hidden">
       <SectionContainer className="!py-0 grid grid-cols-12">
-        <div className="relative z-10 col-span-12 gap-8 lg:col-span-5">
+        <div className="relative grid z-10 col-span-12 gap-2 lg:col-span-5">
           <div>
             {(Icon || props.title) && (
               <div className="mb-4 flex items-center gap-3">
-                {Icon && <Icon size={24} strokeWidth={1.3} />}
+                {Icon && <Icon size={16} strokeWidth={1.3} />}
                 {props.title && (
                   <span
-                    className="text-primary/70 font-mono uppercase"
+                    className="text-primary font-mono uppercase"
                     key={`platform-${props.title}`}
                   >
                     {props.title}
@@ -36,7 +36,10 @@ export default function MarketingHeader(props: Props) {
                 )}
               </div>
             )}
-            <h1 className="h1 text-3xl md:!text-4xl lg:!text-4xl 2xl:!text-6xl tracking-[-.15px]">
+            <h1
+              className="h1 text-3xl md:!text-4xl lg:!text-4xl 2xl:!text-6xl tracking-[-.15px]"
+              key={`h1`}
+            >
               {props.h1}
             </h1>
           </div>

@@ -374,7 +374,6 @@ const tailwindConfig = {
   plugins: [
     require('tailwindcss-animate'),
     require('@tailwindcss/typography'),
-    require('@headlessui/tailwindcss'),
     require('@tailwindcss/container-queries'),
   ],
 } satisfies Config
