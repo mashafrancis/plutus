@@ -4,7 +4,7 @@ import { emails } from '@/constants/messages'
 import FeedbackEmail from '@/emails/feedback'
 import { checkAuth } from '@/lib/auth'
 import resend from '@/lib/email'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 
 export async function POST(request: NextRequest) {
   const { message } = await request.json()

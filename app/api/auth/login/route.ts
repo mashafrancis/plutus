@@ -6,7 +6,7 @@ import WelcomeEmail from '@/emails/welcome'
 import { Database } from '@/lib/database.types'
 import resend from '@/lib/email'
 import { getRedirectUrl } from '@/lib/helpers'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseAdmin = createClient<Database>(

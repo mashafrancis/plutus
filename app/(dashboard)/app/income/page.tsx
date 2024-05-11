@@ -1,11 +1,10 @@
 import { Metadata } from 'next'
 
-import { Fragment } from 'react'
-
 import IncomeSummary from '@/app/(dashboard)/app/income/summary'
 import IncomeTable from '@/app/(dashboard)/app/income/table'
-import AppLayoutHeader from '@/components/app-layout-header'
+import AppHeader from '@/components/app-header'
 import { DataContextProvider } from '@/components/client-provider/data-provider'
+import SectionContainer from '@/components/layout/section-container'
 
 export const metadata: Metadata = {
   title: 'Income',
@@ -14,12 +13,12 @@ export const metadata: Metadata = {
 
 export default function Income() {
   return (
-    <Fragment>
-      <AppLayoutHeader heading="Income" />
+    <SectionContainer className="sm:py-12 md:py-8 lg:py-8">
+      <AppHeader title="Income" />
       <DataContextProvider name="income">
         <IncomeSummary />
         <IncomeTable />
       </DataContextProvider>
-    </Fragment>
+    </SectionContainer>
   )
 }

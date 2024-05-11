@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { ReactNode } from 'react'
 
 import { getSession } from '@/app/supabase-server'
-import AppNav from '@/components/app-nav'
+
 import BottomNavigation from '@/components/bottom-navigation'
 import { AuthProvider } from '@/components/client-provider/auth-provider'
 import { DatePickerProvider } from '@/components/client-provider/datepicker-provider'
@@ -27,9 +27,7 @@ async function getUser(cookies: any) {
   return await res.json()
 }
 
-export default async function DashboardLayout({
-  children,
-}: DashboardLayoutProps) {
+export default async function AppLayout({ children }: DashboardLayoutProps) {
   const session = await getSession()
   const user = await getUser(cookies())
 
@@ -40,19 +38,8 @@ export default async function DashboardLayout({
   return (
     <AuthProvider user={user} accessToken={session?.access_token || null}>
       <DatePickerProvider>
-        <div className="bg-gray flex min-h-screen flex-col space-y-6">
-          <div className="flex h-full">
-            <AppNav items={appConfig.sidebarNav} user={session.user} />
-            <main className="mb-16 flex w-full flex-1 flex-col overflow-hidden">
-              <div className="container my-2 grid flex-1 md:my-8">
-                <div className="flex h-full flex-1 flex-col space-y-4 p-1">
-                  {children}
-                </div>
-              </div>
-              <BottomNavigation items={appConfig.sidebarNav} />
-            </main>
-          </div>
-        </div>
+        {children}
+        <BottomNavigation items={appConfig.sidebarNav} />
       </DatePickerProvider>
     </AuthProvider>
   )

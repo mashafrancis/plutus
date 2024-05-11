@@ -1,11 +1,10 @@
 import { Metadata } from 'next'
 
-import { Fragment } from 'react'
-
 import SubscriptionSummary from '@/app/(dashboard)/app/subscriptions/summary'
 import SubscriptionTable from '@/app/(dashboard)/app/subscriptions/table'
-import AppLayoutHeader from '@/components/app-layout-header'
+import AppHeader from '@/components/app-header'
 import { DataContextProvider } from '@/components/client-provider/data-provider'
+import SectionContainer from '@/components/layout/section-container'
 
 export const metadata: Metadata = {
   title: 'Subscriptions',
@@ -14,12 +13,12 @@ export const metadata: Metadata = {
 
 export default function Subscriptions() {
   return (
-    <Fragment>
-      <AppLayoutHeader heading="Subscriptions" />
+    <SectionContainer className="sm:py-12 md:py-8 lg:py-8">
+      <AppHeader title="Subscriptions" />
       <DataContextProvider name="subscriptions" isNotRange={true}>
         <SubscriptionSummary />
         <SubscriptionTable />
       </DataContextProvider>
-    </Fragment>
+    </SectionContainer>
   )
 }

@@ -5,7 +5,7 @@ import AccountedDeleteEmail from '@/emails/account-deleted'
 import { checkAuth } from '@/lib/auth'
 import { Database } from '@/lib/database.types'
 import resend from '@/lib/email'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 import { createClient } from '@supabase/supabase-js'
 import { addYears } from 'date-fns'
 

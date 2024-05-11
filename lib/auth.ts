@@ -1,14 +1,13 @@
-import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 import messages, { emails } from '@/constants/messages'
 import { basicPlan, premiumPlan } from '@/constants/usage'
 import PlanExpiredEmail from '@/emails/plan-expired'
 import UsageExceededEmail from '@/emails/usage-limit-exceeded'
-import { prisma } from '@/lib/prisma'
-import { createServerActionClient } from '@supabase/auth-helpers-nextjs'
+import prisma from '@/lib/prisma'
 import { addYears } from 'date-fns'
 
+import { createClient } from '@/lib/supabase/server'
 import resend from './email'
 
 type UserData = {
@@ -37,16 +36,17 @@ const getUserUsageLimit = (user: any) => {
   return { isBasicUsageExceeded, isPremiumUsageExceeded, isPremiumPlanExpired }
 }
 
+// biome-ignore lint/complexity/noBannedTypes: <explanation>
 export const checkAuth = async (callback: Function, isGetMethod = true) => {
-  const supabase = createServerActionClient({ cookies })
-  const { data } = await supabase.auth.getSession()
-  const { session } = data
+  const supabase = createClient()
+  const {
+    data: { user: ssessionUser },
+  } = await supabase.auth.getUser()
 
-  if (session && session.user) {
+  if (ssessionUser) {
     const user = await prisma.users.findUnique({
-      where: { id: session.user.id },
+      where: { id: ssessionUser.id },
     })
-
     const {
       basic_usage_limit_email,
       premium_usage_limit_email,
@@ -138,7 +138,7 @@ export const checkAuth = async (callback: Function, isGetMethod = true) => {
         { status: 403 },
       )
     }
-    return callback(session.user)
+    return callback(ssessionUser)
   } else {
     return NextResponse.json(
       { message: messages.account.unauthorized },

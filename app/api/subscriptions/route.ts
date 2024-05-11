@@ -8,7 +8,7 @@ import {
   calculatePrevRenewalDate,
   calculateRenewalDate,
 } from '@/lib/date'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 import { format } from 'date-fns'
 
 export async function GET(request: NextRequest) {

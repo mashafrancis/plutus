@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import messages from '@/constants/messages'
 import { checkAuth } from '@/lib/auth'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 
 export async function POST(request: NextRequest) {
   const {

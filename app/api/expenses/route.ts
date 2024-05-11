@@ -2,18 +2,18 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import messages from '@/constants/messages'
 import { checkAuth } from '@/lib/auth'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 
-type Where = {
-  user_id: string
-  date?: {
-    lte: string
-    gte: string
-  }
-  categories?: {
-    contains: string
-  }
-}
+// type Where = {
+//   user_id: string
+//   date?: {
+//     lte: string
+//     gte: string
+//   }
+//   categories?: {
+//     contains: string
+//   }
+// }
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl
@@ -27,6 +27,8 @@ export async function GET(request: NextRequest) {
   }
 
   return await checkAuth(async (user: any) => {
+    console.log('Class: GET, Function: , Line 30 user():', user)
+
     try {
       const where = {
         user_id: user.id,
