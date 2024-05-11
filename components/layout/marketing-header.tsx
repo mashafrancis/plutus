@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { ArrowIcon } from '@/components/icons'
+import GetStartedButton from '@/components/layout/get-started-button'
 import SectionContainer from '@/components/layout/section-container'
 import { Button } from '@/components/ui/button'
 import { CTA } from '@/types/ui.types'
@@ -14,6 +16,7 @@ interface Props {
   footer?: React.ReactNode
   ctas?: CTA[]
   logo?: boolean
+  session?: any
 }
 
 export default function MarketingHeader(props: Props) {
@@ -57,11 +60,16 @@ export default function MarketingHeader(props: Props) {
               })}
           </div>
           <div className="flex flex-row md:flex-row md:items-center gap-2">
-            {props.ctas?.map((cta) => (
-              <Button key={cta.href} type={cta.type ?? 'button'} asChild>
-                <Link href={cta.href}>{cta.label ?? 'Start for free'}</Link>
-              </Button>
-            ))}
+            {props.session ? (
+              <Link href="/app">
+                <Button size="lg">
+                  Go to app
+                  <ArrowIcon direction="right" />
+                </Button>
+              </Link>
+            ) : (
+              <GetStartedButton />
+            )}
           </div>
         </div>
         {props.image && (
