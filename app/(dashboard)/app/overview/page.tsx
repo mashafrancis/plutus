@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 
-import AddData from '@/app/(dashboard)/app/overview/_components/add-data'
-import OverviewCardLayout from '@/app/(dashboard)/app/overview/_components/overview-card-layout'
-import OverviewCharts from '@/app/(dashboard)/app/overview/_components/overview-charts'
+import AddData from '@/app/(dashboard)/app/settings/_components/_components/add-data'
+import OverviewCardLayout from '@/app/(dashboard)/app/settings/_components/_components/overview-card-layout'
+import OverviewCharts from '@/app/(dashboard)/app/settings/_components/_components/overview-charts'
 import AppHeader from '@/components/app-header'
 import { OverviewContextProvider } from '@/components/client-provider/overview-provider'
 import SectionContainer from '@/components/layout/section-container'

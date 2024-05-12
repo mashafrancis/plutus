@@ -1,11 +1,10 @@
-import React from 'react'
-
-import { ArrowIcon } from '@/components/icons'
 import GetStartedButton from '@/components/layout/get-started-button'
 import SectionContainer from '@/components/layout/section-container'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui-elements/button'
+import { cn } from '@/lib/utils'
 import { CTA } from '@/types/ui.types'
 import Link from 'next/link'
+import React from 'react'
 
 interface Props {
   h1: string | React.ReactNode
@@ -61,11 +60,16 @@ export default function MarketingHeader(props: Props) {
           </div>
           <div className="flex flex-row md:flex-row md:items-center gap-2">
             {props.session ? (
-              <Link href="/app/overview">
-                <Button size="lg">
-                  Go to app
-                  <ArrowIcon direction="right" />
-                </Button>
+              <Link
+                href="/app/overview"
+                className={cn(
+                  buttonVariants({
+                    size: 'large',
+                    type: 'primary',
+                  }),
+                )}
+              >
+                Go to app
               </Link>
             ) : (
               <GetStartedButton />

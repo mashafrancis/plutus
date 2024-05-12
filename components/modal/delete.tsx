@@ -7,8 +7,8 @@ import { useUser } from '@/components/client-provider/auth-provider'
 import CircleLoader from '@/components/loader/circle'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
+import { createClient } from '@/lib/supabase/client'
 import Modal from '.'
 
 export default function DeleteModal({
@@ -21,7 +21,7 @@ export default function DeleteModal({
   const user = useUser()
   const [loading, setLoading] = useState(false)
   const [verify, setVerify] = useState('')
-  const supabase = createClientComponentClient()
+  const supabase = createClient()
 
   const onDelete = async () => {
     if (verify === user.email) {

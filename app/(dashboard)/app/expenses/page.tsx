@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
-import ExpensesSummary from '@/app/(dashboard)/app/expenses/summary'
-import ExpenseTable from '@/app/(dashboard)/app/expenses/table'
+import ExpensesSummary from '@/app/(dashboard)/app/expenses/_components/summary'
+import ExpenseTable from '@/app/(dashboard)/app/expenses/_components/table'
 import AppHeader from '@/components/app-header'
 import { DataContextProvider } from '@/components/client-provider/data-provider'
 import SectionContainer from '@/components/layout/section-container'

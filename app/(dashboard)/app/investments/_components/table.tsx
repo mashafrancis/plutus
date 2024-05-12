@@ -7,22 +7,21 @@ import { useUser } from '@/components/client-provider/auth-provider'
 import { useData } from '@/components/client-provider/data-provider'
 import DataTable from '@/components/table/data-table'
 import { useToast } from '@/components/ui/use-toast'
-import { expensesCategory } from '@/constants/categories'
+import { investmentCategory } from '@/constants/categories'
 import messages from '@/constants/messages'
 import { lookup } from '@/lib/lookup'
-import { ExpenseData } from '@/lib/validations/expenses'
 
-import { deleteExpense } from './apis'
+import { InvestmentData, deleteInvestment } from '../apis'
 import { columns } from './columns'
 
-const categories = Object.keys(expensesCategory)
+const categories = Object.keys(investmentCategory)
   .filter(Boolean)
   .map((categoryKey) => ({
-    label: expensesCategory[categoryKey]?.name,
+    label: investmentCategory[categoryKey],
     value: categoryKey,
   }))
 
-export default function ExpenseTable() {
+export default function InvestmentTable() {
   const [selected, setSelected] = useState({})
   const { data, loading, filter, mutate } = useData()
   const user = useUser()
@@ -31,7 +30,7 @@ export default function ExpenseTable() {
   const onDelete = useCallback(
     async (id: string) => {
       try {
-        await deleteExpense(id)
+        await deleteInvestment(id)
         toast({ description: messages.deleted })
         mutate()
       } catch {
@@ -41,7 +40,7 @@ export default function ExpenseTable() {
     [mutate, toast],
   )
 
-  const onEdit = useCallback(async (data: ExpenseData | any) => {
+  const onEdit = useCallback(async (data: InvestmentData | any) => {
     setSelected(data)
   }, [])
 
@@ -66,7 +65,7 @@ export default function ExpenseTable() {
         columns={columns}
         data={data}
         loading={loading}
-        filename="Expenses"
+        filename="Investments"
         categories={categories}
       />
       <Add
@@ -74,7 +73,7 @@ export default function ExpenseTable() {
         onLookup={onLookup}
         selected={selected}
         mutate={mutate}
-        type="expenses"
+        type="investments"
       />
     </>
   )

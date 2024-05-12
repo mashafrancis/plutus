@@ -3,16 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "license": "AGPL-3.0",
+  "engines": {
+    "node": "v20"
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "format": "biome format --write .",
     "format:fix": "biome format --apply .",
     "lint:fix": "biome lint --apply .",
     "postinstall": "prisma generate",
-    "clean": "git clean -xdf node_modules",
-    "clean:workspaces": "turbo clean",
+    "clean": "git clean -xdf node_modules && rm -rf .turbo",
     "prebuild": "prisma format && prisma generate",
     "predev": "prisma format && prisma generate",
     "dbpush": "pnpm run predev && prisma db push",
@@ -27,6 +29,7 @@
     "test-all": "pnpm run check-format && pnpm run check-lint && pnpm run check-types && pnpm run build"
   },
   "dependencies": {
+    "@auth/supabase-adapter": "^1.1.0",
     "@baselime/node-opentelemetry": "^0.5.8",
     "@headlessui/react": "^2.0.3",
     "@hookform/resolvers": "^3.3.4",
@@ -49,7 +52,6 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@react-email/components": "^0.0.17",
-    "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.43.1",
     "@t3-oss/env-nextjs": "^0.10.1",
@@ -69,7 +71,6 @@
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.11",
     "debounce": "^2.0.0",
-    "error-stack-parser": "^2.1.4",
     "framer-motion": "^11.1.9",
     "geist": "^1.3.0",
     "lucide-react": "^0.378.0",
@@ -102,7 +103,7 @@
     "@cld-apis/types": "^0.1.6",
     "@types/debounce": "^1.2.4",
     "@types/node": "20.12.11",
-    "@types/react": "18.3.1",
+    "@types/react": "18.3.2",
     "@types/react-datepicker": "^6.2.0",
     "@types/react-dom": "18.3.0",
     "autoprefixer": "10.4.19",
@@ -113,6 +114,7 @@
     "prisma": "^5.13.0",
     "tailwindcss": "3.4.3",
     "tailwindcss-animate": "^1.0.7",
+    "turbo": "^1.13.3",
     "typescript": "5.4.5"
   }
 }

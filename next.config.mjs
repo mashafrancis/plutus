@@ -56,9 +56,9 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
-  swcMinify: true,
   reactStrictMode: true,
+  swcMinify: true,
+  output: 'standalone',
   experimental: {
     instrumentationHook: true,
   },

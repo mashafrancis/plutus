@@ -27,22 +27,6 @@ export const SignInModal = () => {
 
         <div className="flex flex-col space-y-4 bg-secondary/50 px-4 py-8 md:px-16">
           <LoginButton isLoading={signInClicked} />
-          {/*<Button*/}
-          {/*  size="lg"*/}
-          {/*  disabled={signInClicked}*/}
-          {/*  icon={<Icons.google className="h-5 w-5" />}*/}
-          {/*  onClick={() => {*/}
-          {/*    setSignInClicked(true)*/}
-          {/*    signIn('github', { redirect: false }).then(() =>*/}
-          {/*      // TODO: fix this without setTimeOut(), modal closes too quickly. Idea: update value before redirect*/}
-          {/*      setTimeout(() => {*/}
-          {/*        signInModal.onClose()*/}
-          {/*      }, 1000),*/}
-          {/*    )*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  Sign In with Github*/}
-          {/*</Button>*/}
         </div>
       </div>
     </Modal>

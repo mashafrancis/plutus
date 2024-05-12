@@ -6,29 +6,27 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 import { Database } from '@/lib/database.types'
 import fetcher from '@/lib/fetcher'
-import {
-  SupabaseClient,
-  createClientComponentClient,
-} from '@supabase/auth-helpers-nextjs'
+import { createClient } from '@/lib/supabase/client'
+import { SupabaseClient } from '@supabase/supabase-js'
 import { SWRConfig } from 'swr'
 
-interface User {
-  currency: string
-  locale: string
-  billing_start_date: string
-  trial_start_date: string
-  order_status: string
-  usage: number
-  email: string
-  plan_status: string
-  new_signup_email: boolean
-  basic_usage_limit_email: boolean
-  premium_plan_expired_email: boolean
-  premium_usage_limit_email: boolean
-  monthly_email_report: boolean
-  isPremium: boolean
-  isPremiumPlanEnded: boolean
-}
+// interface User {
+//   currency: string
+//   locale: string
+//   billing_start_date: string
+//   trial_start_date: string
+//   order_status: string
+//   usage: number
+//   email: string
+//   plan_status: string
+//   new_signup_email: boolean
+//   basic_usage_limit_email: boolean
+//   premium_plan_expired_email: boolean
+//   premium_usage_limit_email: boolean
+//   monthly_email_report: boolean
+//   isPremium: boolean
+//   isPremiumPlanEnded: boolean
+// }
 
 interface Session {}
 
@@ -41,7 +39,7 @@ const AuthContext = createContext<SupabaseContext | undefined>(undefined)
 export const AuthProvider = (props: any) => {
   const [session, setSession] = useState<Session | null>(null)
   const router = useRouter()
-  const supabase = createClientComponentClient()
+  const supabase = createClient()
   const { user, children, ...others } = props
 
   useEffect(() => {

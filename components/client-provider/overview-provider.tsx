@@ -11,12 +11,12 @@ import { useDate } from './datepicker-provider'
 
 const OverviewContext = createContext(null)
 
-interface Data {
-  expenses: Array<any>
-  income: Array<any>
-  subscriptions: Array<any>
-  investments: Array<any>
-}
+// interface Data {
+//   expenses: Array<any>
+//   income: Array<any>
+//   subscriptions: Array<any>
+//   investments: Array<any>
+// }
 
 export const OverviewContextProvider = (props: any) => {
   const { date } = useDate()

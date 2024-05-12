@@ -6,27 +6,32 @@ import Add from '@/components/add-button'
 import { useUser } from '@/components/client-provider/auth-provider'
 import { useData } from '@/components/client-provider/data-provider'
 import DataTable from '@/components/table/data-table'
-import MobileTable from '@/components/table/mobile-table'
 import { useToast } from '@/components/ui/use-toast'
+import { expensesCategory } from '@/constants/categories'
 import messages from '@/constants/messages'
-import { sortByKey } from '@/lib/extractor'
 import { lookup } from '@/lib/lookup'
-import { SubscriptionData } from '@/lib/validations/subscriptions'
+import { ExpenseData } from '@/lib/validations/expenses'
 
-import { deleteSubscription, editSubscription } from './apis'
+import { deleteExpense } from '../apis'
 import { columns } from './columns'
 
-export default function SubscriptionTable() {
+const categories = Object.keys(expensesCategory)
+  .filter(Boolean)
+  .map((categoryKey) => ({
+    label: expensesCategory[categoryKey]?.name,
+    value: categoryKey,
+  }))
+
+export default function ExpenseTable() {
   const [selected, setSelected] = useState({})
   const { data, loading, filter, mutate } = useData()
   const user = useUser()
-
   const { toast } = useToast()
 
   const onDelete = useCallback(
     async (id: string) => {
       try {
-        await deleteSubscription(id)
+        await deleteExpense(id)
         toast({ description: messages.deleted })
         mutate()
       } catch {
@@ -36,20 +41,7 @@ export default function SubscriptionTable() {
     [mutate, toast],
   )
 
-  const onChange = useCallback(
-    async (data: SubscriptionData) => {
-      try {
-        await editSubscription(data)
-        toast({ description: messages.updated })
-        mutate()
-      } catch {
-        toast({ description: messages.error, variant: 'destructive' })
-      }
-    },
-    [mutate, toast],
-  )
-
-  const onEdit = useCallback((data: SubscriptionData) => {
+  const onEdit = useCallback(async (data: ExpenseData | any) => {
     setSelected(data)
   }, [])
 
@@ -57,26 +49,32 @@ export default function SubscriptionTable() {
     setSelected({})
   }, [])
 
-  const onLookup = useCallback((name: string) => lookup({ data, name }), [data])
+  const onLookup = useCallback(
+    (name: string) =>
+      lookup({
+        data,
+        name,
+      }),
+    [data],
+  )
 
   return (
     <>
       <DataTable
-        options={{ user, onDelete, onEdit, onChange }}
+        options={{ user, onDelete, onEdit }}
         filter={filter}
         columns={columns}
-        data={sortByKey(sortByKey(data, 'renewal_date'), 'active')}
+        data={data}
         loading={loading}
-        filename="Subscriptions"
-        hideViewOptions
+        filename="Expenses"
+        categories={categories}
       />
-      <MobileTable data={data} title="Subscriptions" />
       <Add
         onHide={onHide}
         onLookup={onLookup}
         selected={selected}
         mutate={mutate}
-        type="subscriptions"
+        type="expenses"
       />
     </>
   )

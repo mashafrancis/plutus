@@ -1,20 +1,21 @@
-import { cookies } from 'next/headers'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { buttonVariants } from '@/components/ui/button'
 import { UserAccountNav } from '@/components/user/user-account-nav'
 import { cn } from '@/lib/utils'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 
+import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
 import plutusLogo from '../public/logo.svg'
 
-const TopBarNavigation = async () => {
-  const supabase = createServerComponentClient({ cookies })
+export default async function TopBarNavigation() {
+  const supabase = createClient()
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getUser()
+  if (error || !data?.user) {
+    redirect('/login')
+  }
 
   return (
     <div className="flex flex-col justify-between">
@@ -38,8 +39,8 @@ const TopBarNavigation = async () => {
           </div>
 
           <div className="flex items-center gap-3 text-base leading-5">
-            {user ? (
-              <UserAccountNav user={user} />
+            {data.user ? (
+              <UserAccountNav user={data.user} />
             ) : (
               <Link
                 href="/login"
@@ -57,5 +58,3 @@ const TopBarNavigation = async () => {
     </div>
   )
 }
-
-export default TopBarNavigation

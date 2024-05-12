@@ -1,13 +1,11 @@
-import { cookies } from 'next/headers'
+import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
-
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 
 export const dynamic = 'force-dynamic'
 
 export async function POST(request: Request) {
   const requestUrl = new URL(request.url)
-  const supabase = createRouteHandlerClient({ cookies })
+  const supabase = createClient()
 
   const { error, data } = await supabase.auth.signInWithOAuth({
     provider: 'google',

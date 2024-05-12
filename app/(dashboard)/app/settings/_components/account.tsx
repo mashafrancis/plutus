@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import data from '@/data/currency.json'
 
-import { updateUser } from './apis'
+import { updateUser } from '../apis'
 
 const currencyData = Object.keys(data)
   .map((key: string) => {

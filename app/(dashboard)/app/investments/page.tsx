@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
-import InvestmentSummary from '@/app/(dashboard)/app/investments/summary'
-import InvestmentTable from '@/app/(dashboard)/app/investments/table'
+import InvestmentSummary from '@/app/(dashboard)/app/investments/_components/summary'
+import InvestmentTable from '@/app/(dashboard)/app/investments/_components/table'
 import AppHeader from '@/components/app-header'
 import { DataContextProvider } from '@/components/client-provider/data-provider'
 import SectionContainer from '@/components/layout/section-container'

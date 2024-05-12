@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
-import SubscriptionSummary from '@/app/(dashboard)/app/subscriptions/summary'
-import SubscriptionTable from '@/app/(dashboard)/app/subscriptions/table'
+import SubscriptionSummary from '@/app/(dashboard)/app/subscriptions/_components/summary'
+import SubscriptionTable from '@/app/(dashboard)/app/subscriptions/_components/table'
 import AppHeader from '@/components/app-header'
 import { DataContextProvider } from '@/components/client-provider/data-provider'
 import SectionContainer from '@/components/layout/section-container'

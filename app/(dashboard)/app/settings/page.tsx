@@ -2,11 +2,11 @@ import { Metadata } from 'next'
 
 import { Fragment } from 'react'
 
-import Account from '@/app/(dashboard)/app/settings/account'
-import DeleteAccount from '@/app/(dashboard)/app/settings/delete-account'
-import Plans from '@/app/(dashboard)/app/settings/plans'
-import Theme from '@/app/(dashboard)/app/settings/theme'
-import Usage from '@/app/(dashboard)/app/settings/usage'
+import Account from '@/app/(dashboard)/app/settings/_components/account'
+import DeleteAccount from '@/app/(dashboard)/app/settings/_components/delete-account'
+import Plans from '@/app/(dashboard)/app/settings/_components/plans'
+import Theme from '@/app/(dashboard)/app/settings/_components/theme'
+import Usage from '@/app/(dashboard)/app/settings/_components/usage'
 import AppHeader from '@/components/app-header'
 
 export const metadata: Metadata = {
