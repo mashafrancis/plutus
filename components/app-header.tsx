@@ -1,7 +1,8 @@
+import { DateRangePicker } from '@/components/date-picker'
 import { ReactNode } from 'react'
 import ReactMarkdown from 'react-markdown'
 
-import DatePicker from '@/components/date-range-picker'
+// import DatePicker from '@/components/date-range-picker'
 
 interface DashboardHeaderProps {
   title: string
@@ -33,7 +34,7 @@ export default function AppHeader({
         </div>
       </div>
       <div className="md:flex md:items-center md:justify-between md:space-x-2">
-        {showDatePicker ? <DatePicker /> : null}
+        {showDatePicker ? <DateRangePicker /> : null}
         {addButton}
       </div>
     </div>

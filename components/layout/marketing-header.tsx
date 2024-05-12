@@ -61,7 +61,7 @@ export default function MarketingHeader(props: Props) {
           </div>
           <div className="flex flex-row md:flex-row md:items-center gap-2">
             {props.session ? (
-              <Link href="/app">
+              <Link href="/app/overview">
                 <Button size="lg">
                   Go to app
                   <ArrowIcon direction="right" />

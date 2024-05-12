@@ -3,14 +3,16 @@ import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
 import { ClientProvider } from '@/components/client-provider'
-import { Toaster } from '@/components/ui/toaster'
-import { fontHeading, fontSans } from '@/lib/fonts'
+import { fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 import '@/styles/globals.css'
 import '@/styles/overwrites.css'
+import '@/styles/date-picker.css'
 import { ModalProvider } from '@/components/client-provider/modal-provider'
+import { Toaster } from '@/components/ui-elements/sonner'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { GeistMono } from 'geist/font/mono'
 
 const title = 'Plutus'
 const description = 'Organize your finances like never before.'
@@ -43,20 +45,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn(
-        'min-h-screen font-sans text-black',
-        fontSans.variable,
-        fontHeading.variable,
-      )}
-    >
-      <body className="antialiased">
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          'min-[100dvh] overscroll-none whitespace-pre-line font-sans !bg-alternative antialiased',
+          fontSans.variable,
+          GeistMono.variable,
+        )}
+      >
         <ClientProvider>
           {children}
           <ModalProvider />
-          <Toaster />
+          <Toaster
+            className="font-sans font-normal"
+            position="bottom-right"
+            richColors
+          />
         </ClientProvider>
         <Analytics />
         <SpeedInsights />

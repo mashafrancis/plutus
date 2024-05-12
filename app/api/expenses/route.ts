@@ -27,8 +27,6 @@ export async function GET(request: NextRequest) {
   }
 
   return await checkAuth(async (user: any) => {
-    console.log('Class: GET, Function: , Line 30 user():', user)
-
     try {
       const where = {
         user_id: user.id,
