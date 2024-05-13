@@ -39,14 +39,16 @@ export default function Add({
       </Button>
       <Modal showModal={isOpen} setShowModal={onClose}>
         <div className="w-full">
-          <div className="flex flex-col items-center justify-center space-y-3 border-b bg-background px-4 py-6 pt-8 text-center md:px-16">
-            <AddButtonContent
-              selected={selected}
-              mutate={mutate}
-              type={type}
-              onHide={onHide}
-              onLookup={onLookup}
-            />
+          <div className="flex flex-col items-center justify-center space-y-3 border-b bg-background py-6 pt-8 text-center">
+            <div className="w-full px-6">
+              <AddButtonContent
+                selected={selected}
+                mutate={mutate}
+                type={type}
+                onHide={onHide}
+                onLookup={onLookup}
+              />
+            </div>
           </div>
         </div>
       </Modal>

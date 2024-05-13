@@ -10,6 +10,8 @@ import '@/styles/overwrites.css'
 import '@/styles/date-picker.css'
 import { ModalProvider } from '@/components/client-provider/modal-provider'
 import { Toaster } from '@/components/ui-elements/sonner'
+import { env } from '@/env.mjs'
+import { BaselimeRum } from '@baselime/react-rum'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GeistMono } from 'geist/font/mono'
@@ -43,6 +45,8 @@ export const metadata: Metadata = {
   },
 }
 
+const baselimeApiKey = env.NEXT_PUBLIC_BASELIME_KEY
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -53,15 +57,21 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           GeistMono.variable,
         )}
       >
-        <ClientProvider>
-          {children}
-          <ModalProvider />
-          <Toaster
-            className="font-sans font-normal"
-            position="bottom-right"
-            richColors
-          />
-        </ClientProvider>
+        <BaselimeRum
+          apiKey={baselimeApiKey}
+          enableWebVitals
+          // fallback={<ErrorPage />}
+        >
+          <ClientProvider>
+            {children}
+            <ModalProvider />
+            <Toaster
+              className="font-sans font-normal"
+              position="bottom-right"
+              richColors
+            />
+          </ClientProvider>
+        </BaselimeRum>
         <Analytics />
         <SpeedInsights />
       </body>

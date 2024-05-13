@@ -22,6 +22,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SUPABASE_URL: z.string().min(1),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
     NEXT_PUBLIC_HEIMDALL_API: z.string().min(1),
+    NEXT_PUBLIC_BASELIME_KEY: z.string().min(1),
   },
 
   /**
@@ -36,5 +37,6 @@ export const env = createEnv({
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
     NEXT_PUBLIC_HEIMDALL_API: process.env.NEXT_PUBLIC_HEIMDALL_API,
+    NEXT_PUBLIC_BASELIME_KEY: process.env.NEXT_PUBLIC_BASELIME_KEY,
   },
 })

@@ -1,9 +1,8 @@
-import * as React from 'react'
+'use client'
 
-import { Label } from '@/components/ui/label'
-import { cn } from '@/lib/utils'
 import * as LabelPrimitive from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
+import * as React from 'react'
 import {
   Controller,
   ControllerProps,
@@ -11,7 +10,11 @@ import {
   FieldValues,
   FormProvider,
   useFormContext,
+  useWatch,
 } from 'react-hook-form'
+
+import { cn } from '@/lib/utils'
+import { Label } from './label'
 
 const Form = FormProvider
 
@@ -93,7 +96,13 @@ const FormLabel = React.forwardRef<
   return (
     <Label
       ref={ref}
-      className={cn(error && 'text-destructive', className)}
+      className={cn(
+        'text-muted-foreground',
+        'transition-colors',
+        error && '!text-destructive',
+        className,
+        'leading-normal',
+      )}
       htmlFor={formItemId}
       {...props}
     />
@@ -133,7 +142,7 @@ const FormDescription = React.forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn('text-[0.8rem] text-muted-foreground', className)}
+      className={cn('text-sm text-muted-foreground', className)}
       {...props}
     />
   )
@@ -155,7 +164,7 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn('text-[0.8rem] font-medium text-destructive', className)}
+      className={cn('text-sm text-destructive', className)}
       {...props}
     >
       {body}
@@ -165,12 +174,13 @@ const FormMessage = React.forwardRef<
 FormMessage.displayName = 'FormMessage'
 
 export {
-  useFormField,
   Form,
-  FormItem,
-  FormLabel,
   FormControl,
   FormDescription,
-  FormMessage,
   FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useFormField,
+  useWatch,
 }
