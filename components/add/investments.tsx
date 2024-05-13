@@ -10,7 +10,6 @@ import {
 import AutoCompleteList from '@/components/autocomplete-list'
 import { useUser } from '@/components/client-provider/auth-provider'
 import CircleLoader from '@/components/loader/circle'
-import Modal from '@/components/modal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -24,7 +23,6 @@ import { format } from 'date-fns'
 import debounce from 'debounce'
 
 interface AddInvestments {
-  show: boolean
   selected: any
   onHide: () => void
   mutate: () => void
@@ -43,7 +41,6 @@ const initialState = {
 }
 
 export default function AddInvestments({
-  show,
   onHide,
   mutate,
   selected,
@@ -92,171 +89,158 @@ export default function AddInvestments({
   }
 
   return (
-    <Modal
-      someRef={inputRef}
-      show={show}
-      title={`${selected.id ? 'Edit' : 'Add'} Investment`}
-      onHide={onHide}
+    <form
+      className="md:[420px] grid w-full grid-cols-1 items-center gap-3"
+      onSubmit={(event) => {
+        event.preventDefault()
+        onSubmit()
+        if (!selected.id) setState({ ...initialState })
+      }}
     >
-      <div className="sm:flex sm:items-start">
-        <form
-          className="md:[420px] grid w-full grid-cols-1 items-center gap-3"
-          onSubmit={(event) => {
-            event.preventDefault()
-            onSubmit()
-            if (!selected.id) setState({ ...initialState })
+      <div className="relative">
+        <Label htmlFor="name">Name</Label>
+        <Input
+          className="mt-1.5"
+          id="name"
+          placeholder="Name or $TSLA"
+          maxLength={30}
+          required
+          ref={inputRef}
+          autoFocus
+          autoComplete="off"
+          onChange={({ target }) => {
+            const { value } = target
+            if (value.length) {
+              setState({ ...state, name: value, autocomplete: [] })
+              if (value.length > 2) onLookup(value)
+            } else {
+              setState({
+                ...state,
+                name: '',
+                category: '',
+                autocomplete: [],
+              })
+            }
           }}
-        >
-          <div className="relative">
-            <Label htmlFor="name">Name</Label>
-            <Input
-              className="mt-1.5"
-              id="name"
-              placeholder="Name or $TSLA"
-              maxLength={30}
-              required
-              ref={inputRef}
-              autoFocus
-              autoComplete="off"
-              onChange={({ target }) => {
-                const { value } = target
-                if (value.length) {
-                  setState({ ...state, name: value, autocomplete: [] })
-                  if (value.length > 2) onLookup(value)
-                } else {
-                  setState({
-                    ...state,
-                    name: '',
-                    category: '',
-                    autocomplete: [],
-                  })
-                }
-              }}
-              value={state.name}
-            />
-            <AutoCompleteList
-              onHide={() => {
-                setState({ ...state, autocomplete: [] })
-              }}
-              data={state.autocomplete}
-              searchTerm={state.name.length > 2 ? state.name.toLowerCase() : ''}
-              onClick={({ name, category }) => {
-                setState({ ...state, name, category, autocomplete: [] })
-              }}
-              show={Boolean(state.autocomplete?.length)}
-            />
-          </div>
-          <div className="grid grid-cols-[50%,50%] gap-1">
-            <div className="mr-3">
-              <Label htmlFor="price">
-                Single Stock Price
-                <span className="ml-2 font-mono text-xs text-muted-foreground">
-                  ({getCurrencySymbol(user.currency, user.locale)})
-                </span>
-              </Label>
-              <Input
-                className="mt-1.5"
-                id="price"
-                type="number"
-                placeholder="1000"
-                required
-                step="any"
-                min="0"
-                onChange={(event) =>
-                  setState({
-                    ...state,
-                    price: event.target.value,
-                  })
-                }
-                value={state.price}
-              />
-            </div>
-            <div className="mr-3">
-              <Label htmlFor="units">Units</Label>
-              <Input
-                className="mt-1.5"
-                id="units"
-                type="number"
-                placeholder="10"
-                required
-                min="0"
-                step="any"
-                onChange={(event) =>
-                  setState({
-                    ...state,
-                    units: event.target.value,
-                  })
-                }
-                value={state.units}
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-[50%,50%] gap-1">
-            <div className="mr-3">
-              <Label htmlFor="date">Bought Date</Label>
-              <Input
-                className="mt-1.5 appearance-none"
-                id="date"
-                type="date"
-                required
-                max={todayDate}
-                pattern={datePattern}
-                onChange={(event) => {
-                  setState({ ...state, date: event.target.value })
-                }}
-                value={state.date}
-              />
-            </div>
-            <div className="mr-3">
-              <Label htmlFor="category">Category</Label>
-              <select
-                id="category"
-                className="mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                onChange={(event) => {
-                  setState({ ...state, category: event.target.value })
-                }}
-                value={state.category}
-                required
-              >
-                {Object.keys(investmentCategory).map((categoryKey) => {
-                  return (
-                    <option key={categoryKey} value={categoryKey}>
-                      {investmentCategory[categoryKey]}
-                    </option>
-                  )
-                })}
-              </select>
-            </div>
-          </div>
-          <div>
-            <Label className="mt-1 block">
-              Notes{' '}
-              <span className="mb-6 text-center text-sm text-muted-foreground">
-                (optional)
-              </span>
-            </Label>
-            <Textarea
-              className="mt-2 h-20"
-              onChange={(event) =>
-                setState({
-                  ...state,
-                  notes: event.target.value,
-                })
-              }
-              value={state.notes}
-              maxLength={60}
-            />
-          </div>
-
-          <Button disabled={loading} className="mt-1.5" type="submit">
-            {loading ? (
-              <CircleLoader />
-            ) : (
-              `${selected?.id ? 'Update' : 'Submit'}`
-            )}
-          </Button>
-        </form>
+          value={state.name}
+        />
+        <AutoCompleteList
+          onHide={() => {
+            setState({ ...state, autocomplete: [] })
+          }}
+          data={state.autocomplete}
+          searchTerm={state.name.length > 2 ? state.name.toLowerCase() : ''}
+          onClick={({ name, category }) => {
+            setState({ ...state, name, category, autocomplete: [] })
+          }}
+          show={Boolean(state.autocomplete?.length)}
+        />
       </div>
-    </Modal>
+      <div className="grid grid-cols-[50%,50%] gap-1">
+        <div className="mr-3">
+          <Label htmlFor="price">
+            Single Stock Price
+            <span className="ml-2 font-mono text-xs text-muted-foreground">
+              ({getCurrencySymbol(user.currency, user.locale)})
+            </span>
+          </Label>
+          <Input
+            className="mt-1.5"
+            id="price"
+            type="number"
+            placeholder="1000"
+            required
+            step="any"
+            min="0"
+            onChange={(event) =>
+              setState({
+                ...state,
+                price: event.target.value,
+              })
+            }
+            value={state.price}
+          />
+        </div>
+        <div className="mr-3">
+          <Label htmlFor="units">Units</Label>
+          <Input
+            className="mt-1.5"
+            id="units"
+            type="number"
+            placeholder="10"
+            required
+            min="0"
+            step="any"
+            onChange={(event) =>
+              setState({
+                ...state,
+                units: event.target.value,
+              })
+            }
+            value={state.units}
+          />
+        </div>
+      </div>
+      <div className="grid grid-cols-[50%,50%] gap-1">
+        <div className="mr-3">
+          <Label htmlFor="date">Bought Date</Label>
+          <Input
+            className="mt-1.5 appearance-none"
+            id="date"
+            type="date"
+            required
+            max={todayDate}
+            pattern={datePattern}
+            onChange={(event) => {
+              setState({ ...state, date: event.target.value })
+            }}
+            value={state.date}
+          />
+        </div>
+        <div className="mr-3">
+          <Label htmlFor="category">Category</Label>
+          <select
+            id="category"
+            className="mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            onChange={(event) => {
+              setState({ ...state, category: event.target.value })
+            }}
+            value={state.category}
+            required
+          >
+            {Object.keys(investmentCategory).map((categoryKey) => {
+              return (
+                <option key={categoryKey} value={categoryKey}>
+                  {investmentCategory[categoryKey]}
+                </option>
+              )
+            })}
+          </select>
+        </div>
+      </div>
+      <div>
+        <Label className="mt-1 block">
+          Notes{' '}
+          <span className="mb-6 text-center text-sm text-muted-foreground">
+            (optional)
+          </span>
+        </Label>
+        <Textarea
+          className="mt-2 h-20"
+          onChange={(event) =>
+            setState({
+              ...state,
+              notes: event.target.value,
+            })
+          }
+          value={state.notes}
+          maxLength={60}
+        />
+      </div>
+
+      <Button disabled={loading} className="mt-1.5" type="submit">
+        {loading ? <CircleLoader /> : `${selected?.id ? 'Update' : 'Submit'}`}
+      </Button>
+    </form>
   )
 }

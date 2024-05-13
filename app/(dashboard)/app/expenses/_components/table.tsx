@@ -1,8 +1,5 @@
 'use client'
 
-import { useCallback, useState } from 'react'
-
-import Add from '@/components/add-button'
 import { useUser } from '@/components/client-provider/auth-provider'
 import { useData } from '@/components/client-provider/data-provider'
 import DataTable from '@/components/table/data-table'
@@ -11,7 +8,11 @@ import { expensesCategory } from '@/constants/categories'
 import messages from '@/constants/messages'
 import { lookup } from '@/lib/lookup'
 import { ExpenseData } from '@/lib/validations/expenses'
+import { useCallback, useState } from 'react'
 
+import Add from '@/components/add-button'
+import { useMounted } from '@/hooks/use-mounted'
+import { useExpenseModal } from '@/store/use-expense-modal'
 import { deleteExpense } from '../apis'
 import { columns } from './columns'
 
@@ -27,6 +28,8 @@ export default function ExpenseTable() {
   const { data, loading, filter, mutate } = useData()
   const user = useUser()
   const { toast } = useToast()
+  const { isOpen, onOpen, onClose } = useExpenseModal()
+  const _mounted = useMounted()
 
   const onDelete = useCallback(
     async (id: string) => {
@@ -47,6 +50,7 @@ export default function ExpenseTable() {
 
   const onHide = useCallback(() => {
     setSelected({})
+    onClose()
   }, [])
 
   const onLookup = useCallback(

@@ -41,10 +41,10 @@ import debounce from 'debounce'
 import { useForm } from 'react-hook-form'
 import { Drawer } from 'vaul'
 
+import { useExpenseModal } from '@/store/use-expense-modal'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
 interface AddIncomeProps {
-  show: boolean
   selected: any
   onHide: () => void
   mutate: () => void
@@ -70,6 +70,7 @@ export default function AddIncome({
 }: AddIncomeProps) {
   const user = useUser()
   const { toast } = useToast()
+  const { onClose } = useExpenseModal()
 
   const form = useForm<IncomeData>({
     defaultValues,

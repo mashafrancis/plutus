@@ -46,6 +46,7 @@ import debounce from 'debounce'
 import { useForm } from 'react-hook-form'
 import { Drawer } from 'vaul'
 
+import { useExpenseModal } from '@/store/use-expense-modal'
 import {
   Select,
   SelectContent,
@@ -58,7 +59,6 @@ import {
 } from '../ui/select'
 
 interface AddExpenseProps {
-  show: boolean
   selected: any
   onHide: () => void
   mutate: () => void
@@ -79,14 +79,14 @@ const defaultValues: Partial<ExpenseData> = {
 }
 
 export default function AddExpense({
-  show,
-  onHide,
   mutate,
+  onHide,
   selected,
   lookup,
 }: AddExpenseProps) {
   const user = useUser()
   const { toast } = useToast()
+  const { onClose } = useExpenseModal()
 
   const form = useForm<ExpenseData>({
     defaultValues,
@@ -99,7 +99,7 @@ export default function AddExpense({
     setValue,
     watch,
     reset,
-    formState: { isSubmitting, errors, isDirty, isValid },
+    formState: { isSubmitting, isDirty, isValid },
   } = form
 
   // const inputRef = useRef<any>(null);
@@ -212,7 +212,7 @@ export default function AddExpense({
                           }}
                           data={autocomplete as unknown as string[]}
                           searchTerm={name.length > 2 ? name.toLowerCase() : ''}
-                          onClick={({ name, category }) => {
+                          onClick={({ name, _category }) => {
                             setValue('name', name)
                             reset({ autocomplete: [] })
                           }}

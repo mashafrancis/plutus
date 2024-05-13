@@ -15,9 +15,9 @@ import useSWR from 'swr'
 
 const DataContext = createContext(null)
 
-interface Data {
-  Data: Array<any>
-}
+// interface Data {
+//   Data: Array<any>
+// }
 
 type Props = {
   children: ReactNode

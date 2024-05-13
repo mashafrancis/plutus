@@ -5,7 +5,7 @@ import { useState } from 'react'
 import LoginButton from '@/components/layout/login-button'
 import { Modal } from '@/components/shared/modal'
 import { siteConfig } from '@/config/site'
-import { useSignInModal } from '@/hooks/use-sign-in-modal'
+import { useSignInModal } from '@/store/use-sign-in-modal'
 import { Icons } from '../icons'
 
 export const SignInModal = () => {

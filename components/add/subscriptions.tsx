@@ -48,7 +48,6 @@ import { format } from 'date-fns'
 import debounce from 'debounce'
 import { useForm } from 'react-hook-form'
 import { Drawer } from 'vaul'
-
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
 const _checkUrl = (urlString: string) => {
@@ -62,7 +61,6 @@ const _checkUrl = (urlString: string) => {
 }
 
 interface AddSubscriptions {
-  show: boolean
   selected: any
   onHide: () => void
   mutate: () => void
@@ -81,7 +79,6 @@ const defaultValues: Partial<SubscriptionData> = {
 }
 
 export default function AddSubscriptions({
-  show,
   onHide,
   mutate,
   selected,
@@ -201,7 +198,7 @@ export default function AddSubscriptions({
                           }}
                           data={autocomplete as unknown as string[]}
                           searchTerm={name.length > 2 ? name.toLowerCase() : ''}
-                          onClick={({ name, category }) => {
+                          onClick={({ name, _category }) => {
                             setValue('name', name)
                             reset({ autocomplete: [] })
                           }}
