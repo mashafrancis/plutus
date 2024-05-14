@@ -1,8 +1,7 @@
 import HomeCtaButton from '@/components/layout/home-cta-button'
 import SectionContainer from '@/components/layout/section-container'
-import LoadingSpinner from '@/components/loading-spinner'
 import { CTA } from '@/types/ui.types'
-import React, { Suspense } from 'react'
+import React from 'react'
 
 interface Props {
   h1: string | React.ReactNode
@@ -56,9 +55,7 @@ export default function MarketingHeader(props: Props) {
               })}
           </div>
           <div className="flex flex-row md:flex-row md:items-center gap-2">
-            <Suspense fallback={<LoadingSpinner />}>
-              <HomeCtaButton />
-            </Suspense>
+            <HomeCtaButton />
           </div>
         </div>
         {props.image && (

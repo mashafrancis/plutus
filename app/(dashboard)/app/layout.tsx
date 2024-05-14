@@ -6,8 +6,6 @@ import { AuthProvider } from '@/components/client-provider/auth-provider'
 import { DatePickerProvider } from '@/components/client-provider/datepicker-provider'
 import { appConfig } from '@/config/dashboard'
 
-export const revalidate = 0
-
 interface DashboardLayoutProps {
   children?: ReactNode
 }

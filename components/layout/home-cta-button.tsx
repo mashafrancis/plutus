@@ -9,8 +9,9 @@ import GetStartedButton from './get-started-button'
 export default function HomeCtaButton() {
   const supabase = createClient()
   const session = use(supabase.auth.getSession())
+  const user = session.data.session?.user
 
-  return session ? (
+  return !!user ? (
     <Link
       href="/app/overview"
       className={cn(

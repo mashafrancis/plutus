@@ -1,12 +1,10 @@
 import { ReactNode } from 'react'
 
-export const dynamic = 'force-dynamic'
-
-interface MarketingLayoutProps {
+interface HomeLayoutProps {
   children: ReactNode
 }
 
-export default function HomeLayout({ children }: MarketingLayoutProps) {
+export default function HomeLayout({ children }: HomeLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">{children}</main>
