@@ -1,6 +1,7 @@
 'use client'
 
 import { Icons } from '@/components/icons'
+import SectionContainer from '@/components/layout/section-container'
 import { Button } from '@/components/ui-elements/button'
 
 export default function AppError({
@@ -11,18 +12,20 @@ export default function AppError({
   reset: () => void
 }) {
   return (
-    <div className="space-y-4">
-      <h2 className="text-lg font-bold">Error</h2>
-      <p className="text-sm">{error?.message}</p>
-      <div>
-        <Button
-          size="medium"
-          icon={<Icons.reload className="h-4 w-4" />}
-          onClick={() => reset()}
-        >
-          Try Again
-        </Button>
+    <SectionContainer className="flex gap-8 mt-24 border rounded-lg">
+      <div className="space-y-4">
+        <h1 className="text-2xl">Error.</h1>
+        <p className="text-muted-foreground">{error?.message}</p>
+        <div>
+          <Button
+            size="medium"
+            icon={<Icons.reload className="h-4 w-4" />}
+            onClick={() => reset()}
+          >
+            Try Again
+          </Button>
+        </div>
       </div>
-    </div>
+    </SectionContainer>
   )
 }

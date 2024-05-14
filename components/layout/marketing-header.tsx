@@ -1,10 +1,8 @@
-import GetStartedButton from '@/components/layout/get-started-button'
+import HomeCtaButton from '@/components/layout/home-cta-button'
 import SectionContainer from '@/components/layout/section-container'
-import { buttonVariants } from '@/components/ui-elements/button'
-import { cn } from '@/lib/utils'
+import LoadingSpinner from '@/components/loading-spinner'
 import { CTA } from '@/types/ui.types'
-import Link from 'next/link'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 interface Props {
   h1: string | React.ReactNode
@@ -15,7 +13,6 @@ interface Props {
   footer?: React.ReactNode
   ctas?: CTA[]
   logo?: boolean
-  session?: any
 }
 
 export default function MarketingHeader(props: Props) {
@@ -59,21 +56,9 @@ export default function MarketingHeader(props: Props) {
               })}
           </div>
           <div className="flex flex-row md:flex-row md:items-center gap-2">
-            {props.session ? (
-              <Link
-                href="/app/overview"
-                className={cn(
-                  buttonVariants({
-                    size: 'large',
-                    type: 'primary',
-                  }),
-                )}
-              >
-                Go to app
-              </Link>
-            ) : (
-              <GetStartedButton />
-            )}
+            <Suspense fallback={<LoadingSpinner />}>
+              <HomeCtaButton />
+            </Suspense>
           </div>
         </div>
         {props.image && (

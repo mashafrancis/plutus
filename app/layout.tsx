@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 
 import { ClientProvider } from '@/components/client-provider'
 import { fontSans } from '@/lib/fonts'
@@ -65,11 +65,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <ClientProvider>
             {children}
             <ModalProvider />
-            <Toaster
-              className="font-sans font-normal"
-              position="bottom-right"
-              richColors
-            />
+            <Suspense fallback={null}>
+              <Toaster
+                className="font-sans font-normal"
+                position="bottom-right"
+                richColors
+              />
+            </Suspense>
           </ClientProvider>
         </BaselimeRum>
         <Analytics />

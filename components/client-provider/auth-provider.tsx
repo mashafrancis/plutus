@@ -4,71 +4,77 @@ import { useRouter } from 'next/navigation'
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
-import { Database } from '@/lib/database.types'
 import fetcher from '@/lib/fetcher'
+import { getStatusRedirect } from '@/lib/helpers'
 import { createClient } from '@/lib/supabase/client'
-import { SupabaseClient } from '@supabase/supabase-js'
-import { SWRConfig } from 'swr'
+import { SWRConfig } from 'swr' // biome-ignore lint/correctness/noUnusedVariables: <explanation>
 
-// interface User {
-//   currency: string
-//   locale: string
-//   billing_start_date: string
-//   trial_start_date: string
-//   order_status: string
-//   usage: number
-//   email: string
-//   plan_status: string
-//   new_signup_email: boolean
-//   basic_usage_limit_email: boolean
-//   premium_plan_expired_email: boolean
-//   premium_usage_limit_email: boolean
-//   monthly_email_report: boolean
-//   isPremium: boolean
-//   isPremiumPlanEnded: boolean
-// }
+// biome-ignore lint/correctness/noUnusedVariables: <explanation>
+interface User {
+  currency: string
+  locale: string
+  billing_start_date: string
+  trial_start_date: string
+  order_status: string
+  usage: number
+  email: string
+  plan_status: string
+  new_signup_email: boolean
+  basic_usage_limit_email: boolean
+  premium_plan_expired_email: boolean
+  premium_usage_limit_email: boolean
+  monthly_email_report: boolean
+  isPremium: boolean
+  isPremiumPlanEnded: boolean
+}
 
 interface Session {}
 
-type SupabaseContext = {
-  supabase: SupabaseClient<Database>
-}
-
-const AuthContext = createContext<SupabaseContext | undefined>(undefined)
+const AuthContext = createContext(null)
 
 export const AuthProvider = (props: any) => {
+  const [initial, setInitial] = useState(true)
   const [session, setSession] = useState<Session | null>(null)
   const router = useRouter()
   const supabase = createClient()
-  const { user, children, ...others } = props
+  const { children, user, ...others } = props
 
   useEffect(() => {
+    async function getActiveSession() {
+      const {
+        data: { session: activeSession },
+      } = await supabase.auth.getSession()
+      setSession(activeSession ?? null)
+      setInitial(false)
+    }
+
+    getActiveSession()
+
     const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, currentSession) => {
-      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+      data: { subscription: authListener },
+    } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_IN') {
         router.refresh()
       }
 
       if (event === 'SIGNED_OUT') {
-        window.location.href = '/'
+        getStatusRedirect(`${origin}/`, 'Success!', 'You are now signed out.')
       }
-
-      setSession(currentSession)
     })
 
     return () => {
-      subscription.unsubscribe()
+      authListener?.unsubscribe()
     }
-  }, [router, supabase])
+  }, [])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const value = useMemo(() => {
     return {
+      initial,
       session,
       user,
       signOut: () => supabase.auth.signOut(),
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, user])
 
   return (

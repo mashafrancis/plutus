@@ -4,7 +4,6 @@ import ExpensesSummary from '@/app/(dashboard)/app/expenses/_components/summary'
 import ExpenseTable from '@/app/(dashboard)/app/expenses/_components/table'
 import AppHeader from '@/components/app-header'
 import { DataContextProvider } from '@/components/client-provider/data-provider'
-import SectionContainer from '@/components/layout/section-container'
 
 export const metadata: Metadata = {
   title: 'Expenses',
@@ -13,12 +12,10 @@ export const metadata: Metadata = {
 
 export default function Income() {
   return (
-    <SectionContainer className="sm:py-12 md:py-8 lg:py-8">
+    <DataContextProvider name="expenses">
       <AppHeader title="Income" />
-      <DataContextProvider name="expenses">
-        <ExpensesSummary />
-        <ExpenseTable />
-      </DataContextProvider>
-    </SectionContainer>
+      <ExpensesSummary />
+      <ExpenseTable />
+    </DataContextProvider>
   )
 }

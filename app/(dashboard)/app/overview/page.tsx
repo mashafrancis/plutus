@@ -5,26 +5,32 @@ import OverviewCardLayout from '@/app/(dashboard)/app/settings/_components/_comp
 import OverviewCharts from '@/app/(dashboard)/app/settings/_components/_components/overview-charts'
 import AppHeader from '@/components/app-header'
 import { OverviewContextProvider } from '@/components/client-provider/overview-provider'
-import SectionContainer from '@/components/layout/section-container'
+import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Overview',
   description: 'Plutus finance tracker.',
 }
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const supabase = createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) redirect('/')
+
   return (
-    <SectionContainer className="sm:py-12 md:py-8 lg:py-8">
-      <OverviewContextProvider>
-        <AppHeader
-          title="Overview"
-          description="A glimpse of all your financial data."
-          showDatePicker
-          addButton={<AddData />}
-        />
-        <OverviewCardLayout />
-        <OverviewCharts />
-      </OverviewContextProvider>
-    </SectionContainer>
+    <OverviewContextProvider>
+      <AppHeader
+        title="Overview"
+        description="A glimpse of all your financial data."
+        showDatePicker
+        addButton={<AddData />}
+      />
+      <OverviewCardLayout />
+      <OverviewCharts />
+    </OverviewContextProvider>
   )
 }
