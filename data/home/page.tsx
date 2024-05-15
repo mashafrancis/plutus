@@ -1,4 +1,3 @@
-import { Icons } from '@/components/icons'
 import { AlignLeft, Globe, PieChart, ScanFace } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
@@ -7,7 +6,7 @@ const HomeHero = dynamic(() => import('@/components/sections/home-hero'))
 export const page = {
   heroSection: {
     // title: 'Plutus',
-    icon: Icons.logo,
+    // icon: Icons.logo,
     h1: 'Unleashing Your Financial IQ',
     subheader: [
       "It's not whether you're right or wrong that's important, but how much money you make when you're right and how much you lose when you're wrong.",

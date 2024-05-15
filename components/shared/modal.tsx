@@ -25,7 +25,9 @@ export function Modal({ children, showModal, setShowModal }: ModalProps) {
   }
   return (
     <Dialog open={showModal} onOpenChange={setShowModal}>
-      <DialogContent className="sm:max-w-[425px]">{children}</DialogContent>
+      <DialogContent className="overflow-hidden p-0 md:max-w-md md:rounded-2xl md:border">
+        {children}
+      </DialogContent>
     </Dialog>
   )
 }
