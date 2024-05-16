@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack://[project]/apps/web/lib/fontheading_f260b857.module.css"],"sourcesContent":["@font-face {\n    font-family: 'fontHeading';\n    src: url('@vercel/turbopack-next/internal/font/local/font?{%22path%22:%22../assets/fonts/CalSans-SemiBold.woff2%22,%22preload%22:true,%22has_size_adjust%22:true}') format('woff2');\n    font-display: swap;\n    \n}\n\n@font-face {\n    font-family: 'fontHeading Fallback';\n    src: local(\"Arial\");\n    ascent-override: 98.60%;\ndescent-override: 19.72%;\nline-gap-override: 0.00%;\nsize-adjust: 101.42%;\n\n}\n\n.className {\n    font-family: 'fontHeading', 'fontHeading Fallback';\n    \n}\n.variable {\n    --font-heading: 'fontHeading', 'fontHeading Fallback';\n}\n\n"],"names":[],"mappings":"AAAA;;;;;;AAOA;;;;;;;;;AAUA;;;;AAIA"}},
+    {"offset": {"line": 23, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

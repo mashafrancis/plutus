@@ -1,0 +1,13 @@
+{
+  "sorted_middleware": [],
+  "middleware": {},
+  "instrumentation": {
+    "files": [
+      "server/edge/chunks/08b5e__pnpm_badf02._.js",
+      "server/edge/chunks/[project]_apps_web_bdb86a._.js",
+      "server/edge/chunks/edge-wrapper_d43b55.js"
+    ],
+    "name": "instrumentation"
+  },
+  "functions": {}
+}
