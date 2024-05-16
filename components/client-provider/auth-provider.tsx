@@ -7,7 +7,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import fetcher from '@/lib/fetcher'
 import { getStatusRedirect } from '@/lib/helpers'
 import { createClient } from '@/lib/supabase/client'
-import { SWRConfig } from 'swr' // biome-ignore lint/correctness/noUnusedVariables: <explanation>
+import { SWRConfig } from 'swr'
 
 // biome-ignore lint/correctness/noUnusedVariables: <explanation>
 interface User {

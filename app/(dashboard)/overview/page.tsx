@@ -1,11 +1,12 @@
 import { Metadata } from 'next'
 
-import AddData from '@/app/(dashboard)/app/settings/_components/_components/add-data'
-import OverviewCardLayout from '@/app/(dashboard)/app/settings/_components/_components/overview-card-layout'
-import OverviewCharts from '@/app/(dashboard)/app/settings/_components/_components/overview-charts'
+import AddData from '@/app/(dashboard)/settings/_components/_components/add-data'
+import OverviewCardLayout from '@/app/(dashboard)/settings/_components/_components/overview-card-layout'
+import OverviewCharts from '@/app/(dashboard)/settings/_components/_components/overview-charts'
+import { auth } from '@/auth'
 import AppHeader from '@/components/app-header'
 import { OverviewContextProvider } from '@/components/client-provider/overview-provider'
-import { createClient } from '@/lib/supabase/server'
+import { Session } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
@@ -14,12 +15,11 @@ export const metadata: Metadata = {
 }
 
 export default async function Dashboard() {
-  const supabase = createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const session = (await auth()) as Session
 
-  if (!user) redirect('/')
+  if (session) {
+    redirect('/')
+  }
 
   return (
     <OverviewContextProvider>

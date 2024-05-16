@@ -25,7 +25,7 @@ export default function AppNav({ activePage }: Props) {
                 site.name === activePage &&
                   'border-muted-foreground text-foreground',
               )}
-              href={`/app/${site.name.toLowerCase().replace(' ', '-')}`}
+              href={`/${site.name.toLowerCase().replace(' ', '-')}`}
             >
               <p>{site.name}</p>
             </Link>

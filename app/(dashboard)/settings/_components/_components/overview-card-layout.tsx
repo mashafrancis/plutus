@@ -1,6 +1,6 @@
 'use client'
 
-import OverviewCard from '@/app/(dashboard)/app/settings/_components/_components/overview-card'
+import OverviewCard from '@/app/(dashboard)/settings/_components/_components/overview-card'
 import { useUser } from '@/components/client-provider/auth-provider'
 import { useOverview } from '@/components/client-provider/overview-provider'
 import CardLoader from '@/components/loader/card'

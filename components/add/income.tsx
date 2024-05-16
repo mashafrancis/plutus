@@ -2,8 +2,6 @@
 
 import { Fragment, useMemo } from 'react'
 
-import { incrementUsage } from '@/app/(dashboard)/app/apis'
-import { addIncome, editIncome } from '@/app/(dashboard)/app/income/apis'
 import AutoCompleteList from '@/components/autocomplete-list'
 import { useUser } from '@/components/client-provider/auth-provider'
 import CircleLoader from '@/components/loader/circle'
@@ -41,6 +39,8 @@ import debounce from 'debounce'
 import { useForm } from 'react-hook-form'
 import { Drawer } from 'vaul'
 
+import { incrementUsage } from '@/app/(dashboard)/apis'
+import { addIncome, editIncome } from '@/app/(dashboard)/income/apis'
 import { useExpenseModal } from '@/store/use-expense-modal'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
@@ -83,7 +83,7 @@ export default function AddIncome({
     setValue,
     watch,
     reset,
-    formState: { isSubmitting, errors, isDirty, isValid },
+    formState: { isSubmitting, isDirty, isValid },
   } = form
 
   const name = watch('name')

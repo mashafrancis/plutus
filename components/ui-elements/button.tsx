@@ -1,10 +1,10 @@
+import { IconLoader } from '@/components/icon/IconLoader'
 import { sizes } from '@/lib/common-cva'
 import { cn } from '@/lib/utils'
 import { Slot } from '@radix-ui/react-slot'
 import type { VariantProps } from 'class-variance-authority'
 import { cva } from 'class-variance-authority'
 import React from 'react'
-import { Loader } from 'react-feather'
 import { IconContext } from '../icon/icon-context'
 
 export type ButtonVariantProps = VariantProps<typeof buttonVariants>
@@ -196,7 +196,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               undefined,
               showIcon &&
                 (loading ? (
-                  <Loader
+                  <IconLoader
                     size={size as string}
                     className={cn(loadingVariants({ loading }))}
                   />
@@ -219,7 +219,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           <>
             {showIcon &&
               (loading ? (
-                <Loader
+                <IconLoader
                   size={size as string}
                   className={cn(loadingVariants({ loading }))}
                 />

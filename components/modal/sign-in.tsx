@@ -1,8 +1,4 @@
-'use client'
-
-import { useState } from 'react'
-
-import LoginButton from '@/components/layout/login-button'
+import LoginForm from '@/components/layout/login-form'
 import { Modal } from '@/components/shared/modal'
 import { siteConfig } from '@/config/site'
 import { useSignInModal } from '@/store/use-sign-in-modal'
@@ -10,7 +6,6 @@ import { Icons } from '../icons'
 
 export const SignInModal = () => {
   const signInModal = useSignInModal()
-  const [signInClicked, _setSignInClicked] = useState(false)
 
   return (
     <Modal showModal={signInModal.isOpen} setShowModal={signInModal.onClose}>
@@ -25,8 +20,8 @@ export const SignInModal = () => {
           </p>
         </div>
 
-        <div className="flex flex-col space-y-4 bg-secondary/50 px-4 py-8 md:px-16">
-          <LoginButton isLoading={signInClicked} />
+        <div className="flex flex-col space-y-4 bg-secondary/50 px-4 py-8 md:px-8">
+          <LoginForm />
         </div>
       </div>
     </Modal>

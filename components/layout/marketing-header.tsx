@@ -1,6 +1,10 @@
-import HomeCtaButton from '@/components/layout/home-cta-button'
+import { auth } from '@/auth'
+import GetStartedButton from '@/components/layout/get-started-button'
 import SectionContainer from '@/components/layout/section-container'
+import { buttonVariants } from '@/components/ui-elements/button'
+import { cn } from '@/lib/utils'
 import { CTA } from '@/types/ui.types'
+import Link from 'next/link'
 import React from 'react'
 
 interface Props {
@@ -14,7 +18,9 @@ interface Props {
   logo?: boolean
 }
 
-export default function MarketingHeader(props: Props) {
+export default async function MarketingHeader(props: Props) {
+  const session = await auth()
+
   const Icon = props.icon
   return (
     <div className="w-full max-w-full relative mx-auto py-16 lg:py-24 bg-alternative overflow-hidden">
@@ -55,7 +61,21 @@ export default function MarketingHeader(props: Props) {
               })}
           </div>
           <div className="flex flex-row md:flex-row md:items-center gap-2">
-            <HomeCtaButton />
+            {session ? (
+              <Link
+                href="/overview"
+                className={cn(
+                  buttonVariants({
+                    size: 'large',
+                    type: 'primary',
+                  }),
+                )}
+              >
+                Go to app
+              </Link>
+            ) : (
+              <GetStartedButton />
+            )}
           </div>
         </div>
         {props.image && (

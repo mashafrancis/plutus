@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { getUser } from '@/app/(dashboard)/app/actions'
+import { getUser } from '@/app/(dashboard)/actions'
 import BottomNavigation from '@/components/bottom-navigation'
 import { AuthProvider } from '@/components/client-provider/auth-provider'
 import { DatePickerProvider } from '@/components/client-provider/datepicker-provider'

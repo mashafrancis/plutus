@@ -2,11 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-import { incrementUsage } from '@/app/(dashboard)/app/apis'
+import { incrementUsage } from '@/app/(dashboard)/apis'
 import {
   addInvestment,
   editInvestment,
-} from '@/app/(dashboard)/app/investments/apis'
+} from '@/app/(dashboard)/investments/apis'
 import AutoCompleteList from '@/components/autocomplete-list'
 import { useUser } from '@/components/client-provider/auth-provider'
 import CircleLoader from '@/components/loader/circle'

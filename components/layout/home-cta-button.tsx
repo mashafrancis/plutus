@@ -1,20 +1,17 @@
-import { buttonVariants } from '@/components/ui-elements/button'
-import { createClient } from '@/lib/supabase/client'
-import { cn } from '@/lib/utils'
-import Link from 'next/link'
 // import { use } from 'react'
-import GetStartedButton from './get-started-button'
+import { auth } from '@/auth'
+import GetStartedButton from '@/components/layout/get-started-button'
+import { buttonVariants } from '@/components/ui-elements/button'
+import { cn } from '@/lib/utils'
+import { Session } from 'next-auth'
+import Link from 'next/link'
 
 export default async function HomeCtaButton() {
-  const supabase = createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  console.log('Class: default, Function: HomeCtaButton, Line 13 user():', user)
+  const session = (await auth()) as Session
 
-  return user ? (
+  return session ? (
     <Link
-      href="/app/overview"
+      href="/overview"
       className={cn(
         buttonVariants({
           size: 'large',

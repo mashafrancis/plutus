@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes'
 import * as React from 'react'
 
 import { Button } from '@/components/ui/button'
-import { Moon, Sun } from 'react-feather'
+import { IconMoon, IconSun } from '@/components/ui/icons'
 
 export default function ThemeToggle() {
   const { setTheme, theme } = useTheme()
@@ -21,9 +21,9 @@ export default function ThemeToggle() {
       }}
     >
       {!theme ? null : theme === 'dark' ? (
-        <Moon size={16} className="transition-all" />
+        <IconMoon className="transition-all" />
       ) : (
-        <Sun size={16} className="transition-all" />
+        <IconSun className="transition-all" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

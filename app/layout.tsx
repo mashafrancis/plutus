@@ -45,6 +45,13 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
+  ],
+}
+
 const baselimeApiKey = env.NEXT_PUBLIC_BASELIME_KEY
 
 export default function RootLayout({ children }: { children: ReactNode }) {

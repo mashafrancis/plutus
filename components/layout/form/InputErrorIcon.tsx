@@ -1,6 +1,6 @@
+import { IconAlertTriangle } from '@/components/icon/IconAlertTriangle'
 import styleHandler from '@/components/theme/style-handler'
 import type React from 'react'
-import { AlertCircle } from 'react-feather'
 
 interface Props {
   style?: React.CSSProperties
@@ -12,7 +12,7 @@ export default function InputErrorIcon({ style, size }: Props) {
 
   return (
     <div className={__styles.base} style={style}>
-      <AlertCircle size={size} strokeWidth={2} className="" />
+      <IconAlertTriangle size={size} strokeWidth={2} className="" />
     </div>
   )
 }

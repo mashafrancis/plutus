@@ -7,7 +7,12 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 
 export function ClientProvider({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme={'light'} enableSystem>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
       <TooltipProvider delayDuration={100}>{children}</TooltipProvider>
     </ThemeProvider>
   )

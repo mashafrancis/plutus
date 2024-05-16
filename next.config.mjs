@@ -45,10 +45,10 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   output: 'standalone',
   experimental: {
     instrumentationHook: true,
+    ppr: true,
   },
   images: {
     remotePatterns: [

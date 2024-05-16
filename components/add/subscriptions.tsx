@@ -4,11 +4,11 @@ import Image from 'next/image'
 
 import { Fragment, useMemo, useRef, useState } from 'react'
 
-import { incrementUsage } from '@/app/(dashboard)/app/apis'
+import { incrementUsage } from '@/app/(dashboard)/apis'
 import {
   addSubscription,
   editSubscription,
-} from '@/app/(dashboard)/app/subscriptions/apis'
+} from '@/app/(dashboard)/subscriptions/apis'
 import AutoCompleteList from '@/components/autocomplete-list'
 import { useUser } from '@/components/client-provider/auth-provider'
 import CircleLoader from '@/components/loader/circle'
