@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import messages from '@/constants/messages'
 import { checkAuth } from '@/lib/auth'
-import prisma from '@/lib/prisma'
+import db from '@plutus/db'
 
 export async function POST(request: NextRequest) {
   const {
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
   } = await request.json()
   return await checkAuth(async (user: any) => {
     try {
-      await prisma.users.update({
+      await db.users.update({
         data: {
           order_identifier,
           billing_start_date,

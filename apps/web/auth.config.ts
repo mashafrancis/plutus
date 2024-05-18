@@ -1,30 +1,67 @@
-import { getUser } from '@/app/actions'
-import { env } from '@/env.mjs'
-import { SupabaseAdapter } from '@auth/supabase-adapter'
+import { PrismaAdapter } from '@auth/prisma-adapter'
+import db from '@plutus/db'
 import { NextAuthConfig } from 'next-auth'
 import GitHub from 'next-auth/providers/github'
+import Resend from 'next-auth/providers/resend'
+
+type UserData = {
+  email: string
+  id: string
+  new_signup_email: boolean
+}
 
 export const authConfig = {
-  adapter: SupabaseAdapter({
-    url: env.NEXT_PUBLIC_SUPABASE_URL,
-    secret: env.SUPABASE_SERVICE_ROLE_KEY,
-  }),
-  providers: [GitHub({ allowDangerousEmailAccountLinking: true })],
+  adapter: PrismaAdapter(db),
+  providers: [
+    GitHub({ allowDangerousEmailAccountLinking: true }),
+    Resend({
+      from: 'no-reply@plutus.com',
+    }),
+  ],
   pages: {
     signIn: '/',
   },
   callbacks: {
-    async authorized({ auth, request: { nextUrl } }) {
+    async authorized({ auth }) {
+      let user = null
       const isLoggedIn = !!auth?.user
-      const _user = await getUser(auth?.user?.email as string)
-      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard')
-      if (isOnDashboard) {
-        return isLoggedIn
-        // Redirect unauthenticated users to login page
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL('/overview', nextUrl))
+
+      if (isLoggedIn) {
+        const email = auth?.user?.email as string
+
+        user = (await db.users.findFirst({
+          where: { email },
+          select: { email: true, id: true, new_signup_email: true },
+        })) as UserData
+
+        if (!user) {
+          await db.users.create({
+            data: {
+              id: auth?.user?.id,
+              email,
+              new_signup_email: true,
+            },
+          })
+        }
+
+        if (user.new_signup_email) {
+          // await sendEmail({
+          //   from: emails.from,
+          //   subject: emails.welcome.subject,
+          //   to: [email],
+          //   react: WelcomeEmail(),
+          // })
+          await db.users.update({
+            where: { id: user.id },
+            data: { new_signup_email: false },
+          })
+        }
       }
       return true
+    },
+    session({ session, user }) {
+      session.user.id = user.id
+      return session
     },
   },
   trustHost: true,

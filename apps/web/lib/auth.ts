@@ -2,14 +2,12 @@ import { NextResponse } from 'next/server'
 
 import messages, { emails } from '@/constants/messages'
 import { basicPlan, premiumPlan } from '@/constants/usage'
-import prisma from '@/lib/prisma'
-import PlanExpiredEmail from '@/packages/transactional/emails/plan-expired'
-import UsageExceededEmail from '@/packages/transactional/emails/usage-limit-exceeded'
 import { addYears } from 'date-fns'
 
-import { createClient } from '@/lib/supabase/server'
-import { cache } from 'react'
-import resend from './email'
+import { updateUser } from '@/app/actions'
+import { auth } from '@/auth'
+import db from '@plutus/db'
+import { PlanExpiredEmail, UsageExceededEmail, sendEmail } from '@plutus/emails'
 
 type UserData = {
   email: string
@@ -37,117 +35,118 @@ const getUserUsageLimit = (user: any) => {
   return { isBasicUsageExceeded, isPremiumUsageExceeded, isPremiumPlanExpired }
 }
 
-export const checkAuth = cache(
+export const checkAuth =
   // biome-ignore lint/complexity/noBannedTypes: <explanation>
   async (callback: Function, isGetMethod = true) => {
-    const supabase = createClient()
-    const {
-      data: { user: sessionUser },
-    } = await supabase.auth.getUser()
+    const session = await auth()
 
-    if (sessionUser) {
-      const { data: user } = await supabase
-        .from('users')
-        .select('*')
-        .eq('id', sessionUser.id)
-        .single()
-      const {
-        basic_usage_limit_email,
-        premium_usage_limit_email,
-        premium_plan_expired_email,
-      } = user as UserData
-      const {
-        isBasicUsageExceeded,
-        isPremiumUsageExceeded,
-        isPremiumPlanExpired,
-      } = getUserUsageLimit(user)
-
-      if (isBasicUsageExceeded && !isGetMethod && user) {
-        if (!basic_usage_limit_email) {
-          try {
-            await resend.emails.send({
-              from: emails.from,
-              subject: emails.usageLimit.basic.subject,
-              to: user.email,
-              react: UsageExceededEmail({ maxUsageLimit: basicPlan.limit }),
-            })
-            await prisma.users.update({
-              where: { id: user?.id },
-              data: { basic_usage_limit_email: true },
-            })
-          } catch (_error) {
-            return NextResponse.json(
-              { message: messages.serverError },
-              { status: 401 },
-            )
-          }
-        }
-        return NextResponse.json(
-          { message: emails.usageLimit.basic.message },
-          { status: 403 },
-        )
-      }
-
-      if (isPremiumPlanExpired && !isGetMethod && user) {
-        if (!premium_plan_expired_email) {
-          try {
-            await resend.emails.send({
-              from: emails.from,
-              subject: emails.usageLimit.premiumExpired.subject,
-              to: user.email,
-              react: PlanExpiredEmail({ plan: 'Premium Plan' }),
-            })
-            await prisma.users.update({
-              where: { id: user?.id },
-              data: { premium_plan_expired_email: true },
-            })
-          } catch (_error) {
-            return NextResponse.json(
-              { message: messages.serverError },
-              { status: 401 },
-            )
-          }
-        }
-        return NextResponse.json(
-          { message: emails.usageLimit.premiumExpired.message },
-          { status: 403 },
-        )
-      }
-
-      if (isPremiumUsageExceeded && !isGetMethod && user) {
-        if (!premium_usage_limit_email) {
-          try {
-            await resend.emails.send({
-              from: emails.from,
-              subject: emails.usageLimit.premium.subject,
-              to: user.email,
-              react: UsageExceededEmail({
-                maxUsageLimit: premiumPlan.limit,
-                plan: 'Premium Plan',
-              }),
-            })
-            await prisma.users.update({
-              where: { id: user?.id },
-              data: { premium_usage_limit_email: true },
-            })
-          } catch (_error) {
-            return NextResponse.json(
-              { message: messages.serverError },
-              { status: 401 },
-            )
-          }
-        }
-        return NextResponse.json(
-          { message: emails.usageLimit.premium.message },
-          { status: 403 },
-        )
-      }
-      return callback(sessionUser)
-    } else {
+    if (!session) {
       return NextResponse.json(
         { message: messages.account.unauthorized },
         { status: 401 },
       )
     }
-  },
-)
+
+    const user = await db.users.findUnique({ where: { id: session.user?.id } })
+    if (!user) {
+      return NextResponse.json(
+        { message: messages.account.unauthorized },
+        { status: 401 },
+      )
+    }
+
+    console.log('Class: , Function: , Line 54 user():', user)
+
+    const {
+      basic_usage_limit_email,
+      premium_usage_limit_email,
+      premium_plan_expired_email,
+    } = user as UserData
+    const {
+      isBasicUsageExceeded,
+      isPremiumUsageExceeded,
+      isPremiumPlanExpired,
+    } = getUserUsageLimit(user)
+
+    if (isBasicUsageExceeded && !isGetMethod && user) {
+      if (!basic_usage_limit_email) {
+        try {
+          await sendEmail({
+            from: emails.from,
+            subject: emails.usageLimit.basic.subject,
+            to: [user.email],
+            react: UsageExceededEmail({ maxUsageLimit: basicPlan.limit }),
+          })
+          await updateUser({
+            id: user.id,
+            data: { basic_usage_limit_email: true },
+          })
+        } catch (_error) {
+          return NextResponse.json(
+            { message: messages.serverError },
+            { status: 401 },
+          )
+        }
+      }
+      return NextResponse.json(
+        { message: emails.usageLimit.basic.message },
+        { status: 403 },
+      )
+    }
+
+    if (isPremiumPlanExpired && !isGetMethod && user) {
+      if (!premium_plan_expired_email) {
+        try {
+          await sendEmail({
+            from: emails.from,
+            subject: emails.usageLimit.premiumExpired.subject,
+            to: [user.email],
+            react: PlanExpiredEmail({ plan: 'Premium Plan' }),
+          })
+          await updateUser({
+            id: user.id,
+            data: { premium_plan_expired_email: true },
+          })
+        } catch (_error) {
+          return NextResponse.json(
+            { message: messages.serverError },
+            { status: 401 },
+          )
+        }
+      }
+      return NextResponse.json(
+        { message: emails.usageLimit.premiumExpired.message },
+        { status: 403 },
+      )
+    }
+
+    if (isPremiumUsageExceeded && !isGetMethod && user) {
+      if (!premium_usage_limit_email) {
+        try {
+          await sendEmail({
+            from: emails.from,
+            subject: emails.usageLimit.premium.subject,
+            to: [user.email],
+            react: UsageExceededEmail({
+              maxUsageLimit: premiumPlan.limit,
+              plan: 'Premium Plan',
+            }),
+          })
+          await updateUser({
+            id: user.id,
+            data: { premium_usage_limit_email: true },
+          })
+        } catch (_error) {
+          return NextResponse.json(
+            { message: messages.serverError },
+            { status: 401 },
+          )
+        }
+      }
+      return NextResponse.json(
+        { message: emails.usageLimit.premium.message },
+        { status: 403 },
+      )
+    }
+    return callback(session)
+  }

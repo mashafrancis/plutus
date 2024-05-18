@@ -7,13 +7,12 @@ import {
   Section,
   Text,
 } from '@react-email/components'
-
-import url from '../constants/url'
-import ButtonLink from './button-link'
 import Footer from './footer'
 import Footnote from './footnote'
 
-export default function WelcomeEmail() {
+const baseUrl = 'https://plutus.francismasha.com'
+
+export function WelcomeEmail() {
   return (
     <Html>
       <Head />
@@ -22,11 +21,11 @@ export default function WelcomeEmail() {
         <Container style={container}>
           <Section style={{ marginTop: '20px' }}>
             <Img
-              src={url.logoUrl}
+              src={`${baseUrl}/logo.svg`}
               width="50"
               height="50"
               alt="Logo"
-              style={logo}
+              className="block m-auto"
             />
           </Section>
           <Text style={{ ...h1, marginTop: '20px' }}>Welcome to Plutus</Text>
@@ -35,16 +34,6 @@ export default function WelcomeEmail() {
             deliver financial clarity through spending analysis. We are excited
             to have you on board.
           </Text>
-
-          <Section
-            style={{
-              marginTop: '20px',
-              marginBottom: '20px',
-              textAlign: 'center',
-            }}
-          >
-            <ButtonLink href={url.app.overview} btnText="Get started" />
-          </Section>
 
           <Footnote />
           <Footer />
@@ -67,7 +56,7 @@ const container = {
   width: '465px',
 }
 
-const logo = {
+const _logo = {
   margin: '0 auto',
 }
 

@@ -8,7 +8,7 @@ import {
   calculatePrevRenewalDate,
   calculateRenewalDate,
 } from '@/lib/date'
-import prisma from '@/lib/prisma'
+import db from '@plutus/db'
 import { format } from 'date-fns'
 
 export async function GET(request: NextRequest) {
@@ -18,12 +18,12 @@ export async function GET(request: NextRequest) {
 
   return await checkAuth(async (user: any) => {
     try {
-      const data = await prisma.subscriptions.findMany({
+      const data = await db.subscriptions.findMany({
         where: { user_id: user.id },
         orderBy: { date: 'desc' },
       })
 
-      let updatedDate = data.map((datum) => {
+      let updatedDate = data.map((datum: { date: string; paid: string }) => {
         const renewal_date = calculateRenewalDate(datum.date, datum.paid)
         const prev_renewal_date = format(
           calculatePrevRenewalDate(renewal_date, datum.paid),
@@ -58,7 +58,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json(messages.request.invalid, { status: 400 })
     }
     try {
-      await prisma.subscriptions.delete({
+      await db.subscriptions.delete({
         where: { id: id[0] },
       })
       return NextResponse.json('deleted', { status: 200 })
@@ -80,7 +80,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json(messages.request.invalid, { status: 400 })
     }
     try {
-      await prisma.subscriptions.update({
+      await db.subscriptions.update({
         data: { notes, name, price, date, url, paid, active, cancelled_at },
         where: { id },
       })

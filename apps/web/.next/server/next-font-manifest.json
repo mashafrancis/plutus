@@ -1,15 +1,1 @@
-{
-  "app": {
-    "[project]/apps/web/app/(home)/page": [
-      "static/media/sf_pro_text_regular_webfont-s.p.1ed24ed0.woff2",
-      "static/media/sf_pro_text_semibold_webfont-s.p.1bde850c.woff2",
-      "static/media/sf_pro_text_medium_webfont-s.p.9a21dd81.woff2",
-      "static/media/sf_pro_text_bold_webfont-s.p.aeff6d36.woff2",
-      "static/media/CalSans_SemiBold-s.p.259ffae0.woff2",
-      "static/media/GeistMono_Variable.p.0ce97b8a.woff2"
-    ]
-  },
-  "appUsingSizeAdjust": true,
-  "pages": {},
-  "pagesUsingSizeAdjust": false
-}
+{"pages":{},"app":{"/Users/francismasha/Documents/Projects/Personal/plutus/apps/web/app/layout":["static/media/66f30814ff6d7cdf.p.woff2","static/media/90475aac776488b6-s.p.woff2","static/media/3c69bba0733f0e1d-s.p.woff2","static/media/0f693d3b5cf30f33-s.p.woff2","static/media/6077329f2ce72120-s.p.woff2","static/media/61e35ea2f001c95e-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}

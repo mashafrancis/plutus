@@ -2,12 +2,12 @@
 
 import { useState } from 'react'
 
-import { deleteUser } from '@/app/(dashboard)/app/settings/apis'
 import { useUser } from '@/components/client-provider/auth-provider'
 import CircleLoader from '@/components/loader/circle'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
+import { deleteUser } from '@/app/(app)/settings/apis'
 import { createClient } from '@/lib/supabase/client'
 import Modal from '.'
 

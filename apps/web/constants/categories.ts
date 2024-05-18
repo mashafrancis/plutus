@@ -13,16 +13,16 @@ export const expensesCategory: ExpensesCategory = {
   food: { name: 'Food', emoji: '🍔' },
   grocery: { name: 'Grocery', emoji: '🛒' },
   order: { name: 'Online Order', emoji: '📦' },
-  other: { name: 'Others', emoji: '🤷🏻‍♂️' },
+  other: { name: 'Others', emoji: '🤷' },
   emi: { name: 'EMI', emoji: '🤑' },
-  sports: { name: 'Sports', emoji: '⚽️' },
+  sports: { name: 'Sports', emoji: '⚽' },
   savings: { name: 'Savings', emoji: '💰' },
   debt: { name: 'Debt', emoji: '💸' },
   loan: { name: 'Loan', emoji: '🤫' },
   medical: { name: 'Medical', emoji: '🏥' },
   rent: { name: 'Rent', emoji: '🏠' },
-  shopping: { name: 'Shopping', emoji: '🛍️' },
-  travel: { name: 'Travel', emoji: '✈️' },
+  shopping: { name: 'Shopping', emoji: '🛍' },
+  travel: { name: 'Travel', emoji: '✈' },
 }
 
 interface ExpensesPay {
@@ -41,54 +41,54 @@ export const expensesPay: ExpensesPay = {
   upi: { name: 'UPI', emoji: '📲' },
 }
 
-interface GroupedExpensesCategory {
-  [key: string]: {
-    name: string
-    list: {
-      [key: string]: {
-        name: string
-      }
-    }
-  }
-}
+// interface GroupedExpensesCategory {
+//   [key: string]: {
+//     name: string
+//     list: {
+//       [key: string]: {
+//         name: string
+//       }
+//     }
+//   }
+// }
 
-export const groupedExpenses: GroupedExpensesCategory = {
-  dailyessentials: {
-    name: 'Essentials',
-    list: {
-      food: expensesCategory.food,
-      grocery: expensesCategory.grocery,
-      medical: expensesCategory.medical,
-    },
-  },
-  expenses: {
-    name: 'Expenses',
-    list: {
-      bills: expensesCategory.bills,
-      education: expensesCategory.education,
-      order: expensesCategory.order,
-      rent: expensesCategory.rent,
-    },
-  },
-  leisure: {
-    name: 'Leisure',
-    list: {
-      entertainment: expensesCategory.entertainment,
-      shopping: expensesCategory.shopping,
-      travel: expensesCategory.travel,
-      sports: expensesCategory.sports,
-    },
-  },
-  payments: {
-    name: 'Payments',
-    list: {
-      emi: expensesCategory.emi,
-      savings: expensesCategory.savings,
-      debt: expensesCategory.debt,
-      loan: expensesCategory.loan,
-    },
-  },
-}
+// export const groupedExpenses: GroupedExpensesCategory = {
+//   dailyessentials: {
+//     name: 'Essentials',
+//     list: {
+//       food: expensesCategory.food,
+//       grocery: expensesCategory.grocery,
+//       medical: expensesCategory.medical,
+//     },
+//   },
+//   expenses: {
+//     name: 'Expenses',
+//     list: {
+//       bills: expensesCategory.bills,
+//       education: expensesCategory.education,
+//       order: expensesCategory.order,
+//       rent: expensesCategory.rent,
+//     },
+//   },
+//   leisure: {
+//     name: 'Leisure',
+//     list: {
+//       entertainment: expensesCategory.entertainment,
+//       shopping: expensesCategory.shopping,
+//       travel: expensesCategory.travel,
+//       sports: expensesCategory.sports,
+//     },
+//   },
+//   payments: {
+//     name: 'Payments',
+//     list: {
+//       emi: expensesCategory.emi,
+//       savings: expensesCategory.savings,
+//       debt: expensesCategory.debt,
+//       loan: expensesCategory.loan,
+//     },
+//   },
+// }
 
 interface Income {
   [key: string]: string

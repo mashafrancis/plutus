@@ -11,7 +11,7 @@ import {
 import Footer from './footer'
 import Footnote from './footnote'
 
-export default function AccountedDeleteEmail() {
+export function AccountedDeleteEmail() {
   return (
     <Html>
       <Head />

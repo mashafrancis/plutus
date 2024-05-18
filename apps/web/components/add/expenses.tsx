@@ -2,8 +2,8 @@
 
 import { useMemo } from 'react'
 
-import { incrementUsage } from '@/app/(dashboard)/apis'
-import { addExpense, editExpense } from '@/app/(dashboard)/expenses/apis'
+import { incrementUsage } from '@/app/(app)/apis'
+import { addExpense, editExpense } from '@/app/(app)/expenses/apis'
 import { useUser } from '@/components/client-provider/auth-provider'
 import { Button } from '@/components/ui-elements/button'
 import { Form } from '@/components/ui-elements/form'

@@ -1,15 +1,10 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { PropsWithChildren, createContext, useContext, useMemo } from 'react'
 
 import fetcher from '@/lib/fetcher'
-import { getStatusRedirect } from '@/lib/helpers'
-import { createClient } from '@/lib/supabase/client'
 import { SWRConfig } from 'swr'
 
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
 interface User {
   currency: string
   locale: string
@@ -28,58 +23,26 @@ interface User {
   isPremiumPlanEnded: boolean
 }
 
-interface Session {}
+interface Props {
+  user: User
+}
 
-const AuthContext = createContext(null)
+const AuthContext = createContext({})
 
-export const AuthProvider = (props: any) => {
-  const [initial, setInitial] = useState(true)
-  const [session, setSession] = useState<Session | null>(null)
-  const router = useRouter()
-  const supabase = createClient()
-  const { children, user, ...others } = props
+export const AuthProvider = (props: PropsWithChildren<Props>) => {
+  const { children, user } = props
 
-  useEffect(() => {
-    async function getActiveSession() {
-      const {
-        data: { session: activeSession },
-      } = await supabase.auth.getSession()
-      setSession(activeSession ?? null)
-      setInitial(false)
-    }
-
-    getActiveSession()
-
-    const {
-      data: { subscription: authListener },
-    } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'SIGNED_IN') {
-        router.refresh()
-      }
-
-      if (event === 'SIGNED_OUT') {
-        getStatusRedirect(`${origin}/`, 'Success!', 'You are now signed out.')
-      }
-    })
-
-    return () => {
-      authListener?.unsubscribe()
-    }
-  }, [])
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const value = useMemo(() => {
     return {
-      initial,
-      session,
-      user,
-      signOut: () => supabase.auth.signOut(),
+      user: user as User,
     }
-  }, [session, user])
+  }, [user])
+
+  console.log('Class: , Function: AuthProvider, Line 41 value():', value.user)
 
   return (
-    <AuthContext.Provider value={value} {...others}>
-      <SWRConfig value={{ fetcher }}>{session ? children : null}</SWRConfig>
+    <AuthContext.Provider value={value}>
+      <SWRConfig value={{ fetcher }}>{children}</SWRConfig>
     </AuthContext.Provider>
   )
 }

@@ -1,0 +1,45 @@
+{
+  "name": "@plutus/db",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./index.ts"
+  },
+  "scripts": {
+    "predev": "pnpm run generate",
+    "db:deploy": "pnpm prisma migrate deploy",
+    "db:push": "dotenv -e ../../.env prisma db push --skip-generate",
+    "db:generate": "prisma generate",
+    "db:migrate": "pnpm prisma migrate dev",
+    "db:seed": "pnpm prisma db seed",
+    "db:format": "pnpm prisma format",
+    "db:studio": "pnpm prisma studio",
+    "db:up": "docker compose up -d || docker-compose up -d",
+    "db:setup": "pnpm db:push && pnpm db:generate",
+    "generate-schemas": "pnpm db:generate && prisma format",
+    "postinstall": "pnpm generate-schemas",
+    "clean": "rm -rf .turbo node_modules",
+    "format": "biome format --write .",
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.6.0",
+    "@prisma/adapter-libsql": "^5.14.0",
+    "@prisma/client": "^5.14.0",
+    "@prisma/extension-accelerate": "^1.0.0",
+    "@t3-oss/env-core": "0.10.1",
+    "dotenv": "^16.4.5",
+    "prisma-field-encryption": "^1.5.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@plutus/tsconfig": "workspace:*",
+    "prisma": "^5.14.0",
+    "typescript": "5.4.5"
+  },
+  "files": ["client", "zod", "zod-utils.ts"],
+  "prisma": {
+    "seed": "ts-node --transpile-only ./seed.ts"
+  }
+}

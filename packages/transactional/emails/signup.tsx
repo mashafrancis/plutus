@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import {
   Body,
   Container,
@@ -24,9 +22,7 @@ interface EmailTemplateProps {
 
 const baseUrl = 'https://plutus.francismasha.com'
 
-export const SignUpEmail: React.FC<Readonly<EmailTemplateProps>> = ({
-  action_link = '',
-}) => {
+export const SignUpEmail = ({ action_link = '' }) => {
   return (
     <Html>
       <Tailwind>
@@ -80,5 +76,3 @@ export const SignUpEmail: React.FC<Readonly<EmailTemplateProps>> = ({
     </Html>
   )
 }
-
-export default SignUpEmail

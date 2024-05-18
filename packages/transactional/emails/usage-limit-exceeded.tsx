@@ -8,7 +8,6 @@ import {
   Text,
 } from '@react-email/components'
 
-import url from '../constants/url'
 import ButtonLink from './button-link'
 import Footer from './footer'
 import Footnote from './footnote'
@@ -18,7 +17,9 @@ type UsageProps = {
   maxUsageLimit: number
 }
 
-export default function UsageExceededEmail({
+const baseUrl = 'https://plutus.francismasha.com'
+
+export function UsageExceededEmail({
   plan = 'Basic Plan',
   maxUsageLimit = 100,
 }: UsageProps) {
@@ -30,7 +31,7 @@ export default function UsageExceededEmail({
         <Container style={container}>
           <Section style={{ marginTop: '20px' }}>
             <Img
-              src={url.logoUrl}
+              src={`${baseUrl}/logo.svg`}
               width="50"
               height="50"
               alt="Logo"
@@ -57,10 +58,7 @@ export default function UsageExceededEmail({
           </Text>
 
           <Section style={{ marginTop: '20px', marginBottom: '20px' }}>
-            <ButtonLink
-              href={`${url.app.overview}/settings`}
-              btnText="Upgrade now"
-            />
+            <ButtonLink href={`${baseUrl}/settings`} btnText="Upgrade now" />
           </Section>
           <Footnote />
           <Footer />

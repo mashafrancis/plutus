@@ -16,11 +16,11 @@ export const SignInModal = () => {
           </a>
           <h3 className="text-2xl font-bold">Sign In</h3>
           <p className="text-gray-500">
-            Sign in to access your account and continue using Plutus.
+            Sign in to access your account and continue.
           </p>
         </div>
 
-        <div className="flex flex-col space-y-4 bg-secondary/50 px-4 py-8 md:px-8">
+        <div className="flex flex-col space-y-4 bg-secondary/70 px-4 py-8 md:px-8">
           <LoginForm />
         </div>
       </div>

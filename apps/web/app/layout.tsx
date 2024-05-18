@@ -12,6 +12,7 @@ import { ModalProvider } from '@/components/client-provider/modal-provider'
 import { Toaster } from '@/components/ui-elements/sonner'
 import { env } from '@/env.mjs'
 import { BaselimeRum } from '@baselime/react-rum'
+import { HighlightInit } from '@highlight-run/next/client'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GeistMono } from 'geist/font/mono'
@@ -64,6 +65,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           GeistMono.variable,
         )}
       >
+        <HighlightInit
+          projectId={'qe90poe1'}
+          serviceName="plutus"
+          tracingOrigins
+          networkRecording={{
+            enabled: true,
+            recordHeadersAndBody: true,
+            urlBlocklist: [],
+          }}
+        />
+
         <BaselimeRum
           apiKey={baselimeApiKey}
           enableWebVitals

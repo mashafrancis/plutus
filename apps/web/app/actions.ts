@@ -1,16 +1,10 @@
 'use server'
 
 import { signIn } from '@/auth'
-import { emails } from '@/constants/messages'
-import { apiUrls } from '@/lib/apiUrls'
-import resend from '@/lib/email'
-import { supabaseAdmin } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
 import { authSchema } from '@/lib/validations/auth'
-import SignInEmail from '@/packages/transactional/emails/signin'
-import SignUpEmail from '@/packages/transactional/emails/signup'
-import WelcomeEmail from '@/packages/transactional/emails/welcome'
 import { Tables } from '@/types_db'
+import db from '@plutus/db'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
@@ -24,18 +18,18 @@ export async function authenticate() {
   })
 }
 
-export async function login(
-  _prevState: string | undefined,
-  { email }: FormData,
-) {
-  const res = await fetch(apiUrls.auth.login, {
-    method: 'POST',
-    body: JSON.stringify({ email }),
-    headers: { 'Content-Type': 'application/json' },
-  })
-
-  return await res.json()
-}
+// export async function login(
+//   _prevState: string | undefined,
+//   { email }: FormData,
+// ) {
+//   const res = await fetch(apiUrls.auth.login, {
+//     method: 'POST',
+//     body: JSON.stringify({ email }),
+//     headers: { 'Content-Type': 'application/json' },
+//   })
+//
+//   return await res.json()
+// }
 
 export async function logout() {
   const supabase = createClient()
@@ -52,14 +46,8 @@ export async function logout() {
 }
 
 export async function getUser(email: string): Promise<User> {
-  const supabase = createClient()
-
-  const { data: user } = await supabase
-    .from('users')
-    .select('*')
-    .eq('email', email)
-    .single()
-  return user
+  // @ts-expect-error
+  return db.user.findUnique({ where: { email } })
 }
 
 export async function updateUser({
@@ -76,73 +64,73 @@ export async function updateUser({
   return user
 }
 
-async function signUpUser(user: User) {
-  const { email, new_signup_email } = user
-  try {
-    const { data, error } = await supabaseAdmin.auth.admin.generateLink({
-      type: 'magiclink',
-      email,
-      options: { redirectTo: '/' },
-    })
+// async function signUpUser(user: User) {
+//   const { email, new_signup_email } = user
+//   try {
+//     const { data, error } = await supabaseAdmin.auth.admin.generateLink({
+//       type: 'magiclink',
+//       email,
+//       options: { redirectTo: '/' },
+//     })
+//
+//     if (error) {
+//       throw error
+//     }
+//
+//     const { properties } = data
+//     const { action_link } = properties
+//
+//     try {
+//       await resend.emails.send({
+//         from: emails.from,
+//         subject: emails.register.subject,
+//         to: [email],
+//         react: SignUpEmail({ action_link }) as React.ReactElement,
+//       })
+//     } catch (err: any) {
+//       throw err
+//     }
+//   } catch (error: any) {
+//     console.error(error)
+//   }
+// }
 
-    if (error) {
-      throw error
-    }
-
-    const { properties } = data
-    const { action_link } = properties
-
-    try {
-      await resend.emails.send({
-        from: emails.from,
-        subject: emails.register.subject,
-        to: [email],
-        react: SignUpEmail({ action_link }) as React.ReactElement,
-      })
-    } catch (err: any) {
-      throw err
-    }
-  } catch (error: any) {
-    console.error(error)
-  }
-}
-
-async function signInUser(user: User) {
-  const { email, new_signup_email } = user
-  try {
-    const { data, error } = await supabaseAdmin.auth.admin.generateLink({
-      type: 'magiclink',
-      email,
-      options: { redirectTo: '/overview' },
-    })
-
-    if (error) {
-      throw error
-    }
-
-    const { properties } = data
-    const { action_link } = properties
-
-    try {
-      if (!user.new_signup_email) {
-        await resend.emails.send({
-          from: emails.from,
-          subject: emails.welcome.subject,
-          to: [user.email],
-          react: WelcomeEmail(),
-        })
-        await updateUser({ id: user.id, data: { new_signup_email: true } })
-      }
-      await resend.emails.send({
-        from: emails.from,
-        subject: emails.login.subject,
-        to: [email],
-        react: SignInEmail({ action_link }),
-      })
-    } catch (err: any) {
-      throw err
-    }
-  } catch (error: any) {
-    console.error(error)
-  }
-}
+// async function signInUser(user: User) {
+//   const { email, new_signup_email } = user
+//   try {
+//     const { data, error } = await supabaseAdmin.auth.admin.generateLink({
+//       type: 'magiclink',
+//       email,
+//       options: { redirectTo: '/overview' },
+//     })
+//
+//     if (error) {
+//       throw error
+//     }
+//
+//     const { properties } = data
+//     const { action_link } = properties
+//
+//     try {
+//       if (!user.new_signup_email) {
+//         await resend.emails.send({
+//           from: emails.from,
+//           subject: emails.welcome.subject,
+//           to: [user.email],
+//           react: WelcomeEmail(),
+//         })
+//         await updateUser({ id: user.id, data: { new_signup_email: true } })
+//       }
+//       await resend.emails.send({
+//         from: emails.from,
+//         subject: emails.login.subject,
+//         to: [email],
+//         react: SignInEmail({ action_link }),
+//       })
+//     } catch (err: any) {
+//       throw err
+//     }
+//   } catch (error: any) {
+//     console.error(error)
+//   }
+// }

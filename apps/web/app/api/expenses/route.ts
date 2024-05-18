@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import messages from '@/constants/messages'
 import { checkAuth } from '@/lib/auth'
-import prisma from '@/lib/prisma'
+import db from '@plutus/db'
 
 // type Where = {
 //   user_id: string
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
         delete where.date
       }
 
-      const data = await prisma.expenses.findMany({
+      const data = await db.expenses.findMany({
         where,
         orderBy: { updated_at: 'desc' },
         select: {
@@ -72,7 +72,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json(messages.request.invalid, { status: 400 })
     }
     try {
-      await prisma.expenses.delete({
+      await db.expenses.delete({
         where: { id: id[0] },
       })
       return NextResponse.json('deleted', { status: 200 })
@@ -94,7 +94,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json(messages.request.invalid, { status: 400 })
     }
     try {
-      await prisma.expenses.update({
+      await db.expenses.update({
         data: { notes, name, price, date, paid_via, category },
         where: { id },
       })

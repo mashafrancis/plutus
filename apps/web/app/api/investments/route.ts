@@ -2,18 +2,18 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import messages from '@/constants/messages'
 import { checkAuth } from '@/lib/auth'
-import prisma from '@/lib/prisma'
+import db from '@plutus/db'
 
-type Where = {
-  user_id: string
-  date?: {
-    lte: string
-    gte: string
-  }
-  categories?: {
-    contains: string
-  }
-}
+// type Where = {
+//   user_id: string
+//   date?: {
+//     lte: string
+//     gte: string
+//   }
+//   categories?: {
+//     contains: string
+//   }
+// }
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
         ...(to && from && { date: { lte: to, gte: from } }),
       }
 
-      const data = await prisma.investments.findMany({
+      const data = await db.investments.findMany({
         where,
         orderBy: { updated_at: 'desc' },
         select: {
@@ -68,7 +68,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json(messages.request.invalid, { status: 400 })
     }
     try {
-      await prisma.investments.delete({
+      await db.investments.delete({
         where: { id: id[0] },
       })
       return NextResponse.json('deleted', { status: 200 })
@@ -89,7 +89,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json(messages.request.invalid, { status: 400 })
     }
     try {
-      await prisma.investments.update({
+      await db.investments.update({
         data: { notes, name, price, date, category, units },
         where: { id },
       })

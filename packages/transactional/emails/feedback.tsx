@@ -10,7 +10,7 @@ import {
 
 import Footer from './footer'
 
-export default function FeedbackEmail({
+export function FeedbackEmail({
   message = '',
   email = '',
 }: {

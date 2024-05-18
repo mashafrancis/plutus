@@ -2,23 +2,15 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import messages, { emails } from '@/constants/messages'
 import { checkAuth } from '@/lib/auth'
-import { Database } from '@/lib/database.types'
-import resend from '@/lib/email'
-import prisma from '@/lib/prisma'
-import AccountedDeleteEmail from '@/packages/transactional/emails/account-deleted'
-import { createClient } from '@supabase/supabase-js'
+import { supabaseAdmin } from '@/lib/supabase/admin'
+import db from '@plutus/db'
+import { AccountedDeleteEmail, sendEmail } from '@plutus/emails'
 import { addYears } from 'date-fns'
-
-const supabaseAdmin = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
-  process.env.SUPABASE_SERVICE_ROLE_KEY ?? '',
-  { auth: { persistSession: false } },
-)
 
 export async function GET() {
   return await checkAuth(async (user: any) => {
     try {
-      const data = await prisma.users.findUnique({
+      const data = await db.users.findUnique({
         where: { id: user.id },
         select: {
           currency: true,
@@ -57,7 +49,7 @@ export async function PATCH(request: NextRequest) {
   const { currency, locale } = await request.json()
   return await checkAuth(async (user: any) => {
     try {
-      await prisma.users.update({
+      await db.users.update({
         data: { currency, locale },
         where: { id: user.id },
       })
@@ -81,9 +73,9 @@ export async function POST(_request: NextRequest) {
           { status: 500 },
         )
       }
-      await prisma.users.delete({ where: { id: user.id } })
+      await db.users.delete({ where: { id: user.id } })
       try {
-        await resend.emails.send({
+        await sendEmail({
           from: emails.from,
           subject: emails.account.deleted,
           to: user.email,

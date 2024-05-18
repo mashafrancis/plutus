@@ -1,12 +1,12 @@
-import { updateSession } from '@/lib/supabase/middleware'
-import { type NextRequest } from 'next/server'
-
-export async function middleware(request: NextRequest) {
-  return await updateSession(request)
-}
+export { auth as middleware } from '@/auth'
 
 export const config = {
   matcher: [
+    '/overview',
+    '/investment',
+    '/subscriptions',
+    '/income',
+    '/settings',
     /*
      * Match all request paths except for the ones starting with:
      * - _next/static (static files)

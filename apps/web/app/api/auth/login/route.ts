@@ -1,9 +1,9 @@
+import { getUser } from '@/app/actions'
 import messages, { emails } from '@/constants/messages'
-import { sendEmail } from '@/lib/email'
 import { supabaseAdmin } from '@/lib/supabase/admin'
+import { SignUpEmail } from '@plutus/emails'
+import { sendEmail } from '@plutus/emails/emails/send'
 import { NextRequest, NextResponse } from 'next/server'
-import SignUpEmail from '../../../../../emails/signup'
-import { getUser } from '../../../actions'
 
 export async function POST(request: NextRequest) {
   const { email } = await request.json()
@@ -29,25 +29,8 @@ export async function POST(request: NextRequest) {
           from: emails.from,
           subject: emails.register.subject,
           to: [email],
-          react: SignUpEmail({ action_link }) as React.ReactElement,
+          react: SignUpEmail({ action_link }),
         })
-
-        // const { data, error } = await resend.emails.send({
-        //   from: emails.from,
-        //   subject: emails.register.subject,
-        //   to: [email],
-        //   html: await renderAsync(
-        //     SignUpEmail({ action_link }) as React.ReactElement,
-        //   ),
-        //   // html: '<strong>It works!</strong>',
-        //   // react: SignUpEmail({ action_link }) as React.ReactElement,
-        // })
-        //
-        // if (error) {
-        //   return console.error({ error })
-        // }
-        //
-        // console.log({ data })
         return NextResponse.json({ message: emails.sent })
       } catch (err: any) {
         console.error(err)

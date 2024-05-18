@@ -2,19 +2,18 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { emails } from '@/constants/messages'
 import { checkAuth } from '@/lib/auth'
-import resend from '@/lib/email'
-import prisma from '@/lib/prisma'
-import FeedbackEmail from '@/packages/transactional/emails/feedback'
+import db from '@plutus/db'
+import { FeedbackEmail, sendEmail } from '@plutus/emails'
 
 export async function POST(request: NextRequest) {
   const { message } = await request.json()
   return await checkAuth(async (user: any) => {
     try {
-      await prisma.feedbacks.create({ data: { message, user_id: user.id } })
-      await resend.emails.send({
+      await db.feedback.create({ data: { message, user_id: user.id } })
+      await sendEmail({
         from: emails.from,
         subject: emails.feedback.subject,
-        to: emails.email,
+        to: [emails.email],
         reply_to: user.email,
         react: FeedbackEmail({ message, email: user.email }),
       })

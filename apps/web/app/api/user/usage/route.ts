@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import messages from '@/constants/messages'
 import { checkAuth } from '@/lib/auth'
-import prisma from '@/lib/prisma'
+import db from '@plutus/db'
 
 export async function POST(_request: NextRequest) {
   return await checkAuth(async (user: any) => {
     try {
-      await prisma.users.update({
+      await db.users.update({
         data: { usage: { increment: 1 } },
         where: { id: user.id },
       })

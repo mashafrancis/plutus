@@ -16,9 +16,7 @@ const settingUrl = 'https://plutus.francismasha.com/settings'
 
 type PlanExpiredProps = { plan?: string }
 
-export default function PlanExpiredEmail({
-  plan = 'Premium Plan',
-}: PlanExpiredProps) {
+export function PlanExpiredEmail({ plan = 'Premium Plan' }: PlanExpiredProps) {
   return (
     <Html>
       <Head />
