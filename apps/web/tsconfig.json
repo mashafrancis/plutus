@@ -1,0 +1,24 @@
+{
+  "extends": "@plutus/tsconfig/nextjs.json",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "strict": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.cjs",
+    "**/*.mjs",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["../../node_modules", "text-filter"]
+}
