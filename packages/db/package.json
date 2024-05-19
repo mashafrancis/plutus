@@ -38,7 +38,11 @@
     "prisma": "^5.14.0",
     "typescript": "5.4.5"
   },
-  "files": ["client", "zod", "zod-utils.ts"],
+  "files": [
+    "client",
+    "zod",
+    "zod-utils.ts"
+  ],
   "prisma": {
     "seed": "ts-node --transpile-only ./seed.ts"
   }

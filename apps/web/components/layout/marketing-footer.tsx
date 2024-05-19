@@ -1,3 +1,4 @@
+import SectionContainer from '@/components/layout/section-container'
 import { ThemeToggle } from '@/components/theme-provider'
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
@@ -26,6 +27,11 @@ export function MarketingFooter({
         </div>
         <ThemeToggle />
       </div>
+      <SectionContainer className="flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row px-6 py-16 md:py-24 lg:px-16 lg:py-24 xl:px-20">
+        <h5 className="text-muted-foreground/20 text-[500px] leading-none text-center pointer-events-none">
+          plutus
+        </h5>
+      </SectionContainer>
     </footer>
   )
 }

@@ -350,6 +350,22 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
 
+  packages/supabase:
+    dependencies:
+      '@supabase/ssr':
+        specifier: ^0.3.0
+        version: 0.3.0(@supabase/supabase-js@2.43.2)
+      '@supabase/supabase-js':
+        specifier: ^2.43.2
+        version: 2.43.2
+    devDependencies:
+      '@plutus/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: 5.4.5
+        version: 5.4.5
+
   packages/transactional:
     dependencies:
       '@react-email/button':
