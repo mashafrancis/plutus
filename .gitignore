@@ -47,3 +47,4 @@ react-email/node_modules/
 # Turborepo
 .turbo
 .next
+node_modules
