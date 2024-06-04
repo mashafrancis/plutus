@@ -48,8 +48,9 @@ const nextConfig = {
   output: 'standalone',
   experimental: {
     instrumentationHook: true,
-    taint: true,
-    // ppr: true,
+    // taint: true,
+    // reactCompiler: true,
+    // ppr: 'incremental',
   },
   images: {
     remotePatterns: [
