@@ -62,6 +62,7 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@react-email/components": "0.0.19",
+    "@sentry/nextjs": "^8",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.43.4",
     "@t3-oss/env-nextjs": "^0.10.1",

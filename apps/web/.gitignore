@@ -47,3 +47,6 @@ react-email/node_modules/
 # Turborepo
 .turbo
 .next
+
+# Sentry Config File
+.env.sentry-build-plugin
