@@ -1,6 +1,11 @@
 'use client'
 
-import { PropsWithChildren, createContext, useContext, useMemo } from 'react'
+import {
+  type PropsWithChildren,
+  createContext,
+  useContext,
+  useMemo,
+} from 'react'
 
 import fetcher from '@/lib/fetcher'
 import { SWRConfig } from 'swr'
@@ -50,7 +55,7 @@ export const AuthProvider = (props: PropsWithChildren<Props>) => {
 export const useUser = () => {
   const context = useContext<any>(AuthContext)
   if (context === undefined) {
-    throw new Error(`useUser must be used within a AuthContext.`)
+    throw new Error('useUser must be used within a AuthContext.')
   }
   return context?.user ?? null
 }

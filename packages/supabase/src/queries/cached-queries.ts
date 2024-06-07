@@ -32,5 +32,6 @@ export const getUser = async () => {
       tags: [`user_${userId}`],
       revalidate: 180,
     },
-  )
+    // @ts-expect-error
+  )(userId)
 }

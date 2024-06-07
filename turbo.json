@@ -4,7 +4,8 @@
   "globalEnv": [
     "RESEND_API_KEY",
     "SUPABASE_SERVICE_ROLE_KEY",
-    "BASELIME_API_KEY"
+    "BASELIME_API_KEY",
+    "OPENPANEL_SECRET_KEY"
   ],
   "tasks": {
     "topo": {

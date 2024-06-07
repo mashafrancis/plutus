@@ -1,22 +1,15 @@
 import Link from 'next/link'
 
-import { auth } from '@/auth'
 import SectionContainer from '@/components/layout/section-container'
+import { Skeleton } from '@/components/ui/skeleton'
 import { UserMenu } from '@/components/user/user-menu'
 import navigation from '@/data/navigation'
-import { Session } from '@/lib/types'
 import { cn } from '@/lib/utils'
-import { NAVIGATION_NAMES } from '@/types/navigation'
+import type { NAVIGATION_NAMES } from '@/types/navigation'
 import { Suspense } from 'react'
 
 interface Props {
   activePage: NAVIGATION_NAMES
-}
-
-async function User() {
-  const session = (await auth()) as Session
-
-  return session ? <UserMenu user={session.user} /> : null
 }
 
 export default function AppNav({ activePage }: Props) {
@@ -24,6 +17,7 @@ export default function AppNav({ activePage }: Props) {
     <nav className="relative z-20 hidden md:flex items-center w-full border-b">
       <SectionContainer className="flex !py-0 justify-between">
         <div className="flex gap-3 items-center">
+          {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
           {Object.entries(navigation).map((obj: any) => {
             const site = obj[1]
 
@@ -43,8 +37,8 @@ export default function AppNav({ activePage }: Props) {
             )
           })}
         </div>
-        <Suspense fallback={<div className="flex-1 overflow-auto" />}>
-          <User />
+        <Suspense fallback={<Skeleton className="h-8 w-8 rounded-full" />}>
+          <UserMenu />
         </Suspense>
       </SectionContainer>
     </nav>
