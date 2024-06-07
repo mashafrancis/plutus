@@ -75,3 +75,7 @@ export const SIZE_VARIANTS = {
 }
 
 export const SIZE_VARIANTS_DEFAULT = 'small'
+
+export const Cookies = {
+  PreferredSignInProvider: 'preferred-signin-provider',
+}

@@ -14,13 +14,13 @@
     "@t3-oss/env-core": "0.10.1",
     "react-email": "2.1.4",
     "resend": "3.2.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "react": "18.3.1"
   },
   "devDependencies": {
     "@plutus/tsconfig": "workspace:*",
     "@types/node": "20.14.2",
     "@types/react": "18.3.3",
-    "react": "19.0.0-rc-935180c7e0-20240524",
     "typescript": "5.4.5"
   }
 }

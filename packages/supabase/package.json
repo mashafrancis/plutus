@@ -12,10 +12,24 @@
   },
   "devDependencies": {
     "@plutus/tsconfig": "workspace:*",
+    "@types/react": "18.3.3",
+    "next": "^14.2.3",
+    "react": "18.3.1",
     "typescript": "5.4.5"
   },
   "dependencies": {
     "@supabase/ssr": "^0.3.0",
-    "@supabase/supabase-js": "^2.43.4"
+    "@supabase/supabase-js": "^2.43.4",
+    "server-only": "^0.0.1"
+  },
+  "exports": {
+    "./server": "./src/client/server.ts",
+    "./client": "./src/client/client.ts",
+    "./mutations": "./src/mutations/index.ts",
+    "./middleware": "./src/client/middleware.ts",
+    "./queries": "./src/queries/index.ts",
+    "./cached-queries": "./src/queries/cached-queries.ts",
+    "./storage": "./src/utils/storage.ts",
+    "./types": "./src/types/index.ts"
   }
 }
