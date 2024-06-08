@@ -4,10 +4,9 @@ import messages, { emails } from '@/constants/messages'
 import { basicPlan, premiumPlan } from '@/constants/usage'
 import { addYears } from 'date-fns'
 
-import { updateUser } from '@/app/actions'
-import { auth } from '@/auth'
-import db from '@plutus/db'
+import { updateUserAction } from '@/actions/update-user-action'
 import { PlanExpiredEmail, UsageExceededEmail, sendEmail } from '@plutus/emails'
+import { getSession, getUser } from '@plutus/supabase/cached-queries'
 
 type UserData = {
   email: string
@@ -38,7 +37,9 @@ const getUserUsageLimit = (user: any) => {
 export const checkAuth =
   // biome-ignore lint/complexity/noBannedTypes: <explanation>
   async (callback: Function, isGetMethod = true) => {
-    const session = await auth()
+    const {
+      data: { session },
+    } = await getSession()
 
     if (!session) {
       return NextResponse.json(
@@ -47,15 +48,15 @@ export const checkAuth =
       )
     }
 
-    const user = await db.users.findUnique({ where: { id: session.user?.id } })
+    const data = await getUser()
+    const user = data?.data
+
     if (!user) {
       return NextResponse.json(
         { message: messages.account.unauthorized },
         { status: 401 },
       )
     }
-
-    console.log('Class: , Function: , Line 54 user():', user)
 
     const {
       basic_usage_limit_email,
@@ -77,7 +78,7 @@ export const checkAuth =
             to: [user.email],
             react: UsageExceededEmail({ maxUsageLimit: basicPlan.limit }),
           })
-          await updateUser({
+          await updateUserAction({
             id: user.id,
             data: { basic_usage_limit_email: true },
           })

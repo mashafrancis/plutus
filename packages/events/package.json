@@ -11,13 +11,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@openpanel/nextjs": "^0.0.10-beta",
+    "@openpanel/nextjs": "0.0.10-beta",
     "@vercel/functions": "^1.0.2",
     "next": "^14.2.3"
   },
   "devDependencies": {
-    "typescript": "5.4.5",
-    "@plutus/tsconfig": "workspace:*"
+    "@plutus/tsconfig": "workspace:*",
+    "typescript": "5.4.5"
   },
   "exports": {
     "./server": "./src/server.ts",

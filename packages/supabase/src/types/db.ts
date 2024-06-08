@@ -270,7 +270,6 @@ export type Database = {
           id: string
           locale: string
           monthly_email_report: boolean
-          new_signup_email: boolean
           order_identifier: string | null
           order_number: string | null
           order_status: string | null
@@ -291,7 +290,6 @@ export type Database = {
           id: string
           locale?: string
           monthly_email_report?: boolean
-          new_signup_email?: boolean
           order_identifier?: string | null
           order_number?: string | null
           order_status?: string | null
@@ -312,7 +310,6 @@ export type Database = {
           id?: string
           locale?: string
           monthly_email_report?: boolean
-          new_signup_email?: boolean
           order_identifier?: string | null
           order_number?: string | null
           order_status?: string | null

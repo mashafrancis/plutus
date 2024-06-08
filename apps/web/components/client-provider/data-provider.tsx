@@ -27,7 +27,7 @@ type Props = {
 
 export const DataContextProvider = (props: Props) => {
   const { children, name, isNotRange = false } = props
-  const [filter, setFilter] = useState(views.thisMonth.key)
+  const [filter, setFilter] = useState(views?.thisMonth?.key)
   const [categories, setCategories] = useState<string[]>([])
 
   const {

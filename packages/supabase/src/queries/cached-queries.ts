@@ -3,7 +3,11 @@ import 'server-only'
 import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
 import { createClient } from '../client/server'
-import { getUserQuery } from './index'
+import {
+  type GetExpensesQueryParams,
+  getExpensesQuery,
+  getUserQuery,
+} from './index'
 
 export const getSession = cache(async () => {
   const supabase = createClient()
@@ -34,4 +38,31 @@ export const getUser = async () => {
     },
     // @ts-expect-error
   )(userId)
+}
+
+export const getExpenses = async (
+  params: Omit<GetExpensesQueryParams, 'userId'>,
+) => {
+  const {
+    data: { session },
+  } = await getSession()
+  const userId = session?.user?.id
+
+  if (!userId) {
+    return null
+  }
+
+  const supabase = createClient()
+
+  return unstable_cache(
+    async () => {
+      return getExpensesQuery(supabase, { ...params, userId })
+    },
+    ['expenses', userId],
+    {
+      tags: [`expenses_${userId}`],
+      revalidate: 180,
+    },
+    // @ts-expect-error
+  )(params)
 }

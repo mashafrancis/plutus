@@ -2,10 +2,11 @@
 // The config you add here will be used whenever the server handles a request.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
+import { env } from '@/env.mjs'
 import * as Sentry from '@sentry/nextjs'
 
 Sentry.init({
-  dsn: 'https://cffb9ca2b0b24bb1bef9ca6d4a038571@o319034.ingest.us.sentry.io/1807584',
+  dsn: env.SENTRY_DSN,
 
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1,
@@ -15,4 +16,17 @@ Sentry.init({
 
   // Uncomment the line below to enable Spotlight (https://spotlightjs.com)
   // spotlight: process.env.NODE_ENV === 'development',
+  // integrations: [
+  //   supabaseIntegration(SupabaseClient, Sentry, {
+  //     tracing: true,
+  //     breadcrumbs: true,
+  //     errors: true,
+  //   }),
+  //   Sentry.winterCGFetchIntegration({
+  //     breadcrumbs: true,
+  //     shouldCreateSpanForRequest: (url) => {
+  //       return !url.startsWith(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest`)
+  //     },
+  //   }),
+  // ],
 })

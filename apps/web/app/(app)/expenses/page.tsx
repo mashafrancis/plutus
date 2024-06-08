@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 
 import ExpensesSummary from '@/app/(app)/expenses/_components/summary'
-import ExpenseTable from '@/app/(app)/expenses/_components/table'
 import AppHeader from '@/components/app-header'
-import { DataContextProvider } from '@/components/client-provider/data-provider'
+import CardLoader from '@/components/loader/card'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Expenses',
@@ -12,10 +12,12 @@ export const metadata: Metadata = {
 
 export default function Income() {
   return (
-    <DataContextProvider name="expenses">
-      <AppHeader title="Income" />
-      <ExpensesSummary />
-      <ExpenseTable />
-    </DataContextProvider>
+    <>
+      <AppHeader title="Expenses" />
+      <Suspense fallback={<CardLoader cards={2} className="mb-6" />}>
+        <ExpensesSummary />
+      </Suspense>
+      {/*<ExpenseTable />*/}
+    </>
   )
 }

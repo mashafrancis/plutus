@@ -17,6 +17,7 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.get(name)?.value
         },
         set(name: string, value: string, options: CookieOptions) {
+          // If the cookie is updated, update the cookies for the request and response
           request.cookies.set({
             name,
             value,
@@ -34,6 +35,7 @@ export async function updateSession(request: NextRequest) {
           })
         },
         remove(name: string, options: CookieOptions) {
+          // If the cookie is removed, update the cookies for the request and response
           request.cookies.set({
             name,
             value: '',

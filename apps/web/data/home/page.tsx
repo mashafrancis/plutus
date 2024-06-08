@@ -26,8 +26,8 @@ export const page = {
         title: 'Easy to use',
         paragraph: 'Track expenses on-the-go with categorization and logging.',
         svg: (
-          <div className="w-12 h-12 p-2 bg-alternative rounded-lg border flex justify-center items-center">
-            <Globe className="w-7 h-7 stroke-[1.4px]" />
+          <div className="w-12 h-12 p-2 bg-primary/10 rounded-lg border border-primary/50 flex justify-center items-center">
+            <Globe className="w-7 h-7 stroke-[1.4px] text-primary" />
           </div>
         ),
       },
@@ -36,8 +36,8 @@ export const page = {
         paragraph:
           'Expense tracker can provide valuable insights into your spending habits, allowing you to make more informed decisions',
         svg: (
-          <div className="w-12 h-12 p-2 bg-alternative rounded-lg border flex justify-center items-center">
-            <AlignLeft className="w-7 h-7 stroke-[1.4px]" />
+          <div className="w-12 h-12 p-2 bg-primary/10 rounded-lg border border-primary/50 flex justify-center items-center">
+            <AlignLeft className="w-7 h-7 stroke-[1.4px] text-primary" />
           </div>
         ),
       },
@@ -46,8 +46,8 @@ export const page = {
         paragraph:
           'Take control of your finances by identifying and reducing overspending with an expense tracker',
         svg: (
-          <div className="w-12 h-12 p-2 bg-alternative rounded-lg border flex justify-center items-center">
-            <PieChart className="w-7 h-7 stroke-[1.4px]" />
+          <div className="w-12 h-12 p-2 bg-primary/10 rounded-lg border border-primary/50 flex justify-center items-center">
+            <PieChart className="w-7 h-7 stroke-[1.4px] text-primary" />
           </div>
         ),
       },
@@ -56,8 +56,8 @@ export const page = {
         paragraph:
           'Monitor your expenses in real-time, whether you are at home or on-the-go, with a user-friendly interface',
         svg: (
-          <div className="w-12 h-12 p-2 bg-alternative rounded-lg border flex justify-center items-center">
-            <ScanFace className="w-7 h-7 stroke-[1.4px]" />
+          <div className="w-12 h-12 p-2 bg-primary/10 rounded-lg border border-primary/50 flex justify-center items-center">
+            <ScanFace className="w-7 h-7 stroke-[1.4px] text-primary" />
           </div>
         ),
       },

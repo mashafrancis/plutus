@@ -1,1 +1,15 @@
-project_id = "ymhqchadakdblttolxfh"
+project_id = "sgavcidchislgbansxqt"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+#[db.pooler]
+#enabled = false
+#port = 54329
+#pool_mode = "transaction"
+#default_pool_size = 15
+#max_client_conn = 100

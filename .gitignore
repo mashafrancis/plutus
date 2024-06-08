@@ -48,3 +48,5 @@ react-email/node_modules/
 .turbo
 .next
 node_modules
+.temp
+/.temp/
