@@ -16,7 +16,6 @@ function getUserInitials(name: string) {
 
 export async function UserMenu() {
   const user = await getUser()
-  console.log('Class: UserMenu, Function: UserMenu, Line 19 user():', user)
 
   if (!user) {
     return null

@@ -1,6 +1,6 @@
 {
   "name": "@plutus/root",
-  "packageManager": "pnpm@9.2.0",
+  "packageManager": "pnpm@9.6.0",
   "private": true,
   "author": {
     "name": "Francis Masha",
@@ -21,11 +21,11 @@
     "db:setup": "dotenv -- turbo db:setup"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.0",
+    "@biomejs/biome": "1.8.3",
     "@manypkg/cli": "^0.21.4",
-    "@types/node": "^20.14.2",
+    "@types/node": "^22.0.0",
     "dotenv-cli": "^7.4.2",
-    "turbo": "^2.0.3",
-    "typescript": "^5.4.5"
+    "turbo": "^2.0.10",
+    "typescript": "^5.5.4"
   }
 }

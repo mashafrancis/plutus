@@ -53,12 +53,11 @@ const buttonVariants = cva(
             data-[state=open]:border-button-hover
             shadow-sm`,
         alternative: `
-            border-primary-600
+            border-primary/20
             bg-primary/10 text-primary
-            shadow-sm
             hover:bg-primary/20
-            focus-visible:border-primary/30
-            focus-visible:outline-primary/60`,
+            focus-visible:border-primary
+            focus-visible:outline-primary`,
         outline: `
             border
             bg-card

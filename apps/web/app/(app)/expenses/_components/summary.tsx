@@ -8,8 +8,8 @@ export default async function ExpensesSummary() {
   const [user, expenses] = await Promise.all([
     getUser(),
     getExpenses({
-      from: '2023-01-01',
-      to: '2023-01-31',
+      from: '2024-06-01',
+      to: '2024-06-31',
     }),
   ])
 

@@ -2,11 +2,7 @@ import { UTCDate } from '@date-fns/utc'
 import type { Client } from '../types'
 
 export async function getUserQuery(supabase: Client, userId: string) {
-  console.log(
-    'Class: getUserQuery, Function: getUserQuery, Line 5 userId():',
-    userId,
-  )
-  return supabase
+  const { data } = await supabase
     .from('users')
     .select(
       `
@@ -15,7 +11,9 @@ export async function getUserQuery(supabase: Client, userId: string) {
     )
     .eq('id', userId)
     .single()
-    .throwOnError()
+  // .throwOnError()
+
+  return { data }
 }
 
 export type GetExpensesQueryParams = {

@@ -1,27 +1,27 @@
-import { Metadata } from 'next'
-
-import AddData from '@/app/(app)/settings/_components/_components/add-data'
 import OverviewCardLayout from '@/app/(app)/settings/_components/_components/overview-card-layout'
-import OverviewCharts from '@/app/(app)/settings/_components/_components/overview-charts'
 import AppHeader from '@/components/app-header'
-import { OverviewContextProvider } from '@/components/client-provider/overview-provider'
+import CardLoader from '@/components/loader/card'
+import { Metadata } from 'next'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Overview',
   description: 'Plutus finance tracker.',
 }
 
-export default async function Dashboard() {
+export default function OverviewPage() {
   return (
-    <OverviewContextProvider>
+    <>
       <AppHeader
         title="Overview"
         description="A glimpse of all your financial data."
         showDatePicker
-        addButton={<AddData />}
+        // addButton={<AddData />}
       />
-      <OverviewCardLayout />
-      <OverviewCharts />
-    </OverviewContextProvider>
+      <Suspense fallback={<CardLoader cards={2} />}>
+        <OverviewCardLayout />
+      </Suspense>
+      {/*<OverviewCharts />*/}
+    </>
   )
 }

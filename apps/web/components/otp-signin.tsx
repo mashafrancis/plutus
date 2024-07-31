@@ -120,10 +120,10 @@ export function OTPSignIn({ className }: Props) {
             />
             <Button
               block
-              type="secondary"
+              type="alternative"
               form="signIn-form"
               htmlType="submit"
-              size="medium"
+              size="large"
               disabled={isLoading}
               loading={isLoading}
             >

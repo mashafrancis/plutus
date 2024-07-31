@@ -1,28 +1,28 @@
-'use client'
-
 import OverviewCard from '@/app/(app)/settings/_components/_components/overview-card'
-import { useUser } from '@/components/client-provider/auth-provider'
-import { useOverview } from '@/components/client-provider/overview-provider'
-import CardLoader from '@/components/loader/card'
+import { defaultDateValues } from '@/constants/date'
 import { formatCurrency } from '@/lib/formatter'
+import { getExpenses, getUser } from '@plutus/supabase/cached-queries'
 
-export default function OverviewCardLayout() {
-  const user = useUser()
-  const { data, loading } = useOverview()
+export default async function OverviewCardLayout() {
+  const user = await getUser()
+  const expenses = await getExpenses({
+    from: defaultDateValues.from,
+    to: defaultDateValues.to,
+  })
 
-  const totalExpenses = data.expenses.reduce(
+  const totalExpenses = expenses?.data?.reduce(
     (acc: any, { price }: any) => Number(price) + acc,
     0,
   )
-  const totalIncome = data.income.reduce(
+  const totalIncome = expenses?.data?.reduce(
     (acc: any, { price }: any) => Number(price) + acc,
     0,
   )
-  const totalInvestment = data.investments.reduce(
+  const totalInvestment = expenses?.data?.reduce(
     (acc: any, { price, units }: any) => Number(price) * Number(units) + acc,
     0,
   )
-  const totalSubscriptions = data.subscriptions.reduce(
+  const totalSubscriptions = expenses?.data?.reduce(
     (acc: any, { price, paid_dates }: any) =>
       Number(price) * paid_dates.length + acc,
     0,
@@ -30,17 +30,15 @@ export default function OverviewCardLayout() {
   const totalSpent = totalExpenses + totalInvestment + totalSubscriptions
   const totalBalance = totalIncome - totalSpent
 
-  return loading ? (
-    <CardLoader cards={4} />
-  ) : (
+  return (
     <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
       <OverviewCard
         heading="Income"
         icon="income"
         data={formatCurrency({
           value: totalIncome,
-          currency: user.currency,
-          locale: user.locale,
+          currency: user?.data?.currency,
+          locale: user?.data?.locale,
         })}
         className="bg-[#EADDFF] text-[#21005D]"
         // caption={caption}
@@ -50,8 +48,8 @@ export default function OverviewCardLayout() {
         icon="expenses"
         data={formatCurrency({
           value: totalSpent,
-          currency: user.currency,
-          locale: user.locale,
+          currency: user?.data?.currency,
+          locale: user?.data?.locale,
         })}
         className="bg-[#D5E4EB] text-[#34383B]"
         // caption={caption}
@@ -61,8 +59,8 @@ export default function OverviewCardLayout() {
         icon="balance"
         data={formatCurrency({
           value: totalBalance,
-          currency: user.currency,
-          locale: user.locale,
+          currency: user?.data?.currency,
+          locale: user?.data?.locale,
         })}
         className="bg-[#B9E3FD] text-[#282B2D]"
         // caption={caption}
@@ -72,8 +70,8 @@ export default function OverviewCardLayout() {
         icon="subscriptions"
         data={formatCurrency({
           value: totalSubscriptions,
-          currency: user.currency,
-          locale: user.locale,
+          currency: user?.data?.currency,
+          locale: user?.data?.locale,
         })}
         className="bg-[#efebe9] text-[#3e2723]"
         // caption={caption}

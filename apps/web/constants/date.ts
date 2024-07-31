@@ -1,5 +1,11 @@
-import { endOfMonth, endOfWeek, startOfMonth, startOfWeek } from 'date-fns'
-import { format } from 'date-fns'
+import {
+  endOfMonth,
+  endOfWeek,
+  format,
+  startOfMonth,
+  startOfWeek,
+  subMonths,
+} from 'date-fns'
 
 import { views } from './table'
 
@@ -8,7 +14,7 @@ export const datePattern: string = 'd{2}-d{2}-d{4}'
 
 export const getRangeDateForFilter = (filter: any) => {
   const dateObj = new Date()
-  if (filter === views.thisWeek.key) {
+  if (filter === views.thisWeek?.key) {
     return [
       format(startOfWeek(dateObj), dateFormat),
       format(endOfWeek(dateObj), dateFormat),
@@ -19,4 +25,9 @@ export const getRangeDateForFilter = (filter: any) => {
       format(endOfMonth(dateObj), dateFormat),
     ]
   }
+}
+
+export const defaultDateValues = {
+  from: subMonths(startOfMonth(new Date()), 1).toISOString(),
+  to: new Date().toISOString(),
 }
