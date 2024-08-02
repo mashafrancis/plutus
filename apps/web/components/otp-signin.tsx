@@ -1,14 +1,15 @@
 'use client'
 
 import { verifyOtpAction } from '@/actions/verify-otp-action'
-import { Button } from '@/components/ui-elements/button'
 import { Form } from '@/components/ui-elements/form'
 import Input from '@/components/ui-elements/input'
+import { Button } from '@/components/ui/button'
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from '@/components/ui/input-otp'
+import useMediaQuery from '@/hooks/use-media-query'
 import { cn } from '@/lib/utils'
 import { toFormikValidationSchema } from '@/lib/zod-formik-adapter'
 import { createClient } from '@plutus/supabase/client'
@@ -34,6 +35,7 @@ export function OTPSignIn({ className }: Props) {
   const [email, setEmail] = useState('')
   const [type, setType] = useState<'email' | 'phone'>()
   const supabase = createClient()
+  const { isMobile } = useMediaQuery()
 
   const handleLogin = async ({ value }: FormData) => {
     setLoading(true)
@@ -113,6 +115,7 @@ export function OTPSignIn({ className }: Props) {
               id="phoneoremail"
               name="phone or email"
               placeholder="Enter phone-number or email"
+              autoFocus={!isMobile}
               disabled={isLoading}
               autoCapitalize="false"
               autoCorrect="false"

@@ -1,7 +1,7 @@
 'use client'
 
 import { Icons } from '@/components/icons'
-import { Button } from '@/components/ui-elements/button'
+import { Button } from '@/components/ui/button'
 
 export default function AppError({
   error,

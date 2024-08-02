@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/layout/form/FormLayout'
 import InputErrorIcon from '@/components/layout/form/InputErrorIcon'
 import InputIconContainer from '@/components/layout/form/InputIconContainer'
 import styleHandler from '@/components/theme/style-handler'
-import { Button } from '@/components/ui-elements/button'
+import { Button } from '@/components/ui/button'
 import { HIDDEN_PLACEHOLDER } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import React, { useEffect, useState } from 'react'
@@ -325,7 +325,7 @@ function TextArea({
 
   const __styles = styleHandler('input')
 
-  const classes = [__styles.base]
+  const classes = [__styles.base, 'px-4 py-2 mb-4']
 
   if (error) classes.push(__styles.variants.error)
   if (!error) classes.push(__styles.variants.standard)

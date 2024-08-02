@@ -1,8 +1,6 @@
 import type { DatePickerToFrom } from '@/components/date-picker/date-picker.types'
-import { genQueryParams } from '@/config/time.constants'
 import { format } from 'date-fns'
 import dayjs from 'dayjs'
-import { usePathname, useRouter } from 'next/navigation'
 import type React from 'react'
 import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
@@ -10,11 +8,11 @@ import DatePicker from 'react-datepicker'
 import {
   Popover,
   PopoverContent,
+  PopoverSeparator,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { Separator } from '@/components/ui/separator'
 
-import { Button, ButtonProps } from '@/components/ui-elements/button'
+import { Button, ButtonProps } from '@/components/ui/button'
 import { ArrowRight, Calendar, ChevronLeft, ChevronRight } from 'react-feather'
 import TimeSplitInput from './time-split-input'
 
@@ -62,8 +60,6 @@ function _DatePicker({
   const [endDate, setEndDate] = useState<Date | null>(END_DATE_DEFAULT)
   const [startTime, setStartTime] = useState<any>(START_TIME_DEFAULT)
   const [endTime, setEndTime] = useState<any>(END_TIME_DEFAULT)
-  const router = useRouter()
-  const pathname = usePathname()
 
   useEffect(() => {
     if (!from) {
@@ -130,10 +126,7 @@ function _DatePicker({
         .hour(Number(endTime.HH))
         .toISOString(),
     }
-    if (onChange) {
-      onChange(payload)
-      router.push(pathname + '?' + genQueryParams(payload))
-    }
+    if (onChange) onChange(payload)
   }
 
   function handleClear() {
@@ -156,7 +149,7 @@ function _DatePicker({
         <Button
           title={triggerButtonTitle}
           type={triggerButtonType}
-          icon={<Calendar size={16} strokeWidth={1.5} />}
+          icon={<Calendar />}
           className={triggerButtonClassName}
         >
           {children !== undefined ? (
@@ -191,7 +184,7 @@ function _DatePicker({
               <div className="flex items-stretch justify-between py-2">
                 {!selectsRange ? null : (
                   <>
-                    <div className="flex grow flex-col gap-1">
+                    <div className="flex grow flex-col gap-1 pl-2">
                       <TimeSplitInput
                         type="start"
                         startTime={startTime}
@@ -210,14 +203,14 @@ function _DatePicker({
                       w-12
                       items-center
                       justify-center
-                      text-muted-foreground
+                      text-foreground-lighter
                     `}
                     >
                       <ArrowRight strokeWidth={1.5} size={14} />
                     </div>
                   </>
                 )}
-                <div className="flex grow flex-col gap-1">
+                <div className="flex grow flex-col gap-1 pr-2">
                   <TimeSplitInput
                     type="end"
                     startTime={startTime}
@@ -233,17 +226,17 @@ function _DatePicker({
               </div>
             </>
           )}
-          <div className="px-3 py-4">
+          <div className="p-2">
             <DatePicker
               inline
-              selectsRange={selectsRange}
+              selectsRange={selectsRange as any}
               selected={startDate}
-              onChange={(dates) => {
+              onChange={(dates: any) => {
                 handleDatePickerChange(dates)
               }}
               dateFormat="MMMM d, yyyy h:mm aa"
-              startDate={startDate}
-              endDate={endDate}
+              startDate={startDate as any}
+              endDate={endDate as any}
               minDate={minDate}
               maxDate={maxDate}
               dayClassName={() => 'cursor-pointer'}
@@ -254,18 +247,15 @@ function _DatePicker({
                 prevMonthButtonDisabled,
                 nextMonthButtonDisabled,
               }) => (
-                <div className="flex items-center justify-between p-2">
+                <div className="flex items-center justify-between">
                   <div className="flex w-full items-center justify-between">
                     <button
                       onClick={decreaseMonth}
                       disabled={prevMonthButtonDisabled}
                       type="button"
                       className={`
-                        ${
-                          prevMonthButtonDisabled &&
-                          'cursor-not-allowed opacity-50'
-                        }
-                        text-muted-foreground hover:text-foreground focus:outline-none
+                        ${prevMonthButtonDisabled && 'cursor-not-allowed opacity-50'}
+                        text-muted-foreground hover:text-foreground focus:outline-none p-2
                     `}
                     >
                       <ChevronLeft size={16} strokeWidth={2} />
@@ -278,11 +268,8 @@ function _DatePicker({
                       disabled={nextMonthButtonDisabled}
                       type="button"
                       className={`
-                        ${
-                          nextMonthButtonDisabled &&
-                          'cursor-not-allowed opacity-50'
-                        }
-                        text-muted-foreground hover:text-foreground focus:outline-none
+                        ${nextMonthButtonDisabled && 'cursor-not-allowed opacity-70'}
+                        text-muted-foreground p-2 hover:text-foreground focus:outline-none
                     `}
                     >
                       <ChevronRight size={16} strokeWidth={2} />
@@ -296,8 +283,8 @@ function _DatePicker({
             from: startDate?.toISOString() || null,
             to: endDate?.toISOString() || null,
           })}
-          <Separator />
-          <div className="flex items-center justify-end gap-2 px-3 py-2 pb-4">
+          <PopoverSeparator />
+          <div className="flex items-center justify-end gap-2 py-2 px-3 pb-4">
             {!hideClear && (
               <Button type="default" onClick={() => handleClear()}>
                 Clear

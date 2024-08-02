@@ -30,3 +30,15 @@ export const updateUserSchema = z.object({
 })
 
 export type UpdateUserFormValues = z.infer<typeof updateUserSchema>
+
+export const createExpenseSchema = z.object({
+  category: z.string().min(1),
+  paid_via: z.string().min(1),
+  date: z.string().min(1),
+  name: z.string().min(1),
+  price: z.string().min(1),
+  notes: z.string().min(1),
+  autocomplete: z.array(z.string()).optional(),
+})
+
+export type CreateExpenseFormValues = z.infer<typeof createExpenseSchema>

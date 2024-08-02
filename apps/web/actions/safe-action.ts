@@ -1,7 +1,6 @@
 import { createSafeActionClient } from 'next-safe-action'
 
-export const action = createSafeActionClient({
-  // @ts-expect-error
+export const actionClient = createSafeActionClient({
   handleReturnedServerError: (e) => {
     if (e instanceof Error) {
       return {

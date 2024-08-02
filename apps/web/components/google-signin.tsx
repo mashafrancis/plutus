@@ -1,7 +1,7 @@
 'use client'
 
 import { Icons } from '@/components/icons'
-import { Button } from '@/components/ui-elements/button'
+import { Button } from '@/components/ui/button'
 import { createClient } from '@plutus/supabase/client'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'

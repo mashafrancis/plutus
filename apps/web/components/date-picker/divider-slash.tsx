@@ -12,6 +12,7 @@ export default function DividerSlash() {
         fill="none"
         shapeRendering="geometricPrecision"
       >
+        <title>...</title>
         <path d="M16 3.549L7.12 20.600"></path>
       </svg>
     </span>

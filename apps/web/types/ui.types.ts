@@ -1,4 +1,4 @@
-import { ButtonProps } from '@/components/ui-elements/button'
+import { ButtonProps } from '@/components/ui/button'
 
 export interface CTA {
   label: string

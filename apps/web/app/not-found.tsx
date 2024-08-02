@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui-elements/button'
+import { Button } from '@/components/ui/button'
 import { ReloadIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'

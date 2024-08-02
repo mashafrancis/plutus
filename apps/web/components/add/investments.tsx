@@ -22,7 +22,6 @@ import debounce from 'debounce'
 interface AddInvestments {
   selected: any
   onHide: () => void
-  mutate: () => void
   lookup: (value: any) => void
 }
 
@@ -39,7 +38,6 @@ const initialState = {
 
 export default function AddInvestments({
   onHide,
-  mutate,
   selected,
   lookup,
 }: AddInvestments) {
@@ -73,7 +71,6 @@ export default function AddInvestments({
         await incrementUsage()
       }
       setLoading(false)
-      if (mutate) mutate()
       toast({
         description: `${isEditing ? messages.updated : messages.success}`,
       })

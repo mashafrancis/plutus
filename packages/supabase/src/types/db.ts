@@ -51,7 +51,7 @@ export type Database = {
           category: string
           created_at?: string
           date: string
-          id: string
+          id?: string
           name: string
           nameHash?: string | null
           notes?: string | null
@@ -121,7 +121,7 @@ export type Database = {
           category: string
           created_at?: string
           date: string
-          id: string
+          id?: string
           name: string
           nameHash?: string | null
           notes?: string | null
@@ -169,7 +169,7 @@ export type Database = {
           category: string
           created_at?: string
           date: string
-          id: string
+          id?: string
           name: string
           nameHash?: string | null
           notes?: string | null
@@ -223,7 +223,7 @@ export type Database = {
           cancelled_at?: string | null
           created_at?: string
           date: string
-          id: string
+          id?: string
           name: string
           nameHash?: string | null
           notes?: string | null
@@ -287,7 +287,7 @@ export type Database = {
           created_at?: string
           currency?: string
           email: string
-          id: string
+          id?: string
           locale?: string
           monthly_email_report?: boolean
           order_identifier?: string | null

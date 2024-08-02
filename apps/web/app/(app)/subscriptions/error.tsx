@@ -2,7 +2,7 @@
 
 import { Icons } from '@/components/icons'
 import SectionContainer from '@/components/layout/section-container'
-import { Button } from '@/components/ui-elements/button'
+import { Button } from '@/components/ui/button'
 
 export default function AppError({
   error,

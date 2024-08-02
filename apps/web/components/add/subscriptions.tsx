@@ -63,7 +63,6 @@ const _checkUrl = (urlString: string) => {
 interface AddSubscriptions {
   selected: any
   onHide: () => void
-  mutate: () => void
   lookup: (name: string) => void
 }
 
@@ -80,7 +79,6 @@ const defaultValues: Partial<SubscriptionData> = {
 
 export default function AddSubscriptions({
   onHide,
-  mutate,
   selected,
   lookup,
 }: AddSubscriptions) {
@@ -134,7 +132,6 @@ export default function AddSubscriptions({
       toast({
         description: `${isEditing ? messages.updated : messages.success}`,
       })
-      if (mutate) mutate()
       onHide()
     } catch {
       setLoading(false)

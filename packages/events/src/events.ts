@@ -15,6 +15,18 @@ export const LogEvents = {
     name: 'User Registered',
     channel: 'registered',
   },
+  ExpenseCreated: {
+    name: 'Expense Created',
+    channel: 'expense',
+  },
+  ExpenseUpdated: {
+    name: 'Expense Updated',
+    channel: 'expense',
+  },
+  ExpenseDeleted: {
+    name: 'Expense Deleted',
+    channel: 'expense',
+  },
   ProjectCreated: {
     name: 'Project Created',
     channel: 'tracker',

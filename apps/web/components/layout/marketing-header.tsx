@@ -1,9 +1,8 @@
 import GetStartedButton from '@/components/layout/get-started-button'
 import SectionContainer from '@/components/layout/section-container'
-import { buttonVariants } from '@/components/ui-elements/button'
-import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 import { CTA } from '@/types/ui.types'
-import { createClient } from '@plutus/supabase/server'
+import { getUser } from '@plutus/supabase/cached-queries'
 import Link from 'next/link'
 import React from 'react'
 
@@ -19,9 +18,7 @@ interface Props {
 }
 
 export default async function MarketingHeader(props: Props) {
-  const supabase = createClient()
-
-  const { data } = await supabase.auth.getUser()
+  const user = await getUser()
 
   const Icon = props.icon
   return (
@@ -63,17 +60,11 @@ export default async function MarketingHeader(props: Props) {
               })}
           </div>
           <div className="flex flex-row md:flex-row md:items-center gap-2">
-            {data.user ? (
-              <Link
-                href="/overview"
-                className={cn(
-                  buttonVariants({
-                    size: 'large',
-                    type: 'primary',
-                  }),
-                )}
-              >
-                Go to app
+            {user?.data?.email ? (
+              <Link href="/overview">
+                <Button size="large" type="primary">
+                  Go to app
+                </Button>
               </Link>
             ) : (
               <GetStartedButton />

@@ -1,5 +1,12 @@
 import { withSentryConfig } from '@sentry/nextjs'
-// import MillionLint from '@million/lint'
+import createJiti from 'jiti'
+
+const jiti = createJiti(new URL(import.meta.url).pathname)
+
+jiti('./env')
+
+// Import env files to validate at build time. Use jiti so we can load .ts files in here.
+// createJiti(fileURLToPath(import.meta.url))('./env')
 
 const ContentSecurityPolicy = `
     default-src 'self' francismasha.com;
@@ -119,7 +126,3 @@ export default withSentryConfig(nextConfig, {
   // https://vercel.com/docs/cron-jobs
   automaticVercelMonitors: true,
 })
-
-// export default MillionLint.next({
-//   rsc: true,
-// })(nextConfig)

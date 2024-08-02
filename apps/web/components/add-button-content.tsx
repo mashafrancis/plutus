@@ -9,7 +9,6 @@ import { useExpenseModal } from '@/store/use-expense-modal'
 type TypeProps = 'expenses' | 'income' | 'investments' | 'subscriptions'
 
 type AddButtonProps = {
-  mutate?: any
   type?: TypeProps
   selected?: any
   onLookup?: (name: string) => void
@@ -17,7 +16,6 @@ type AddButtonProps = {
 }
 
 export default function AddButtonContent({
-  mutate,
   type,
   selected,
   onLookup,
@@ -32,7 +30,6 @@ export default function AddButtonContent({
             if (onLookup) return onLookup(value)
           }}
           selected={selected}
-          mutate={mutate}
           onHide={() => {
             if (onHide) onHide()
             onClose()
@@ -45,7 +42,6 @@ export default function AddButtonContent({
             if (onLookup) return onLookup(value)
           }}
           selected={selected}
-          mutate={mutate}
           onHide={() => {
             if (onHide) onHide()
             onClose()
@@ -58,7 +54,6 @@ export default function AddButtonContent({
             if (onLookup) return onLookup(value)
           }}
           selected={selected}
-          mutate={mutate}
           onHide={() => {
             if (onHide) onHide()
             onClose()
@@ -71,7 +66,6 @@ export default function AddButtonContent({
             if (onLookup) return onLookup(value)
           }}
           selected={selected}
-          mutate={mutate}
           onHide={() => {
             if (onHide) onHide()
             onClose()

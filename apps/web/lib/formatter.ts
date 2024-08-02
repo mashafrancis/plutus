@@ -47,10 +47,10 @@ export const formatDate = ({
   }
 }
 
-export const getCurrencySymbol = (
-  currency: string = defaultCurrency,
-  locale: string = defaultLocale,
-): string | undefined => {
+export const getCurrencySymbol = ({
+  currency = defaultCurrency,
+  locale = defaultLocale,
+}: Omit<Currency, 'value'>): string | undefined => {
   try {
     return new Intl.NumberFormat(locale, { ...currencyStyle, currency })
       ?.formatToParts(1)
@@ -58,4 +58,10 @@ export const getCurrencySymbol = (
   } catch {
     return ''
   }
+}
+
+export const getChange = (past: number, current: number): number => {
+  if (past === 0 || !past) return 100
+  const change = ((current - past) / past) * 100
+  return Math.round(Math.min(change, 100))
 }

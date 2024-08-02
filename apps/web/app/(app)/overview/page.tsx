@@ -1,4 +1,5 @@
-import OverviewCardLayout from '@/app/(app)/settings/_components/_components/overview-card-layout'
+import OverviewCardLayout from '@/app/(app)/overview/_components/overview-card-layout'
+import Add from '@/components/add-button'
 import AppHeader from '@/components/app-header'
 import CardLoader from '@/components/loader/card'
 import { Metadata } from 'next'
@@ -16,9 +17,9 @@ export default function OverviewPage() {
         title="Overview"
         description="A glimpse of all your financial data."
         showDatePicker
-        // addButton={<AddData />}
+        addButton={<Add type="expenses" />}
       />
-      <Suspense fallback={<CardLoader cards={2} />}>
+      <Suspense fallback={<CardLoader cards={4} />}>
         <OverviewCardLayout />
       </Suspense>
       {/*<OverviewCharts />*/}

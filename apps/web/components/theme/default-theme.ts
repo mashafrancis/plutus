@@ -442,7 +442,7 @@ export default {
         border border-destructive/50
         focus:ring-destructive/50
         placeholder:text-destructive/30
-        text-red-900
+        text-destructive/90
        `,
     },
     container: 'relative',
@@ -916,9 +916,9 @@ export default {
       left-0
       top-0
       opacity-75
-      data-[state=open]:animate-in 
-      data-[state=closed]:animate-out 
-      data-[state=closed]:fade-out-0 
+      data-[state=open]:animate-in
+      data-[state=closed]:animate-out
+      data-[state=closed]:fade-out-0
       data-[state=open]:fade-in-0
     `,
     // this is to reset the button

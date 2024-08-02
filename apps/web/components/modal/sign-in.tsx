@@ -15,7 +15,7 @@ export const SignInModal = () => {
             <Icons.logo className="h-10 w-10" />
           </a>
           <h3 className="text-2xl font-bold">Sign In</h3>
-          <p className="text-gray-500">
+          <p className="text-muted-foreground">
             Sign in to access your account and continue.
           </p>
         </div>

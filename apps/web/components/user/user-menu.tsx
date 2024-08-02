@@ -25,10 +25,14 @@ export async function UserMenu() {
     <div className="flex items-center justify-between">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="pl-0">
-            <div className="flex size-7 shrink-0 select-none items-center justify-center rounded-full bg-muted/50 text-xs font-medium uppercase text-muted-foreground">
-              {getUserInitials(user?.data?.email as string)}
-            </div>
+          <Button
+            type="outline"
+            icon={
+              <div className="flex size-7 shrink-0 select-none items-center justify-center rounded-full bg-muted text-xs font-medium uppercase text-muted-foreground">
+                {getUserInitials((user?.data?.email as string) || 'Anonymous')}
+              </div>
+            }
+          >
             <span className="ml-2 hidden md:block">
               {user?.data?.email as string}
             </span>

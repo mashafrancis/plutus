@@ -17,7 +17,6 @@ export default function AppNav({ activePage }: Props) {
     <nav className="relative z-20 hidden md:flex items-center w-full border-b">
       <SectionContainer className="flex !py-0 justify-between">
         <div className="flex gap-3 items-center">
-          {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
           {Object.entries(navigation).map((obj: any) => {
             const site = obj[1]
 

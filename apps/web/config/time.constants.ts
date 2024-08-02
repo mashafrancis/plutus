@@ -1,7 +1,7 @@
 import type { DatetimeHelper } from '@/types/ui.types'
 import dayjs from 'dayjs'
 
-export const DATA_LARGE_DATE_RANGE_DAYS_THRESHOLD = 30
+export const DATA_LARGE_DATE_RANGE_DAYS_THRESHOLD = 90
 
 export const PREVIEWER_DATEPICKER_HELPERS: DatetimeHelper[] = [
   {

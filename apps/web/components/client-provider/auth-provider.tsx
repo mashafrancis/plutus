@@ -43,8 +43,6 @@ export const AuthProvider = (props: PropsWithChildren<Props>) => {
     }
   }, [user])
 
-  console.log('Class: , Function: AuthProvider, Line 41 value():', value.user)
-
   return (
     <AuthContext.Provider value={value}>
       <SWRConfig value={{ fetcher }}>{children}</SWRConfig>

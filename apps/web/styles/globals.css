@@ -213,6 +213,14 @@ a {
 	text-decoration: none;
 }
 
+.textarea-actions-container {
+	@apply absolute inset-y-1 right-0 pl-3 pr-1 flex items-start;
+}
+
+.textarea_actions_container_items {
+	@apply flex items-center;
+}
+
 .input-mono {
 	& input,
 	& textarea {

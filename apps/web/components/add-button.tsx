@@ -2,7 +2,7 @@
 
 import AddButtonContent from '@/components/add-button-content'
 import { Modal } from '@/components/shared/modal'
-import { Button } from '@/components/ui-elements/button'
+import { Button } from '@/components/ui/button'
 import shortcuts from '@/constants/shortcuts'
 import { useExpenseModal } from '@/store/use-expense-modal'
 import { PlusIcon } from 'lucide-react'
@@ -32,24 +32,20 @@ export default function Add({
     <Fragment>
       <Button
         className="uppercase"
-        icon={<PlusIcon className="h-5 w-5" />}
+        icon={<PlusIcon className="text-alternative" />}
         onClick={onOpen}
       >
         {type}
       </Button>
       <Modal showModal={isOpen} setShowModal={onClose}>
         <div className="w-full">
-          <div className="flex flex-col items-center justify-center space-y-3 border-b bg-background py-6 pt-8 text-center">
-            <div className="w-full px-6">
-              <AddButtonContent
-                selected={selected}
-                mutate={mutate}
-                type={type}
-                onHide={onHide}
-                onLookup={onLookup}
-              />
-            </div>
-          </div>
+          <AddButtonContent
+            selected={selected}
+            mutate={mutate}
+            type={type}
+            onHide={onHide}
+            onLookup={onLookup}
+          />
         </div>
       </Modal>
     </Fragment>

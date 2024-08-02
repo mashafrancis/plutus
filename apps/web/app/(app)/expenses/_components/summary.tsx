@@ -1,4 +1,4 @@
-import OverviewCard from '@/app/(app)/settings/_components/_components/overview-card'
+import OverviewCard from '@/app/(app)/overview/_components/overview-card'
 // import { useUser } from '@/components/client-provider/auth-provider'
 // import { useData } from '@/components/client-provider/data-provider'
 import { formatCurrency } from '@/lib/formatter'

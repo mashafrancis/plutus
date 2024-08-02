@@ -29,5 +29,5 @@ export async function signOutAction() {
 
   revalidateTag(`user_${session?.user.id}`)
 
-  return redirect('/login')
+  return redirect('/')
 }

@@ -5,10 +5,10 @@ import { createClient } from '@plutus/supabase/server'
 import { addYears } from 'date-fns'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { action } from './safe-action'
+import { actionClient } from './safe-action'
 import { verifyOtpSchema } from './schema'
 
-export const verifyOtpAction = action(
+export const verifyOtpAction = actionClient(
   verifyOtpSchema,
   async ({ email, phone, token, type }) => {
     const supabase = createClient()

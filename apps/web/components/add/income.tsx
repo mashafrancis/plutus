@@ -47,7 +47,6 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 interface AddIncomeProps {
   selected: any
   onHide: () => void
-  mutate: () => void
   lookup: (value: any) => void
 }
 
@@ -64,7 +63,6 @@ const defaultValues: Partial<IncomeData> = {
 
 export default function AddIncome({
   onHide,
-  mutate,
   selected,
   lookup,
 }: AddIncomeProps) {
@@ -109,7 +107,6 @@ export default function AddIncome({
       toast({
         description: `${isEditing ? messages.updated : messages.success}`,
       })
-      if (mutate) mutate()
       onHide()
     } catch {
       toast({ description: messages.error, variant: 'destructive' })

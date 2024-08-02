@@ -1,10 +1,10 @@
-import { env } from '@/env.mjs'
+import { env } from '@/env'
 import type { Metadata } from 'next'
 
 export const HOME_DOMAIN = env.NEXT_PUBLIC_APP_DOMAIN
 
 export function constructMetadata({
-  title = 'Plutus - Safaricom Observability',
+  title = 'Plutus - Your personal finance tracker',
   description = 'Organize your finances like never before.',
   image = '/thumbnail.png',
   icons = [

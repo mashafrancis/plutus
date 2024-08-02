@@ -7,7 +7,7 @@ import '@/styles/globals.css'
 import '@/styles/overwrites.css'
 import '@/styles/date-picker.css'
 import { ModalProvider } from '@/components/client-provider/modal-provider'
-import { Toaster } from '@/components/ui-elements/sonner'
+import { Toaster } from '@/components/ui/sonner'
 import { constructMetadata } from '@/lib/construct-metadata'
 import { Provider as OpenPanelAnalytics } from '@plutus/events/client'
 import { Analytics } from '@vercel/analytics/react'
@@ -36,17 +36,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ClientProvider>
           {children}
           <ModalProvider />
-          <Suspense fallback={null}>
-            <Toaster
-              className="font-sans font-normal"
-              position="bottom-right"
-              richColors
-            />
-          </Suspense>
         </ClientProvider>
         <OpenPanelAnalytics />
         <Analytics />
         <SpeedInsights />
+        <Suspense fallback={null}>
+          <Toaster
+            className="font-sans font-normal"
+            position="bottom-right"
+            richColors
+          />
+        </Suspense>
       </body>
     </html>
   )
