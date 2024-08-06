@@ -1,6 +1,6 @@
 'use client'
 
-import { DatePickerToFrom } from '@/components/date-picker/date-picker.types'
+import { type DatePickerToFrom } from '@/components/date-picker/date-picker.types'
 import DatePickers from '@/components/ui/date-pickers'
 import { EXPLORER_DATEPICKER_HELPERS } from '@/config/time.constants'
 import { defaultDateValues } from '@/constants/date'

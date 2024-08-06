@@ -101,6 +101,20 @@ export const Icons = {
       </g>
     </svg>
   ),
+  info: (props: any) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={14}
+      height={14}
+      fill="none"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M6.333 5h1.333V3.667H6.333M7 12.333A5.34 5.34 0 0 1 1.666 7 5.34 5.34 0 0 1 7 1.667 5.34 5.34 0 0 1 12.333 7 5.34 5.34 0 0 1 7 12.333Zm0-12a6.667 6.667 0 1 0 0 13.334A6.667 6.667 0 0 0 7 .333Zm-.667 10h1.333v-4H6.333v4Z"
+      />
+    </svg>
+  ),
   bell: Bell,
   close: X,
   spinner: Loader2,

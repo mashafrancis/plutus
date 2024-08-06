@@ -328,7 +328,7 @@ export default {
       base: `
         relative
         cursor-pointer
-        text-muted-foregrounder
+        text-muted-foreground
         flex
         items-center
         space-x-2
@@ -373,7 +373,7 @@ export default {
       active: `
         bg-selection
         text-foreground
-        border-stronger
+        border
       `,
     },
     'rounded-pills': {
@@ -483,14 +483,15 @@ export default {
     `,
     variants: {
       standard: `
-        bg-background
-        border border-primary
+        bg-foreground/[.026]
+        border border-control
         `,
       error: `
-        bg-destructive/20
+        bg-destructive/5
         border border-destructive/50
-        focus:ring-destructive/40
-        placeholder:text-destructive/40
+        focus:ring-destructive/50
+        placeholder:text-destructive/30
+        text-destructive/90
        `,
     },
     container: 'relative',

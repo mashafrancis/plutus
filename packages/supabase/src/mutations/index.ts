@@ -80,3 +80,12 @@ export async function createExpense(
     .single()
     .throwOnError()
 }
+
+export async function updateExpense(supabase: Client, id: string, data: any) {
+  return supabase
+    .from('expenses')
+    .update(data)
+    .eq('id', id)
+    .select('id, name, notes, price, category, paid_via, date')
+    .single()
+}

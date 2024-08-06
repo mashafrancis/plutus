@@ -78,4 +78,8 @@ export const SIZE_VARIANTS_DEFAULT = 'small'
 
 export const Cookies = {
   PreferredSignInProvider: 'preferred-signin-provider',
+  ExpensesColumns: 'expenses-columns',
 }
+
+export const TABLE_PAGE_SIZE = 50
+export const TABLE_MAX_ITEMS = 100000

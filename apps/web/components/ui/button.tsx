@@ -7,6 +7,7 @@ import { Slot } from '@radix-ui/react-slot'
 import type { VariantProps } from 'class-variance-authority'
 import { cva } from 'class-variance-authority'
 import { cloneElement, forwardRef, isValidElement } from 'react'
+import { IconContext } from '../icon/icon-context'
 
 export type ButtonVariantProps = VariantProps<typeof buttonVariants>
 const buttonVariants = cva(
@@ -32,7 +33,7 @@ const buttonVariants = cva(
     variants: {
       type: {
         primary: `
-            hover:bg-primary-60/80 border-primary bg-primary text-white
+            hover:bg-primary-60/80 border-primary bg-primary text-alternative
             shadow-sm
             focus-visible:outline-primary/60 dark:border-primary
             dark:bg-primary/70
@@ -133,7 +134,7 @@ const buttonVariants = cva(
   },
 )
 
-const IconContainerVariants = cva('', {
+const _IconContainerVariants = cva('', {
   variants: {
     size: {
       tiny: '[&_svg]:h-[14px] [&_svg]:w-[14px]',
@@ -145,14 +146,14 @@ const IconContainerVariants = cva('', {
       xxxlarge: '[&_svg]:h-[42px] [&_svg]:w-[42px]',
     },
     type: {
-      primary: 'text-brand/60',
-      default: 'text-foreground-muted',
-      secondary: 'text-border-muted',
-      alternative: 'text-foreground-muted',
-      outline: 'text-foreground-muted',
-      dashed: 'text-foreground-muted',
-      link: 'text-brand/60',
-      text: 'text-foreground-muted',
+      primary: 'text-primary/60',
+      default: 'text-muted-foreground',
+      secondary: 'text-muted-border',
+      alternative: 'text-muted-foreground',
+      outline: 'text-muted-foreground',
+      dashed: 'text-muted-foreground',
+      link: 'text-primary/60',
+      text: 'text-muted-foreground',
       danger: 'text-destructive/60',
       warning: 'text-warning/60',
     },
@@ -163,14 +164,14 @@ export type LoadingVariantProps = VariantProps<typeof loadingVariants>
 const loadingVariants = cva('', {
   variants: {
     type: {
-      primary: 'text-brand/60',
-      default: 'text-foreground-muted',
-      secondary: 'text-border-muted',
-      alternative: 'text-foreground-muted',
-      outline: 'text-foreground-muted',
-      dashed: 'text-foreground-muted',
-      link: 'text-brand/60',
-      text: 'text-foreground-muted',
+      primary: 'text-primary/60',
+      default: 'text-muted-foreground',
+      secondary: 'text-muted-border',
+      alternative: 'text-muted-foreground',
+      outline: 'text-muted-foreground',
+      dashed: 'text-muted-foreground',
+      link: 'text-primary/60',
+      text: 'text-muted-foreground',
       danger: 'text-destructive/60',
       warning: 'text-warning/60',
     },
@@ -218,7 +219,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : 'button'
     const { className } = props
     const showIcon = loading || icon
-    // decrecating 'showIcon' for rightIcon
+    // deprecating 'showIcon' for rightIcon
     const _iconLeft: React.ReactNode = icon ?? iconLeft
     // if loading, button is disabled
     const disabled = loading === true || props.disabled
@@ -242,23 +243,22 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               undefined,
               showIcon &&
                 (loading ? (
-                  <div className={cn(IconContainerVariants({ size, type }))}>
-                    <IconLoader
-                      className={cn(loadingVariants({ loading, type }))}
-                    />
-                  </div>
+                  <IconLoader
+                    size={size}
+                    className={cn(loadingVariants({ loading }))}
+                  />
                 ) : _iconLeft ? (
-                  <div className={cn(IconContainerVariants({ size, type }))}>
+                  <IconContext.Provider value={{ contextSize: size }}>
                     {_iconLeft}
-                  </div>
+                  </IconContext.Provider>
                 ) : null),
               children.props.children && (
                 <span className={'truncate'}>{children.props.children}</span>
               ),
               iconRight && !loading && (
-                <div className={cn(IconContainerVariants({ size, type }))}>
+                <IconContext.Provider value={{ contextSize: size }}>
                   {iconRight}
-                </div>
+                </IconContext.Provider>
               ),
             )
           ) : null
@@ -266,21 +266,20 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           <>
             {showIcon &&
               (loading ? (
-                <div className={cn(IconContainerVariants({ size, type }))}>
-                  <IconLoader
-                    className={cn(loadingVariants({ loading, type }))}
-                  />
-                </div>
+                <IconLoader
+                  size={size}
+                  className={cn(loadingVariants({ loading }))}
+                />
               ) : _iconLeft ? (
-                <div className={cn(IconContainerVariants({ size, type }))}>
+                <IconContext.Provider value={{ contextSize: size }}>
                   {_iconLeft}
-                </div>
+                </IconContext.Provider>
               ) : null)}{' '}
             {children && <span className={'truncate'}>{children}</span>}{' '}
             {iconRight && !loading && (
-              <div className={cn(IconContainerVariants({ size, type }))}>
+              <IconContext.Provider value={{ contextSize: size }}>
                 {iconRight}
-              </div>
+              </IconContext.Provider>
             )}
           </>
         )}

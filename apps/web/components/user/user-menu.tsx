@@ -7,12 +7,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { getInitials } from '@/lib/formatter'
 import { getUser } from '@plutus/supabase/cached-queries'
-
-function getUserInitials(name: string) {
-  const [firstName, lastName] = name.split(' ')
-  return lastName ? `${firstName?.[0]}${lastName[0]}` : firstName?.slice(0, 2)
-}
 
 export async function UserMenu() {
   const user = await getUser()
@@ -29,7 +25,7 @@ export async function UserMenu() {
             type="outline"
             icon={
               <div className="flex size-7 shrink-0 select-none items-center justify-center rounded-full bg-muted text-xs font-medium uppercase text-muted-foreground">
-                {getUserInitials((user?.data?.email as string) || 'Anonymous')}
+                {getInitials((user?.data?.email as string) || 'Anonymous')}
               </div>
             }
           >

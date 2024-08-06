@@ -39,8 +39,8 @@ import debounce from 'debounce'
 import { useForm } from 'react-hook-form'
 import { Drawer } from 'vaul'
 
-import { incrementUsage } from '@/app/(app)/apis'
-import { addIncome, editIncome } from '@/app/(app)/income/apis'
+import { incrementUsage } from '@/app/[locale]/(app)/apis'
+import { addIncome, editIncome } from '@/app/[locale]/(app)/income/apis'
 import { useExpenseModal } from '@/store/use-expense-modal'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 

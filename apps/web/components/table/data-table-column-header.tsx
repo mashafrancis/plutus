@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 import { ArrowDownIcon, ArrowUpIcon } from '@radix-ui/react-icons'
-import { Column } from '@tanstack/react-table'
+import { type Column } from '@tanstack/react-table'
 import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react'
 
 interface DataTableColumnHeaderProps<TData, TValue>
@@ -30,18 +30,32 @@ export default function DataTableColumnHeader<TData, TValue>({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="ghost"
-            size="sm"
+            type="text"
+            // size="small"
             className="-ml-3 h-10 whitespace-nowrap hover:opacity-80 focus-visible:ring-0 data-[state=open]:bg-accent"
+            iconRight={
+              column.getIsSorted() === 'desc' ? (
+                <ArrowDown
+                  strokeWidth={1}
+                  size={18}
+                  className="ml-1 mt-[1px] h-3.5 w-3.5"
+                />
+              ) : column.getIsSorted() === 'asc' ? (
+                <ArrowUp
+                  strokeWidth={1}
+                  size={18}
+                  className="ml-1 mt-[1px] h-3.5 w-3.5"
+                />
+              ) : (
+                <ArrowUpDown
+                  strokeWidth={1}
+                  size={18}
+                  className="ml-1 mt-[1px] h-3.5 w-3.5"
+                />
+              )
+            }
           >
             <span className="text-sm capitalize">{title}</span>
-            {column.getIsSorted() === 'desc' ? (
-              <ArrowDown className="ml-1 h-3.5 w-3.5" />
-            ) : column.getIsSorted() === 'asc' ? (
-              <ArrowUp className="ml-1 mt-[-1px] h-3.5 w-3.5" />
-            ) : (
-              <ArrowUpDown className="ml-1 mt-[1px] h-3.5 w-3.5" />
-            )}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">

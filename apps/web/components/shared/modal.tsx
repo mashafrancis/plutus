@@ -22,12 +22,16 @@ export function Modal({
 
   if (isMobile) {
     return (
-      <Drawer.Root open={showModal} onClose={setShowModal}>
-        <Drawer.Overlay className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm" />
+      <Drawer.Root
+        open={showModal}
+        onClose={setShowModal}
+        shouldScaleBackground
+      >
         <Drawer.Portal>
+          <Drawer.Overlay className="fixed inset-0 bg-black/40" />
           <Drawer.Content
             className={cn(
-              'fixed inset-x-0 bottom-0 z-50 mt-24 overflow-hidden rounded-t-2xl border bg-background',
+              'fixed inset-x-0 bottom-0 left-0 right-0 mt-24 flex flex-col overflow-hidden rounded-t-[10px] border bg-background',
               className,
             )}
           >
@@ -36,7 +40,6 @@ export function Modal({
             </div>
             {children}
           </Drawer.Content>
-          <Drawer.Overlay />
         </Drawer.Portal>
       </Drawer.Root>
     )

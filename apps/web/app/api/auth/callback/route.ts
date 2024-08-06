@@ -13,7 +13,6 @@ export async function GET(request: Request) {
   const cookieStore = cookies()
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
-  console.log('Class: GET, Function: GET, Line 16 code():', code)
 
   // @ts-expect-error
   const supabase = createClient(cookieStore)
@@ -21,7 +20,6 @@ export async function GET(request: Request) {
   if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (error) {
-      console.log('Class: GET, Function: GET, Line 24 error():', error.name)
       return NextResponse.redirect(
         getErrorRedirect(
           `${origin}/`,

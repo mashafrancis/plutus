@@ -7,7 +7,7 @@ import CircleLoader from '@/components/loader/circle'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-import { deleteUser } from '@/app/(app)/settings/apis'
+import { deleteUser } from '@/app/[locale]/(app)/settings/apis'
 import { createClient } from '@/lib/supabase/client'
 import Modal from '.'
 

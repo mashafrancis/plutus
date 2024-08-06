@@ -4,7 +4,6 @@ import {
   format,
   startOfMonth,
   startOfWeek,
-  subMonths,
 } from 'date-fns'
 
 import { views } from './table'
@@ -28,6 +27,6 @@ export const getRangeDateForFilter = (filter: any) => {
 }
 
 export const defaultDateValues = {
-  from: subMonths(startOfMonth(new Date()), 1).toISOString(),
+  from: startOfMonth(new Date()).toISOString(),
   to: new Date().toISOString(),
 }

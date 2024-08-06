@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { ReloadIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -37,13 +36,8 @@ export default function NotFound() {
           </p>
         </div>
         <div className="flex items-center space-x-4">
-          <Button
-            asChild
-            size="small"
-            className="text-white"
-            icon={<ReloadIcon />}
-          >
-            <Link href="/">Go to home</Link>
+          <Button asChild size="small" className="text-white">
+            <Link href="/">Head back home</Link>
           </Button>
         </div>
       </div>

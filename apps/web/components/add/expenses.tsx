@@ -1,19 +1,12 @@
 'use client'
 
 import { Fragment, useMemo } from 'react'
-
-import { editExpense } from '@/app/(app)/expenses/apis'
-import {
-  ExpenseData,
-  expenseCreateOrPatchSchema,
-} from '@/lib/validations/expenses'
 import { toast } from 'sonner'
 
 import AutoCompleteList from '@/components/autocomplete-list'
 import { useUser } from '@/components/client-provider/auth-provider'
 import Input from '@/components/ui-elements/input'
 import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
 import {
   Form,
   FormControl,
@@ -30,27 +23,28 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-  SelectViewPort,
 } from '@/components/ui/select'
-import { dateFormat } from '@/constants/date'
 import messages from '@/constants/messages'
 import { getCurrencySymbol } from '@/lib/formatter'
-import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CalendarIcon } from '@radix-ui/react-icons'
-import { format } from 'date-fns'
 import debounce from 'debounce'
 import { useForm } from 'react-hook-form'
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
 import { createExpenseAction } from '@/actions/create-expense-action'
 import { incrementUsageAction } from '@/actions/increment-usage-action'
+import {
+  type CreateExpenseFormValues,
+  createExpenseSchema,
+} from '@/actions/schema'
+import { updateExpenseAction } from '@/actions/update-expenses-actions'
+import DatePicker from '@/components/date-picker/date-picker'
 import {
   expensesCategory,
   expensesPay,
   groupedExpenses,
 } from '@/constants/categories'
 import useMediaQuery from '@/hooks/use-media-query'
+import { cn } from '@/lib/utils'
 import { useAction } from 'next-safe-action/hooks'
 
 interface AddExpenseProps {
@@ -59,15 +53,13 @@ interface AddExpenseProps {
   lookup: (value: any) => void
 }
 
-const todayDate = new Date()
-
-const defaultValues: Partial<ExpenseData> = {
+const defaultValues: Partial<CreateExpenseFormValues> = {
   category: 'food',
   paid_via: 'Mpesa',
   name: '',
   notes: '',
   price: '',
-  date: todayDate,
+  date: new Date(),
   // id: null,
   autocomplete: [],
 }
@@ -80,10 +72,10 @@ export default function AddExpense({
   const { isDesktop } = useMediaQuery()
   const user = useUser()
 
-  const form = useForm<ExpenseData>({
-    mode: 'onBlur',
-    reValidateMode: 'onBlur',
-    resolver: zodResolver(expenseCreateOrPatchSchema),
+  const form = useForm<CreateExpenseFormValues>({
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit',
+    resolver: zodResolver(createExpenseSchema),
     defaultValues: { ...defaultValues },
   })
 
@@ -119,14 +111,58 @@ export default function AddExpense({
 
   const incrementUsage = useAction(incrementUsageAction)
 
-  const onSubmit = async (data: ExpenseData) => {
-    console.log('Class: default, Function: onSubmit, Line 124 data():', data)
+  const updateExpense = useAction(updateExpenseAction, {
+    onSuccess: ({ status }: any) => {
+      if (status === 'excluded') {
+        toast.success('Expense updated successfully.', {
+          duration: 3500,
+          description:
+            'You can view excluded transactions by adding the filter excluded.',
+        })
+      }
+    },
+    onError: () => {
+      toast.error('Something went wrong please try again.', {
+        duration: 3500,
+      })
+    },
+  })
+
+  // const handleUpdateExpense = (
+  // 	values: UpdateExpenseFormValues,
+  // 	optimisticData?: any,
+  // ) => {
+  // 	setData((prev) => {
+  // 		return prev.map((item) => {
+  // 			if (item.id === values.id) {
+  // 				return {
+  // 					...item,
+  // 					...values,
+  // 					...(optimisticData ?? {}),
+  // 				}
+  // 			}
+  //
+  // 			return item
+  // 		})
+  // 	})
+  //
+  // 	updateExpense.execute(values)
+  // }
+
+  const onSubmit = async (data: CreateExpenseFormValues) => {
     try {
       const isEditing = selected?.id
       if (isEditing) {
-        await editExpense(data)
+        updateExpense.execute({
+          ...data,
+          date: data.date.toISOString(),
+          id: '',
+        })
       } else {
-        createExpenses.execute({ ...data, date: data.date.toISOString() })
+        createExpenses.execute({
+          ...data,
+          date: data.date.toISOString(),
+        })
         incrementUsage.execute()
       }
     } catch {
@@ -158,7 +194,10 @@ export default function AddExpense({
             <FormField
               control={control}
               name="name"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({
+                field: { onChange, value, ...field },
+                fieldState,
+              }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
@@ -167,11 +206,9 @@ export default function AddExpense({
                         id="name"
                         className="mt-1.5"
                         placeholder="e.g. Buying some stuff"
-                        maxLength={30}
-                        required
                         autoFocus={isDesktop}
                         autoComplete="off"
-                        onBlur={onBlur}
+                        error={fieldState?.error?.message}
                         onChange={(e) => {
                           const { value } = e.target
                           if (value.length) {
@@ -186,6 +223,7 @@ export default function AddExpense({
                           }
                         }}
                         value={value}
+                        {...field}
                       />
                       <AutoCompleteList
                         onHide={() => {
@@ -201,7 +239,6 @@ export default function AddExpense({
                       />
                     </Fragment>
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -216,16 +253,18 @@ export default function AddExpense({
                   <FormLabel>
                     Price
                     <span className="text-muted-foreground ml-1 text-xs">
+                      (
                       {getCurrencySymbol({
                         currency: user?.currency,
                         locale: user?.locale,
                       })}
+                      )
                     </span>
                   </FormLabel>
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="299"
+                      placeholder="e.g. 500"
                       required
                       min="0"
                       step="any"
@@ -243,36 +282,23 @@ export default function AddExpense({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Spent Date</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          type="outline"
-                          className={cn(
-                            'w-full text-left font-normal',
-                            !field.value && 'text-muted-foreground',
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, dateFormat)
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) =>
-                          date > new Date() || date < new Date('1900-01-01')
-                        }
-                      />
-                    </PopoverContent>
-                  </Popover>
+                  <DatePicker
+                    triggerButtonClassName={cn(
+                      'h-9 m-0 w-full text-muted-foreground box-border border border-control focus-visible:border-foreground-muted focus-visible:ring-background-control bg-foreground/[.026]',
+                    )}
+                    triggerButtonType="outline"
+                    triggerButtonTitle="Pick a date"
+                    // from={todayDate}
+                    // to={todayDate}
+                    // triggerButtonTitle={
+                    //   field.value
+                    //     ? format(field.value, dateFormat).toString()
+                    //     : 'Pick a date'
+                    // }
+                    onChange={field.onChange}
+                    selectsRange={false}
+                    hideTime
+                  />
                   <FormMessage />
                 </FormItem>
               )}
@@ -291,146 +317,39 @@ export default function AddExpense({
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a verified email to display" />
+                      <SelectTrigger className="bg-foreground/[.026]">
+                        <SelectValue placeholder="" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="h-96">
-                      <SelectViewPort>
-                        {Object.keys(groupedExpenses).map((key) => {
-                          return (
-                            <SelectGroup key={groupedExpenses[key]?.name}>
-                              <SelectLabel>
-                                {groupedExpenses[key]?.name}
-                              </SelectLabel>
-                              {/* @ts-expect-error */}
-                              {Object.keys(groupedExpenses[key]?.list).map(
-                                (listKey) => {
-                                  return (
-                                    <SelectItem key={listKey} value={listKey}>
-                                      {
-                                        groupedExpenses[key]?.list[listKey]
-                                          ?.name
-                                      }
-                                    </SelectItem>
-                                  )
-                                },
-                              )}
-                            </SelectGroup>
-                          )
-                        })}
-                        <SelectItem key={'other'} value={'other'}>
-                          {expensesCategory.other?.name}
-                        </SelectItem>
-                      </SelectViewPort>
+                      {Object.keys(groupedExpenses).map((key) => {
+                        return (
+                          <SelectGroup key={groupedExpenses[key]?.name}>
+                            <SelectLabel>
+                              {groupedExpenses[key]?.name}
+                            </SelectLabel>
+                            {/* @ts-expect-error */}
+                            {Object.keys(groupedExpenses[key]?.list).map(
+                              (listKey) => {
+                                return (
+                                  <SelectItem key={listKey} value={listKey}>
+                                    {groupedExpenses[key]?.list[listKey]?.name}
+                                  </SelectItem>
+                                )
+                              },
+                            )}
+                          </SelectGroup>
+                        )
+                      })}
+                      <SelectItem key={'other'} value={'other'}>
+                        {expensesCategory.other?.name}
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
-            {/*<FormField*/}
-            {/*	control={control}*/}
-            {/*	name='category'*/}
-            {/*	render={({ field }) => (*/}
-            {/*		<FormItem>*/}
-            {/*			<FormLabel>Category</FormLabel>*/}
-            {/*			<Popover>*/}
-            {/*				<PopoverTrigger asChild>*/}
-            {/*					<FormControl>*/}
-            {/*						<Button*/}
-            {/*							variant='outline'*/}
-            {/*							role='combobox'*/}
-            {/*							className={cn(*/}
-            {/*								'w-full justify-between truncate',*/}
-            {/*								!field.value && 'text-muted-foreground'*/}
-            {/*							)}*/}
-            {/*						>*/}
-            {/*							{field.value*/}
-            {/*								? incomeCategory[*/}
-            {/*										Object.keys(groupedExpenses).find(*/}
-            {/*											(categoryKey) => categoryKey === field.value*/}
-            {/*										) as keyof typeof incomeCategory*/}
-            {/*								  ]*/}
-            {/*								: 'Select'}*/}
-            {/*							<CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />*/}
-            {/*						</Button>*/}
-            {/*					</FormControl>*/}
-            {/*				</PopoverTrigger>*/}
-            {/*				<PopoverContent className='w-[200px] p-0'>*/}
-            {/*					<Command>*/}
-            {/*						<CommandInput placeholder='Search category...' />*/}
-            {/*						<CommandEmpty>No category found.</CommandEmpty>*/}
-            {/*						{Object.keys(groupedExpenses).map((key) => {*/}
-            {/*							return (*/}
-            {/*								<CommandGroup*/}
-            {/*									heading={groupedExpenses[key].name}*/}
-            {/*									key={groupedExpenses[key].name}*/}
-            {/*								>*/}
-            {/*									{Object.keys(groupedExpenses[key].list).map(*/}
-            {/*										(listKey) => {*/}
-            {/*											return (*/}
-            {/*												<CommandItem*/}
-            {/*													key={listKey}*/}
-            {/*													value={listKey}*/}
-            {/*												>*/}
-            {/*													{*/}
-            {/*														groupedExpenses[key].list[listKey]*/}
-            {/*															.name*/}
-            {/*													}*/}
-            {/*												</CommandItem>*/}
-            {/*											);*/}
-            {/*										}*/}
-            {/*									)}*/}
-            {/*								</CommandGroup>*/}
-            {/*							);*/}
-            {/*						})}*/}
-            {/*						<CommandItem key={'other'} value={'other'}>*/}
-            {/*							{expensesCategory.other.name}*/}
-            {/*						</CommandItem>*/}
-            {/*					</Command>*/}
-            {/*				</PopoverContent>*/}
-            {/*			</Popover>*/}
-            {/*			<FormMessage />*/}
-            {/*		</FormItem>*/}
-            {/*	)}*/}
-            {/*/>*/}
-
-            {/*<div className='mr-3'>*/}
-            {/*	<Label htmlFor='category'>Category</Label>*/}
-            {/*	<select*/}
-            {/*		id='category'*/}
-            {/*		className='mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'*/}
-            {/*		onChange={(event) => {*/}
-            {/*			setState({ ...state, category: event.target.value });*/}
-            {/*		}}*/}
-            {/*		value={state.category}*/}
-            {/*		required*/}
-            {/*	>*/}
-            {/*		{Object.keys(groupedExpenses).map((key) => {*/}
-            {/*			return (*/}
-            {/*				<optgroup*/}
-            {/*					label={groupedExpenses[key].name}*/}
-            {/*					key={groupedExpenses[key].name}*/}
-            {/*				>*/}
-            {/*					{Object.keys(groupedExpenses[key].list).map(*/}
-            {/*						(listKey) => {*/}
-            {/*							return (*/}
-            {/*								<option key={listKey} value={listKey}>*/}
-            {/*									{groupedExpenses[key].list[listKey].name}*/}
-            {/*								</option>*/}
-            {/*							);*/}
-            {/*						}*/}
-            {/*					)}*/}
-            {/*				</optgroup>*/}
-            {/*			);*/}
-            {/*		})}*/}
-            {/*		<option key={'other'} value={'other'}>*/}
-            {/*			{expensesCategory.other.name}*/}
-            {/*		</option>*/}
-            {/*	</select>*/}
-            {/*</div>*/}
 
             <FormField
               control={form.control}
@@ -443,8 +362,8 @@ export default function AddExpense({
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a verified email to display" />
+                      <SelectTrigger className="bg-foreground/[.026]">
+                        <SelectValue placeholder="" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -461,27 +380,6 @@ export default function AddExpense({
                 </FormItem>
               )}
             />
-
-            {/*<div className='mr-3'>*/}
-            {/*	<Label htmlFor='paid'>Paid Via</Label>*/}
-            {/*	<select*/}
-            {/*		id='paid'*/}
-            {/*		className='mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'*/}
-            {/*		onChange={(event) => {*/}
-            {/*			setState({ ...state, paid_via: event.target.value });*/}
-            {/*		}}*/}
-            {/*		value={state.paid_via}*/}
-            {/*		required*/}
-            {/*	>*/}
-            {/*		{Object.keys(expensesPay).map((key) => {*/}
-            {/*			return (*/}
-            {/*				<option key={key} value={key}>*/}
-            {/*					{expensesPay[key].name}*/}
-            {/*				</option>*/}
-            {/*			);*/}
-            {/*		})}*/}
-            {/*	</select>*/}
-            {/*</div>*/}
           </div>
 
           <div className="group-disabled:opacity-90">
@@ -510,9 +408,10 @@ export default function AddExpense({
           </div>
 
           <Button
+            block
             disabled={isSubmitting || !isDirty || !isValid}
-            size="large"
             htmlType="submit"
+            size="medium"
             loading={createExpenses.isExecuting}
           >
             {selected?.id ? 'Update' : 'Submit'}

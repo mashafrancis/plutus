@@ -34,11 +34,28 @@ export type UpdateUserFormValues = z.infer<typeof updateUserSchema>
 export const createExpenseSchema = z.object({
   category: z.string().min(1),
   paid_via: z.string().min(1),
-  date: z.string().min(1),
-  name: z.string().min(1),
-  price: z.string().min(1),
-  notes: z.string().min(1),
+  date: z.string().transform((str) => new Date(str)),
+  name: z.string().min(1, 'Name is required'),
+  price: z.string().min(1, 'Expense price is required'),
+  notes: z.string().optional(),
   autocomplete: z.array(z.string()).optional(),
 })
 
 export type CreateExpenseFormValues = z.infer<typeof createExpenseSchema>
+
+export const updateExpenseSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().optional(),
+  notes: z.string().optional().nullable(),
+  price: z.string().optional(),
+  category: z.string().optional(),
+  paid_via: z.string().optional(),
+  date: z.string().optional(),
+  autocomplete: z.array(z.string()).optional(),
+})
+
+export type UpdateExpenseFormValues = z.infer<typeof updateExpenseSchema>
+
+export const deleteExpensesSchema = z.object({
+  ids: z.array(z.string()),
+})

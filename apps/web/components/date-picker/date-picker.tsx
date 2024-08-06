@@ -12,7 +12,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 
-import { Button, ButtonProps } from '@/components/ui/button'
+import { Button, type ButtonProps } from '@/components/ui/button'
 import { ArrowRight, Calendar, ChevronLeft, ChevronRight } from 'react-feather'
 import TimeSplitInput from './time-split-input'
 
@@ -149,7 +149,7 @@ function _DatePicker({
         <Button
           title={triggerButtonTitle}
           type={triggerButtonType}
-          icon={<Calendar />}
+          icon={<Calendar size={12} />}
           className={triggerButtonClassName}
         >
           {children !== undefined ? (
@@ -177,7 +177,7 @@ function _DatePicker({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="center" side="bottom" className="p-0">
+      <PopoverContent align="center" side="bottom" className="p-0" portal>
         <>
           {hideTime ? null : (
             <>

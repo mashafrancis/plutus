@@ -2,6 +2,11 @@
   "extends": "@plutus/tsconfig/nextjs.json",
   "compilerOptions": {
     "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "moduleDetection": "force",
+    "module": "NodeNext",
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true,
     "strict": true,
     "plugins": [
       {

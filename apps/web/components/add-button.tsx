@@ -13,7 +13,6 @@ const _openShortcutKey = Object.values(shortcuts.modal.open.shortcut)
 type TypeProps = 'expenses' | 'income' | 'investments' | 'subscriptions'
 
 type AddProps = {
-  mutate?: any
   type?: TypeProps
   selected?: any
   onHide?: () => void
@@ -21,7 +20,6 @@ type AddProps = {
 }
 
 export default function Add({
-  mutate,
   type,
   selected = {},
   onHide,
@@ -31,8 +29,8 @@ export default function Add({
   return (
     <Fragment>
       <Button
-        className="uppercase"
-        icon={<PlusIcon className="text-alternative" />}
+        className="capitalize"
+        icon={<PlusIcon size={12} />}
         onClick={onOpen}
       >
         {type}
@@ -41,7 +39,6 @@ export default function Add({
         <div className="w-full">
           <AddButtonContent
             selected={selected}
-            mutate={mutate}
             type={type}
             onHide={onHide}
             onLookup={onLookup}

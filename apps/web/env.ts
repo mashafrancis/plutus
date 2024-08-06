@@ -17,6 +17,8 @@ export const env = createEnv({
    */
   server: {
     SENTRY_DSN: z.string().min(1),
+    UPSTASH_REDIS_REST_URL: z.string().min(1),
+    UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
   },
 
   /**

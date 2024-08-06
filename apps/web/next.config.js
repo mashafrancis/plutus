@@ -96,8 +96,8 @@ export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
-  org: 'almond-vz',
-  project: 'almond-vz',
+  org: 'plutus-finance',
+  project: 'plutus-finance',
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,

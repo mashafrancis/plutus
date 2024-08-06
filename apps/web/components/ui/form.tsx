@@ -5,9 +5,9 @@ import { Slot } from '@radix-ui/react-slot'
 import * as React from 'react'
 import {
   Controller,
-  ControllerProps,
-  FieldPath,
-  FieldValues,
+  type ControllerProps,
+  type FieldPath,
+  type FieldValues,
   FormProvider,
   useFormContext,
   useWatch,
@@ -99,7 +99,7 @@ const FormLabel = React.forwardRef<
       className={cn(
         'text-muted-foreground',
         'transition-colors',
-        error && '!text-destructive',
+        error && '!text-destructive/80',
         className,
         'leading-normal',
       )}
@@ -164,7 +164,7 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn('text-sm text-destructive', className)}
+      className={cn('text-sm text-destructive/80', className)}
       {...props}
     >
       {body}

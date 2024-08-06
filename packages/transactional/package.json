@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@plutus/tsconfig": "workspace:*",
-    "@types/node": "22.0.3",
+    "@types/node": "22.1.0",
     "@types/react": "18.3.3",
     "typescript": "5.5.4"
   }

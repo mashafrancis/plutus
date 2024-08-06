@@ -18,12 +18,20 @@ export async function getUserQuery(supabase: Client, userId: string) {
 
 export type GetExpensesQueryParams = {
   userId: string
-  from: string
-  to: string
-  categories?: string[]
+  to: number
+  from: number
   sort?: {
     column: string
     value: 'asc' | 'desc'
+  }
+  searchQuery?: string
+  filter?: {
+    categories?: string[]
+    accounts?: string[]
+    date?: {
+      from?: string
+      to?: string
+    }
   }
 }
 
@@ -31,29 +39,88 @@ export async function getExpensesQuery(
   supabase: Client,
   params: GetExpensesQueryParams,
 ) {
-  const { userId, from, to } = params
+  const { userId, from = 0, to, filter, sort, searchQuery } = params
+  const { date = {}, categories } = filter || {}
 
-  const _fromDate = new UTCDate(from)
-  const _toDate = new UTCDate(to)
+  const columns = [
+    'id',
+    'name',
+    'price',
+    'category',
+    'paid_via',
+    'notes',
+    'created_at',
+    'updated_at',
+    'user_id',
+    'date',
+  ]
 
-  const query = await supabase
+  const query = supabase
     .from('expenses')
-    .select(
-      `
-		*
-	`,
-    )
+    .select(columns.join(','), { count: 'exact' })
     .eq('user_id', userId)
     .throwOnError()
 
-  // if (date?.from && date?.to) {
-  //   query.gte('date', date.from)
-  //   query.lte('date', date.to)
-  // }
-  //
-  // const { data, count } = await query.range(from, to)
+  if (sort) {
+    // @ts-expect-error
+    const [column, value] = sort
+    const ascending = value === 'asc'
 
-  return query
+    if (column === 'name') {
+      query.order('name', { ascending })
+    } else if (column === 'price') {
+      query.order('price', { ascending })
+    } else if (column === 'paid_via') {
+      query.order('paid_via', { ascending })
+    } else {
+      query.order(column, { ascending })
+    }
+  } else {
+    query
+      .order('date', { ascending: false })
+      .order('created_at', { ascending: false })
+  }
+
+  if (date?.from && date?.to) {
+    query.gte('date', date.from)
+    query.lte('date', date.to)
+  }
+
+  if (searchQuery) {
+    if (!Number.isNaN(Number.parseInt(searchQuery))) {
+      query.like('price', `%${searchQuery}%`)
+    } else {
+      query.ilike('name', `%${searchQuery}%`)
+    }
+  }
+
+  if (categories) {
+    const matchCategory = categories
+      .map((category) => {
+        if (category === 'uncategorized') {
+          return 'category_slug.is.null'
+        }
+        return `category_slug.eq.${category}`
+      })
+      .join(',')
+
+    query.or(matchCategory)
+  }
+
+  const { data, count } = await query.range(from, to)
+
+  const totalAmount = data?.reduce(
+    (acc: any, { price }: any) => Number(price) + acc,
+    0,
+  )
+
+  return {
+    meta: {
+      totalAmount,
+      count,
+    },
+    data,
+  }
 }
 
 export type GetIncomeQueryParams = {
