@@ -5,8 +5,6 @@ import { type Metadata } from 'next'
 import { Suspense } from 'react'
 import OverviewCardLayout from './_components/overview-card-layout'
 
-export const experimental_ppr = true
-
 export const metadata: Metadata = {
   title: 'Overview',
   description: 'Plutus finance tracker.',
