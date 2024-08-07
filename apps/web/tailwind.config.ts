@@ -165,7 +165,7 @@ const tailwindConfig = {
         'tremor-metric': ['1.875rem', { lineHeight: '2.25rem' }],
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)', ...fontFamily.sans],
+        sans: ['var(--font-sans)', ...fontFamily.sans],
         mono: ['var(--font-geist-mono)', ...fontFamily.mono],
       },
       keyframes: {

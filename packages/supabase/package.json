@@ -24,8 +24,8 @@
   "devDependencies": {
     "@plutus/tsconfig": "workspace:*",
     "@types/react": "18.3.3",
-    "next": "^14.2.5",
-    "react": "18.3.1",
+    "next": "15.0.0-rc.0",
+    "react": "19.0.0-rc-e948a5ac-20240807",
     "typescript": "5.5.4"
   },
   "dependencies": {
@@ -46,5 +46,8 @@
     "./storage": "./src/utils/storage.ts",
     "./types": "./src/types/index.ts",
     "./env": "./env.ts"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
   }
 }

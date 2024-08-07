@@ -56,6 +56,7 @@ const nextConfig = {
   output: 'standalone',
   experimental: {
     instrumentationHook: true,
+    ppr: 'incremental',
     // taint: true,
     // reactCompiler: true,
     // ppr: 'incremental',

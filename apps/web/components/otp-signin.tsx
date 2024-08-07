@@ -1,9 +1,9 @@
 'use client'
 
 import { verifyOtpAction } from '@/actions/verify-otp-action'
-import { Form } from '@/components/ui-elements/form'
 import Input from '@/components/ui-elements/input'
 import { Button } from '@/components/ui/button'
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import {
   InputOTP,
   InputOTPGroup,
@@ -11,10 +11,11 @@ import {
 } from '@/components/ui/input-otp'
 import useMediaQuery from '@/hooks/use-media-query'
 import { cn } from '@/lib/utils'
-import { toFormikValidationSchema } from '@/lib/zod-formik-adapter'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { createClient } from '@plutus/supabase/client'
 import { useAction } from 'next-safe-action/hooks'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const formSchema = z.object({
@@ -37,7 +38,14 @@ export function OTPSignIn({ className }: Props) {
   const supabase = createClient()
   const { isMobile } = useMediaQuery()
 
-  const handleLogin = async ({ value }: FormData) => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      value: '',
+    },
+  })
+
+  const onSubmit = async ({ value }: FormData) => {
     setLoading(true)
 
     const isPhone = value.startsWith('+')
@@ -101,40 +109,43 @@ export function OTPSignIn({ className }: Props) {
   }
 
   return (
-    <Form
-      validateOnBlur
-      id="signIn-form"
-      initialValues={{ value: '' }}
-      validationSchema={toFormikValidationSchema(formSchema)}
-      onSubmit={handleLogin}
-    >
-      {() => {
-        return (
-          <div className="flex flex-col gap-4">
-            <Input
-              id="phoneoremail"
-              name="phone or email"
-              placeholder="Enter phone-number or email"
-              autoFocus={!isMobile}
-              disabled={isLoading}
-              autoCapitalize="false"
-              autoCorrect="false"
-              spellCheck="false"
-            />
-            <Button
-              block
-              type="alternative"
-              form="signIn-form"
-              htmlType="submit"
-              size="large"
-              disabled={isLoading}
-              loading={isLoading}
-            >
-              Continue with OTP
-            </Button>
-          </div>
-        )
-      }}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="flex flex-col gap-4">
+          <FormField
+            control={form.control}
+            name="value"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    id="phoneoremail"
+                    placeholder="Enter phone-number or email"
+                    autoFocus={!isMobile}
+                    disabled={isLoading}
+                    autoCapitalize="false"
+                    autoCorrect="false"
+                    spellCheck="false"
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <Button
+            block
+            type="alternative"
+            form="signIn-form"
+            htmlType="submit"
+            size="large"
+            disabled={isLoading}
+            loading={isLoading}
+            className="active:scale-[0.98]"
+          >
+            Continue with OTP
+          </Button>
+        </div>
+      </form>
     </Form>
   )
 }

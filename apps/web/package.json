@@ -8,7 +8,7 @@
     "node": "v20"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "pnpm with-env next build",
     "start": "next start",
     "turbo": "next dev --turbo",
@@ -44,7 +44,7 @@
     "@sentry/nextjs": "^8.24.0",
     "@t3-oss/env-nextjs": "^0.11.0",
     "@tailwindcss/container-queries": "^0.1.1",
-    "@tailwindcss/typography": "^0.5.13",
+    "@tailwindcss/typography": "^0.5.14",
     "@tanstack/react-table": "^8.20.1",
     "@tremor/react": "^3.17.4",
     "@upstash/ratelimit": "^2.0.1",
@@ -58,19 +58,19 @@
     "dayjs": "^1.11.12",
     "debounce": "^2.1.0",
     "formik": "^2.4.6",
-    "framer-motion": "^11.3.22",
+    "framer-motion": "^11.3.23",
     "geist": "^1.3.1",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.424.0",
-    "next": "^14.2.5",
+    "next": "15.0.0-rc.0",
     "next-auth": "5.0.0-beta.18",
     "next-international": "^1.2.4",
     "next-safe-action": "^7.4.3",
     "next-themes": "^0.3.0",
-    "react": "18.3.1",
+    "react": "19.0.0-rc-e948a5ac-20240807",
     "react-datepicker": "^7.3.0",
     "react-day-picker": "^9.0.7",
-    "react-dom": "18.3.1",
+    "react-dom": "19.0.0-rc-e948a5ac-20240807",
     "react-feather": "^2.0.10",
     "react-hook-form": "^7.52.2",
     "react-intersection-observer": "^9.13.0",
@@ -96,8 +96,11 @@
     "jiti": "^1.21.6",
     "postcss": "8.4.41",
     "prisma": "^5.18.0",
-    "tailwindcss": "3.4.7",
+    "tailwindcss": "3.4.8",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.5.4"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
   }
 }
