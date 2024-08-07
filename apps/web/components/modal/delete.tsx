@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 import { deleteUser } from '@/app/[locale]/(app)/settings/apis'
-import { createClient } from '@/lib/supabase/client'
+import { createClient } from '@plutus/supabase/client'
 import Modal from '.'
 
 export default function DeleteModal({
@@ -53,7 +53,7 @@ export default function DeleteModal({
       />
       <Button
         onClick={onDelete}
-        variant={'destructive'}
+        type="danger"
         disabled={loading || verify !== user.email}
         className="user-select-none mt-4 w-full"
       >
