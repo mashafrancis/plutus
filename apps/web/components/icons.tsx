@@ -11,6 +11,7 @@ import {
   Circle,
   Cloudy,
   Coffee,
+  Copy,
   CreditCard,
   File,
   FileText,
@@ -147,6 +148,7 @@ export const Icons = {
   investments: Coffee,
   balance: ArrowUpDown,
   subscriptions: Layers,
+  copy: Copy,
   arrowNext: ({ ...props }: LucideProps) => (
     <svg
       width="16"
