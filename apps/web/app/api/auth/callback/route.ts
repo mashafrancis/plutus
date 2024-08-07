@@ -36,18 +36,12 @@ export async function GET(request: Request) {
 
   if (session) {
     const userId = session.user.id
-    const user = await getUser()
-    console.log('Class: GET, Function: GET, Line 40 user():', user)
+    const user = (await getUser()) as any
 
     if (!user?.count) {
       const newData = await createUser(supabase)
-      console.log('Class: GET, Function: GET, Line 46 newData():', newData)
 
       if (newData?.error) {
-        console.log(
-          'Class: GET, Function: GET, Line 24 error():',
-          newData?.error.message,
-        )
         return NextResponse.redirect(
           getErrorRedirect(
             `${origin}/`,
@@ -56,8 +50,6 @@ export async function GET(request: Request) {
           ),
         )
       }
-
-      console.log('Class: GET, Function: GET, Line 51 userData():', newData)
 
       await sendEmail({
         from: emails.from,

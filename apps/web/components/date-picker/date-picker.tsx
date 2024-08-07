@@ -203,7 +203,7 @@ function _DatePicker({
                       w-12
                       items-center
                       justify-center
-                      text-foreground-lighter
+                      text-muted-foreground
                     `}
                     >
                       <ArrowRight strokeWidth={1.5} size={14} />
