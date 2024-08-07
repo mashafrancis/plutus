@@ -11,7 +11,7 @@ const getToastRedirect = (
   disableButton: boolean = false,
   arbitraryParams: string = '',
 ): string => {
-  const [nameKey, descriptionKey] = toastKeyMap[toastType]
+  const [nameKey, descriptionKey] = toastKeyMap[toastType] ?? []
 
   let redirectPath = `${path}?${nameKey}=${encodeURIComponent(toastName)}`
 
