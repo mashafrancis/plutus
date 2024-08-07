@@ -30,7 +30,6 @@ export const env = createEnv({
     NEXT_PUBLIC_HEIMDALL_API: z.string().min(1),
     NEXT_PUBLIC_BASELIME_KEY: z.string().min(1),
     NEXT_PUBLIC_SENTRY_DSN: z.string().min(1),
-    NEXT_PUBLIC_APP_DOMAIN: z.string().min(1),
   },
 
   /**
@@ -42,6 +41,5 @@ export const env = createEnv({
     NEXT_PUBLIC_HEIMDALL_API: process.env.NEXT_PUBLIC_HEIMDALL_API,
     NEXT_PUBLIC_BASELIME_KEY: process.env.NEXT_PUBLIC_BASELIME_KEY,
     NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
-    NEXT_PUBLIC_APP_DOMAIN: process.env.NEXT_PUBLIC_APP_DOMAIN,
   },
 })

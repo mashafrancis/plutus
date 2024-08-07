@@ -1,7 +1,6 @@
-import { env } from '@/env'
 import type { Metadata } from 'next'
 
-export const HOME_DOMAIN = env.NEXT_PUBLIC_APP_DOMAIN
+export const HOME_DOMAIN = 'https://plutus.francismasha.com'
 
 export function constructMetadata({
   title = 'Plutus - Your personal finance tracker',
