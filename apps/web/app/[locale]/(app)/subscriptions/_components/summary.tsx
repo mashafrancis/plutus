@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react'
 
-import OverviewCard from '@/app/[locale]/(app)/overview/_components/overview-card'
+import OverviewCard from '@/app/[locale]/(app)/overview/components/overview-card'
 import { useUser } from '@/components/client-provider/auth-provider'
 import { useData } from '@/components/client-provider/data-provider'
 import CardLoader from '@/components/loader/card'

@@ -1,7 +1,7 @@
 import AppNav from '@/components/layout/app-nav'
 import SectionContainer from '@/components/layout/section-container'
 import { NAVIGATION_NAMES } from '@/types/navigation'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 interface OverviewLayoutProps {
   children?: ReactNode

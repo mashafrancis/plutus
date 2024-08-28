@@ -1,9 +1,9 @@
+import OverviewCardLayout from '@/app/[locale]/(app)/overview/components/overview-card-layout'
 import Add from '@/components/add-button'
 import AppHeader from '@/components/app-header'
 import CardLoader from '@/components/loader/card'
 import { type Metadata } from 'next'
 import { Suspense } from 'react'
-import OverviewCardLayout from './_components/overview-card-layout'
 
 export const metadata: Metadata = {
   title: 'Overview',

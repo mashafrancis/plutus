@@ -1,4 +1,4 @@
-import OverviewCard from '@/app/[locale]/(app)/overview/_components/overview-card'
+import OverviewCard from '@/app/[locale]/(app)/overview/components/overview-card'
 import { defaultDateValues } from '@/constants/date'
 import { TABLE_MAX_ITEMS } from '@/lib/constants'
 import { getCurrencySymbol } from '@/lib/formatter'
