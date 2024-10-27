@@ -55,7 +55,6 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   experimental: {
-    taint: true,
     // reactCompiler: true,
     // ppr: 'incremental',
   },
