@@ -10,6 +10,7 @@ import { Provider as OpenPanelAnalytics } from '@plutus/events/client'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GeistMono } from 'geist/font/mono'
+import Script from 'next/script'
 
 export const metadata = constructMetadata()
 
@@ -23,6 +24,12 @@ export const viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Script
+        async
+        src="https://cdn.seline.so/seline.js"
+        data-token="82a54f4e6018731"
+        strategy="afterInteractive"
+      />
       <body
         className={cn(
           'min-[100dvh] overscroll-none whitespace-pre-line font-sans !bg-alternative antialiased',

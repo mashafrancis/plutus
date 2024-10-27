@@ -23,10 +23,10 @@
   },
   "devDependencies": {
     "@plutus/tsconfig": "workspace:*",
-    "@types/react": "18.3.5",
-    "next": "15.0.0-rc.0",
-    "react": "19.0.0-rc-206df66e-20240912",
-    "typescript": "^5.6.2"
+    "@types/react": "18.3.11",
+    "next": "15.0.0-rc.1",
+    "react": "19.0.0-rc-cd22717c-20241013",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "@date-fns/utc": "^2.1.0",
