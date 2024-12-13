@@ -1,7 +1,6 @@
 {
   "name": "@plutus/root",
   "packageManager": "pnpm@9.15.0",
-  "workspaces": ["packages/*", "apps/*"],
   "private": true,
   "author": {
     "name": "Francis Masha",
