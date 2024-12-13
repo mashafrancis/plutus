@@ -23,18 +23,18 @@
   },
   "devDependencies": {
     "@plutus/tsconfig": "workspace:*",
-    "@types/react": "18.3.11",
-    "next": "15.0.1",
-    "react": "19.0.0-rc-69d4b800-20241021",
-    "typescript": "^5.6.3"
+    "@types/react": "19.0.1",
+    "next": "15.1.0",
+    "react": "19.0.0",
+    "typescript": "^5.7.2"
   },
   "dependencies": {
     "@date-fns/utc": "^2.1.0",
-    "@supabase/ssr": "^0.5.1",
-    "@supabase/supabase-js": "^2.45.4",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.6",
     "@t3-oss/env-nextjs": "^0.11.1",
     "server-only": "^0.0.1",
-    "zod": "^3.23.8"
+    "zod": "^3.24.1"
   },
   "exports": {
     "./server": "./src/client/server.ts",

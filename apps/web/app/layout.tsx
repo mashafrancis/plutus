@@ -15,6 +15,10 @@ import Script from 'next/script'
 export const metadata = constructMetadata()
 
 export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: 1,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' },

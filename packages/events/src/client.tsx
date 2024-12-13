@@ -1,12 +1,13 @@
 import {
-  OpenpanelProvider,
+  OpenPanelComponent,
   type PostEventPayload,
-  setProfile,
-  trackEvent,
+  useOpenPanel,
 } from '@openpanel/nextjs'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 const Provider = () => (
-  <OpenpanelProvider
+  <OpenPanelComponent
     clientId={process.env.NEXT_PUBLIC_OPENPANEL_CLIENT_ID!}
     trackScreenViews={true}
     trackAttributes={true}
@@ -15,14 +16,16 @@ const Provider = () => (
 )
 
 const track = (options: { event: string } & PostEventPayload['properties']) => {
-  if (process.env.NODE_ENV !== 'production') {
+  const { track: openTrack } = useOpenPanel()
+
+  if (!isProd) {
     console.log('Track', options)
     return
   }
 
   const { event, ...rest } = options
 
-  trackEvent(event, rest)
+  openTrack(event, rest)
 }
 
-export { Provider, track, setProfile }
+export { Provider, track }

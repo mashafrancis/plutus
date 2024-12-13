@@ -1,9 +1,10 @@
 import { withSentryConfig } from '@sentry/nextjs'
-import { createJiti } from 'jiti'
+// import { createJiti } from 'jiti'
+import type { NextConfig } from 'next'
 
-const jiti = createJiti(new URL(import.meta.url).pathname)
+// const jiti = createJiti(new URL(import.meta.url).pathname)
 
-jiti('./env')
+// jiti('./env')
 
 // Import env files to validate at build time. Use jiti so we can load .ts files in here.
 // createJiti(fileURLToPath(import.meta.url))('./env')
@@ -50,8 +51,7 @@ const securityHeaders = [
   },
 ]
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   experimental: {
