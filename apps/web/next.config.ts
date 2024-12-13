@@ -11,7 +11,7 @@ import type { NextConfig } from 'next'
 
 const ContentSecurityPolicy = `
     default-src 'self' francismasha.com;
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' *.francismasha.com *.vercel-scripts.com fonts.googleapis.com fonts.gstatic.com *.cloudfront.net openpanel.dev assets.lemonsqueezy.com *.googletagmanager.com;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' *.francismasha.com *.vercel-scripts.com fonts.googleapis.com fonts.gstatic.com *.cloudfront.net openpanel.dev cdn.seline.so assets.lemonsqueezy.com *.googletagmanager.com;
     child-src 'self' francismasha.lemonsqueezy.com;
     style-src 'self' 'unsafe-inline' fonts.googleapis.com;
     img-src * blob: data:;
