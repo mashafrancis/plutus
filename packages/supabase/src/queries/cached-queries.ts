@@ -14,7 +14,7 @@ import {
 } from './index'
 
 export const getSession = cache(async () => {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   return supabase.auth.getSession()
 })
@@ -29,7 +29,7 @@ export const getUser = async () => {
     return null
   }
 
-  const supabase = createClient()
+  const supabase = await createClient()
 
   return unstable_cache(
     async () => {
@@ -56,7 +56,7 @@ export const getExpenses = async (
     return null
   }
 
-  const supabase = createClient()
+  const supabase = await createClient()
 
   return unstable_cache(
     async () => {
@@ -83,7 +83,7 @@ export const getIncome = async (
     return null
   }
 
-  const supabase = createClient()
+  const supabase = await createClient()
 
   return unstable_cache(
     async () => {
@@ -110,7 +110,7 @@ export const getSubscriptions = async (
     return null
   }
 
-  const supabase = createClient()
+  const supabase = await createClient()
 
   return unstable_cache(
     async () => {
@@ -137,7 +137,7 @@ export const getInvestments = async (
     return null
   }
 
-  const supabase = createClient()
+  const supabase = await createClient()
 
   return unstable_cache(
     async () => {

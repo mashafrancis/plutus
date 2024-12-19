@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env"],
+  "globalPassThroughEnv": ["NODE_ENV", "CI", "npm_lifecycle_event"],
   "globalEnv": [
     "RESEND_API_KEY",
     "SUPABASE_SERVICE_ROLE_KEY",

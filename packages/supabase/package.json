@@ -21,20 +21,20 @@
     "supabase:push": "npx supabase db push",
     "supabase:pull": "npx supabase db pull"
   },
-  "devDependencies": {
-    "@plutus/tsconfig": "workspace:*",
-    "@types/react": "19.0.1",
-    "next": "15.1.0",
-    "react": "19.0.0",
-    "typescript": "^5.7.2"
-  },
   "dependencies": {
     "@date-fns/utc": "^2.1.0",
     "@supabase/ssr": "^0.5.2",
-    "@supabase/supabase-js": "^2.47.6",
+    "@supabase/supabase-js": "^2.47.9",
     "@t3-oss/env-nextjs": "^0.11.1",
     "server-only": "^0.0.1",
     "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@plutus/tsconfig": "workspace:*",
+    "@types/react": "19.0.2",
+    "next": "15.1.1",
+    "react": "19.0.0",
+    "typescript": "^5.7.2"
   },
   "exports": {
     "./server": "./src/client/server.ts",
@@ -44,7 +44,6 @@
     "./queries": "./src/queries/index.ts",
     "./cached-queries": "./src/queries/cached-queries.ts",
     "./storage": "./src/utils/storage.ts",
-    "./types": "./src/types/index.ts",
-    "./env": "./env.ts"
+    "./types": "./src/types/index.ts"
   }
 }

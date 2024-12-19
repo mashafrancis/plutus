@@ -15,7 +15,7 @@ export const createExpenseAction = authActionClient
     name: 'create-expense',
   })
   .action(async ({ parsedInput: params }) => {
-    const supabase = createClient()
+    const supabase = await createClient()
     const user = await getUser()
 
     const data = await createExpense(supabase, { ...params })

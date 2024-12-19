@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@openpanel/nextjs": "1.0.7",
-    "@vercel/functions": "^1.5.1",
-    "next": "15.1.0"
+    "@vercel/functions": "^1.5.2",
+    "next": "15.1.1"
   },
   "devDependencies": {
     "@plutus/tsconfig": "workspace:*",

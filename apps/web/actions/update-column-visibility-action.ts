@@ -10,7 +10,8 @@ type Props = {
 }
 
 export async function updateColumnVisibilityAction({ key, data }: Props) {
-  cookies().set(key, JSON.stringify(data), {
+  const cookiesList = await cookies()
+  cookiesList.set(key, JSON.stringify(data), {
     expires: addYears(new Date(), 1),
   })
 

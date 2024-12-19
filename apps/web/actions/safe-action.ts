@@ -2,7 +2,7 @@ import { logger } from '@/lib/logger'
 import { kvClient as RedisClient } from '@/lib/redis'
 import { setupAnalytics } from '@plutus/events/server'
 import { getUser } from '@plutus/supabase/cached-queries'
-import { createClient } from '@plutus/supabase/client'
+import { createClient } from '@plutus/supabase/server'
 import * as Sentry from '@sentry/nextjs'
 import { Ratelimit } from '@upstash/ratelimit'
 import {
@@ -18,7 +18,7 @@ const ratelimit = new Ratelimit({
 })
 
 export const actionClient = createSafeActionClient({
-  handleReturnedServerError(e) {
+  handleServerError(e) {
     if (e instanceof Error) {
       return e.message
     }
@@ -28,7 +28,7 @@ export const actionClient = createSafeActionClient({
 })
 
 export const actionClientWithMeta = createSafeActionClient({
-  handleReturnedServerError(e) {
+  handleServerError(e) {
     if (e instanceof Error) {
       return e.message
     }
@@ -50,7 +50,7 @@ export const actionClientWithMeta = createSafeActionClient({
 
 export const authActionClient = actionClientWithMeta
   .use(async ({ next, clientInput, metadata }) => {
-    const result = await next({ ctx: null })
+    const result = await next({ ctx: undefined })
 
     if (process.env.NODE_ENV === 'development') {
       logger('Input ->', clientInput)
@@ -63,7 +63,8 @@ export const authActionClient = actionClientWithMeta
     return result
   })
   .use(async ({ next, metadata }) => {
-    const ip = headers().get('x-forwarded-for')
+    const headersList = await headers()
+    const ip = headersList.get('x-forwarded-for')
 
     const { success, remaining } = await ratelimit.limit(
       `${ip}-${metadata.name}`,
@@ -83,26 +84,26 @@ export const authActionClient = actionClientWithMeta
   })
   .use(async ({ next, metadata }) => {
     const user = await getUser()
-    const supabase = createClient()
+    const supabase = await createClient()
+
     if (!user?.data) {
       throw new Error('Unauthorized')
     }
 
-    if (metadata) {
-      const analytics = await setupAnalytics({
-        userId: user.data.id,
-        fullName: user.data.email,
-      })
+    const analytics = await setupAnalytics({
+      userId: user.data.id,
+      fullName: user.data.email,
+    })
 
-      if (metadata.track) {
-        analytics.track(metadata.track)
-      }
+    if (metadata?.track) {
+      analytics.track(metadata.track)
     }
 
     return Sentry.withServerActionInstrumentation(metadata.name, async () => {
       return next({
         ctx: {
           supabase,
+          analytics,
           user: user.data,
         },
       })

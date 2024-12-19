@@ -1,7 +1,7 @@
 import GetStartedButton from '@/components/layout/get-started-button'
 import SectionContainer from '@/components/layout/section-container'
 import { Button } from '@/components/ui/button'
-import { CTA } from '@/types/ui.types'
+import type { CTA } from '@/types/ui.types'
 import { getUser } from '@plutus/supabase/cached-queries'
 import Link from 'next/link'
 import React from 'react'

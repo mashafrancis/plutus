@@ -4,14 +4,14 @@ import { Icons } from '@/components/icons'
 import SectionContainer from '@/components/layout/section-container'
 import { Button } from '@/components/ui/button'
 import * as Sentry from '@sentry/nextjs'
-import Error from 'next/error'
+import NextError from 'next/error'
 import { useEffect } from 'react'
 
 export default function AppError({
   error,
   reset,
 }: {
-  error: Error
+  error: Error & { digest?: string }
   reset: () => void
 }) {
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function AppError({
   return (
     <SectionContainer className="flex gap-8 mt-24 border rounded-lg">
       <div className="space-y-4">
-        <h1 className="text-2xl">Error.</h1>
+        <NextError statusCode={0} />
         {/*<p className="text-muted-foreground">{error?.message}</p>*/}
         <div>
           <Button

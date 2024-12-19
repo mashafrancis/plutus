@@ -1,0 +1,10 @@
+{
+  "extends": "@plutus/tsconfig/react-library.json",
+  "compilerOptions": {
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
+    "baseUrl": "."
+  },
+  "include": ["./*.ts"],
+  "exclude": ["node_modules"]
+}

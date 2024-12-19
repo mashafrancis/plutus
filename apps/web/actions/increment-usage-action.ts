@@ -6,7 +6,7 @@ import { revalidateTag } from 'next/cache'
 import { actionClient } from './safe-action'
 
 export const incrementUsageAction = actionClient.action(async () => {
-  const supabase = createClient()
+  const supabase = await createClient()
   const user = await updateUser(supabase, {
     usage: 6,
   })

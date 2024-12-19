@@ -1,21 +1,35 @@
 {
   "extends": "@plutus/tsconfig/nextjs.json",
   "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "types": ["vitest/globals"],
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "moduleDetection": "force",
-    "module": "NodeNext",
     "verbatimModuleSyntax": true,
-    "skipLibCheck": true,
-    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2017",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./*"]
-    }
+    ]
   },
   "include": [
     "next-env.d.ts",

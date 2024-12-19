@@ -1,32 +1,21 @@
-// This file configures the initialization of Sentry on the server.
-// The config you add here will be used whenever the server handles a request.
-// https://docs.sentry.io/platforms/javascript/guides/nextjs/
-
-import { env } from '@/env'
+import { env } from '@plutus/env'
+import { createClient } from '@plutus/supabase/client'
 import * as Sentry from '@sentry/nextjs'
+import { supabaseIntegration } from '@supabase/sentry-js-integration'
+
+const client = createClient()
 
 Sentry.init({
   dsn: env.SENTRY_DSN,
 
-  // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1,
-
-  // Setting this option to true will print useful information to the console while you're setting up Sentry.
   debug: false,
-
-  // Uncomment the line below to enable Spotlight (https://spotlightjs.com)
-  // spotlight: process.env.NODE_ENV === 'development',
-  // integrations: [
-  //   supabaseIntegration(SupabaseClient, Sentry, {
-  //     tracing: true,
-  //     breadcrumbs: true,
-  //     errors: true,
-  //   }),
-  //   Sentry.winterCGFetchIntegration({
-  //     breadcrumbs: true,
-  //     shouldCreateSpanForRequest: (url) => {
-  //       return !url.startsWith(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest`)
-  //     },
-  //   }),
-  // ],
+  enabled: process.env.NODE_ENV === 'production',
+  integrations: [
+    supabaseIntegration(client, Sentry, {
+      tracing: true,
+      breadcrumbs: true,
+      errors: true,
+    }),
+  ],
 })

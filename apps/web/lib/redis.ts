@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { env } from '@/env'
+import { env } from '@plutus/env'
 import { Redis } from '@upstash/redis'
 
 export const kvClient = new Redis({

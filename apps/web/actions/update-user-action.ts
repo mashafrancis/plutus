@@ -3,13 +3,13 @@
 import { updateUser } from '@plutus/supabase/mutations'
 import { createClient } from '@plutus/supabase/server'
 import { revalidateTag } from 'next/cache'
-import { actionClient } from './safe-action'
+import { authActionClient } from './safe-action'
 import { updateUserSchema } from './schema'
 
-export const updateUserAction = actionClient
+export const updateUserAction = authActionClient
   .schema(updateUserSchema)
   .action(async ({ parsedInput: params }) => {
-    const supabase = createClient()
+    const supabase = await createClient()
     const user = await updateUser(supabase, params)
 
     revalidateTag(`user_${user?.data?.id}`)

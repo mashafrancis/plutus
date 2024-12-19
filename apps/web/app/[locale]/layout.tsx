@@ -1,14 +1,17 @@
 import { ModalProvider } from '@/components/client-provider/modal-provider'
-import type { ReactElement } from 'react'
+import type { ReactNode } from 'react'
 import { Providers } from './providers'
 
-export default function Layout({
+type Params = Promise<{ locale: string }>
+
+export default async function Layout({
   children,
-  params: { locale },
+  params,
 }: {
-  children: ReactElement
-  params: { locale: string }
+  children: ReactNode
+  params: Params
 }) {
+  const { locale } = await params
   return (
     <Providers locale={locale}>
       <ModalProvider />

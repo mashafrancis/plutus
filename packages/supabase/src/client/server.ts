@@ -1,6 +1,5 @@
 import { type CookieOptions, createServerClient } from '@supabase/ssr'
 import { cookies, headers } from 'next/headers'
-import { env } from '../../env'
 import type { Database } from '../types'
 
 const conWarn = console.warn
@@ -37,14 +36,15 @@ type CreateClientOptions = {
   schema?: 'public' | 'storage'
 }
 
-export const createClient = (options?: CreateClientOptions) => {
+export const createClient = async (options?: CreateClientOptions) => {
   const { admin = false, ...rest } = options ?? {}
 
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
+  const headersList = await headers()
 
   const key = admin
-    ? env.SUPABASE_SERVICE_ROLE_KEY
-    : env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    ? process.env.SUPABASE_SERVICE_ROLE_KEY!
+    : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
   const auth = admin
     ? {
@@ -54,32 +54,38 @@ export const createClient = (options?: CreateClientOptions) => {
       }
     : {}
 
-  return createServerClient<Database>(env.NEXT_PUBLIC_SUPABASE_URL, key, {
-    ...rest,
-    cookies: {
-      getAll() {
-        return cookieStore.getAll()
+  return createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    key,
+    {
+      ...rest,
+      cookies: {
+        getAll() {
+          return cookieStore.getAll()
+        },
+        setAll(
+          cookiesToSet: {
+            name: string
+            value: string
+            options: CookieOptions
+          }[],
+        ) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options),
+            )
+          } catch (_error) {}
+        },
       },
-      setAll(
-        cookiesToSet: { name: string; value: string; options: CookieOptions }[],
-      ) {
-        try {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options),
-          )
-        } catch {
-          // The `setAll` method was called from a Server Component.
-          // This can be ignored if you have middleware refreshing
-          // user sessions.
-        }
+      auth,
+      global: {
+        headers: {
+          // Pass user agent from browser
+          'user-agent': headersList.get('user-agent') as string,
+          // https://supabase.com/docs/guides/platform/read-replicas#experimental-routing
+          'sb-lb-routing-mode': 'alpha-all-services',
+        },
       },
     },
-    auth,
-    global: {
-      headers: {
-        // Pass user agent from browser
-        'user-agent': headers().get('user-agent') as string,
-      },
-    },
-  })
+  )
 }
