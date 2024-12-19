@@ -21,15 +21,9 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "dev": {
-      "cache": false,
+      "inputs": ["$TURBO_DEFAULT$", ".env"],
       "persistent": true,
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env.development.local",
-        ".env.local",
-        ".env.development",
-        ".env"
-      ]
+      "cache": false
     },
     "start": {
       "cache": false

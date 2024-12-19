@@ -34,7 +34,7 @@ export function GoogleSignIn() {
   return (
     <Button
       size="large"
-      type="alternative"
+      type="primary"
       onClick={handleSignIn}
       className="active:scale-[0.98] rounded-md px-6 py-4 font-medium flex space-x-2 h-[40px] w-full"
       icon={<Icons.google className="h-4 w-4" />}

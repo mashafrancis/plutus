@@ -2,392 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-	:root {
-		--background: 0deg 0% 98.8%;
-		--foreground: 0deg 0% 9%;
-		--alternative: 0 0% 99.2%;
-		--card: 0deg 0% 98.8%;
-		--card-foreground: 0deg 0% 9%;
-		--popover: 0deg 0% 98.8%;
-		--popover-foreground: 0deg 0% 9%;
-		--primary: 198 100% 33%;
-		--primary-foreground: 355.7 100% 97.3%;
-		--brand: 198 100% 33%;
-		--brand-foreground: 355.7 100% 97.3%;
-		--secondary: 240 4.8% 95.9%;
-		--secondary-foreground: 240 5.9% 10%;
-		--muted: 0deg 0% 96.9%;
-		--muted-foreground: 0deg 0% 43.9%;
-		--accent: 240 4.8% 95.9%;
-		--accent-foreground: 240 5.9% 10%;
-		--destructive: 0 84.2% 60.2%;
-		--destructive-foreground: 0 0% 98%;
-		--border: 240 5.9% 90%;
-		--input: 240 5.9% 90%;
-		--ring: 142.1 76.2% 36.3%;
-		--radius: 0.5rem;
-		--gray: 109 61% 43%;
-		--gray-foreground: 0 0% 100%;
-		--normal: 109 61% 43%;
-		--normal-foreground: 0 0% 100%;
-		--info: 210 90% 44%;
-		--info-foreground: 0 0% 100%;
-		--warn: 47 100% 50%;
-		--warn-foreground: 47 100% 20%;
-		--success: 122 52% 35%;
-		--success-foreground: 0 0% 100%;
-		--error: 350 80% 50%;
-		--error-foreground: 0 0% 100%;
-	}
+@import "./../../../packages/ui/build/css/source/global.css";
+@import "./../../../packages/ui/build/css/themes/dark.css";
+@import "./../../../packages/ui/build/css/themes/classic-dark.css";
+@import "./../../../packages/ui/build/css/themes/light.css";
 
-	.dark {
-		--background: 0deg 0% 11%;
-		--alternative: 0deg 0% 8.6%;
-		--foreground: 0 0% 95%;
-		--card: 0deg 0% 13.7%;
-		--card-foreground: 0deg 0% 92.9%;
-		--popover: 0deg 0% 13.7%;
-		--popover-foreground: 0deg 0% 92.9%;
-		--primary: 197 61% 53%;
-		/*--primary: 191 65% 60%;*/
-		--primary-foreground: 144.9 80.4% 10%;
-		--brand: 191 65% 60%;
-		--brand-foreground: 144.9 80.4% 10%;
-		--secondary: 240 3.7% 15.9%;
-		--secondary-foreground: 0 0% 98%;
-		--muted: 0deg 0% 15.7%;
-		--muted-foreground: 0deg 0% 43.9%;
-		--accent: 12 6.5% 15.1%;
-		--accent-foreground: 0 0% 98%;
-		--destructive: 0 62.8% 30.6%;
-		--destructive-foreground: 0 85.7% 97.3%;
-		--border: 0deg 0% 18%;
-		--input: 240 3.7% 15.9%;
-		--ring: 142.4 71.8% 29.2%;
-		--normal: 109 61% 43%;
-		--normal-foreground: 0 0% 100%;
-		--info: 193 70% 63%;
-		--info-foreground: 202 84% 17%;
-		--warn: 43 86% 60%;
-		--warn-foreground: 47 100% 20%;
-		--success: 122 52% 63%;
-		--success-foreground: 135 66% 11%;
-		--error: 3 70% 69%;
-		--error-foreground: 3 71% 12%;
-	}
+@layer base {
+  :root {
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
 }
 
 @layer base {
-	* {
-		@apply border-border;
-	}
-
-	body {
-		@apply bg-background text-foreground;
-		/* font-feature-settings: "rlig" 1, "calt" 1; */
-		font-synthesis-weight: none;
-		text-rendering: optimizeLegibility;
-	}
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg text-foreground;
+    /* font-feature-settings: "rlig" 1, "calt" 1; */
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
 }
 
-html,
-body,
-#__next,
-.main {
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased;
-	font-size: 90%;
+@layer utilities {
+  .step {
+    counter-increment: step;
+  }
+
+  .step:before {
+    @apply absolute w-9 h-9 bg-muted rounded-full font-mono font-medium text-center text-base inline-flex items-center justify-center -indent-px border-4 border-background;
+    @apply ml-[-50px] mt-[-4px];
+    content: counter(step);
+  }
+
+  .chunk-container {
+    @apply shadow-none;
+  }
+
+  .chunk-container::after {
+    content: "";
+    @apply absolute -inset-4 shadow-xl rounded-xl border;
+  }
 }
 
-* {
-	box-sizing: border-box;
-}
-
-.form-group .form-text,
-.Form .form-text {
-	@apply text-muted-foreground;
-}
-
-.form-group input,
-.form-group input[type='text'],
-.form-group input[type='email'],
-.form-group input[type='url'],
-.form-group input[type='password'],
-.form-group input[type='number'],
-.form-group input[type='date'],
-.form-group input[type='datetime-local'],
-.form-group input[type='month'],
-.form-group input[type='search'],
-.form-group input[type='tel'],
-.form-group input[type='time'],
-.form-group input[type='week'],
-.form-group input[multiple],
-.form-group textarea,
-.form-group select,
-input.form-control,
-.form-control input,
-.form-control textarea {
-	@apply block;
-	@apply box-border;
-	/*@apply  w-full ;*/
-	@apply rounded-md;
-	@apply shadow-sm;
-	@apply transition-all;
-	@apply text-foreground;
-	@apply border;
-	@apply focus:shadow-md;
-
-	/*@apply focus:border-stronger;*/
-	/*@apply focus:ring-border-overlay;*/
-
-	/*@apply bg-background;*/
-	/*@apply border-strong border;*/
-
-	@apply outline-none;
-	@apply focus:ring-2 focus:ring-current;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-	@apply px-4 py-2;
-}
-
-.form-group input:focus,
-.form-group input[type='text']:focus,
-.form-group input[type='email']:focus,
-.form-group input[type='url']:focus,
-.form-group input[type='password']:focus,
-.form-group input[type='number']:focus,
-.form-group input[type='date']:focus,
-.form-group input[type='datetime-local']:focus,
-.form-group input[type='month']:focus,
-.form-group input[type='search']:focus,
-.form-group input[type='tel']:focus,
-.form-group input[type='time']:focus,
-.form-group input[type='week']:focus,
-.form-group input[multiple]:focus,
-.form-group textarea:focus,
-.form-group select:focus,
-.form-group input:focus .form-control:focus {
-	box-shadow: 0 0 0 2px rgba(62, 207, 142, 0.1);
-}
-
-/*icons in date / time inputs*/
-.dark input[type='date']::-webkit-calendar-picker-indicator,
-.dark input[type='datetime-local']::-webkit-calendar-picker-indicator,
-.dark input[type='time']::-webkit-calendar-picker-indicator {
-	filter: invert(0.8);
-}
-
-input.is-invalid {
-	@apply bg-red-100;
-	@apply border border-red-700;
-	@apply focus:ring-red-500;
-	@apply placeholder:text-red-600;
-}
-
-input[type='submit'] {
-	@apply bg-primary;
-}
-
-input[type='submit']:hover {
-	@apply bg-primary;
-}
-
-input::placeholder {
-	@apply text-muted-foreground;
-}
-
-.form-group input::placeholder {
-	@apply text-muted-foreground;
-}
-
-.billing-input-fixed {
-	@apply w-full appearance-none rounded border bg-gray-700 px-3 py-2 leading-tight text-gray-300 shadow;
-}
-
-a {
-	color: inherit;
-	text-decoration: none;
-}
-
-.textarea-actions-container {
-	@apply absolute inset-y-1 right-0 pl-3 pr-1 flex items-start;
-}
-
-.textarea_actions_container_items {
-	@apply flex items-center;
-}
-
-.input-mono {
-	& input,
-	& textarea {
-		@apply font-mono;
-	}
-}
-
-.input-xs {
-	& input,
-	& textarea {
-		@apply text-xs;
-	}
-}
-
-input[type='radio'] {
-	@apply p-0;
-}
-
-input[type='number'] {
-	-moz-appearance: textfield; /* Firefox, Not included in tailwind styles reset */
-}
-
-/*TODO: It doesnt' work, need to check*/
-.hide-scrollbar {
-	scrollbar-width: none; /* Firefox */
-	-ms-overflow-style: none; /* Internet Explorer 10+ */
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-	width: 0;
-	height: 0;
-	display: none;
-}
-
-div[data-radix-portal]:not(.portal--toast) {
-	z-index: 2147483646 !important;
-}
-
-.underlined {
-	position: relative;
-	text-decoration: none !important;
-	white-space: nowrap;
-}
-
-.underlined:focus {
-	outline: none;
-	text-decoration: none !important;
-}
-
-.underlined:after {
-	content: '';
-	height: 2px;
-	transform: scaleX(0);
-	transition: transform 0.25s ease;
-	transform-origin: left;
-	left: 0;
-	bottom: -4px;
-	width: 100%;
-	display: block;
-	position: absolute;
-	transition-duration: 400ms;
-	transition-timing-function: ease-in-out;
-}
-
-.underlined:hover:after,
-.underlined:focus:after,
-.active.underlined:after {
-	background-color: currentColor;
-	transform: scaleX(1);
-}
-
-@media (prefers-reduced-motion) {
-	.underlined:after {
-		opacity: 0;
-		transition: opacity 0.25s ease;
-	}
-
-	.underlined:hover:after,
-	.underlined:focus:after,
-	.active.underlined:after {
-		opacity: 1;
-	}
-}
-
-.h1:not(.prose *):not(.overwrite),
-.h2:not(.prose *):not(.overwrite),
-.h3:not(.prose *):not(.overwrite),
-.h4:not(.prose *):not(.overwrite),
-.h5:not(.prose *):not(.overwrite),
-.h6:not(.prose *):not(.overwrite) {
-	@apply text-foreground;
-	margin-bottom: 16px;
-}
-
-.h1:not(.prose *):not(.overwrite) {
-	@apply text-4xl;
-}
-
-.h2:not(.prose *):not(.overwrite) {
-	@apply text-3xl;
-}
-
-.h3:not(.prose *):not(.overwrite) {
-	@apply text-2xl;
-}
-
-.h4:not(.prose *):not(.overwrite) {
-	@apply text-xl;
-}
-
-.h5:not(.prose *):not(.overwrite) {
-	@apply text-xl;
-}
-
-h1:not(.overwrite),
-h2:not(.overwrite),
-h3:not(.overwrite),
-h4:not(.overwrite),
-h5:not(.overwrite),
-h6:not(.overwrite) {
-	scroll-margin-top: 90px;
-}
-
-.h1:not(.prose *):not(.overwrite),
-.h2:not(.prose *):not(.overwrite) {
-	line-height: 1.2 !important;
-}
-
-.prose-toc a {
-	transition: all 0.07s ease-in-out;
-}
-
-@media only screen and (max-width: 960px) {
-	.h1:not(.prose *):not(.overwrite) {
-		font-size: 2.2rem !important;
-	}
-
-	.h2:not(.prose *):not(.overwrite) {
-		font-size: 2rem !important;
-	}
-}
-
-@media only screen and (max-width: 720px) {
-	.h1:not(.prose *):not(.overwrite) {
-		font-size: 2rem !important;
-	}
-
-	.h2:not(.prose *):not(.overwrite) {
-		font-size: 1.8rem !important;
-	}
-}
-
-@media only screen and (max-width: 520px) {
-	.h1:not(.prose *):not(.overwrite) {
-		font-size: 1.8rem !important;
-	}
-
-	.h2:not(.prose *):not(.overwrite) {
-		font-size: 1.6rem !important;
-	}
-}
-
-.p:not(.prose *):not(.overwrite) {
-	@apply text-muted-foreground;
-	margin-bottom: 16px;
-}
-
-.small:not(.prose *):not(.overwrite) {
-	@apply text-xs text-muted-foreground;
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
 }

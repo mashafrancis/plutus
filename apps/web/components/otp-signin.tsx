@@ -134,7 +134,7 @@ export function OTPSignIn({ className }: Props) {
           />
           <Button
             block
-            type="alternative"
+            type="primary"
             form="signIn-form"
             htmlType="submit"
             size="large"

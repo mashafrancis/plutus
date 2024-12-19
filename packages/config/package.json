@@ -1,0 +1,19 @@
+{
+  "name": "@plutus/config",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@mertasan/tailwindcss-variables": "^2.7.0",
+    "@radix-ui/colors": "^3.0.0",
+    "@tailwindcss/forms": "^0.5.9",
+    "@tailwindcss/typography": "^0.5.15",
+    "deepmerge": "^4.3.1",
+    "mini-svg-data-uri": "^1.4.4",
+    "tailwindcss-radix": "^3.0.5"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}

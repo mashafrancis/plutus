@@ -73,3 +73,8 @@ export type UserSubscriptionPlan = SubscriptionPlan &
 		stripeCurrentPeriodEnd: number;
 		isPro: boolean;
 	};
+
+export type HtmlProps<T> = Omit<
+	React.DetailedHTMLProps<React.HTMLAttributes<T>, T>,
+	'ref'
+>;

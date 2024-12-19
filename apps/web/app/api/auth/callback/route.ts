@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
 
   if (code) {
     // @ts-expect-error
-    const supabase = createClient(cookieStore)
+    const supabase = await createClient(cookieStore)
     await supabase.auth.exchangeCodeForSession(code)
 
     const {
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
         if (newData?.error) {
           return NextResponse.redirect(
             getErrorRedirect(
-              `${requestUrl.origin}/`,
+              `${requestUrl.origin}`,
               newData?.error.message,
               "Sorry, we weren't able to log you in. Please try again.",
             ),

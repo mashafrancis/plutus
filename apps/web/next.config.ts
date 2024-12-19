@@ -3,7 +3,7 @@ import type { NextConfig } from 'next'
 
 const ContentSecurityPolicy = `
     default-src 'self' francismasha.com;
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' *.francismasha.com *.vercel-scripts.com fonts.googleapis.com fonts.gstatic.com *.cloudfront.net openpanel.dev cdn.seline.so assets.lemonsqueezy.com *.googletagmanager.com;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' *.francismasha.com *.vercel-scripts.com fonts.googleapis.com fonts.gstatic.com *.cloudfront.net openpanel.dev cdn.seline.so assets.lemonsqueezy.com *.googletagmanager.com accounts.google.com https://vercel.live;
     child-src 'self' francismasha.lemonsqueezy.com;
     style-src 'self' 'unsafe-inline' fonts.googleapis.com;
     img-src * blob: data:;
@@ -51,7 +51,6 @@ const nextConfig: NextConfig = {
     cssChunking: true,
     // instrumentationHook: process.env.NODE_ENV === 'production',
   },
-  serverExternalPackages: ['@sentry/nextjs'],
   images: {
     remotePatterns: [
       {

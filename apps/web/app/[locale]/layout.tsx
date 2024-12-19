@@ -2,9 +2,9 @@ import { cn } from '@/lib/utils'
 import { type ReactNode, Suspense } from 'react'
 import '@/styles/globals.css'
 import '@/styles/overwrites.css'
-import '@/styles/date-picker.css'
+import '@/styles/date-picker.scss'
 import { Providers } from '@/app/[locale]/providers'
-import { ModalProvider } from '@/components/client-provider/modal-provider'
+import OneTapComponent from '@/components/google-one-tap'
 import { Toaster } from '@/components/ui/sonner'
 import { constructMetadata } from '@/lib/construct-metadata'
 import { fontSans } from '@/lib/fonts'
@@ -52,10 +52,8 @@ export default async function RootLayout({
           GeistMono.variable,
         )}
       >
-        <Providers locale={locale}>
-          <ModalProvider />
-          {children}
-        </Providers>
+        <Providers locale={locale}>{children}</Providers>
+        <OneTapComponent />
         <OpenPanelAnalytics />
         <Analytics />
         <SpeedInsights />
