@@ -1,6 +1,6 @@
-const config = require('@plutus/config/tailwind.config')
+import config from '@plutus/config/tailwind.config'
 
-module.exports = config({
+export default config({
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',

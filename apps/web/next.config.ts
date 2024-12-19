@@ -1,4 +1,3 @@
-import { withSentryConfig } from '@sentry/nextjs'
 import type { NextConfig } from 'next'
 
 const ContentSecurityPolicy = `
@@ -84,18 +83,18 @@ const nextConfig: NextConfig = {
   },
 }
 
-// export default nextConfig
+export default nextConfig
 
-export default withSentryConfig(nextConfig, {
-  org: 'plutus-finance',
-  project: 'plutus-finance',
-  silent: !process.env.CI,
-  telemetry: false,
-  widenClientFileUpload: true,
-  hideSourceMaps: true,
-  disableLogger: true,
-  tunnelRoute: '/monitoring',
-  sourcemaps: {
-    disable: true,
-  },
-})
+// export default withSentryConfig(nextConfig, {
+//   org: 'plutus-finance',
+//   project: 'plutus-finance',
+//   silent: !process.env.CI,
+//   telemetry: false,
+//   widenClientFileUpload: true,
+//   hideSourceMaps: true,
+//   disableLogger: true,
+//   tunnelRoute: '/monitoring',
+//   sourcemaps: {
+//     disable: true,
+//   },
+// })

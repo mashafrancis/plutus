@@ -31,7 +31,7 @@ export default async function MarketingHeader(props: Props) {
                 {Icon && <Icon size={16} strokeWidth={1.3} />}
                 {props.title && (
                   <span
-                    className="text-primary font-mono uppercase"
+                    className="text-brand-600 dark:text-brand font-mono uppercase"
                     key={`platform-${props.title}`}
                   >
                     {props.title}
@@ -51,7 +51,7 @@ export default async function MarketingHeader(props: Props) {
               props.subheader.map((subheader, i) => {
                 return (
                   <p
-                    className="p lg:text-lg text-muted-foreground max-w-lg lg:max-w-none"
+                    className="p lg:text-lg text-foreground-lighter max-w-lg lg:max-w-none"
                     key={i}
                   >
                     {subheader}
@@ -63,7 +63,7 @@ export default async function MarketingHeader(props: Props) {
             {user?.data?.email ? (
               <Link href="/overview">
                 <Button size="large" type="primary">
-                  Go to app
+                  Explore app
                 </Button>
               </Link>
             ) : (

@@ -35,6 +35,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.1
         version: 3.9.1(react-hook-form@7.54.1(react@19.0.0))
+      '@openstatus/react':
+        specifier: ^0.0.3
+        version: 0.0.3(react@19.0.0)
       '@plutus/config':
         specifier: workspace:*
         version: link:../../packages/config
@@ -164,6 +167,9 @@ importers:
       google-one-tap:
         specifier: ^1.0.6
         version: 1.0.6
+      import-in-the-middle:
+        specifier: ^1.12.0
+        version: 1.12.0
       input-otp:
         specifier: ^1.4.1
         version: 1.4.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -212,6 +218,9 @@ importers:
       recharts:
         specifier: ^2.15.0
         version: 2.15.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      require-in-the-middle:
+        specifier: ^7.4.0
+        version: 7.4.0
       sass:
         specifier: ^1.83.0
         version: 1.83.0
@@ -1052,6 +1061,11 @@ packages:
 
   '@openpanel/web@1.0.1':
     resolution: {integrity: sha512-cVZ7Kr9SicczJ/RDIfEtZs8+1iGDzwkabVA/j3NqSl8VSucsC8m1+LVbjmCDzCJNnK4yVn6tEcc9PJRi2rtllw==}
+
+  '@openstatus/react@0.0.3':
+    resolution: {integrity: sha512-uDiegz7e3H67pG8lTT+op+6w5keTT7XpcENrREaqlWl5j53TYyO8nheOG1PeNw2/Qgd5KaGeRJJFn1crhTUSYw==}
+    peerDependencies:
+      react: ^18.0.0
 
   '@opentelemetry/api-logs@0.53.0':
     resolution: {integrity: sha512-8HArjKx+RaAI8uEIgcORbZIPklyh1YLjPSBus8hjRmvLi6DeFzgOcdZ7KwPabKj8mXF8dX0hyfAyGfycz0DbFw==}
@@ -5082,6 +5096,10 @@ snapshots:
     dependencies:
       '@openpanel/sdk': 1.0.0
 
+  '@openstatus/react@0.0.3(react@19.0.0)':
+    dependencies:
+      react: 19.0.0
+
   '@opentelemetry/api-logs@0.53.0':
     dependencies:
       '@opentelemetry/api': 1.9.0
@@ -8285,7 +8303,7 @@ snapshots:
     dependencies:
       debug: 4.4.0
       module-details-from-path: 1.0.3
-      resolve: 1.22.8
+      resolve: 1.22.9
     transitivePeerDependencies:
       - supports-color
 
