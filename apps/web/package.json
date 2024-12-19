@@ -41,6 +41,7 @@
     "@radix-ui/react-tooltip": "^1.1.6",
     "@sentry/nextjs": "^8.47.0",
     "@supabase/sentry-js-integration": "^0.3.0",
+    "@supabase/supabase-js": "^2.47.9",
     "@t3-oss/env-nextjs": "^0.11.1",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.15",

@@ -1,4 +1,4 @@
-// import { withSentryConfig } from '@sentry/nextjs'
+import { withSentryConfig } from '@sentry/nextjs'
 import type { NextConfig } from 'next'
 
 const ContentSecurityPolicy = `
@@ -43,7 +43,7 @@ const securityHeaders = [
   },
 ]
 
-const _nextConfig: NextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   experimental: {
@@ -85,16 +85,18 @@ const _nextConfig: NextConfig = {
   },
 }
 
-// export default withSentryConfig(nextConfig, {
-//   org: 'plutus-finance',
-//   project: 'plutus-finance',
-//   silent: !process.env.CI,
-//   telemetry: false,
-//   widenClientFileUpload: true,
-//   hideSourceMaps: true,
-//   disableLogger: true,
-//   tunnelRoute: '/monitoring',
-//   sourcemaps: {
-//     disable: true,
-//   },
-// })
+// export default nextConfig
+
+export default withSentryConfig(nextConfig, {
+  org: 'plutus-finance',
+  project: 'plutus-finance',
+  silent: !process.env.CI,
+  telemetry: false,
+  widenClientFileUpload: true,
+  hideSourceMaps: true,
+  disableLogger: true,
+  tunnelRoute: '/monitoring',
+  sourcemaps: {
+    disable: true,
+  },
+})

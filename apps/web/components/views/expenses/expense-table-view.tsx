@@ -28,7 +28,7 @@ export default async function ExpenseTable({
 }: Props) {
   const hasFilters = Object.keys(filter).length > 0
   const initialColumnVisibility = JSON.parse(
-    cookies().get(Cookies.ExpensesColumns)?.value || '[]',
+    (await cookies()).get(Cookies.ExpensesColumns)?.value || '[]',
   )
 
   const [user, expenses] = await Promise.all([
