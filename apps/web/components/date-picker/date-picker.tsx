@@ -149,7 +149,7 @@ function _DatePicker({
         <Button
           title={triggerButtonTitle}
           type={triggerButtonType}
-          icon={<Calendar size={12} />}
+          icon={<Calendar />}
           className={triggerButtonClassName}
         >
           {children !== undefined ? (
@@ -177,7 +177,7 @@ function _DatePicker({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="center" side="bottom" className="p-0" portal>
+      <PopoverContent align="center" side="bottom" className="p-0">
         <>
           {hideTime ? null : (
             <>
@@ -203,7 +203,7 @@ function _DatePicker({
                       w-12
                       items-center
                       justify-center
-                      text-muted-foreground
+                      text-foreground-lighter
                     `}
                     >
                       <ArrowRight strokeWidth={1.5} size={14} />
@@ -229,14 +229,14 @@ function _DatePicker({
           <div className="p-2">
             <DatePicker
               inline
-              selectsRange={selectsRange as any}
+              selectsRange={selectsRange}
               selected={startDate}
-              onChange={(dates: any) => {
+              onChange={(dates) => {
                 handleDatePickerChange(dates)
               }}
               dateFormat="MMMM d, yyyy h:mm aa"
-              startDate={startDate as any}
-              endDate={endDate as any}
+              startDate={startDate}
+              endDate={endDate}
               minDate={minDate}
               maxDate={maxDate}
               dayClassName={() => 'cursor-pointer'}
@@ -255,12 +255,12 @@ function _DatePicker({
                       type="button"
                       className={`
                         ${prevMonthButtonDisabled && 'cursor-not-allowed opacity-50'}
-                        text-muted-foreground hover:text-foreground focus:outline-none p-2
+                        text-foreground-light hover:text-foreground focus:outline-none p-2
                     `}
                     >
                       <ChevronLeft size={16} strokeWidth={2} />
                     </button>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-sm text-foreground-light">
                       {format(date, 'MMMM yyyy')}
                     </span>
                     <button
@@ -268,8 +268,8 @@ function _DatePicker({
                       disabled={nextMonthButtonDisabled}
                       type="button"
                       className={`
-                        ${nextMonthButtonDisabled && 'cursor-not-allowed opacity-70'}
-                        text-muted-foreground p-2 hover:text-foreground focus:outline-none
+                        ${nextMonthButtonDisabled && 'cursor-not-allowed opacity-50'}
+                        text-foreground-light p-2 hover:text-foreground focus:outline-none
                     `}
                     >
                       <ChevronRight size={16} strokeWidth={2} />

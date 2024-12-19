@@ -1,22 +1,22 @@
 /*
- * Global Variables
+ * Globlal Variables
  *
  */
 
 const defaults = {
   bg: {
     brand: {
-      primary: 'bg-primary/60',
-      secondary: 'bg-primary/20',
+      primary: 'bg-purple-600',
+      secondary: 'bg-purple-200',
     },
   },
   text: {
-    brand: 'text-primary/60',
-    body: 'text-muted-foreground',
+    brand: 'text-purple-600',
+    body: 'text-foreground-light',
     title: 'text-foreground',
   },
   border: {
-    brand: 'border-primary/60',
+    brand: 'border-brand-600',
     primary: 'border-default',
     secondary: 'border-secondary',
     alternative: 'border-alternative',
@@ -24,13 +24,13 @@ const defaults = {
   placeholder: 'placeholder-foreground-muted',
   focus: `
     outline-none
-    focus:ring-current focus:ring-1
+    focus:ring-current focus:ring-2
   `,
   'focus-visible': `
     outline-none
     transition-all
     outline-0
-    focus-visible:outline-2
+    focus-visible:outline-4
     focus-visible:outline-offset-1
   `,
   size: {
@@ -52,16 +52,15 @@ const defaults = {
     },
   },
   overlay: {
-    base: `absolute inset-0 bg-background/80 backdrop-blur-sm`,
+    base: `absolute inset-0 bg-background opacity-50`,
     container: `fixed inset-0 transition-opacity`,
   },
 }
 
 const _utils = {
   border: {
-    hover:
-      'border-opacity-50 dark:border-opacity-50 hover:border-opacity-100 dark:hover:border-opacity-100',
-    fix: 'border-opacity-100 dark:border-opacity-100',
+    hover: 'border-opacity-50 hover:border-opacity-100',
+    fix: 'border-opacity-100',
   },
 }
 
@@ -187,7 +186,7 @@ export default {
     justified: `justify-between`,
     chevron: {
       base: `
-        text-muted-foregrounder
+        text-foreground-lighter
         rotate-0
         group-state-open:rotate-180
         group-data-[state=open]:rotate-180
@@ -217,9 +216,9 @@ export default {
     },
     dot: '-ml-0.5 mr-1.5 h-2 w-2 rounded-full',
     color: {
-      brand: 'bg-brand-500 text-brand-600 border border-brand-400',
+      brand: 'bg-brand-500 text-brand-600 border border-brand-500',
       brandAlt: 'bg-brand bg-opacity-100 text-background border border-brand',
-      scale: 'bg-background text-muted-foreground border border-strong',
+      scale: 'bg-background text-foreground-light border border-strong',
       tomato: `bg-tomato-200 text-tomato-1100 border border-tomato-700`,
       red: `bg-red-200 text-red-1100 border border-red-700`,
       crimson: `bg-crimson-200 text-crimson-1100 border border-crimson-700`,
@@ -228,13 +227,13 @@ export default {
       violet: `bg-violet-200 text-violet-1100 border border-violet-700`,
       indigo: `bg-indigo-200 text-indigo-1100 border border-indigo-700`,
       blue: `bg-blue-200 text-blue-1100 border border-blue-700`,
-      green: `bg-green-200 text-green-1100 border border-green-700`,
+      green: `bg-opacity-10 bg-brand-500 text-brand-600 border border-brand-500`,
       grass: `bg-grass-200 text-grass-1100 border border-grass-700`,
       orange: `bg-orange-200 text-orange-1100 border border-orange-700`,
       yellow: `bg-yellow-200 text-yellow-1100 border border-yellow-700`,
       amber: `bg-amber-200 text-amber-1100 border border-amber-700`,
       gold: `bg-gold-200 text-gold-1100 border border-gold-700`,
-      gray: `bg-gray-200 text-gray-1100 border border-gray-700`,
+      gray: `bg-200 text-gray-1100 border border-gray-700`,
       slate: `bg-slate-200 text-slate-1100 border border-slate-700`,
     },
   },
@@ -253,25 +252,25 @@ export default {
     description: `text-xs`,
     variant: {
       danger: {
-        base: `bg-red-200 dark:bg-red-100 btext-red-1200 border-red-700`,
+        base: `bg-red-200 text-red-1200 border-red-700`,
         icon: `text-red-900`,
         header: `text-red-1200`,
         description: `text-red-1100`,
       },
       warning: {
-        base: `bg-amber-200 dark:bg-amber-100 border-amber-700`,
+        base: `bg-amber-200 border-amber-700`,
         icon: `text-amber-900`,
         header: `text-amber-1200`,
         description: `text-amber-1100`,
       },
       info: {
-        base: `bg-alternative border-alternative`,
-        icon: `text-muted-foregrounder`,
+        base: `bg-alternative border`,
+        icon: `text-foreground-lighter`,
         header: `text-foreground`,
-        description: `text-muted-foreground`,
+        description: `text-foreground-light`,
       },
       success: {
-        base: `bg-brand-300 dark:bg-brand-100 border-brand-400`,
+        base: `bg-brand-300 border-brand-400`,
         icon: `text-brand`,
         header: `text-brand-600`,
         description: `text-brand-600`,
@@ -280,7 +279,7 @@ export default {
         base: `bg-surface-100 border-default`,
         icon: `text-foreground-muted`,
         header: `text-foreground`,
-        description: `text-muted-foreground`,
+        description: `text-foreground-light`,
       },
     },
     close: `
@@ -328,7 +327,7 @@ export default {
       base: `
         relative
         cursor-pointer
-        text-muted-foreground
+        text-foreground-lighter
         flex
         items-center
         space-x-2
@@ -373,7 +372,7 @@ export default {
       active: `
         bg-selection
         text-foreground
-        border
+        border-stronger
       `,
     },
     'rounded-pills': {
@@ -396,7 +395,7 @@ export default {
       inactive: `
         bg-surface-200 hover:bg-surface-300
         hover:border-foreground-lighter
-        text-muted-foregrounder hover:text-foreground
+        text-foreground-lighter hover:text-foreground
       `,
       active: `
         bg-foreground
@@ -409,6 +408,7 @@ export default {
       ...default__padding_and_text,
     },
     scrollable: `overflow-auto whitespace-nowrap no-scrollbar mask-fadeout-right`,
+    wrappable: `flex-wrap`,
     content: `focus:outline-none transition-height`,
   },
 
@@ -431,6 +431,7 @@ export default {
       focus-visible:border-foreground-muted
       focus-visible:ring-background-control
       ${defaults.placeholder}
+      group
     `,
     variants: {
       standard: `
@@ -438,11 +439,10 @@ export default {
         border border-control
         `,
       error: `
-        bg-destructive/5
-        border border-destructive/50
-        focus:ring-destructive/50
-        placeholder:text-destructive/30
-        text-destructive/90
+        bg-destructive-200
+        border border-destructive-500
+        focus:ring-destructive-400
+        placeholder:text-destructive-400
        `,
     },
     container: 'relative',
@@ -472,7 +472,7 @@ export default {
       transition-all
       text-foreground
       border
-      focus-visible:shadow-sm
+      focus-visible:shadow-md
       ${defaults.focus}
       focus-visible:border-foreground-muted
       focus-visible:ring-background-control
@@ -483,15 +483,14 @@ export default {
     `,
     variants: {
       standard: `
-        bg-foreground/[.026]
-        border border-control
+        bg-background
+        border border-strong
         `,
       error: `
-        bg-destructive/5
-        border border-destructive/50
-        focus:ring-destructive/50
-        placeholder:text-destructive/30
-        text-destructive/90
+        bg-destructive-200
+        border border-destructive-500
+        focus:ring-destructive-400
+        placeholder:text-destructive-400
        `,
     },
     container: 'relative',
@@ -504,7 +503,7 @@ export default {
       'absolute inset-y-0 right-0 pl-3 pr-1 mr-5 flex items-center',
     chevron_container:
       'absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none',
-    chevron: 'h-5 w-5 text-muted-foreground',
+    chevron: 'h-5 w-5 text-foreground-lighter',
   },
 
   /*
@@ -536,10 +535,10 @@ export default {
         border border-strong
       `,
       error: `
-        bg-destructive/20
-        border border-destructive/50
-        focus:ring-destructive/40
-        placeholder:text-destructive/40
+        bg-destructive-200
+        border border-destructive-500
+        focus:ring-destructive-400
+        placeholder:text-destructive-400
        `,
     },
     disabled: 'opacity-50',
@@ -593,7 +592,7 @@ export default {
     },
     disabled: 'opacity-50',
     label: {
-      base: `text-muted-foreground cursor-pointer`,
+      base: `text-foreground-light cursor-pointer`,
       ...defaults.size.text,
     },
     label_before: {
@@ -605,7 +604,7 @@ export default {
       ...defaults.size.text,
     },
     description: {
-      base: `text-muted-foreground`,
+      base: `text-foreground-lighter`,
       ...defaults.size.text,
     },
     group: `space-y-3`,
@@ -683,8 +682,8 @@ export default {
           hover:bg-surface-300
         `,
         active: `
-          bg-surface-300 z-10
-          border-muted
+          bg-selection z-10
+          border-stronger
           border-1
         `,
         radio_offset: 'left-4',
@@ -719,8 +718,8 @@ export default {
           hover:bg-surface-300
         `,
         active: `
-          bg-surface-300 z-10
-          border-muted
+          bg-selection z-10
+          border-stronger
           border-1
         `,
         radio_offset: 'left-4',
@@ -759,8 +758,8 @@ export default {
           hover:bg-surface-300
         `,
         active: `
-          bg-surface-300 z-10
-          border-muted border-1
+          bg-selection z-10
+          border-stronger border-1
         `,
         radio_offset: 'left-4',
       },
@@ -795,8 +794,8 @@ export default {
           hover:bg-surface-300
         `,
         active: `
-          bg-surface-300 z-10
-          border-muted
+          bg-selection z-10
+          border-strong
           border-1
         `,
         radio_offset: 'left-4',
@@ -831,7 +830,7 @@ export default {
       },
     },
     label: {
-      base: `text-muted-foreground cursor-pointer`,
+      base: `text-foreground-light cursor-pointer`,
       ...defaults.size.text,
     },
     label_before: {
@@ -843,11 +842,11 @@ export default {
       ...defaults.size.text,
     },
     description: {
-      base: `text-muted-foreground`,
+      base: `text-foreground-lighter`,
       ...defaults.size.text,
     },
     optionalLabel: {
-      base: `text-muted-foreground`,
+      base: `text-foreground-lighter`,
       ...defaults.size.text,
     },
     disabled: `opacity-50 cursor-auto border-dashed`,
@@ -855,22 +854,18 @@ export default {
 
   sidepanel: {
     base: `
-      z-40
-      bg-background
+      z-50
+      bg-dash-sidebar
       flex flex-col
       fixed
       inset-y-0
-      h-screen
-      border-l border-overlay
+      h-full lg:h-screen
+      border-l
       shadow-xl
-      transition
-      ease-in-out
-      data-[state=open]:animate-in data-[state=closed]:animate-out
-      data-[state=closed]:duration-300 data-[state=open]:duration-500
     `,
     header: `
-      space-y-1 py-4 px-4 bg-overlay sm:px-6
-      border-b border-overlay
+      space-y-1 py-4 px-4 bg-dash-sidebar sm:px-6
+      border-b
     `,
     contents: `
       relative
@@ -883,24 +878,26 @@ export default {
     footer: `
       flex justify-end gap-2
       p-4 bg-overlay
-      border-t border-overlay
+      border-t
     `,
     size: {
       medium: `w-screen max-w-md h-full`,
       large: `w-screen max-w-2xl h-full`,
       xlarge: `w-screen max-w-3xl h-full`,
       xxlarge: `w-screen max-w-4xl h-full`,
+      xxxlarge: `w-screen max-w-5xl h-full`,
+      xxxxlarge: `w-screen max-w-6xl h-full`,
     },
     align: {
       left: `
         left-0
-        data-[state=closed]:slide-out-to-left
-        data-[state=open]:slide-in-from-left
+        data-open:animate-panel-slide-left-out
+        data-closed:animate-panel-slide-left-in
       `,
       right: `
         right-0
-        data-[state=closed]:slide-out-to-right
-        data-[state=open]:slide-in-from-right
+        data-open:animate-panel-slide-right-out
+        data-closed:animate-panel-slide-right-in
       `,
     },
     separator: `
@@ -910,17 +907,15 @@ export default {
       bg-border
     `,
     overlay: `
-      z-40
+      z-50
       fixed
-      bg-background/80
+      bg-alternative
       h-full w-full
       left-0
       top-0
       opacity-75
-      data-[state=open]:animate-in
-      data-[state=closed]:animate-out
-      data-[state=closed]:fade-out-0
-      data-[state=open]:fade-in-0
+      data-closed:animate-fade-out-overlay-bg
+      data-open:animate-fade-in-overlay-bg
     `,
     // this is to reset the button
     // it is advised not to change this
@@ -986,6 +981,7 @@ export default {
   /*
    *  Form Layout
    */
+
   form_layout: {
     container: 'grid gap-2',
 
@@ -1021,38 +1017,38 @@ export default {
     data_input_vertical_layout__align_right: 'text-right',
 
     label: {
-      base: 'block text-muted-foreground',
+      base: 'block text-foreground-light',
       size: {
         ...defaults.size.text,
       },
     },
     label_optional: {
-      base: 'text-muted-foreground',
+      base: 'text-foreground-lighter',
       size: {
         ...defaults.size.text,
       },
     },
     description: {
-      base: 'mt-2 text-muted-foreground leading-normal',
+      base: 'mt-2 text-foreground-lighter leading-normal',
       size: {
         ...defaults.size.text,
       },
     },
     label_before: {
-      base: 'text-muted-foreground',
+      base: 'text-foreground-lighter ',
       size: {
         ...defaults.size.text,
       },
     },
     label_after: {
-      base: 'text-muted-foreground',
+      base: 'text-foreground-lighter',
       size: {
         ...defaults.size.text,
       },
     },
     error: {
       base: `
-        text-destructive/70
+        text-red-900
         transition-all
         data-show:mt-2
         data-show:animate-slide-down-normal
@@ -1122,7 +1118,7 @@ export default {
     `,
     close: `
       transition
-      text-muted-foregrounder
+      text-foreground-lighter
     `,
     separator: `
       w-full
@@ -1147,12 +1143,12 @@ export default {
       `,
       content: {
         base: `transition truncate text-sm w-full`,
-        normal: `text-muted-foreground group-hover:text-foreground`,
-        active: `text-primary`,
+        normal: `text-foreground-light group-hover:text-foreground`,
+        active: `text-foreground font-semibold`,
       },
       icon: {
         base: `transition truncate text-sm`,
-        normal: `text-muted-foreground  group-hover:text-muted-foreground `,
+        normal: `text-foreground-lighter group-hover:text-foreground-light`,
         active: `text-foreground`,
       },
       variants: {
@@ -1177,7 +1173,7 @@ export default {
           normal: `
             border-l
             font-normal
-            border
+            border-default
             group-hover:border-foreground-muted`,
           active: `
             font-semibold
@@ -1187,7 +1183,7 @@ export default {
 
             border-l
             border-brand
-            group-hover:border-primary
+            group-hover:border-brand
           `,
           rounded: `rounded-md`,
         },
@@ -1198,11 +1194,11 @@ export default {
           normal: `
             font-normal
             border-default
-            group-hover:border-muted-foreground`,
+            group-hover:border-foreground-muted`,
           active: `
             font-semibold
-            bg-primary/10
-            text-muted-foreground
+            bg-surface-200
+            text-foreground-lighter
             z-10
 
             rounded-md
@@ -1216,8 +1212,8 @@ export default {
         mb-2
         font-normal
       `,
-      icon: `text-muted-foreground`,
-      content: `text-sm text-muted-foreground w-full`,
+      icon: `text-foreground-lighter`,
+      content: `text-sm text-foreground-lighter w-full`,
       variants: {
         text: ``,
         pills: `px-3`,
@@ -1232,7 +1228,7 @@ export default {
   modal: {
     base: `
       relative
-      bg-overlay
+      bg-dash-sidebar
       my-4
       border border-overlay
       rounded-md
@@ -1322,10 +1318,10 @@ export default {
         aria-expanded:ring-2
         `,
       error: `
-        text-destructive/20
-        border border-destructive/50
-        focus:ring-destructive/40
-        placeholder:text-destructive/40
+        bg-destructive-200
+        border border-destructive-500
+        focus:ring-destructive-400
+        placeholder:text-destructive-400
        `,
     },
     options_container_animate: `
@@ -1347,7 +1343,7 @@ export default {
       data-open:animate-dropdown-content-show
       data-closed:animate-dropdown-content-hide
     `,
-    with_icon: 'pl-10',
+    with_icon: 'pl-2',
     addOnBefore: `
       w-full flex flex-row items-center space-x-3
     `,
@@ -1363,7 +1359,7 @@ export default {
     option: `
       w-listbox
       transition cursor-pointer select-none relative py-2 pl-3 pr-9
-      text-foreground-muted
+      text-foreground-light
       text-sm
       hover:bg-border-overlay
       focus:bg-border-overlay
@@ -1372,7 +1368,7 @@ export default {
       focus:outline-none
     `,
     option_active: `text-foreground bg-selection`,
-    option_disabled: `cursor-not-allowed opacity-50`,
+    option_disabled: `cursor-not-allowed opacity-60`,
     option_inner: `flex items-center space-x-3`,
     option_check: `absolute inset-y-0 right-0 flex items-center pr-3 text-brand`,
     option_check_active: `text-brand`,
@@ -1392,7 +1388,7 @@ export default {
       right-3 pr-2 pl-2
       inset-y-0
       pointer-events-none
-      text-destructive/70
+      text-red-900
     `,
   },
 
@@ -1401,8 +1397,18 @@ export default {
     absolute inset-y-0
     left-0 pl-3 flex
     items-center pointer-events-none
-    text-muted-foreground
+    text-foreground-light
+    [&_svg]:stroke-[1.5]
     `,
+    size: {
+      tiny: '[&_svg]:h-[14px] [&_svg]:w-[14px]',
+      small: '[&_svg]:h-[18px] [&_svg]:w-[18px]',
+      medium: '[&_svg]:h-[20px] [&_svg]:w-[20px]',
+      large: '[&_svg]:h-[20px] [&_svg]:w-[20px]',
+      xlarge: '[&_svg]:h-[24px] [&_svg]:w-[24px]',
+      xxlarge: '[&_svg]:h-[30px] [&_svg]:w-[30px]',
+      xxxlarge: '[&_svg]:h-[42px] [&_svg]:w-[42px]',
+    },
   },
 
   // Icon

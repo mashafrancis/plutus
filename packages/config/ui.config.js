@@ -37,7 +37,7 @@ function radixColorKeys() {
    */
   function filterItems(arr, query) {
     return arr.filter(function (el) {
-      return el.toLowerCase().indexOf(query.toLowerCase()) == -1
+      return el.toLowerCase().indexOf(query.toLowerCase()) === -1
     })
   }
 
