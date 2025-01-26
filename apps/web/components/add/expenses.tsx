@@ -176,7 +176,7 @@ export default function AddExpense({
         <h3 className="text-2xl font-semibold">{`${
           selected.id ? 'Edit' : 'Add'
         } Expense`}</h3>
-        <p className="text-muted-foreground">
+        <p className="text-foreground-lighter">
           Expenses are the main way to track your spending. You can add expenses
           manually or import them from your bank account.
         </p>
@@ -252,7 +252,7 @@ export default function AddExpense({
                 <FormItem>
                   <FormLabel>
                     Price
-                    <span className="text-muted-foreground ml-1 text-xs">
+                    <span className="text-foreground-lighter ml-1 text-xs">
                       (
                       {getCurrencySymbol({
                         currency: user?.currency,
@@ -284,7 +284,7 @@ export default function AddExpense({
                   <FormLabel>Spent Date</FormLabel>
                   <DatePicker
                     triggerButtonClassName={cn(
-                      'h-9 m-0 w-full text-muted-foreground box-border border border-control focus-visible:border-foreground-muted focus-visible:ring-background-control bg-foreground/[.026]',
+                      'h-9 m-0 w-full text-foreground-lighter box-border border border-control focus-visible:border-foreground-muted focus-visible:ring-background-control bg-foreground/[.026]',
                     )}
                     triggerButtonType="outline"
                     triggerButtonTitle="Pick a date"
@@ -390,7 +390,7 @@ export default function AddExpense({
                 <FormItem>
                   <FormLabel>
                     Notes{' '}
-                    <span className="text-center text-sm text-muted-foreground">
+                    <span className="text-center text-sm text-foreground-lighter">
                       (optional)
                     </span>
                   </FormLabel>

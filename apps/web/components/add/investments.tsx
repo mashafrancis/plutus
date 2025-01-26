@@ -137,7 +137,7 @@ export default function AddInvestments({
         <div className="mr-3">
           <Label htmlFor="price">
             Single Stock Price
-            <span className="ml-2 font-mono text-xs text-muted-foreground">
+            <span className="ml-2 font-mono text-xs text-foreground-lighter">
               ({getCurrencySymbol(user.currency, user.locale)})
             </span>
           </Label>
@@ -198,7 +198,7 @@ export default function AddInvestments({
           <Label htmlFor="category">Category</Label>
           <select
             id="category"
-            className="mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            className="mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-foreground-lighter focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             onChange={(event) => {
               setState({ ...state, category: event.target.value })
             }}
@@ -218,7 +218,7 @@ export default function AddInvestments({
       <div>
         <Label className="mt-1 block">
           Notes{' '}
-          <span className="mb-6 text-center text-sm text-muted-foreground">
+          <span className="mb-6 text-center text-sm text-foreground-lighter">
             (optional)
           </span>
         </Label>

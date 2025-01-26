@@ -97,7 +97,7 @@ const FormLabel = React.forwardRef<
     <Label
       ref={ref}
       className={cn(
-        'text-muted-foreground',
+        'text-foreground-lighter',
         'transition-colors',
         error && '!text-destructive/80',
         className,
@@ -142,7 +142,7 @@ const FormDescription = React.forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn('text-sm text-muted-foreground', className)}
+      className={cn('text-sm text-foreground-lighter', className)}
       {...props}
     />
   )

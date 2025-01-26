@@ -1,4 +1,6 @@
 import { UTCDate } from '@date-fns/utc'
+import { basicPlan, premiumPlan } from '@plutus/constants'
+import { addYears } from 'date-fns'
 import type { Client } from '../types'
 
 export async function getUserQuery(supabase: Client, userId: string) {
@@ -11,7 +13,19 @@ export async function getUserQuery(supabase: Client, userId: string) {
     )
     .eq('id', userId)
     .single()
-  // .throwOnError()
+    .throwOnError()
+
+  // if (!data){
+  // 	return
+  // }
+
+  // const {
+  //   basic_usage_limit_email,
+  //   premium_usage_limit_email,
+  //   premium_plan_expired_email,
+  // } = data!
+  // const { isBasicUsageExceeded, isPremiumUsageExceeded, isPremiumPlanExpired } =
+  //   getUserUsageLimit(data)
 
   return { data }
 }
@@ -241,4 +255,23 @@ export async function getInvestmentsQuery(
   // const { data, count } = await query.range(from, to)
 
   return query
+}
+
+const hasPremiumPlanExpired = (billingCycleData: string) => {
+  const todayDate = new Date()
+  const endDateForBilling = addYears(new Date(billingCycleData), 1)
+  return todayDate > endDateForBilling
+}
+
+const _getUserUsageLimit = (user: any) => {
+  const { billing_start_date, plan_status, usage, order_status } = user
+
+  const isBasicUsageExceeded =
+    plan_status === 'basic' && usage + 1 > basicPlan.limit
+  const isPremium = plan_status === 'premium' && order_status === 'paid'
+  const isPremiumUsageExceeded = isPremium && usage + 1 > premiumPlan.limit
+  const isPremiumPlanExpired =
+    isPremium && hasPremiumPlanExpired(billing_start_date)
+
+  return { isBasicUsageExceeded, isPremiumUsageExceeded, isPremiumPlanExpired }
 }

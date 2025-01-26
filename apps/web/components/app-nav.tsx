@@ -53,7 +53,7 @@ export default function AppNav({ items, user }: DashboardNavProps) {
                       pathname === href
                         ? 'bg-primary/10 hover:bg-primary/10 hover:text-primary text-primary'
                         : 'text-gray-500',
-                      'h-8 w-14 rounded-full p-0 font-medium ring-primary/40 transition-all hover:bg-primary/10 hover:ring-1 disabled:cursor-not-allowed disabled:text-muted-foreground/50 disabled:opacity-80',
+                      'h-8 w-14 rounded-full p-0 font-medium ring-primary/40 transition-all hover:bg-primary/10 hover:ring-1 disabled:cursor-not-allowed disabled:text-foreground-lighter/50 disabled:opacity-80',
                     )}
                   >
                     <Icon className="h-5 w-5" />
@@ -81,7 +81,7 @@ export default function AppNav({ items, user }: DashboardNavProps) {
               pathname === 'settings'
                 ? 'bg-primary/10 hover:bg-primary/10 hover:text-primary text-primary'
                 : 'text-gray-500',
-              'h-8 w-14 rounded-full p-0 font-medium ring-primary/40 transition-all hover:bg-primary/10 hover:ring-1 disabled:cursor-not-allowed disabled:text-muted-foreground/50 disabled:opacity-80',
+              'h-8 w-14 rounded-full p-0 font-medium ring-primary/40 transition-all hover:bg-primary/10 hover:ring-1 disabled:cursor-not-allowed disabled:text-foreground-lighter/50 disabled:opacity-80',
             )}
           >
             <Icons.settings className="h-5 w-5" />

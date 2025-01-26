@@ -1,0 +1,20 @@
+{
+  "name": "@plutus/validation",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo node_modules",
+    "format": "biome format .",
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@plutus/constants": "workspace:*",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@plutus/tsconfig": "workspace:*",
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.2"
+  }
+}

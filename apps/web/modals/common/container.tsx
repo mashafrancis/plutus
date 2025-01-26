@@ -104,7 +104,7 @@ export function ModalHeader({
         {onClose !== false && (
           <DialogClose
             onClick={() => (onClose ? onClose() : popModal())}
-            className="absolute top-4 right-4 rounded-full p-1 text-muted-foreground opacity-70 outline-none ring-offset-background transition-opacity hover:text-muted-foreground hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-current focus:ring-offset-1 disabled:pointer-events-none data-[state=open]:bg-muted-foreground data-[state=open]:text-muted-foreground"
+            className="absolute top-4 right-4 rounded-full p-1 text-foreground-lighter opacity-70 outline-none ring-offset-background transition-opacity hover:text-foreground-lighter hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-current focus:ring-offset-1 disabled:pointer-events-none data-[state=open]:bg-muted-foreground data-[state=open]:text-foreground-lighter"
           >
             <X className="h-4 w-4" />
             <span className="sr-only">Close</span>

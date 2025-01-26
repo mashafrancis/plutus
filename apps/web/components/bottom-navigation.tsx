@@ -46,7 +46,7 @@ export default function BottomNavigation({ items }: Props) {
                       pathname === href
                         ? 'bg-primary/20 hover:bg-primary/20 hover:text-primary'
                         : 'text-gray-500',
-                      'ring-primary/50 hover:bg-primary/10 disabled:text-muted-foreground/50 h-8 w-14 rounded-full p-0 font-medium transition-all hover:ring-1 disabled:cursor-not-allowed disabled:opacity-80',
+                      'ring-primary/50 hover:bg-primary/10 disabled:text-foreground-lighter/50 h-8 w-14 rounded-full p-0 font-medium transition-all hover:ring-1 disabled:cursor-not-allowed disabled:opacity-80',
                     )}
                   >
                     <Icon className="h-5 w-5" />
@@ -82,7 +82,7 @@ export default function BottomNavigation({ items }: Props) {
           {/*							pathname === href*/}
           {/*								? 'bg-primary/20 hover:bg-primary/20 hover:text-primary'*/}
           {/*								: 'text-gray-500',*/}
-          {/*							'h-8 w-14 rounded-full p-0 font-medium ring-primary/50 transition-all hover:bg-primary/10 hover:ring-1 disabled:cursor-not-allowed disabled:text-muted-foreground/50 disabled:opacity-80'*/}
+          {/*							'h-8 w-14 rounded-full p-0 font-medium ring-primary/50 transition-all hover:bg-primary/10 hover:ring-1 disabled:cursor-not-allowed disabled:text-foreground-lighter/50 disabled:opacity-80'*/}
           {/*						)}*/}
           {/*					>*/}
           {/*						<Icon className='h-5 w-5' />*/}

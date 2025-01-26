@@ -43,7 +43,7 @@ const UserNotifications = () => {
         <div className="flex items-center justify-start gap-2">
           <div className="flex flex-col space-y-1 leading-none">
             <p className="font-medium">Notifications</p>
-            <p className="w-[250px] truncate text-sm text-muted-foreground">
+            <p className="w-[250px] truncate text-sm text-foreground-lighter">
               {`You have ${notifications.length} new notifications`}
             </p>
           </div>
@@ -67,7 +67,7 @@ const UserNotifications = () => {
               <p className="truncate text-sm font-medium leading-none">
                 {notification.title}
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-foreground-lighter">
                 {notification.description}
               </p>
             </div>

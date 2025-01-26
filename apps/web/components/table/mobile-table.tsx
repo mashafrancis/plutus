@@ -37,7 +37,7 @@ function AccordionItemContent({
       <div className="flex flex-row items-center">
         <div className="text-sm font-medium text-primary">{heading}</div>
       </div>
-      <div className="text-xs mr-2 text-muted-foreground">{content}</div>
+      <div className="text-xs mr-2 text-foreground-lighter">{content}</div>
     </div>
   )
 }
@@ -59,19 +59,19 @@ export default function MobileTable({ data, title }: Props) {
               <div className="flex flex-row items-center justify-between w-full">
                 <div className="flex flex-row items-center">
                   <div className="text-sm font-medium">{item.name}</div>
-                  <div className="text-xs ml-2 text-muted-foreground tabular-nums flex items-center">
+                  <div className="text-xs ml-2 text-foreground-lighter tabular-nums flex items-center">
                     {formatCurrency({
                       value: +item.price,
                       currency: user?.currency,
                       locale: user?.locale,
                     })}
-                    <p className="text-xs text-muted-foreground ml-1">
+                    <p className="text-xs text-foreground-lighter ml-1">
                       {' '}
                       per {item.paid.replace(/ly/, '')}
                     </p>
                   </div>
                 </div>
-                <div className="text-xs mr-2 text-muted-foreground">
+                <div className="text-xs mr-2 text-foreground-lighter">
                   {item.renewal_date}
                 </div>
               </div>

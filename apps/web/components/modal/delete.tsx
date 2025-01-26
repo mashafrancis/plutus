@@ -40,7 +40,7 @@ export default function DeleteModal({
       onHide={onHide}
       someRef={null}
     >
-      <div className="text-sm text-primary dark:text-muted-foreground">
+      <div className="text-sm text-primary dark:text-foreground-lighter">
         Type this account email to delete your account and its data.
       </div>
       <Input

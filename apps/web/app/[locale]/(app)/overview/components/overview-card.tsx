@@ -26,7 +26,7 @@ export default function OverviewCard({
   return (
     <Card className="relative p-0 shadow-none">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 pb-2">
-        <CardTitle className="text-base font-light text-muted-foreground">
+        <CardTitle className="text-base font-light text-foreground-lighter">
           {heading}
         </CardTitle>
         {data.change ? (
@@ -48,7 +48,7 @@ export default function OverviewCard({
         <CardContent className="px-4">
           <div className="text-xl font-semibold tracking-tight xl:text-2xl flex flex-row items-center justify-between">
             <div className="flex items-baseline gap-1">
-              <span className="text-base text-muted-foreground font-light">
+              <span className="text-base text-foreground-lighter font-light">
                 {valuePrefix ?? ''}
                 {data.current
                   ? data.current.toLocaleString().split(' ')[1]

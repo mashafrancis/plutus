@@ -81,7 +81,7 @@ const DatePickers: React.FC<Props> = ({ to, from, onChange, helpers }) => {
                 <span
                   className={[
                     helper.disabled
-                      ? 'text-muted-foreground cursor-not-allowed'
+                      ? 'text-foreground-lighter cursor-not-allowed'
                       : '',
                   ].join(' ')}
                 >

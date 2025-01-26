@@ -32,7 +32,7 @@ export function DashboardHeader({
             {heading}
           </h1>
         </div>
-        {text && <p className="text-muted-foreground">{text}</p>}
+        {text && <p className="text-foreground-lighter">{text}</p>}
       </div>
       {children}
     </div>

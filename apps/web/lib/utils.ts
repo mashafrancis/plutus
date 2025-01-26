@@ -36,3 +36,7 @@ export const getURL = (path: string = '') => {
   // Concatenate the URL and the path.
   return path ? `${url}/${path}` : url
 }
+
+export function isNil(x: any) {
+  return x === undefined || x === null
+}

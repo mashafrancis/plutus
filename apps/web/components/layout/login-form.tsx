@@ -12,7 +12,7 @@ export default function LoginForm() {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center uppercase py-2">
-          <span className="px-2 text-muted-foreground">Or</span>
+          <span className="px-2 text-foreground-lighter">Or</span>
         </div>
       </div>
 

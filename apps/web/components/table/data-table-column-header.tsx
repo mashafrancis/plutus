@@ -60,11 +60,11 @@ export default function DataTableColumnHeader<TData, TValue>({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">
           <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-            <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/80" />
+            <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-foreground-lighter/80" />
             Asc
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-            <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/80" />
+            <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-foreground-lighter/80" />
             Desc
           </DropdownMenuItem>
         </DropdownMenuContent>

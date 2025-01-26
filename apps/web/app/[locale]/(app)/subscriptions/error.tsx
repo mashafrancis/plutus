@@ -15,7 +15,7 @@ export default function AppError({
     <SectionContainer className="flex gap-8 mt-24 border rounded-lg">
       <div className="space-y-4">
         <h1 className="text-2xl">Error.</h1>
-        <p className="text-muted-foreground">{error?.message}</p>
+        <p className="text-foreground-lighter">{error?.message}</p>
         <div>
           <Button
             size="medium"

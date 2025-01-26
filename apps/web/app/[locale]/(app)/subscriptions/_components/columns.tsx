@@ -65,7 +65,7 @@ export const columns: ColumnDef<SubscriptionData>[] = [
       return (
         <div className="my-1 font-medium tabular-nums">
           {formatted}
-          <p className="text-muted-foreground mt-[2px] text-xs">
+          <p className="text-foreground-lighter mt-[2px] text-xs">
             {' '}
             per {paid.replace(/ly/, '')}
           </p>
@@ -121,7 +121,7 @@ export const columns: ColumnDef<SubscriptionData>[] = [
         <div className="my-1">
           {formatted}
           {cancelledAt ? (
-            <p className="text-muted-foreground mt-[2px] text-xs">
+            <p className="text-foreground-lighter mt-[2px] text-xs">
               Cancel: {formatDate({ date: cancelledAt, locale: user.locale })}
             </p>
           ) : null}

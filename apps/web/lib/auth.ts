@@ -7,6 +7,7 @@ import { addYears } from 'date-fns'
 import { updateUserAction } from '@/actions/update-user-action'
 import { PlanExpiredEmail, UsageExceededEmail, sendEmail } from '@plutus/emails'
 import { getSession, getUser } from '@plutus/supabase/cached-queries'
+import { updateUser } from '@plutus/supabase/mutations'
 
 type UserData = {
   email: string

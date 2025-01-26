@@ -46,7 +46,7 @@ export default function AppHeader({
             </ReactMarkdown>
           </h3>
           {description && (
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm text-foreground-lighter">
               <ReactMarkdown>{description}</ReactMarkdown>
             </div>
           )}

@@ -43,12 +43,12 @@ function Calendar({
                 type="button"
                 className={`
                         ${prevMonthButtonDisabled && 'cursor-not-allowed opacity-50'}
-                        text-muted-foreground hover:text-foreground focus:outline-none p-2
+                        text-foreground-lighter hover:text-foreground focus:outline-none p-2
                     `}
               >
                 <ChevronLeft size={16} strokeWidth={2} />
               </button>
-              <span className="text-sm text-muted-foreground">
+              <span className="text-sm text-foreground-lighter">
                 {format(date, 'MMMM yyyy')}
               </span>
               <button
@@ -57,7 +57,7 @@ function Calendar({
                 type="button"
                 className={`
                         ${nextMonthButtonDisabled && 'cursor-not-allowed opacity-70'}
-                        text-muted-foreground p-2 hover:text-foreground focus:outline-none
+                        text-foreground-lighter p-2 hover:text-foreground focus:outline-none
                     `}
               >
                 <ChevronRight size={16} strokeWidth={2} />
@@ -85,7 +85,7 @@ function Calendar({
     //     table: 'w-full border-collapse space-y-1',
     //     head_row: 'flex',
     //     head_cell:
-    //       'text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]',
+    //       'text-foreground-lighter rounded-md w-8 font-normal text-[0.8rem]',
     //     row: 'flex w-full mt-2',
     //     cell: cn(
     //       'relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md',
@@ -103,8 +103,8 @@ function Calendar({
     //       'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
     //     day_today: 'bg-accent text-accent-foreground',
     //     day_outside:
-    //       'day-outside text-muted-foreground opacity-50  aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
-    //     day_disabled: 'text-muted-foreground opacity-50',
+    //       'day-outside text-foreground-lighter opacity-50  aria-selected:bg-accent/50 aria-selected:text-foreground-lighter aria-selected:opacity-30',
+    //     day_disabled: 'text-foreground-lighter opacity-50',
     //     day_range_middle:
     //       'aria-selected:bg-accent aria-selected:text-accent-foreground',
     //     day_hidden: 'invisible',

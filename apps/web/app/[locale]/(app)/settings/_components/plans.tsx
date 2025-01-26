@@ -117,7 +117,7 @@ export default function Plans() {
                 </span>
               ) : null}
             </h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-foreground-lighter">
               Free forever with limited features.
             </p>
           </CardHeader>
@@ -169,7 +169,7 @@ export default function Plans() {
                 </span>
               ) : null}
             </h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-foreground-lighter">
               Access to all premium features.
             </p>
           </CardHeader>

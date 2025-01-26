@@ -31,7 +31,7 @@ export default function NotFound() {
       >
         <div className="text-foreground flex flex-col items-center justify-center space-y-3">
           <h1 className="m-2 text-2xl">Hmm...this page doesn’t exist.</h1>
-          <p className="text-center text-sm text-muted-foreground">
+          <p className="text-center text-sm text-foreground-lighter">
             We couldn't find the page that you're looking for!
           </p>
         </div>

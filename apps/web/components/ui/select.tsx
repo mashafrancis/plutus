@@ -42,7 +42,7 @@ const SelectTrigger = React.forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-4 w-4 text-muted-foreground" />
+      <ChevronDown className="h-4 w-4 text-foreground-lighter" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ))
@@ -55,7 +55,7 @@ const SelectScrollUpButton = React.forwardRef<
   <SelectPrimitive.ScrollUpButton
     ref={ref}
     className={cn(
-      'flex cursor-default items-center justify-center py-1 text-muted-foreground',
+      'flex cursor-default items-center justify-center py-1 text-foreground-lighter',
       className,
     )}
     {...props}
@@ -72,7 +72,7 @@ const SelectScrollDownButton = React.forwardRef<
   <SelectPrimitive.ScrollDownButton
     ref={ref}
     className={cn(
-      'flex cursor-default items-center justify-center py-1 text-muted-foreground',
+      'flex cursor-default items-center justify-center py-1 text-foreground-lighter',
       className,
     )}
     {...props}
@@ -122,7 +122,7 @@ const SelectLabel = React.forwardRef<
   <SelectPrimitive.Label
     ref={ref}
     className={cn(
-      'py-1.5 pl-8 pr-2 text-sm text-muted-foreground/75 uppercase font-mono',
+      'py-1.5 pl-8 pr-2 text-sm text-foreground-lighter/75 uppercase font-mono',
       className,
     )}
     {...props}
@@ -138,7 +138,7 @@ const SelectItem = React.forwardRef<
     ref={ref}
     className={cn(
       'group',
-      'relative flex w-full cursor-pointer select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-overlay-hover text-muted-foreground focus:text-foreground data-[state=checked]:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'relative flex w-full cursor-pointer select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-overlay-hover text-foreground-lighter focus:text-foreground data-[state=checked]:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className,
     )}
     {...props}

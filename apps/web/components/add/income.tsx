@@ -191,7 +191,7 @@ export default function AddIncome({
                   <FormItem>
                     <FormLabel>
                       Amount
-                      <span className="text-muted-foreground ml-1 text-xs">
+                      <span className="text-foreground-lighter ml-1 text-xs">
                         ({getCurrencySymbol(user.currency, user.locale)})
                       </span>
                     </FormLabel>
@@ -223,7 +223,7 @@ export default function AddIncome({
                             variant={'outline'}
                             className={cn(
                               'w-full text-left font-normal',
-                              !field.value && 'text-muted-foreground',
+                              !field.value && 'text-foreground-lighter',
                             )}
                           >
                             {field.value ? (
@@ -266,7 +266,7 @@ export default function AddIncome({
                             role="combobox"
                             className={cn(
                               'w-full justify-between truncate',
-                              !field.value && 'text-muted-foreground',
+                              !field.value && 'text-foreground-lighter',
                             )}
                           >
                             {field.value
@@ -323,7 +323,7 @@ export default function AddIncome({
                   <FormItem>
                     <FormLabel>
                       Notes{' '}
-                      <span className="text-center text-sm text-muted-foreground">
+                      <span className="text-center text-sm text-foreground-lighter">
                         (optional)
                       </span>
                     </FormLabel>
