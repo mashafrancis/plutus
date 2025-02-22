@@ -187,7 +187,7 @@ const TimeSplitInput = ({
             bg-transparent
             p-0 text-center text-xs
             text-foreground
-            outline-none
+            outline-hidden
             ring-0
             focus:ring-0
         "
@@ -209,7 +209,7 @@ const TimeSplitInput = ({
             bg-transparent
             p-0 text-center text-xs
             text-foreground
-            outline-none
+            outline-hidden
             ring-0
             focus:ring-0
         "
@@ -231,7 +231,7 @@ const TimeSplitInput = ({
             bg-transparent
             p-0 text-center text-xs
             text-foreground
-            outline-none
+            outline-hidden
             ring-0
             focus:ring-0
         "

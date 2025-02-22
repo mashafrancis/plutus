@@ -15,7 +15,7 @@ interface Props {
 export default function AppNav({ activePage }: Props) {
   return (
     <nav className="relative z-20 hidden md:flex items-center w-full border-b">
-      <SectionContainer className="flex !py-0 justify-between">
+      <SectionContainer className="flex py-0! justify-between">
         <div className="flex gap-3 items-center">
           {Object.entries(navigation).map((obj: any) => {
             const site = obj[1]

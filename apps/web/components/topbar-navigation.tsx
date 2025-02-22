@@ -32,7 +32,7 @@ export default async function TopBarNavigation() {
             <Link
               href="/"
               aria-label="plutus"
-              className="block whitespace-nowrap font-heading text-2xl font-medium text-primary transition focus:outline-none"
+              className="block whitespace-nowrap font-heading text-2xl font-medium text-primary transition focus:outline-hidden"
             >
               Plutus.
             </Link>

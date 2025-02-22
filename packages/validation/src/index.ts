@@ -10,7 +10,7 @@ import {
 } from '@mxl/constants'
 
 export function objectToZodEnums<K extends string>(
-  obj: Record<K, any>
+  obj: Record<K, any>,
 ): [K, ...K[]] {
   const [firstKey, ...otherKeys] = Object.keys(obj) as K[]
   return [firstKey!, ...otherKeys]
@@ -194,7 +194,7 @@ const zCreateIntegration = z.object({
 export const zCreateTeamsIntegration = zCreateIntegration.merge(
   z.object({
     config: zTeamsConfig,
-  })
+  }),
 )
 
 export const zNotificationRuleEventConfig = z.object({

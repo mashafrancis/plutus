@@ -23,7 +23,7 @@ export default function AppNav({ items, user }: DashboardNavProps) {
   }
 
   return (
-    <div className="bg-background fixed inset-0 z-[1] hidden h-screen w-24 flex-col justify-between overflow-y-hidden p-2 backdrop-blur md:flex">
+    <div className="bg-background fixed inset-0 z-1 hidden h-screen w-24 flex-col justify-between overflow-y-hidden p-2 backdrop-blur-sm md:flex">
       <ul className="flex flex-col space-y-8">
         <Link href="/" className="my-4 hidden justify-center md:flex">
           <Icons.logo width={36} />

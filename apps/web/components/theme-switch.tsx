@@ -27,7 +27,7 @@ const ThemeSwitch = () => {
         aria-checked={theme === 'light' ? 'true' : 'false'}
         aria-label="Switch to light theme"
         className={cn(
-          'flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition hover:text-gray-800 hover:dark:text-gray-200',
+          'flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition hover:text-gray-800 dark:hover:text-gray-200',
           theme === 'light' && selectedTheme.light,
         )}
         role="radio"
@@ -62,7 +62,7 @@ const ThemeSwitch = () => {
         aria-checked={theme === 'dark' ? 'true' : 'false'}
         aria-label="Switch to dark theme"
         className={cn(
-          'flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition hover:text-gray-800 hover:dark:text-gray-200',
+          'flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition hover:text-gray-800 dark:hover:text-gray-200',
           theme === 'dark' && selectedTheme.dark,
         )}
         role="radio"

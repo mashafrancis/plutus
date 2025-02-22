@@ -43,7 +43,7 @@ function Calendar({
                 type="button"
                 className={`
                         ${prevMonthButtonDisabled && 'cursor-not-allowed opacity-50'}
-                        text-foreground-lighter hover:text-foreground focus:outline-none p-2
+                        text-foreground-lighter hover:text-foreground focus:outline-hidden p-2
                     `}
               >
                 <ChevronLeft size={16} strokeWidth={2} />
@@ -57,7 +57,7 @@ function Calendar({
                 type="button"
                 className={`
                         ${nextMonthButtonDisabled && 'cursor-not-allowed opacity-70'}
-                        text-foreground-lighter p-2 hover:text-foreground focus:outline-none
+                        text-foreground-lighter p-2 hover:text-foreground focus:outline-hidden
                     `}
               >
                 <ChevronRight size={16} strokeWidth={2} />

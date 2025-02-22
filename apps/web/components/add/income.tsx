@@ -183,7 +183,7 @@ export default function AddIncome({
               />
             </div>
 
-            <div className="grid grid-cols-[32%,38%,30%] gap-1 group-disabled:opacity-90">
+            <div className="grid grid-cols-[32%_38%_30%] gap-1 group-disabled:opacity-90">
               <FormField
                 control={control}
                 name="price"

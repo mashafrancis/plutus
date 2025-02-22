@@ -5,8 +5,6 @@ export default config({
     './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     './registry/**/*.{js,ts,jsx,tsx}',
-    // purge styles from grid library
-    //
     './../../packages/ui/src/**/*.{tsx,ts,js}',
     './../../packages/ui-patterns/**/*.{tsx,ts,js}',
   ],

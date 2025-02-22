@@ -14,7 +14,6 @@ interface DashboardLayoutProps {
 
 export default async function AppLayout({ children }: DashboardLayoutProps) {
   const user = await getUser()
-  console.log('Class: default, Function: AppLayout, Line 17 user():', user)
 
   if (!user?.data) {
     redirect('/')

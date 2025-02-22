@@ -276,7 +276,7 @@ export default function AddSubscriptions({
             {/*	/>*/}
             {/*</div>*/}
 
-            <div className="grid grid-cols-[34%,36%,30%] gap-1">
+            <div className="grid grid-cols-[34%_36%_30%] gap-1">
               <FormField
                 control={control}
                 name="price"

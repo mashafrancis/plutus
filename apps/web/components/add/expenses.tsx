@@ -244,7 +244,7 @@ export default function AddExpense({
             />
           </div>
 
-          <div className="grid grid-cols-[50%,50%] gap-1 group-disabled:opacity-90">
+          <div className="grid grid-cols-[50%_50%] gap-1 group-disabled:opacity-90">
             <FormField
               control={control}
               name="price"
@@ -305,7 +305,7 @@ export default function AddExpense({
             />
           </div>
 
-          <div className="grid grid-cols-[50%,50%] gap-1 group-disabled:opacity-90">
+          <div className="grid grid-cols-[50%_50%] gap-1 group-disabled:opacity-90">
             <FormField
               control={form.control}
               name="category"

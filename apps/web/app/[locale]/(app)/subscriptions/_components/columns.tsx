@@ -144,7 +144,7 @@ export const columns: ColumnDef<SubscriptionData>[] = [
             active
               ? 'bg-success/10 text-success hover:bg-success/20 hover:text-success/90'
               : 'bg-destructive/10 hover:bg-destructive/20 text-red-800 hover:text-red-900',
-            'inline-flex items-center rounded-full px-2 py-1 text-xs shadow-sm',
+            'inline-flex items-center rounded-full px-2 py-1 text-xs shadow-xs',
           )}
         >
           {active ? 'Active' : 'Cancelled'}

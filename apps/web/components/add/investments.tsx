@@ -133,7 +133,7 @@ export default function AddInvestments({
           show={Boolean(state.autocomplete?.length)}
         />
       </div>
-      <div className="grid grid-cols-[50%,50%] gap-1">
+      <div className="grid grid-cols-[50%_50%] gap-1">
         <div className="mr-3">
           <Label htmlFor="price">
             Single Stock Price
@@ -178,7 +178,7 @@ export default function AddInvestments({
           />
         </div>
       </div>
-      <div className="grid grid-cols-[50%,50%] gap-1">
+      <div className="grid grid-cols-[50%_50%] gap-1">
         <div className="mr-3">
           <Label htmlFor="date">Bought Date</Label>
           <Input
@@ -198,7 +198,7 @@ export default function AddInvestments({
           <Label htmlFor="category">Category</Label>
           <select
             id="category"
-            className="mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-foreground-lighter focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            className="mt-1.5 flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-xs placeholder:text-foreground-lighter focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
             onChange={(event) => {
               setState({ ...state, category: event.target.value })
             }}

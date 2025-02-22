@@ -12,10 +12,10 @@ export default function ChartLoader({
       <div
         className={`relative mb-7 rounded-lg bg-background p-2 text-left ${className} `}
       >
-        <Skeleton className="float-right h-[20px] w-[40%] rounded-sm" />
-        <div className="mt-[45px] rounded-sm border-b border-dashed border-gray-200 dark:border-border"></div>
-        <div className="mt-[60px] rounded-sm border-b border-dashed border-gray-200 dark:border-border"></div>
-        <Skeleton className="mt-[20px] h-[200px] rounded-sm " />
+        <Skeleton className="float-right h-[20px] w-[40%] rounded-xs" />
+        <div className="mt-[45px] rounded-xs border-b border-dashed border-gray-200 dark:border-border"></div>
+        <div className="mt-[60px] rounded-xs border-b border-dashed border-gray-200 dark:border-border"></div>
+        <Skeleton className="mt-[20px] h-[200px] rounded-xs " />
       </div>
     )
   } else if (type === 'donut') {
@@ -23,8 +23,8 @@ export default function ChartLoader({
       <div
         className={`relative mb-7 rounded-lg bg-background p-2 text-left ${className} `}
       >
-        <Skeleton className="float-right mt-[-24px] h-[20px] w-[40%] rounded-sm" />
-        <Skeleton className="m-auto !mt-[35px] h-full max-h-[298px] w-full max-w-[310px] rounded-full" />
+        <Skeleton className="float-right mt-[-24px] h-[20px] w-[40%] rounded-xs" />
+        <Skeleton className="m-auto mt-[35px]! h-full max-h-[298px] w-full max-w-[310px] rounded-full" />
       </div>
     )
   } else if (type === 'barlist') {

@@ -1,11 +1,48 @@
-@import "./../../../packages/ui/build/css/source/global.css";
-@import "./../../../packages/ui/build/css/themes/dark.css";
-@import "./../../../packages/ui/build/css/themes/classic-dark.css";
-@import "./../../../packages/ui/build/css/themes/light.css";
+@import "./../../../packages/ui/build/css/source/global.css" layer(base);
+@import "./../../../packages/ui/build/css/themes/dark.css" layer(base);
+@import "./../../../packages/ui/build/css/themes/classic-dark.css" layer(base);
+@import "./../../../packages/ui/build/css/themes/light.css" layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@config '../tailwind.config.mjs';
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: hsl(var(--border-default) / <alpha-value>);
+  }
+}
+
+@utility step {
+  counter-increment: step;
+
+  &:before {
+    @apply absolute w-9 h-9 bg-muted rounded-full font-mono font-medium text-center text-base inline-flex items-center justify-center -indent-px border-4 border-background;
+    @apply ml-[-50px] mt-[-4px];
+    content: counter(step);
+  }
+}
+
+@utility chunk-container {
+  @apply shadow-none;
+
+  &::after {
+    content: "";
+    @apply absolute -inset-4 shadow-xl rounded-xl border;
+  }
+}
 
 @layer base {
   :root {
@@ -25,18 +62,20 @@
   }
 }
 
-html,
-body,
-#__next,
-.main {
-  /*@apply bg-muted;*/
-  /*@apply text-foreground;*/
-  /*height: 100%;*/
-  /*padding: 0;*/
-  /*margin: 0;*/
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-size: 90%;
+@layer utilities {
+  html,
+  body,
+  #__next,
+  .main {
+    /*@apply bg-muted;*/
+    /*@apply text-foreground;*/
+    /*height: 100%;*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-size: 90%;
+  }
 }
 
 @layer base {
@@ -47,31 +86,10 @@ body,
     @apply scroll-smooth;
   }
   body {
-    @apply bg text-foreground;
+    @apply text-foreground;
     /* font-feature-settings: "rlig" 1, "calt" 1; */
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
-  }
-}
-
-@layer utilities {
-  .step {
-    counter-increment: step;
-  }
-
-  .step:before {
-    @apply absolute w-9 h-9 bg-muted rounded-full font-mono font-medium text-center text-base inline-flex items-center justify-center -indent-px border-4 border-background;
-    @apply ml-[-50px] mt-[-4px];
-    content: counter(step);
-  }
-
-  .chunk-container {
-    @apply shadow-none;
-  }
-
-  .chunk-container::after {
-    content: "";
-    @apply absolute -inset-4 shadow-xl rounded-xl border;
   }
 }
 

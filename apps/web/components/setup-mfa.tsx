@@ -10,7 +10,7 @@ function MfaStart({ setEnroll }: { setEnroll: any }) {
   return (
     <>
       <div className="flex w-full flex-col relative">
-        <div className="pb-4 bg-gradient-to-r from-primary dark:via-primary dark:to-[#848484] to-[#000] inline-block text-transparent bg-clip-text">
+        <div className="pb-4 bg-linear-to-r from-primary dark:via-primary dark:to-[#848484] to-[#000] inline-block text-transparent bg-clip-text">
           <h1 className="font-medium pb-1 text-3xl">
             Multi-factor <br />
             authentication

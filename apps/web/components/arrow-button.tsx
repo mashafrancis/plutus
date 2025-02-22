@@ -90,7 +90,7 @@ type ArrowButtonProps = {
 function getBaseProps({ textSize, className }: ArrowButtonBaseProps) {
   return {
     className: clsx(
-      'text-primary inline-flex items-center text-left font-medium focus:outline-none cursor-pointer transition',
+      'text-primary inline-flex items-center text-left font-medium focus:outline-hidden cursor-pointer transition',
       {
         'text-xl': textSize === 'medium',
         'text-lg': textSize === 'small',
@@ -236,7 +236,7 @@ function BackLink({
     <MotionLink
       href={to}
       className={cn(
-        'flex items-center space-x-1 text-gray-500 focus:outline-none dark:text-slate-400',
+        'flex items-center space-x-1 text-gray-500 focus:outline-hidden dark:text-slate-400',
         className,
       )}
       ref={ref}

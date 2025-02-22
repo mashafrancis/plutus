@@ -16,11 +16,11 @@ export default function CardLoader({
           <Card key={`${card}-${index}`}>
             <CardHeader className="pb-0">
               <CardTitle>
-                <Skeleton className="h-4 rounded-sm" />
+                <Skeleton className="h-4 rounded-xs" />
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Skeleton className="mt-2 h-7 w-[60%] rounded-sm" />
+              <Skeleton className="mt-2 h-7 w-[60%] rounded-xs" />
             </CardContent>
           </Card>
         ))}

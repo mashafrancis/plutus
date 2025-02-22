@@ -255,7 +255,7 @@ function _DatePicker({
                       type="button"
                       className={`
                         ${prevMonthButtonDisabled && 'cursor-not-allowed opacity-50'}
-                        text-foreground-light hover:text-foreground focus:outline-none p-2
+                        text-foreground-light hover:text-foreground focus:outline-hidden p-2
                     `}
                     >
                       <ChevronLeft size={16} strokeWidth={2} />
@@ -269,7 +269,7 @@ function _DatePicker({
                       type="button"
                       className={`
                         ${nextMonthButtonDisabled && 'cursor-not-allowed opacity-50'}
-                        text-foreground-light p-2 hover:text-foreground focus:outline-none
+                        text-foreground-light p-2 hover:text-foreground focus:outline-hidden
                     `}
                     >
                       <ChevronRight size={16} strokeWidth={2} />

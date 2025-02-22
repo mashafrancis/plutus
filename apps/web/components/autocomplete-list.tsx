@@ -47,7 +47,7 @@ export default function AutoCompleteList({
       {data.length ? (
         <div
           ref={ref}
-          className="absolute mt-1 min-w-[160px] max-w-[250px] overflow-auto rounded-md border border-border bg-popover text-base shadow-md focus:outline-none sm:text-sm"
+          className="absolute mt-1 min-w-[160px] max-w-[250px] overflow-auto rounded-md border border-border bg-popover text-base shadow-md focus:outline-hidden sm:text-sm"
         >
           {data.map((datum) => {
             const { name: datumName, id } = datum
@@ -61,7 +61,7 @@ export default function AutoCompleteList({
             }
             return (
               <Button
-                className="border-border w-full justify-start rounded-none px-3 py-2 [&:not(:last-child)]:border-b"
+                className="border-border w-full justify-start rounded-none px-3 py-2 not-last:border-b"
                 variant={'ghost'}
                 key={id}
                 onClick={() => onClick(datum)}

@@ -13,12 +13,10 @@ export const metadata: Metadata = {
   description: 'Plutus finance tracker.',
 }
 
-export default async function Expenses(
-  props: {
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-  }
-) {
-  const searchParams = await props.searchParams;
+export default async function Expenses(props: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const searchParams = await props.searchParams
   const page = typeof searchParams.page === 'string' ? +searchParams.page : 0
   const filter =
     (searchParams?.filter && JSON.parse(searchParams.filter as string)) ?? {}

@@ -79,7 +79,7 @@ const OneTapComponent = () => {
   return (
     <>
       <Script src="https://accounts.google.com/gsi/client" />
-      <div id="oneTap" className="fixed top-0 right-0 z-[100]" />
+      <div id="oneTap" className="fixed top-0 right-0 z-100" />
     </>
   )
 }

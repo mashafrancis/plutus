@@ -34,7 +34,7 @@ function generateTwColorClasses(globalKey, twAttributes) {
         [keySplit]: `hsl(${attr.cssVariable} / <alpha-value>)`,
       }
 
-      if (keySplit == 'DEFAULT') {
+      if (keySplit === 'DEFAULT') {
         // includes a 'default' duplicate
         // this allows for classes like `border-default` which is the same as `border`
         payload = {

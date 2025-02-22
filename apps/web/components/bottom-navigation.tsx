@@ -19,7 +19,7 @@ export default function BottomNavigation({ items }: Props) {
     <div className="block w-full md:hidden">
       <section
         id="bottom-navigation"
-        className="fixed inset-x-0 bottom-0 z-10 block border-t bg-white px-2 py-1 shadow"
+        className="fixed inset-x-0 bottom-0 z-10 block border-t bg-white px-2 py-1 shadow-sm"
       >
         <div id="tabs" className="flex justify-between">
           {items.map(({ id, href, disabled, title, icon }) => {

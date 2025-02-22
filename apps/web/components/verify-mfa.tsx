@@ -70,7 +70,7 @@ export function VerifyMfa() {
 
   return (
     <>
-      <div className="pb-4 bg-gradient-to-r from-primary dark:via-primary dark:to-[#848484] to-[#000] inline-block text-transparent bg-clip-text">
+      <div className="pb-4 bg-linear-to-r from-primary dark:via-primary dark:to-[#848484] to-[#000] inline-block text-transparent bg-clip-text">
         <h1 className="font-medium pb-1 text-3xl">Verify your identity.</h1>
       </div>
 

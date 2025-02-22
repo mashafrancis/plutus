@@ -38,7 +38,7 @@ export default function Modal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-10 backdrop-blur" />
+          <div className="fixed inset-0 bg-black bg-opacity-10 backdrop-blur-sm" />
         </Transition.Child>
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center text-center">
@@ -59,7 +59,7 @@ export default function Modal({
                   {title}
                   <button
                     onClick={onHide}
-                    className="absolute right-[4px] top-[3px] flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-full text-primary transition-all duration-75 hover:bg-secondary focus:outline-none active:bg-secondary"
+                    className="absolute right-[4px] top-[3px] flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-full text-primary transition-all duration-75 hover:bg-secondary focus:outline-hidden active:bg-secondary"
                   >
                     <X className="h-5 w-5 text-primary" />
                   </button>

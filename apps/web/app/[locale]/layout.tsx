@@ -2,7 +2,6 @@ import { cn } from '@/lib/utils'
 import { type ReactNode, Suspense } from 'react'
 import '@/styles/globals.css'
 import '@/styles/overwrites.css'
-import '@/styles/date-picker.scss'
 import { Providers } from '@/app/[locale]/providers'
 import OneTapComponent from '@/components/google-one-tap'
 import { Toaster } from '@/components/ui/sonner'
@@ -47,7 +46,7 @@ export default async function RootLayout({
       />
       <body
         className={cn(
-          'min-[100dvh] overscroll-none whitespace-pre-line font-sans !bg-alternative antialiased',
+          'min-[100dvh] overscroll-none whitespace-pre-line font-sans bg-alternative! antialiased',
           fontSans.variable,
           GeistMono.variable,
         )}

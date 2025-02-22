@@ -23,7 +23,7 @@ export default async function MarketingHeader(props: Props) {
   const Icon = props.icon
   return (
     <div className="w-full max-w-full relative mx-auto py-16 lg:py-24 bg-alternative overflow-hidden">
-      <SectionContainer className="!py-0 grid grid-cols-12">
+      <SectionContainer className="py-0! grid grid-cols-12">
         <div className="relative grid z-10 col-span-12 gap-2 lg:col-span-5">
           <div>
             {(Icon || props.title) && (
@@ -40,7 +40,7 @@ export default async function MarketingHeader(props: Props) {
               </div>
             )}
             <h1
-              className="h1 text-3xl md:!text-4xl lg:!text-4xl 2xl:!text-6xl tracking-[-.15px]"
+              className="h1 text-3xl md:text-4xl! lg:text-4xl! 2xl:text-6xl! tracking-[-.15px]"
               key={`h1`}
             >
               {props.h1}

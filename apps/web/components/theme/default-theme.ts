@@ -23,11 +23,11 @@ const defaults = {
   },
   placeholder: 'placeholder-foreground-muted',
   focus: `
-    outline-none
+    outline-hidden
     focus:ring-current focus:ring-2
   `,
   'focus-visible': `
-    outline-none
+    outline-hidden
     transition-all
     outline-0
     focus-visible:outline-4
@@ -121,7 +121,7 @@ export default {
           text-left
           cursor-pointer
 
-          outline-none
+          outline-hidden
           focus-visible:ring-1
           focus-visible:z-10
           ring-foreground-light
@@ -159,7 +159,7 @@ export default {
           text-base
           bg-transparent
 
-          outline-none
+          outline-hidden
           focus-visible:ring-1
           focus-visible:z-10
           ring-foreground-light
@@ -288,7 +288,7 @@ export default {
       p-0 m-0
       text-foreground-muted
       cursor-pointer transition ease-in-out
-      bg-transparent border-transparent focus:outline-none
+      bg-transparent border-transparent focus:outline-hidden
       opacity-50 hover:opacity-100`,
   },
 
@@ -333,8 +333,8 @@ export default {
         space-x-2
         text-center
         transition
-        focus:outline-none
-        focus-visible:ring
+        focus:outline-hidden
+        focus-visible:ring-3
         focus-visible:ring-foreground-muted
         focus-visible:border-foreground-muted
       `,
@@ -359,8 +359,8 @@ export default {
         shadow-sm
         rounded
         border
-        focus:outline-none
-        focus-visible:ring
+        focus:outline-hidden
+        focus-visible:ring-3
         focus-visible:ring-foreground-muted
         focus-visible:border-foreground-muted
         `,
@@ -387,8 +387,8 @@ export default {
         transition
         shadow-sm
         rounded-full
-        focus:outline-none
-        focus-visible:ring
+        focus:outline-hidden
+        focus-visible:ring-3
         focus-visible:ring-foreground-muted
         focus-visible:border-foreground-muted
         `,
@@ -409,7 +409,7 @@ export default {
     },
     scrollable: `overflow-auto whitespace-nowrap no-scrollbar mask-fadeout-right`,
     wrappable: `flex-wrap`,
-    content: `focus:outline-none transition-height`,
+    content: `focus:outline-hidden transition-height`,
   },
 
   /*
@@ -661,7 +661,7 @@ export default {
             horizontal: 'flex flex-row space-x-2',
           },
         },
-        group: `-space-y-px shadow-sm`,
+        group: `-space-y-px shadow-xs`,
         base: `
           transition
           border
@@ -931,7 +931,7 @@ export default {
   toggle: {
     base: `
       p-0 relative
-      inline-flex flex-shrink-0
+      inline-flex shrink-0
       border-2 border-transparent
       rounded-full
       cursor-pointer
@@ -962,11 +962,11 @@ export default {
         transition
         ease-in-out duration-200
       `,
-      tiny: '!h-3 !w-3',
-      small: '!h-5 !w-5',
-      medium: '!h-5 !w-5',
-      large: '!h-6 !w-6',
-      xlarge: '!h-6 !w-6',
+      tiny: 'h-3! w-3!',
+      small: 'h-5! w-5!',
+      medium: 'h-5! w-5!',
+      large: 'h-6! w-6!',
+      xlarge: 'h-6! w-6!',
     },
     handle_active: {
       tiny: ' translate-x-3 dark:bg-white',
@@ -1078,7 +1078,7 @@ export default {
       rounded
       bg-transparent
       p-0
-      outline-none
+      outline-hidden
       outline-offset-1
       transition-all
       focus:outline-4
@@ -1137,7 +1137,7 @@ export default {
       base: `
         cursor-pointer
         flex space-x-3 items-center
-        outline-none
+        outline-hidden
         focus-visible:ring-1 ring-foreground-muted focus-visible:z-10
         group
       `,
@@ -1365,7 +1365,7 @@ export default {
       focus:bg-border-overlay
       focus:text-foreground
       border-none
-      focus:outline-none
+      focus:outline-hidden
     `,
     option_active: `text-foreground bg-selection`,
     option_disabled: `cursor-not-allowed opacity-60`,
@@ -1414,7 +1414,7 @@ export default {
   // Icon
 
   icon: {
-    container: `flex-shrink-0 flex items-center justify-center rounded-full p-3`,
+    container: `shrink-0 flex items-center justify-center rounded-full p-3`,
   },
 
   loading: {
