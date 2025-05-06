@@ -13,7 +13,7 @@
     "tailwindcss-radix": "^4.0.2"
   },
   "devDependencies": {
-    "tailwindcss": "^4.0.16",
+    "tailwindcss": "^4.1.5",
     "tailwindcss-animate": "^1.0.7"
   }
 }
