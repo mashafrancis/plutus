@@ -246,7 +246,7 @@ export const DateTimePicker = ({
             : `${dayjs(value.from).format("DD MMM, HH:mm")} - ${dayjs(value.to || new Date()).format("DD MMM, HH:mm")}`}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="flex w-full p-0" side="bottom" align="center">
+      <PopoverContent className="flex w-full p-0" side="bottom" align="end">
         <RadioGroup
           onValueChange={handleHelperChange}
           value={value.isHelper ? value.text : ""}
@@ -256,7 +256,7 @@ export const DateTimePicker = ({
             <Label
               key={helper.text}
               className={cn(
-                "flex cursor-pointer items-center gap-2 rounded-sm px-4 py-1.5 text-foreground-light text-xs transition-all hover:bg-background-overlay-hover hover:text-foreground [&:has([data-state=checked])]:bg-background-overlay-hover [&:has([data-state=checked])]:text-foreground",
+                "flex cursor-pointer items-center gap-2 rounded-sm px-4 py-1.5 text-muted-foreground text-xs transition-all hover:bg-background-overlay-hover hover:text-foreground [&:has([data-state=checked])]:bg-background-overlay-hover [&:has([data-state=checked])]:text-foreground",
                 {
                   "pointer-events-none cursor-not-allowed opacity-50":
                     helper.disabled,
@@ -304,8 +304,8 @@ export const DateTimePicker = ({
             <div className="flex-shrink">
               <Button
                 variant="ghost"
-                size="sm"
-                className="px-1.5"
+                size="icon"
+                className="px-1"
                 onClick={() => {
                   setStartTime({ HH: "00", mm: "00", ss: "00" });
                   setEndTime({ HH: "00", mm: "00", ss: "00" });
@@ -351,7 +351,7 @@ export const DateTimePicker = ({
                       onClick={increaseMonth}
                       disabled={nextMonthButtonDisabled}
                       variant="ghost"
-                      size="sm"
+                      size="icon"
                       className="px-1.5"
                     >
                       <ChevronRight size={14} strokeWidth={2} />

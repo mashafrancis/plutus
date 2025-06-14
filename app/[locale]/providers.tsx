@@ -7,6 +7,7 @@ import { I18nProviderClient } from "@/locales/client";
 import { TRPCReactProvider } from "@/trpc/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ThemeProvider } from "next-themes";
+import { NuqsAdapter } from "nuqs/adapters/react";
 
 interface ProviderProps {
   locale: string;
@@ -38,7 +39,11 @@ export function Providers({ children, locale }: ProviderProps) {
             }}
           >
             <TRPCReactProvider>
-              <TooltipProvider delayDuration={100}>{children}</TooltipProvider>
+              <NuqsAdapter>
+                <TooltipProvider delayDuration={100}>
+                  {children}
+                </TooltipProvider>
+              </NuqsAdapter>
             </TRPCReactProvider>
           </motion.div>
         </ThemeProvider>

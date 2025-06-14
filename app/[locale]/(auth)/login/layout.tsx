@@ -12,7 +12,7 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <div className="flex min-h-screen flex-1 flex-col bg-muted">
       <div className="flex flex-1">
-        <main className="flex flex-1 shrink-0 flex-col items-center border-default border-r bg-background px-5 pt-16 pb-8 shadow-lg">
+        <main className="flex flex-1 shrink-0 flex-col items-center border-border border-r bg-background px-5 pt-16 pb-8 shadow-lg">
           <div className="flex w-[330px] flex-1 flex-col justify-center sm:w-[384px]">
             <Link href="/">
               <Image

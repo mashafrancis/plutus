@@ -24,29 +24,8 @@ export const PREVIEWER_DATEPICKER_HELPERS: DatetimeHelper[] = [
 
 export const EXPLORER_DATEPICKER_HELPERS: DatetimeHelper[] = [
   {
-    text: "Last 30 minutes",
-    calcFrom: () => dayjs().subtract(30, "minute").startOf("day").toISOString(),
-    calcTo: () => "",
-  },
-  {
-    text: "Last 2 hours",
-    calcFrom: () => dayjs().subtract(2, "hour").startOf("day").toISOString(),
-    calcTo: () => "",
-    default: true,
-  },
-  {
-    text: "Last 6 hours",
-    calcFrom: () => dayjs().subtract(6, "hour").startOf("day").toISOString(),
-    calcTo: () => "",
-  },
-  {
-    text: "Last 24 hours",
+    text: "Today",
     calcFrom: () => dayjs().subtract(1, "day").startOf("day").toISOString(),
-    calcTo: () => "",
-  },
-  {
-    text: "Last 3 days",
-    calcFrom: () => dayjs().subtract(3, "day").startOf("day").toISOString(),
     calcTo: () => "",
   },
   {
