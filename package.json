@@ -1,31 +1,74 @@
 {
-  "name": "@plutus/root",
-  "packageManager": "pnpm@10.10.0",
-  "private": true,
-  "author": {
-    "name": "Francis Masha",
-    "email": "francismasha96@gmail.com"
-  },
-  "scripts": {
-    "build": "dotenv -- turbo build --log-order=grouped --parallel",
-    "dev": "dotenv -- turbo run dev --parallel",
-    "start": "dotenv -- turbo run start",
-    "format": "biome format --write . && biome check --apply-unsafe .",
-    "lint": "turbo lint && manypkg check",
-    "lint:fix": "biome lint --apply .",
-    "lint:ws": "pnpm dlx sherif@latest",
-    "postinstall": "pnpm lint:ws",
-    "clean": "git clean -xdf node_modules",
-    "clean:workspaces": "turbo clean",
-    "typecheck": "turbo typecheck",
-    "db:setup": "dotenv -- turbo db:setup"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@manypkg/cli": "^0.24.0",
-    "@types/node": "^24.0.0",
-    "dotenv-cli": "^8.0.0",
-    "turbo": "^2.5.4",
-    "typescript": "^5.8.3"
-  }
+	"name": "plutus.francismasha.com",
+	"packageManager": "pnpm@10.10.0",
+	"private": true,
+	"author": {
+		"name": "Francis Masha",
+		"email": "francismasha96@gmail.com"
+	},
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"check-types": "tsc --pretty --noEmit",
+		"check-format": "prettier --check .",
+		"format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
+		"predev": "prisma format && prisma generate",
+		"dbpush": "pnpm run predev && prisma db push",
+		"premigrate": "prisma db pull",
+		"migrate": "prisma migrate dev --name initial-migration --create-only",
+		"email:dev": "email dev -p 3001",
+		"email:export": "email export",
+		"prepare": "husky install",
+		"analyze": "cross-env ANALYZE=true next build",
+		"format": "biome format --write .",
+		"format:fix": "biome format --apply .",
+		"lint:fix": "biome lint --apply ."
+	},
+	"dependencies": {
+		"@headlessui/react": "^2.2.4",
+		"@prisma/client": "^6.9.0",
+		"@react-email/components": "0.0.42",
+		"@react-email/render": "^1.1.2",
+		"@tanstack/react-table": "^8.21.3",
+		"autoprefixer": "10.4.21",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"cmdk": "^1.1.1",
+		"date-fns": "^4.1.0",
+		"debounce": "^2.2.0",
+		"encoding": "^0.1.13",
+		"lucide-react": "^0.515.0",
+		"next": "15.3.3",
+		"next-themes": "^0.4.6",
+		"postcss": "8.5.5",
+		"prisma": "^6.9.0",
+		"prisma-field-encryption": "^1.6.0",
+		"react": "19.1.0",
+		"react-day-picker": "^9.7.0",
+		"react-dom": "19.1.0",
+		"react-email": "4.0.16",
+		"react-hotkeys-hook": "^5.1.0",
+		"resend": "^4.6.0",
+		"sonner": "^2.0.5",
+		"swr": "^2.3.3",
+		"tailwind-merge": "^3.3.1",
+		"tailwindcss": "4.1.10",
+		"tailwindcss-animate": "^1.0.7",
+		"text-filter": "^0.1.1",
+		"typescript": "5.8.3",
+		"vaul": "^1.1.2"
+	},
+	"devDependencies": {
+		"@types/node": "24.0.1",
+		"@types/react": "19.1.8",
+		"@types/react-dom": "19.1.6",
+		"husky": "^9.1.7"
+	},
+	"lint-staged": {
+		"*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+			"biome check --apply-unsafe --no-errors-on-unmatched"
+		]
+	}
 }
