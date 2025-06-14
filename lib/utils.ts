@@ -8,3 +8,5 @@ export function cn(...inputs: ClassValue[]) {
 export function fancyId() {
   return Math.floor(100000000 * Math.random()).toString(36);
 }
+
+export function noop() {}
