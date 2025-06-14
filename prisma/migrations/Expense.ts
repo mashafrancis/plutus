@@ -5,18 +5,18 @@ import {
   defaultProgressReport,
   visitRecords,
 } from "prisma-field-encryption/dist/generator/runtime";
-import type { PrismaClient, subscriptions } from "../../generated/prisma";
+import type { Expense, PrismaClient } from "../../generated/prisma";
 
-type Cursor = subscriptions["id"];
+type Cursor = Expense["id"];
 
 export async function migrate(
   client: PrismaClient,
   reportProgress: ProgressReportCallback = defaultProgressReport,
 ): Promise<number> {
   return visitRecords<PrismaClient, Cursor>({
-    modelName: "subscriptions",
+    modelName: "Expense",
     client,
-    getTotalCount: client.subscriptions.count,
+    getTotalCount: client.expense.count,
     migrateRecord,
     reportProgress,
   });
@@ -24,7 +24,7 @@ export async function migrate(
 
 async function migrateRecord(client: PrismaClient, cursor: Cursor | undefined) {
   return await client.$transaction(async (tx) => {
-    const record = await tx.subscriptions.findFirst({
+    const record = await tx.expense.findFirst({
       take: 1,
       skip: cursor === undefined ? undefined : 1,
       ...(cursor === undefined
@@ -47,7 +47,7 @@ async function migrateRecord(client: PrismaClient, cursor: Cursor | undefined) {
     if (!record) {
       return cursor;
     }
-    await tx.subscriptions.update({
+    await tx.expense.update({
       where: {
         id: record.id,
       },
@@ -81,7 +81,7 @@ async function migrateRecord(client: PrismaClient, cursor: Cursor | undefined) {
  *   },
  *   "connections": {
  *     "user": {
- *       "modelName": "users",
+ *       "modelName": "User",
  *       "isList": false
  *     }
  *   }

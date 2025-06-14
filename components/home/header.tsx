@@ -1,7 +1,7 @@
-import GetStartedButton from "@/components/layout/get-started-button";
-import SectionContainer from "@/components/layout/section-container";
-import { Button } from "@/components/ui/button";
-import type { CTA } from "@/types/ui.types";
+import { getSession } from "@/auth/server";
+import SectionContainer from "@/components/section-container";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn, fancyId } from "@/lib/utils";
 import Link from "next/link";
 import type React from "react";
 
@@ -12,11 +12,12 @@ interface Props {
   title?: string;
   image?: React.ReactNode;
   footer?: React.ReactNode;
-  ctas?: CTA[];
   logo?: boolean;
 }
 
 export default async function HomeHeader(props: Props) {
+  const user = await getSession();
+
   const Icon = props.icon;
   return (
     <div className="relative mx-auto w-full max-w-full overflow-hidden bg-alternative py-16 lg:py-24">
@@ -28,7 +29,7 @@ export default async function HomeHeader(props: Props) {
                 {Icon && <Icon size={16} strokeWidth={1.3} />}
                 {props.title && (
                   <span
-                    className="font-mono text-brand-600 uppercase dark:text-brand"
+                    className="font-mono text-primary/60 uppercase dark:text-brand"
                     key={`platform-${props.title}`}
                   >
                     {props.title}
@@ -38,33 +39,40 @@ export default async function HomeHeader(props: Props) {
             )}
             <h1
               className="h1 text-3xl tracking-[-.15px] md:text-4xl! lg:text-4xl! 2xl:text-6xl!"
-              key={`h1`}
+              key={"h1"}
             >
               {props.h1}
             </h1>
           </div>
           <div>
-            {props.subheader &&
-              props.subheader.map((subheader, i) => {
-                return (
-                  <p
-                    className="p max-w-lg text-foreground-lighter lg:max-w-none lg:text-lg"
-                    key={i}
-                  >
-                    {subheader}
-                  </p>
-                );
-              })}
+            {props.subheader?.map((subheader) => {
+              return (
+                <p
+                  className="p max-w-lg text-foreground-lighter lg:max-w-none lg:text-lg"
+                  key={fancyId()}
+                >
+                  {subheader}
+                </p>
+              );
+            })}
           </div>
           <div className="flex flex-row gap-2 md:flex-row md:items-center">
-            {user?.data?.email ? (
-              <Link href="/overview">
-                <Button size="large" type="primary">
-                  Explore app
-                </Button>
+            {user?.user.email ? (
+              <Link
+                href="/overview"
+                className={cn(
+                  buttonVariants({
+                    size: "lg",
+                    variant: "default",
+                  }),
+                )}
+              >
+                Manage finances
               </Link>
             ) : (
-              <GetStartedButton />
+              <Button onClick={() => {}} size="lg" variant="default">
+                Manage finances
+              </Button>
             )}
           </div>
         </div>

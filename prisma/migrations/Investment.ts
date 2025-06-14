@@ -5,18 +5,18 @@ import {
   defaultProgressReport,
   visitRecords,
 } from "prisma-field-encryption/dist/generator/runtime";
-import type { PrismaClient, income } from "../../generated/prisma";
+import type { Investment, PrismaClient } from "../../generated/prisma";
 
-type Cursor = income["id"];
+type Cursor = Investment["id"];
 
 export async function migrate(
   client: PrismaClient,
   reportProgress: ProgressReportCallback = defaultProgressReport,
 ): Promise<number> {
   return visitRecords<PrismaClient, Cursor>({
-    modelName: "income",
+    modelName: "Investment",
     client,
-    getTotalCount: client.income.count,
+    getTotalCount: client.investment.count,
     migrateRecord,
     reportProgress,
   });
@@ -24,7 +24,7 @@ export async function migrate(
 
 async function migrateRecord(client: PrismaClient, cursor: Cursor | undefined) {
   return await client.$transaction(async (tx) => {
-    const record = await tx.income.findFirst({
+    const record = await tx.investment.findFirst({
       take: 1,
       skip: cursor === undefined ? undefined : 1,
       ...(cursor === undefined
@@ -42,12 +42,13 @@ async function migrateRecord(client: PrismaClient, cursor: Cursor | undefined) {
         name: true,
         notes: true,
         price: true,
+        units: true,
       },
     });
     if (!record) {
       return cursor;
     }
-    await tx.income.update({
+    await tx.investment.update({
       where: {
         id: record.id,
       },
@@ -55,6 +56,7 @@ async function migrateRecord(client: PrismaClient, cursor: Cursor | undefined) {
         name: record.name,
         notes: record.notes,
         price: record.price,
+        units: record.units,
       },
     });
     return record.id;
@@ -77,11 +79,15 @@ async function migrateRecord(client: PrismaClient, cursor: Cursor | undefined) {
  *     "price": {
  *       "encrypt": true,
  *       "strictDecryption": false
+ *     },
+ *     "units": {
+ *       "encrypt": true,
+ *       "strictDecryption": false
  *     }
  *   },
  *   "connections": {
  *     "user": {
- *       "modelName": "users",
+ *       "modelName": "User",
  *       "isList": false
  *     }
  *   }

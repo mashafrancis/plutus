@@ -8,8 +8,9 @@
  */
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
-import { ZodError } from "zod";
+import { ZodError, z } from "zod/v4";
 
+import type { Auth } from "@/lib/auth";
 import { db } from "@/server/db";
 
 /**
@@ -24,8 +25,18 @@ import { db } from "@/server/db";
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: { headers: Headers }) => {
+export const createTRPCContext = async (opts: {
+  headers: Headers;
+  auth: Auth;
+}) => {
+  const authApi = opts.auth.api;
+  const session = await authApi.getSession({
+    headers: opts.headers,
+  });
+
   return {
+    authApi,
+    session,
     db,
     ...opts,
   };
@@ -40,16 +51,16 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
  */
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
-  errorFormatter({ shape, error }) {
-    return {
-      ...shape,
-      data: {
-        ...shape.data,
-        zodError:
-          error.cause instanceof ZodError ? error.cause.flatten() : null,
-      },
-    };
-  },
+  errorFormatter: ({ shape, error }) => ({
+    ...shape,
+    data: {
+      ...shape.data,
+      zodError:
+        error.cause instanceof ZodError
+          ? z.flattenError(error.cause as ZodError<Record<string, unknown>>)
+          : null,
+    },
+  }),
 });
 
 /**
