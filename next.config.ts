@@ -23,6 +23,17 @@ const config: NextConfig = {
       },
     ],
   },
+  compiler: {
+    removeConsole: true,
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
+  poweredByHeader: false,
+  typescript: { ignoreBuildErrors: true },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },

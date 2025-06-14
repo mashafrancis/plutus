@@ -22,7 +22,7 @@
     "typecheck": "tsc --noEmit",
     "email:dev": "email dev -p 3001",
     "email:export": "email export",
-    "prepare": "husky install",
+    "prepare": "node .husky/install.mjs",
     "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {

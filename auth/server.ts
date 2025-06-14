@@ -15,7 +15,7 @@ const baseUrl =
 export const auth = initAuth({
   baseUrl,
   productionUrl: `https://${env.VERCEL_PROJECT_PRODUCTION_URL ?? "https://plutus.francismasha.com"}`,
-  secret: env.AUTH_SECRET,
+  secret: env.BETTER_AUTH_SECRET,
   githubClientId: env.AUTH_GITHUB_ID,
   githubClientSecret: env.AUTH_GITHUB_SECRET,
   googleClientId: env.AUTH_GOOGLE_ID,
