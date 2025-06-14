@@ -30,7 +30,7 @@ const Highlight = ({ highlight }: { highlight: Highlight }) => {
       </div>
       <div className="flex flex-col gap-2">
         <h3 className="text-foreground text-lg">{highlight.title}</h3>
-        <p className="text-foreground-lighter">{highlight.paragraph}</p>
+        <p className="text-muted-foreground">{highlight.paragraph}</p>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 
 import { ViewTransitions } from "next-view-transitions";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 
 import { Providers } from "@/app/[locale]/providers";
 import { constructMetadata } from "@/lib/construct-metadata";
@@ -38,7 +39,13 @@ export default async function RootLayout({
 
   return (
     <ViewTransitions>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
+        <Script
+          async
+          src="https://cdn.seline.so/seline.js"
+          data-token="82a54f4e6018731"
+          strategy="afterInteractive"
+        />
         <body
           className={cn(
             "min-[100dvh] overscroll-none scroll-smooth whitespace-pre-line bg-alternative! font-sans antialiased",
@@ -46,7 +53,7 @@ export default async function RootLayout({
             geist_mono.variable,
           )}
         >
-          <Providers locale={locale}>{children}</Providers>
+          <Providers locale={locale}>{await children}</Providers>
           <Toaster
             className="font-normal font-sans"
             position="bottom-right"

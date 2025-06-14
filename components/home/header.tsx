@@ -1,6 +1,6 @@
 import { getSession } from "@/auth/server";
 import SectionContainer from "@/components/section-container";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn, fancyId } from "@/lib/utils";
 import Link from "next/link";
 import type React from "react";
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default async function HomeHeader(props: Props) {
-  const user = await getSession();
+  const session = await getSession();
 
   const Icon = props.icon;
   return (
@@ -48,7 +48,7 @@ export default async function HomeHeader(props: Props) {
             {props.subheader?.map((subheader) => {
               return (
                 <p
-                  className="p max-w-lg text-foreground-lighter lg:max-w-none lg:text-lg"
+                  className="p max-w-lg text-muted-foreground lg:max-w-none lg:text-lg"
                   key={fancyId()}
                 >
                   {subheader}
@@ -57,7 +57,7 @@ export default async function HomeHeader(props: Props) {
             })}
           </div>
           <div className="flex flex-row gap-2 md:flex-row md:items-center">
-            {user?.user.email ? (
+            {session?.user.email ? (
               <Link
                 href="/overview"
                 className={cn(
@@ -70,9 +70,17 @@ export default async function HomeHeader(props: Props) {
                 Manage finances
               </Link>
             ) : (
-              <Button onClick={() => {}} size="lg" variant="default">
+              <Link
+                href="/login"
+                className={cn(
+                  buttonVariants({
+                    size: "lg",
+                    variant: "default",
+                  }),
+                )}
+              >
                 Manage finances
-              </Button>
+              </Link>
             )}
           </div>
         </div>
