@@ -57,31 +57,17 @@ export default async function HomeHeader(props: Props) {
             })}
           </div>
           <div className="flex flex-row gap-2 md:flex-row md:items-center">
-            {session?.user.email ? (
-              <Link
-                href="/overview"
-                className={cn(
-                  buttonVariants({
-                    size: "lg",
-                    variant: "default",
-                  }),
-                )}
-              >
-                Manage finances
-              </Link>
-            ) : (
-              <Link
-                href="/login"
-                className={cn(
-                  buttonVariants({
-                    size: "lg",
-                    variant: "default",
-                  }),
-                )}
-              >
-                Manage finances
-              </Link>
-            )}
+            <Link
+              href={session?.user.email ? "/overview" : "/login"}
+              className={cn(
+                buttonVariants({
+                  size: "lg",
+                  variant: "default",
+                }),
+              )}
+            >
+              Manage finances
+            </Link>
           </div>
         </div>
         {props.image && (

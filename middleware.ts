@@ -1,4 +1,3 @@
-import { getSession } from "@/auth/server";
 import { getLocale } from "@/lib/location";
 import { createI18nMiddleware } from "next-international/middleware";
 import { type NextRequest, NextResponse } from "next/server";
@@ -31,10 +30,11 @@ export async function middleware(request: NextRequest) {
     newUrl.search
   }`;
 
-  const session = await getSession();
+  const sessionCookie =
+    request.cookies.get("better-auth.session_token")?.value ?? null;
 
   if (
-    !session?.session.id &&
+    !sessionCookie &&
     newUrl.pathname !== "/" &&
     newUrl.pathname !== "/login" &&
     !newUrl.pathname.includes("/i/")
