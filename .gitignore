@@ -50,3 +50,5 @@ react-email/node_modules/
 node_modules
 .temp
 /.temp/
+
+generated
