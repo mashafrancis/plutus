@@ -1,0 +1,198 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+generator fieldEncryptionMigrations {
+  provider = "prisma-field-encryption"
+  output   = "./migrations"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Subscription {
+  id          String   @id @default(uuid())
+  /// @encrypted
+  name        String
+  /// @encrypted
+  notes       String?
+  url         String
+  /// @encrypted
+  price       String   @default("0")
+  paid        String
+  notify      Boolean  @default(false)
+  date        String
+  createdAt   DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  userId      String
+  active      Boolean? @default(true)
+  cancelledAt String?
+  nameHash    String?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("subscription")
+}
+
+model Expense {
+  id        String   @id @default(uuid())
+  /// @encrypted
+  name      String
+  /// @encrypted
+  notes     String?
+  /// @encrypted
+  price     String   @default("0")
+  paid_via  String   @default("")
+  category  String
+  date      String
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  userId    String
+  nameHash  String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("expense")
+}
+
+model Income {
+  id        String   @id @default(uuid())
+  /// @encrypted
+  name      String
+  /// @encrypted
+  notes     String?
+  /// @encrypted
+  price     String   @default("0")
+  category  String
+  date      String
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  userId    String
+  nameHash  String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("income")
+}
+
+model Investment {
+  id        String   @id @default(uuid())
+  /// @encrypted
+  name      String
+  /// @encrypted
+  notes     String?
+  /// @encrypted
+  price     String   @default("0")
+  /// @encrypted
+  units     String   @default("0")
+  category  String
+  date      String
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  userId    String
+  nameHash  String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("investment")
+}
+
+model feedback {
+  id        Int      @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  userId    String
+
+  @@map("feedback")
+}
+
+model contact {
+  id        Int      @id @default(autoincrement())
+  message   String
+  subject   String
+  email     String
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("contact")
+}
+
+model User {
+  id                         String         @id @default(uuid())
+  name                       String
+  email                      String
+  emailVerified              Boolean
+  image                      String?
+  currency                   String         @default("KES")
+  locale                     String         @default("en")
+  order_identifier           String?
+  order_store_id             String?
+  order_number               String?
+  order_status               String?
+  billing_start_date         String?
+  plan_status                String         @default("basic")
+  trial_start_date           DateTime       @default(now()) @db.Timestamptz(6)
+  usage                      Int            @default(0)
+  basic_usage_limit_email    Boolean        @default(false)
+  new_signup_email           Boolean        @default(false)
+  premium_plan_expired_email Boolean        @default(false)
+  premium_usage_limit_email  Boolean        @default(false)
+  monthly_email_report       Boolean        @default(false)
+  expenses                   Expense[]
+  income                     Income[]
+  investments                Investment[]
+  subscriptions              Subscription[]
+  createdAt                  DateTime       @default(now()) @db.Timestamptz(6)
+  updatedAt                  DateTime       @default(now()) @updatedAt @db.Timestamptz(6)
+  sessions                   Session[]
+  accounts                   Account[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(uuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id @default(uuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
