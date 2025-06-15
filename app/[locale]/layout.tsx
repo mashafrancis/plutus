@@ -1,5 +1,7 @@
 import "@/styles/globals.css";
 
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ViewTransitions } from "next-view-transitions";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
@@ -54,6 +56,9 @@ export default async function RootLayout({
           )}
         >
           <Providers locale={locale}>{await children}</Providers>
+          {/*<OpenPanelAnalytics/>*/}
+          <Analytics />
+          <SpeedInsights />
           <Toaster
             className="font-normal font-sans"
             position="bottom-right"
