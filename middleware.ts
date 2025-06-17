@@ -4,16 +4,10 @@ import { createI18nMiddleware } from "next-international/middleware";
 import { headers } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 
-const logger = console;
-
 export async function middleware(request: NextRequest) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  logger.log(
-    "Class: middleware, Function: middleware, Line 35 session():",
-    session,
-  );
 
   const handleI18nRouting = createI18nMiddleware({
     defaultLocale: "en",

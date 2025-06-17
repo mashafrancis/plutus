@@ -2,8 +2,13 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters", "metrics"]
+  output          = "../generated/prisma"
+  // importFileExtension    = ""
+  // runtime                = "nodejs"
+  // moduleFormat           = "esm"
+  // generatedFileExtension = "ts"
 }
 
 generator fieldEncryptionMigrations {
