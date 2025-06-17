@@ -3,40 +3,65 @@
  * for Docker builds.
  */
 import "./env";
-import type {NextConfig} from "next";
+import type { NextConfig } from "next";
 
 const config: NextConfig = {
-	reactStrictMode: true,
-	images: {
-		remotePatterns: [
-			{
-				protocol: "https",
-				hostname: "www.google.com",
-				port: "",
-				pathname: "/**",
-			},
-			{
-				protocol: "https",
-				hostname: "plutus.francismasha.com",
-				port: "",
-				pathname: "/**",
-			},
-		],
-	},
-	compiler: {
-		removeConsole: true,
-	},
-	logging: {
-		fetches: {
-			fullUrl: true,
-			hmrRefreshes: true,
-		},
-	},
-	poweredByHeader: false,
-	typescript: {ignoreBuildErrors: true},
-	async headers() {
-		return [{source: "/(.*)", headers: securityHeaders}];
-	},
+  reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.google.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "plutus.francismasha.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
+  allowedDevOrigins: [
+    "francismasha.com",
+    "*.francismasha.com",
+    "localhost",
+    "127.0.0.1",
+  ],
+  compiler: {
+    removeConsole: true,
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
+  poweredByHeader: false,
+  typescript: { ignoreBuildErrors: true },
+  // Required to support PostHog trailing slash API requests
+  skipTrailingSlashRedirect: true,
+  // PostHog rewrites
+  async rewrites() {
+    return [
+      {
+        source: "/ingest/static/:path*",
+        destination: "https://us-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/ingest/:path*",
+        destination: "https://us.i.posthog.com/:path*",
+      },
+      {
+        source: "/ingest/decide",
+        destination: "https://us.i.posthog.com/decide",
+      },
+    ];
+  },
+  async headers() {
+    return [{ source: "/(.*)", headers: securityHeaders }];
+  },
 };
 
 const ContentSecurityPolicy = `
@@ -52,41 +77,41 @@ const ContentSecurityPolicy = `
 `;
 
 const securityHeaders = [
-	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
-	{
-		key: "Referrer-Policy",
-		value: "origin-when-cross-origin",
-	},
-	// https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-	{
-		key: "Content-Security-Policy",
-		value: ContentSecurityPolicy.replace(/\s{2,}/g, " ").trim(),
-	},
-	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-	{
-		key: "X-Frame-Options",
-		value: "DENY",
-	},
-	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
-	{
-		key: "X-Content-Type-Options",
-		value: "nosniff",
-	},
-	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control
-	{
-		key: "X-DNS-Prefetch-Control",
-		value: "on",
-	},
-	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
-	{
-		key: "Strict-Transport-Security",
-		value: "max-age=31536000; includeSubDomains; preload",
-	},
-	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
-	{
-		key: "Permissions-Policy",
-		value: "camera=(), microphone=(), geolocation=(), autoplay=()",
-	},
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
+  {
+    key: "Referrer-Policy",
+    value: "origin-when-cross-origin",
+  },
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/CSP
+  {
+    key: "Content-Security-Policy",
+    value: ContentSecurityPolicy.replace(/\s{2,}/g, " ").trim(),
+  },
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+  {
+    key: "X-Frame-Options",
+    value: "DENY",
+  },
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
+  {
+    key: "X-Content-Type-Options",
+    value: "nosniff",
+  },
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control
+  {
+    key: "X-DNS-Prefetch-Control",
+    value: "on",
+  },
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=31536000; includeSubDomains; preload",
+  },
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), autoplay=()",
+  },
 ];
 
 export default config;
