@@ -1,8 +1,20 @@
+import { auth } from "@/auth/server";
 import { getLocale } from "@/lib/location";
 import { createI18nMiddleware } from "next-international/middleware";
+import { headers } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 
+const logger = console;
+
 export async function middleware(request: NextRequest) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  logger.log(
+    "Class: middleware, Function: middleware, Line 35 session():",
+    session,
+  );
+
   const handleI18nRouting = createI18nMiddleware({
     defaultLocale: "en",
     locales: [await getLocale()],
@@ -30,11 +42,8 @@ export async function middleware(request: NextRequest) {
     newUrl.search
   }`;
 
-  const sessionCookie =
-    request.cookies.get("better-auth.session_token")?.value ?? null;
-
   if (
-    !sessionCookie &&
+    !session &&
     newUrl.pathname !== "/" &&
     newUrl.pathname !== "/login" &&
     !newUrl.pathname.includes("/i/")
@@ -53,6 +62,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
+  runtime: "nodejs",
   matcher: [
     "/((?!_next/static|_next/image|monitoring|ingest|api|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],

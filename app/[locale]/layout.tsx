@@ -7,6 +7,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 
 import { Providers } from "@/app/[locale]/providers";
+import { fontMono, fontSans } from "@/app/fonts";
 import { constructMetadata } from "@/lib/construct-metadata";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
@@ -51,8 +52,10 @@ export default async function RootLayout({
         <body
           className={cn(
             "min-[100dvh] overscroll-none scroll-smooth whitespace-pre-line bg-alternative! font-sans antialiased",
-            geist.variable,
-            geist_mono.variable,
+            fontSans.variable,
+            fontMono.variable,
+            // geist.variable,
+            // geist_mono.variable,
           )}
         >
           <Providers locale={locale}>{await children}</Providers>

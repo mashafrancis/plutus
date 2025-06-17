@@ -35,6 +35,26 @@ export const fontMono = localFont({
 
 export const fontSans = localFont({
   src: [
+    // {
+    // 	path: "./fonts/CircularText-Light.woff2",
+    // 	weight: "400",
+    // 	style: "light",
+    // },
+    // {
+    // 	path: "./fonts/CircularText-Book.woff2",
+    // 	weight: "500",
+    // 	style: "normal",
+    // },
+    // {
+    // 	path: "./fonts/CircularStd-Medium.woff2",
+    // 	weight: "600",
+    // 	style: "semibold",
+    // },
+    // {
+    // 	path: "./fonts/CircularStd-Bold.woff2",
+    // 	weight: "700",
+    // 	style: "bold",
+    // },
     {
       path: "./fonts/mxl-sans-regular.woff",
       weight: "400",
