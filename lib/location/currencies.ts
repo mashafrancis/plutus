@@ -4,497 +4,497 @@
  */
 export const currencies = {
   // Andorra
-  AD: "EUR",
+  AD: 'EUR',
   // United Arab Emirates
-  AE: "AED",
+  AE: 'AED',
   // Afghanistan
-  AF: "AFN",
+  AF: 'AFN',
   // Antigua and Barbuda
-  AG: "XCD",
+  AG: 'XCD',
   // Anguilla
-  AI: "XCD",
+  AI: 'XCD',
   // Albania
-  AL: "ALL",
+  AL: 'ALL',
   // Armenia
-  AM: "AMD",
+  AM: 'AMD',
   // Netherlands Antilles
-  AN: "ANG",
+  AN: 'ANG',
   // Angola
-  AO: "AOA",
+  AO: 'AOA',
   // Antarctica
-  AQ: "AQD",
+  AQ: 'AQD',
   // Argentina
-  AR: "ARS",
+  AR: 'ARS',
   // American Samoa
-  AS: "USD",
+  AS: 'USD',
   // Austria
-  AT: "EUR",
+  AT: 'EUR',
   // Australia
-  AU: "AUD",
+  AU: 'AUD',
   // Aruba
-  AW: "ANG",
+  AW: 'ANG',
   // Aland Islands
-  AX: "EUR",
+  AX: 'EUR',
   // Azerbaijan
-  AZ: "AZN",
+  AZ: 'AZN',
   // Bosnia and Herzegovina
-  BA: "BAM",
+  BA: 'BAM',
   // Barbados
-  BB: "BBD",
+  BB: 'BBD',
   // Bangladesh
-  BD: "BDT",
+  BD: 'BDT',
   // Belgium
-  BE: "EUR",
+  BE: 'EUR',
   // Burkina Faso
-  BF: "XOF",
+  BF: 'XOF',
   // Bulgaria
-  BG: "BGN",
+  BG: 'BGN',
   // Bahrain
-  BH: "BHD",
+  BH: 'BHD',
   // Burundi
-  BI: "BIF",
+  BI: 'BIF',
   // Benin
-  BJ: "XOF",
+  BJ: 'XOF',
   // Saint Barthelemy
-  BL: "EUR",
+  BL: 'EUR',
   // Bermuda
-  BM: "BMD",
+  BM: 'BMD',
   // Brunei Darussalam
-  BN: "BND",
+  BN: 'BND',
   // Bolivia
-  BO: "BOB",
+  BO: 'BOB',
   // Brazil
-  BR: "BRL",
+  BR: 'BRL',
   // Bahamas
-  BS: "BSD",
+  BS: 'BSD',
   // Bhutan
-  BT: "INR",
+  BT: 'INR',
   // Bouvet Island
-  BV: "NOK",
+  BV: 'NOK',
   // Botswana
-  BW: "BWP",
+  BW: 'BWP',
   // Belarus
-  BY: "BYR",
+  BY: 'BYR',
   // Belize
-  BZ: "BZD",
+  BZ: 'BZD',
   // Canada
-  CA: "CAD",
+  CA: 'CAD',
   // Cocos (Keeling) Islands
-  CC: "AUD",
+  CC: 'AUD',
   // Congo
-  CD: "CDF",
+  CD: 'CDF',
   // Central African Republic
-  CF: "XAF",
+  CF: 'XAF',
   // Congo Republic of the Democratic
-  CG: "XAF",
+  CG: 'XAF',
   // Switzerland
-  CH: "CHF",
+  CH: 'CHF',
   // Ivory Coast
-  CI: "XOF",
+  CI: 'XOF',
   // Cook Islands
-  CK: "NZD",
+  CK: 'NZD',
   // Chile
-  CL: "CLP",
+  CL: 'CLP',
   // Cameroon
-  CM: "XAF",
+  CM: 'XAF',
   // China
-  CN: "CNY",
+  CN: 'CNY',
   // Colombia
-  CO: "COP",
+  CO: 'COP',
   // Costa Rica
-  CR: "CRC",
+  CR: 'CRC',
   // Cuba
-  CU: "CUP",
+  CU: 'CUP',
   // Cape Verde
-  CV: "CVE",
+  CV: 'CVE',
   // Christmas Island
-  CX: "AUD",
+  CX: 'AUD',
   // Cyprus
-  CY: "EUR",
+  CY: 'EUR',
   // Czech Republic
-  CZ: "CZK",
+  CZ: 'CZK',
   // Germany
-  DE: "EUR",
+  DE: 'EUR',
   // Djibouti
-  DJ: "DJF",
+  DJ: 'DJF',
   // Denmark
-  DK: "DKK",
+  DK: 'DKK',
   // Dominica
-  DM: "XCD",
+  DM: 'XCD',
   // Dominican Republic
-  DO: "DOP",
+  DO: 'DOP',
   // Algeria
-  DZ: "DZD",
+  DZ: 'DZD',
   // Ecuador
-  EC: "USD",
+  EC: 'USD',
   // Estonia
-  EE: "EUR",
+  EE: 'EUR',
   // Egypt
-  EG: "EGP",
+  EG: 'EGP',
   // Western Sahara
-  EH: "MAD",
+  EH: 'MAD',
   // Eritrea
-  ER: "ERN",
+  ER: 'ERN',
   // Spain
-  ES: "EUR",
+  ES: 'EUR',
   // Ethiopia
-  ET: "ETB",
+  ET: 'ETB',
   // Finland
-  FI: "EUR",
+  FI: 'EUR',
   // Fiji
-  FJ: "FJD",
+  FJ: 'FJD',
   // Falkland Islands (Malvinas)
-  FK: "FKP",
+  FK: 'FKP',
   // Micronesia Federated States of
-  FM: "USD",
+  FM: 'USD',
   // Faroe Islands
-  FO: "DKK",
+  FO: 'DKK',
   // France
-  FR: "EUR",
+  FR: 'EUR',
   // Gabon
-  GA: "XAF",
+  GA: 'XAF',
   // United Kingdom
-  GB: "GBP",
+  GB: 'GBP',
   // Grenada
-  GD: "XCD",
+  GD: 'XCD',
   // Georgia
-  GE: "GEL",
+  GE: 'GEL',
   // French Guiana
-  GF: "EUR",
+  GF: 'EUR',
   // Guernsey
-  GG: "GGP",
+  GG: 'GGP',
   // Ghana
-  GH: "GHS",
+  GH: 'GHS',
   // Gibraltar
-  GI: "GIP",
+  GI: 'GIP',
   // Greenland
-  GL: "DKK",
+  GL: 'DKK',
   // Gambia
-  GM: "GMD",
+  GM: 'GMD',
   // Guinea
-  GN: "GNF",
+  GN: 'GNF',
   // Guadeloupe
-  GP: "EUR",
+  GP: 'EUR',
   // Equatorial Guinea
-  GQ: "XAF",
+  GQ: 'XAF',
   // Greece
-  GR: "EUR",
+  GR: 'EUR',
   // South Georgia and the South Sandwich Islands
-  GS: "GBP",
+  GS: 'GBP',
   // Guatemala
-  GT: "GTQ",
+  GT: 'GTQ',
   // Guam
-  GU: "USD",
+  GU: 'USD',
   // Guinea-Bissau
-  GW: "XOF",
+  GW: 'XOF',
   // Guyana
-  GY: "GYD",
+  GY: 'GYD',
   // Hong Kong
-  HK: "HKD",
+  HK: 'HKD',
   // Heard and Mc Donald Islands
-  HM: "AUD",
+  HM: 'AUD',
   // Honduras
-  HN: "HNL",
+  HN: 'HNL',
   // Croatia (Hrvatska)
-  HR: "EUR",
+  HR: 'EUR',
   // Haiti
-  HT: "HTG",
+  HT: 'HTG',
   // Hungary
-  HU: "HUF",
+  HU: 'HUF',
   // Indonesia
-  ID: "IDR",
+  ID: 'IDR',
   // Ireland
-  IE: "EUR",
+  IE: 'EUR',
   // Israel
-  IL: "ILS",
+  IL: 'ILS',
   // Isle of Man
-  IM: "GBP",
+  IM: 'GBP',
   // India
-  IN: "INR",
+  IN: 'INR',
   // British Indian Ocean Territory
-  IO: "USD",
+  IO: 'USD',
   // Iraq
-  IQ: "IQD",
+  IQ: 'IQD',
   // Iran (Islamic Republic of)
-  IR: "IRR",
+  IR: 'IRR',
   // Iceland
-  IS: "ISK",
+  IS: 'ISK',
   // Italy
-  IT: "EUR",
+  IT: 'EUR',
   // Jersey
-  JE: "GBP",
+  JE: 'GBP',
   // Jamaica
-  JM: "JMD",
+  JM: 'JMD',
   // Jordan
-  JO: "JOD",
+  JO: 'JOD',
   // Japan
-  JP: "JPY",
+  JP: 'JPY',
   // Kenya
-  KE: "KES",
+  KE: 'KES',
   // Kyrgyzstan
-  KG: "KGS",
+  KG: 'KGS',
   // Cambodia
-  KH: "KHR",
+  KH: 'KHR',
   // Kiribati
-  KI: "AUD",
+  KI: 'AUD',
   // Comoros
-  KM: "KMF",
+  KM: 'KMF',
   // Saint Kitts
-  KN: "XCD",
+  KN: 'XCD',
   // Korea North
-  KP: "KPW",
+  KP: 'KPW',
   // Korea South
-  KR: "KRW",
+  KR: 'KRW',
   // Kuwait
-  KW: "KWD",
+  KW: 'KWD',
   // Cayman Islands
-  KY: "KYD",
+  KY: 'KYD',
   // Kazakhstan
-  KZ: "KZT",
+  KZ: 'KZT',
   // Laos
-  LA: "LAK",
+  LA: 'LAK',
   // Lebanon
-  LB: "LBP",
+  LB: 'LBP',
   // Saint Lucia
-  LC: "XCD",
+  LC: 'XCD',
   // Liechtenstein
-  LI: "CHF",
+  LI: 'CHF',
   // Sri Lanka
-  LK: "LKR",
+  LK: 'LKR',
   // Liberia
-  LR: "LRD",
+  LR: 'LRD',
   // Lesotho
-  LS: "LSL",
+  LS: 'LSL',
   // Lithuania
-  LT: "EUR",
+  LT: 'EUR',
   // Luxembourg
-  LU: "EUR",
+  LU: 'EUR',
   // Latvia
-  LV: "EUR",
+  LV: 'EUR',
   // Libyan Arab Jamahiriya
-  LY: "LYD",
+  LY: 'LYD',
   // Morocco
-  MA: "MAD",
+  MA: 'MAD',
   // Monaco
-  MC: "EUR",
+  MC: 'EUR',
   // Moldova Republic of
-  MD: "MDL",
+  MD: 'MDL',
   // Montenegro
-  ME: "EUR",
+  ME: 'EUR',
   // Saint Martin (French part)
-  MF: "EUR",
+  MF: 'EUR',
   // Madagascar
-  MG: "MGA",
+  MG: 'MGA',
   // Marshall Islands
-  MH: "USD",
+  MH: 'USD',
   // Macedonia
-  MK: "MKD",
+  MK: 'MKD',
   // Mali
-  ML: "XOF",
+  ML: 'XOF',
   // Myanmar
-  MM: "MMK",
+  MM: 'MMK',
   // Mongolia
-  MN: "MNT",
+  MN: 'MNT',
   // Macau
-  MO: "MOP",
+  MO: 'MOP',
   // Northern Mariana Islands
-  MP: "USD",
+  MP: 'USD',
   // Martinique
-  MQ: "EUR",
+  MQ: 'EUR',
   // Mauritania
-  MR: "MRO",
+  MR: 'MRO',
   // Montserrat
-  MS: "XCD",
+  MS: 'XCD',
   // Malta
-  MT: "EUR",
+  MT: 'EUR',
   // Mauritius
-  MU: "MUR",
+  MU: 'MUR',
   // Maldives
-  MV: "MVR",
+  MV: 'MVR',
   // Malawi
-  MW: "MWK",
+  MW: 'MWK',
   // Mexico
-  MX: "MXN",
+  MX: 'MXN',
   // Malaysia
-  MY: "MYR",
+  MY: 'MYR',
   // Mozambique
-  MZ: "MZN",
+  MZ: 'MZN',
   // Namibia
-  NA: "NAD",
+  NA: 'NAD',
   // New Caledonia
-  NC: "XPF",
+  NC: 'XPF',
   // Niger
-  NE: "XOF",
+  NE: 'XOF',
   // Norfolk Island
-  NF: "AUD",
+  NF: 'AUD',
   // Nigeria
-  NG: "NGN",
+  NG: 'NGN',
   // Nicaragua
-  NI: "NIO",
+  NI: 'NIO',
   // Netherlands
-  NL: "EUR",
+  NL: 'EUR',
   // Norway
-  NO: "NOK",
+  NO: 'NOK',
   // Nepal
-  NP: "NPR",
+  NP: 'NPR',
   // Nauru
-  NR: "AUD",
+  NR: 'AUD',
   // Niue
-  NU: "NZD",
+  NU: 'NZD',
   // New Zealand
-  NZ: "NZD",
+  NZ: 'NZD',
   // Oman
-  OM: "OMR",
+  OM: 'OMR',
   // Panama
-  PA: "PAB",
+  PA: 'PAB',
   // Peru
-  PE: "PEN",
+  PE: 'PEN',
   // French Polynesia
-  PF: "XPF",
+  PF: 'XPF',
   // Papua New Guinea
-  PG: "PGK",
+  PG: 'PGK',
   // Philippines
-  PH: "PHP",
+  PH: 'PHP',
   // Pakistan
-  PK: "PKR",
+  PK: 'PKR',
   // Poland
-  PL: "PLN",
+  PL: 'PLN',
   // Saint Pierre and Miquelon
-  PM: "EUR",
+  PM: 'EUR',
   // Pitcairn
-  PN: "NZD",
+  PN: 'NZD',
   // Puerto Rico
-  PR: "USD",
+  PR: 'USD',
   // Palestinian Territory
-  PS: "JOD",
+  PS: 'JOD',
   // Portugal
-  PT: "EUR",
+  PT: 'EUR',
   // Palau
-  PW: "USD",
+  PW: 'USD',
   // Paraguay
-  PY: "PYG",
+  PY: 'PYG',
   // Qatar
-  QA: "QAR",
+  QA: 'QAR',
   // Reunion
-  RE: "EUR",
+  RE: 'EUR',
   // Romania
-  RO: "RON",
+  RO: 'RON',
   // Serbia
-  RS: "RSD",
+  RS: 'RSD',
   // Russian Federation
-  RU: "RUB",
+  RU: 'RUB',
   // Rwanda
-  RW: "RWF",
+  RW: 'RWF',
   // Saudi Arabia
-  SA: "SAR",
+  SA: 'SAR',
   // Solomon Islands
-  SB: "SBD",
+  SB: 'SBD',
   // Seychelles
-  SC: "SCR",
+  SC: 'SCR',
   // Sudan
-  SD: "SDG",
+  SD: 'SDG',
   // Sweden
-  SE: "SEK",
+  SE: 'SEK',
   // Singapore
-  SG: "SGD",
+  SG: 'SGD',
   // Saint Helena
-  SH: "GBP",
+  SH: 'GBP',
   // Slovenia
-  SI: "EUR",
+  SI: 'EUR',
   // Svalbard and Jan Mayen Islands
-  SJ: "NOK",
+  SJ: 'NOK',
   // Slovakia (Slovak Republic)
-  SK: "EUR",
+  SK: 'EUR',
   // Sierra Leone
-  SL: "SLL",
+  SL: 'SLL',
   // San Marino
-  SM: "EUR",
+  SM: 'EUR',
   // Senegal
-  SN: "XOF",
+  SN: 'XOF',
   // Somalia
-  SO: "SOS",
+  SO: 'SOS',
   // Suriname
-  SR: "SRD",
+  SR: 'SRD',
   // Sao Tome and Principe
-  ST: "STD",
+  ST: 'STD',
   // El Salvador
-  SV: "USD",
+  SV: 'USD',
   // Syrian Arab Republic
-  SY: "SYP",
+  SY: 'SYP',
   // Swaziland
-  SZ: "SZL",
+  SZ: 'SZL',
   // Turks and Caicos Islands
-  TC: "USD",
+  TC: 'USD',
   // Chad
-  TD: "XAF",
+  TD: 'XAF',
   // French Southern Territories
-  TF: "EUR",
+  TF: 'EUR',
   // Togo
-  TG: "XOF",
+  TG: 'XOF',
   // Thailand
-  TH: "THB",
+  TH: 'THB',
   // Tajikistan
-  TJ: "TJS",
+  TJ: 'TJS',
   // Tokelau
-  TK: "NZD",
+  TK: 'NZD',
   // East Timor
-  TL: "IDR",
+  TL: 'IDR',
   // Turkmenistan
-  TM: "TMT",
+  TM: 'TMT',
   // Tunisia
-  TN: "TND",
+  TN: 'TND',
   // Tonga
-  TO: "TOP",
+  TO: 'TOP',
   // Turkey
-  TR: "TRY",
+  TR: 'TRY',
   // Trinidad and Tobago
-  TT: "TTD",
+  TT: 'TTD',
   // Tuvalu
-  TV: "AUD",
+  TV: 'AUD',
   // Taiwan
-  TW: "TWD",
+  TW: 'TWD',
   // Tanzania
-  TZ: "TZS",
+  TZ: 'TZS',
   // Ukraine
-  UA: "UAH",
+  UA: 'UAH',
   // Uganda
-  UG: "UGX",
+  UG: 'UGX',
   // United States Minor Outlying Islands
-  UM: "USD",
+  UM: 'USD',
   // United States
-  US: "USD",
+  US: 'USD',
   // Uruguay
-  UY: "UYU",
+  UY: 'UYU',
   // Uzbekistan
-  UZ: "UZS",
+  UZ: 'UZS',
   // Vatican City State (Holy See)
-  VA: "EUR",
+  VA: 'EUR',
   // Saint Vincent Grenadines
-  VC: "XCD",
+  VC: 'XCD',
   // Venezuela
-  VE: "VEF",
+  VE: 'VEF',
   // Virgin Islands (British)
-  VG: "USD",
+  VG: 'USD',
   // Virgin Islands (US)
-  VI: "USD",
+  VI: 'USD',
   // Vietnam
-  VN: "VND",
+  VN: 'VND',
   // Vanuatu
-  VU: "VUV",
+  VU: 'VUV',
   // Wallis and Futuna Islands
-  WF: "XPF",
+  WF: 'XPF',
   // Samoa
-  WS: "WST",
+  WS: 'WST',
   // Yemen
-  YE: "YER",
+  YE: 'YER',
   // Mayotte
-  YT: "EUR",
+  YT: 'EUR',
   // South Africa
-  ZA: "ZAR",
+  ZA: 'ZAR',
   // Zambia
-  ZM: "ZMW",
+  ZM: 'ZMW',
   // Zimbabwe
-  ZW: "ZWD",
+  ZW: 'ZWD',
 };
 
 const uniqueSet = new Set(Object.values(currencies));

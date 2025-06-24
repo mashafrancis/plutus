@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
-import { PreviousDiffIndicator } from "@/components/previous-diff-indicator";
-import { cn } from "@/lib/utils";
+import type { ReactNode } from 'react';
+import { PreviousDiffIndicator } from '@/components/previous-diff-indicator';
+import { cn } from '@/lib/utils';
 
 interface OverviewCardProps {
   heading: string;
@@ -24,16 +24,16 @@ export default function OverviewCard({
   const _increase = negative ? data.change <= 0 : data.change >= 0;
 
   return (
-    <div className={cn("group card relative p-4")}>
+    <div className={cn('group card relative p-4')}>
       <MetricCardNumber
-        label={heading}
-        value={data.current}
         enhancer={
           <PreviousDiffIndicator
-            diff={data.change}
             className="text-muted-foreground text-sm"
+            diff={data.change}
           />
         }
+        label={heading}
+        value={data.current}
       />
     </div>
     // <Card className='relative p-0 shadow-none'>
@@ -100,7 +100,7 @@ function MetricCardNumber({
   className?: string;
 }) {
   return (
-    <div className={cn("flex min-w-0 flex-col gap-2", className)}>
+    <div className={cn('flex min-w-0 flex-col gap-2', className)}>
       <div className="flex items-center justify-between gap-4">
         <span className="truncate text-muted-foreground">{label}</span>
         {enhancer}

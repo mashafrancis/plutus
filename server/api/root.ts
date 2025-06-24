@@ -1,9 +1,9 @@
-import { expensesRouter } from "@/server/api/routers/expenses";
-import { incomeRouter } from "@/server/api/routers/income";
-import { investmentsRouter } from "@/server/api/routers/investments";
-import { subscriptionsRouter } from "@/server/api/routers/subscriptions";
-import { usersRouter } from "@/server/api/routers/users";
-import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
+import { expensesRouter } from '@/server/api/routers/expenses';
+import { incomeRouter } from '@/server/api/routers/income';
+import { investmentsRouter } from '@/server/api/routers/investments';
+import { subscriptionsRouter } from '@/server/api/routers/subscriptions';
+import { usersRouter } from '@/server/api/routers/users';
+import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc';
 
 /**
  * This is the primary router for your server.

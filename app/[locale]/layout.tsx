@@ -1,32 +1,32 @@
-import "@/styles/globals.css";
+import '@/styles/globals.css';
 
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
-import { ViewTransitions } from "next-view-transitions";
-import type { ReactNode } from "react";
-import { Toaster } from "sonner";
-import { Providers } from "@/app/[locale]/providers";
-import { fontMono, fontSans } from "@/app/fonts";
-import { constructMetadata } from "@/lib/construct-metadata";
-import { cn } from "@/lib/utils";
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import Script from 'next/script';
+import { ViewTransitions } from 'next-view-transitions';
+import type { ReactNode } from 'react';
+import { Toaster } from 'sonner';
+import { Providers } from '@/app/[locale]/providers';
+import { fontMono, fontSans } from '@/app/fonts';
+import { constructMetadata } from '@/lib/construct-metadata';
+import { cn } from '@/lib/utils';
 
 export const metadata = constructMetadata();
 
 export const viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
 };
 
-const _geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
-const _geist_mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
+const _geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
+const _geist_mono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono' });
 
 type Params = Promise<{ locale: string }>;
 
@@ -44,15 +44,15 @@ export default async function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <Script
           async
-          src="https://cdn.seline.so/seline.js"
           data-token="82a54f4e6018731"
+          src="https://cdn.seline.so/seline.js"
           strategy="afterInteractive"
         />
         <body
           className={cn(
-            "min-[100dvh] overscroll-none scroll-smooth whitespace-pre-line bg-alternative! font-sans antialiased",
+            'min-[100dvh] overscroll-none scroll-smooth whitespace-pre-line bg-alternative! font-sans antialiased',
             fontSans.variable,
-            fontMono.variable,
+            fontMono.variable
             // geist.variable,
             // geist_mono.variable,
           )}

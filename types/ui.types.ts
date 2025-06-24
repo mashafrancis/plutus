@@ -1,10 +1,10 @@
-import type { ButtonProps } from "@/components/ui/button";
+import type { ButtonProps } from '@/components/ui/button';
 
 export interface CTA {
   label: string;
   href: string;
-  type?: ButtonProps["type"];
-  target?: HTMLAnchorElement["target"];
+  type?: ButtonProps['type'];
+  target?: HTMLAnchorElement['target'];
 }
 
 export interface DatetimeHelper {
@@ -21,12 +21,12 @@ export type Time = {
   ss: string;
 };
 
-export type TimeType = "HH" | "mm" | "ss";
+export type TimeType = 'HH' | 'mm' | 'ss';
 
 export interface TimeSplitInputProps {
   time: Time;
   setTime: (x: Time) => void;
-  type: "start" | "end";
+  type: 'start' | 'end';
   setStartTime: (x: Time) => void;
   setEndTime: (x: Time) => void;
   startTime: Time;
@@ -41,6 +41,6 @@ export type Date = {
   DD: string;
 };
 
-export type DateType = "YYYY" | "MM" | "DD";
+export type DateType = 'YYYY' | 'MM' | 'DD';
 
 export type DatePickerToFrom = { to: string | null; from: string | null };

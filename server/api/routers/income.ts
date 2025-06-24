@@ -1,9 +1,9 @@
-import { z } from "zod/v4";
+import { z } from 'zod/v4';
 import {
   ZCreateOrPatchIncomeSchema,
   ZGetIncomeSchema,
-} from "@/server/api/schema";
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+} from '@/server/api/schema';
+import { createTRPCRouter, protectedProcedure } from '@/server/api/trpc';
 
 export const incomeRouter = createTRPCRouter({
   create: protectedProcedure
@@ -31,7 +31,7 @@ export const incomeRouter = createTRPCRouter({
       const { categories, to, from } = input;
       const OR = {
         OR: categories
-          ?.split(",")
+          ?.split(',')
           .map((category: any) => ({ category: { contains: category } })),
       };
 
@@ -41,13 +41,13 @@ export const incomeRouter = createTRPCRouter({
         ...(to && from && { date: { lte: to, gte: from } }),
       };
 
-      if (!from && !to) {
+      if (!(from || to)) {
         where.date = undefined;
       }
 
       const post = await ctx.db.income.findMany({
         where,
-        orderBy: { updatedAt: "desc" },
+        orderBy: { updatedAt: 'desc' },
         select: {
           notes: true,
           name: true,
@@ -80,7 +80,7 @@ export const incomeRouter = createTRPCRouter({
       const { id } = input;
 
       return ctx.db.income.delete({
-        where: { id: id },
+        where: { id },
       });
     }),
 });

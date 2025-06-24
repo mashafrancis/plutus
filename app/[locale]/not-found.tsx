@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
-  title: "404 | MXL Console",
+  title: '404 | MXL Console',
 };
 
 export default function NotFound() {
@@ -23,7 +23,7 @@ export default function NotFound() {
           </p>
         </div>
         <div className="flex items-center space-x-4">
-          <Button variant="default" asChild size="sm">
+          <Button asChild size="sm" variant="default">
             <Link href="/console">Take me home</Link>
           </Button>
         </div>

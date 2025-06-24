@@ -1,16 +1,16 @@
-import { format } from "date-fns";
-import { z } from "zod/v4";
-import { dateFormat } from "@/constants/date";
+import { format } from 'date-fns';
+import { z } from 'zod/v4';
+import { dateFormat } from '@/constants/date';
 import {
   calculatePaidDates,
   calculatePrevRenewalDate,
   calculateRenewalDate,
-} from "@/lib/date";
+} from '@/lib/date';
 import {
   ZCreateOrPatchSubscriptionsSchema,
   ZGetSubscriptionsSchema,
-} from "@/server/api/schema";
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+} from '@/server/api/schema';
+import { createTRPCRouter, protectedProcedure } from '@/server/api/trpc';
 
 export const subscriptionsRouter = createTRPCRouter({
   create: protectedProcedure
@@ -40,14 +40,14 @@ export const subscriptionsRouter = createTRPCRouter({
 
       const data = await ctx.db.subscription.findMany({
         where: { userId },
-        orderBy: { date: "desc" },
+        orderBy: { date: 'desc' },
       });
 
       let updatedDate = data.map((datum) => {
         const renewal_date = calculateRenewalDate(datum.date, datum.paid);
         const prev_renewal_date = format(
           calculatePrevRenewalDate(renewal_date, datum.paid),
-          dateFormat,
+          dateFormat
         );
         return {
           ...datum,
@@ -57,7 +57,7 @@ export const subscriptionsRouter = createTRPCRouter({
         };
       });
 
-      if (from !== "" && to !== "") {
+      if (from !== '' && to !== '') {
         updatedDate = updatedDate.filter((datum) => datum.paid_dates?.length);
       }
 
@@ -82,7 +82,7 @@ export const subscriptionsRouter = createTRPCRouter({
       const { id } = input;
 
       return ctx.db.subscription.delete({
-        where: { id: id },
+        where: { id },
       });
     }),
 });

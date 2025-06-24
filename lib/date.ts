@@ -9,7 +9,7 @@ import {
   isValid,
   subMonths,
   subYears,
-} from "date-fns";
+} from 'date-fns';
 
 export const calculateRenewalDate = (date: string, paid: string) => {
   const startDate = new Date(date);
@@ -19,10 +19,10 @@ export const calculateRenewalDate = (date: string, paid: string) => {
     return startDate;
   }
 
-  if (paid === "monthly") {
+  if (paid === 'monthly') {
     const monthlyDate = addMonths(
       startDate,
-      differenceInMonths(today, startDate),
+      differenceInMonths(today, startDate)
     );
     if (isToday(monthlyDate) && !isToday(startDate)) return today;
     return addMonths(monthlyDate, 1);
@@ -30,7 +30,7 @@ export const calculateRenewalDate = (date: string, paid: string) => {
 
   const yearRenewalDate = addYears(
     startDate,
-    differenceInYears(today, startDate),
+    differenceInYears(today, startDate)
   );
   if (isToday(yearRenewalDate) && !isToday(startDate)) return today;
   return addYears(yearRenewalDate, 1);
@@ -44,7 +44,7 @@ export const calculatePrevRenewalDate = (date: Date, paid: string) => {
     return startDate;
   }
 
-  if (paid === "monthly") {
+  if (paid === 'monthly') {
     previousRenewalDate = subMonths(date, 1);
     return previousRenewalDate > startDate ? previousRenewalDate : startDate;
   }
@@ -56,9 +56,9 @@ export const calculatePrevRenewalDate = (date: Date, paid: string) => {
 export const calculatePaidDates = (
   datum: any,
   start: string,
-  end: string,
+  end: string
 ): Array<Date> => {
-  if (!start || !end) return [];
+  if (!(start && end)) return [];
 
   const hasValidCancelledAt =
     !datum.active &&
@@ -76,16 +76,14 @@ export const calculatePaidDates = (
     return [];
   }
 
-  if (datum.paid === "monthly") {
+  if (datum.paid === 'monthly') {
     if (!isFuture(startDate)) {
       noOfPaidDurations =
         differenceInMonths(rangeEndDate, startDate) + startDateCount;
     }
-  } else {
-    if (!isFuture(startDate)) {
-      noOfPaidDurations =
-        differenceInYears(rangeEndDate, startDate) + startDateCount;
-    }
+  } else if (!isFuture(startDate)) {
+    noOfPaidDurations =
+      differenceInYears(rangeEndDate, startDate) + startDateCount;
   }
 
   if (noOfPaidDurations < 0) return [];

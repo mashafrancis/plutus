@@ -1,6 +1,6 @@
-import { type BetterAuthOptions, betterAuth } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
-import { PrismaClient } from "@/generated/prisma";
+import { type BetterAuthOptions, betterAuth } from 'better-auth';
+import { prismaAdapter } from 'better-auth/adapters/prisma';
+import { PrismaClient } from '@/generated/prisma';
 
 const prisma = new PrismaClient();
 
@@ -16,7 +16,7 @@ export function initAuth(options: {
 }) {
   const config = {
     database: prismaAdapter(prisma, {
-      provider: "postgresql",
+      provider: 'postgresql',
     }),
     baseURL: options.baseUrl,
     secret: options.secret,
@@ -36,4 +36,4 @@ export function initAuth(options: {
 }
 
 export type Auth = ReturnType<typeof initAuth>;
-export type Session = Auth["$Infer"]["Session"];
+export type Session = Auth['$Infer']['Session'];

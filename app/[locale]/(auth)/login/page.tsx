@@ -1,15 +1,15 @@
-import { AlertCircle } from "lucide-react";
-import type { Metadata } from "next";
-import { redirect } from "next/navigation";
-import posthog from "posthog-js";
-import { auth, getSession } from "@/auth/server";
-import { Icons } from "@/components/icons";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
+import { AlertCircle } from 'lucide-react';
+import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import posthog from 'posthog-js';
+import { auth, getSession } from '@/auth/server';
+import { Icons } from '@/components/icons';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
-  title: "Login",
-  description: "Login to your account",
+  title: 'Login',
+  description: 'Login to your account',
 };
 
 export default async function Page({
@@ -28,7 +28,7 @@ export default async function Page({
   return (
     <div className="flex flex-col gap-5">
       {error && (
-        <Alert variant="destructive" className="bg-background text-left">
+        <Alert className="bg-background text-left" variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Error</AlertTitle>
           <AlertDescription>
@@ -87,22 +87,22 @@ export default async function Page({
             {/*  Login with Github*/}
             {/*</Button>*/}
             <Button
-              variant="outline"
               className="w-full"
               formAction={async () => {
-                "use server";
+                'use server';
                 const res = await auth.api.signInSocial({
                   body: {
-                    provider: "google",
-                    callbackURL: "/overview",
+                    provider: 'google',
+                    callbackURL: '/overview',
                   },
                 });
-                posthog.capture("Login", { provider: "google" });
+                posthog.capture('Login', { provider: 'google' });
                 if (!res.url) {
-                  throw new Error("No URL returned from signInSocial");
+                  throw new Error('No URL returned from signInSocial');
                 }
                 redirect(res.url);
               }}
+              variant="outline"
             >
               <Icons.google className="h-4 w-4" />
               Login with Google

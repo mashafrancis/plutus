@@ -1,18 +1,18 @@
-import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
-import type { NextRequest } from "next/server";
-import { auth } from "@/auth/server";
-import { appRouter } from "@/server/api/root";
-import { createTRPCContext } from "@/server/api/trpc";
+import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
+import type { NextRequest } from 'next/server';
+import { auth } from '@/auth/server';
+import { appRouter } from '@/server/api/root';
+import { createTRPCContext } from '@/server/api/trpc';
 
 /**
  * Configure basic CORS headers
  * You should extend this to match your needs
  */
 const setCorsHeaders = (res: Response) => {
-  res.headers.set("Access-Control-Allow-Origin", "*");
-  res.headers.set("Access-Control-Request-Method", "*");
-  res.headers.set("Access-Control-Allow-Methods", "OPTIONS, GET, POST");
-  res.headers.set("Access-Control-Allow-Headers", "*");
+  res.headers.set('Access-Control-Allow-Origin', '*');
+  res.headers.set('Access-Control-Request-Method', '*');
+  res.headers.set('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+  res.headers.set('Access-Control-Allow-Headers', '*');
 };
 
 export const OPTIONS = () => {
@@ -25,12 +25,12 @@ export const OPTIONS = () => {
 
 const handler = async (req: NextRequest) => {
   const response = await fetchRequestHandler({
-    endpoint: "/api/trpc",
+    endpoint: '/api/trpc',
     router: appRouter,
     req,
     createContext: () =>
       createTRPCContext({
-        auth: auth,
+        auth,
         headers: req.headers,
       }),
     onError({ error, path }) {

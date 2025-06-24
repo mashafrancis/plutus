@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
-import type { SearchParams } from "nuqs";
-import { loadMetricsParams } from "@/hooks/use-metrics-params";
-import { getCurrencySymbol } from "@/lib/formatter";
-import { getQueryClient, trpc } from "@/trpc/server";
-import OverviewCard from "./overview-card";
+import type { Metadata } from 'next';
+import type { SearchParams } from 'nuqs';
+import { loadMetricsParams } from '@/hooks/use-metrics-params';
+import { getCurrencySymbol } from '@/lib/formatter';
+import { getQueryClient, trpc } from '@/trpc/server';
+import OverviewCard from './overview-card';
 
 export const metadata: Metadata = {
-  title: "Overview",
-  description: "Plutus finance tracker.",
+  title: 'Overview',
+  description: 'Plutus finance tracker.',
 };
 
 type Props = {
@@ -30,20 +30,20 @@ export default async function Page(props: Props) {
 
   const totalExpenses = expenses.reduce(
     (acc: any, { price }: any) => Number(price) + acc,
-    0,
+    0
   );
   const totalIncome = income.reduce(
     (acc: any, { price }: any) => Number(price) + acc,
-    0,
+    0
   );
   const totalInvestments = investments.reduce(
     (acc: any, { price, units }: any) => Number(price) * Number(units) + acc,
-    0,
+    0
   );
   const totalSubscriptions = subscriptions.reduce(
     (acc: any, { price, paid_dates }: any) =>
       Number(price) * paid_dates.length + acc,
-    0,
+    0
   );
   const totalSpent = totalExpenses + totalInvestments + totalSubscriptions;
   const totalBalance = totalIncome - totalSpent;
@@ -52,11 +52,6 @@ export default async function Page(props: Props) {
     <>
       <div className="grid auto-rows-min gap-4 md:grid-cols-5">
         <OverviewCard
-          heading="Total income"
-          valuePrefix={getCurrencySymbol({
-            currency: user?.currency,
-            locale: user?.locale,
-          })}
           data={
             totalIncome
               ? { change: 0, current: totalIncome }
@@ -65,13 +60,13 @@ export default async function Page(props: Props) {
                   current: 0,
                 }
           }
-        />
-        <OverviewCard
-          heading="Available balance"
+          heading="Total income"
           valuePrefix={getCurrencySymbol({
             currency: user?.currency,
             locale: user?.locale,
           })}
+        />
+        <OverviewCard
           data={
             totalBalance
               ? { change: 0, current: totalBalance }
@@ -80,13 +75,13 @@ export default async function Page(props: Props) {
                   current: 0,
                 }
           }
-        />
-        <OverviewCard
-          heading="Total spent"
+          heading="Available balance"
           valuePrefix={getCurrencySymbol({
             currency: user?.currency,
             locale: user?.locale,
           })}
+        />
+        <OverviewCard
           data={
             totalSpent
               ? { change: 0, current: totalSpent }
@@ -95,13 +90,13 @@ export default async function Page(props: Props) {
                   current: 0,
                 }
           }
-        />
-        <OverviewCard
-          heading="Total investment"
+          heading="Total spent"
           valuePrefix={getCurrencySymbol({
             currency: user?.currency,
             locale: user?.locale,
           })}
+        />
+        <OverviewCard
           data={
             totalInvestments
               ? { change: 0, current: totalInvestments }
@@ -110,13 +105,13 @@ export default async function Page(props: Props) {
                   current: 0,
                 }
           }
-        />
-        <OverviewCard
-          heading="Total subscriptions"
+          heading="Total investment"
           valuePrefix={getCurrencySymbol({
             currency: user?.currency,
             locale: user?.locale,
           })}
+        />
+        <OverviewCard
           data={
             totalSubscriptions
               ? { change: 0, current: totalSubscriptions }
@@ -125,6 +120,11 @@ export default async function Page(props: Props) {
                   current: 0,
                 }
           }
+          heading="Total subscriptions"
+          valuePrefix={getCurrencySymbol({
+            currency: user?.currency,
+            locale: user?.locale,
+          })}
         />
         {/*<div className='aspect-video rounded-xl bg-muted/50' />*/}
         {/*<div className='aspect-video rounded-xl bg-muted/50' />*/}

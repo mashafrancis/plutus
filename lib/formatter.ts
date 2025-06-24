@@ -1,7 +1,7 @@
-const defaultCurrency = "KES";
-const defaultLocale = "en-KE";
-const defaultDateStyle = { day: "2-digit", month: "short" };
-const _timeStyle = { hour: "numeric", minute: "numeric" };
+const defaultCurrency = 'KES';
+const defaultLocale = 'en-KE';
+const defaultDateStyle = { day: '2-digit', month: 'short' };
+const _timeStyle = { hour: 'numeric', minute: 'numeric' };
 
 type Currency = {
   value: number | bigint;
@@ -26,7 +26,7 @@ export const formatCurrency = ({
 }: Currency): any => {
   try {
     return new Intl.NumberFormat(locale, {
-      style: "currency",
+      style: 'currency',
       currency,
       minimumFractionDigits,
       maximumFractionDigits,
@@ -53,18 +53,18 @@ export const getCurrencySymbol = ({
   locale = defaultLocale,
   minimumFractionDigits = 0,
   maximumFractionDigits = 2,
-}: Omit<Currency, "value">): string | undefined => {
+}: Omit<Currency, 'value'>): string | undefined => {
   try {
     return new Intl.NumberFormat(locale, {
-      style: "currency",
+      style: 'currency',
       currency,
       minimumFractionDigits,
       maximumFractionDigits,
     })
       ?.formatToParts(1)
-      ?.find((x) => x.type === "currency")?.value;
+      ?.find((x) => x.type === 'currency')?.value;
   } catch {
-    return "";
+    return '';
   }
 };
 
@@ -75,9 +75,9 @@ export const getChange = (past: number, current: number): number => {
 };
 
 export function getInitials(value: string) {
-  const formatted = value.toUpperCase().replace(/[\s.-]/g, "");
+  const formatted = value.toUpperCase().replace(/[\s.-]/g, '');
 
-  if (formatted.split(" ").length > 1) {
+  if (formatted.split(' ').length > 1) {
     return `${formatted.charAt(0)}${formatted.charAt(1)}`;
   }
 

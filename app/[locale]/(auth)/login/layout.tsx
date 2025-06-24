@@ -1,12 +1,12 @@
-import Image from "next/image";
-import Link from "next/link";
-import type { ReactNode } from "react";
+import Image from 'next/image';
+import Link from 'next/link';
+import type { ReactNode } from 'react';
 
 interface AuthLayoutProps {
   children: ReactNode;
 }
 
-const logoImage = "/logo.svg";
+const logoImage = '/logo.svg';
 
 export default async function AuthLayout({ children }: AuthLayoutProps) {
   return (
@@ -16,11 +16,11 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
           <div className="flex w-[330px] flex-1 flex-col justify-center sm:w-[384px]">
             <Link href="/">
               <Image
-                src={logoImage}
                 alt="plutus-logo"
-                width={36}
-                height={36}
                 className="rounded-sm"
+                height={36}
+                src={logoImage}
+                width={36}
               />
             </Link>
             {children}
@@ -28,19 +28,19 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
 
           <div className="sm:text-center">
             <p className="text-muted-foreground text-xs sm:mx-auto sm:max-w-sm">
-              By continuing, you agree to our{" "}
+              By continuing, you agree to our{' '}
               <Link
-                href="/terms"
                 className="underline underline-offset-4 hover:text-primary"
+                href="/terms"
               >
                 Terms of Service
-              </Link>{" "}
-              and{" "}
+              </Link>{' '}
+              and{' '}
               <Link
-                href="/privacy"
                 className="underline underline-offset-4 hover:text-primary"
+                href="/privacy"
               >
-                Privacy Policy{" "}
+                Privacy Policy{' '}
               </Link>
               and to receive periodic emails with updates.
             </p>

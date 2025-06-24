@@ -4,17 +4,17 @@ import {
   defaultProgressReport,
   type ProgressReportCallback,
   visitRecords,
-} from "prisma-field-encryption/dist/generator/runtime";
-import type { Income, PrismaClient } from "../../generated/prisma";
+} from 'prisma-field-encryption/dist/generator/runtime';
+import type { Income, PrismaClient } from '../../generated/prisma';
 
-type Cursor = Income["id"];
+type Cursor = Income['id'];
 
 export async function migrate(
   client: PrismaClient,
-  reportProgress: ProgressReportCallback = defaultProgressReport,
+  reportProgress: ProgressReportCallback = defaultProgressReport
 ): Promise<number> {
   return visitRecords<PrismaClient, Cursor>({
-    modelName: "Income",
+    modelName: 'Income',
     client,
     getTotalCount: client.income.count,
     migrateRecord,
@@ -35,7 +35,7 @@ async function migrateRecord(client: PrismaClient, cursor: Cursor | undefined) {
             },
           }),
       orderBy: {
-        id: "asc",
+        id: 'asc',
       },
       select: {
         id: true,

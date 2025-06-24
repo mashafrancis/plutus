@@ -1,5 +1,5 @@
-import { toast } from "sonner";
-import { noop } from "@/lib/utils";
+import { toast } from 'sonner';
+import { noop } from '@/lib/utils';
 
 /**
  * Copy text content (string or Promise<string>) into Clipboard. Safari doesn't support write text into clipboard async,
@@ -12,7 +12,7 @@ import { noop } from "@/lib/utils";
  */
 export const copyToClipboard = async (
   str: string | Promise<string>,
-  callback = noop,
+  callback = noop
 ) => {
   const focused = window.document.hasFocus();
   if (focused) {
@@ -23,8 +23,8 @@ export const copyToClipboard = async (
       // the clipboard API.
       // Found this on https://developer.apple.com/forums/thread/691873
       const text = new ClipboardItem({
-        "text/plain": Promise.resolve(str).then(
-          (text) => new Blob([text], { type: "text/plain" }),
+        'text/plain': Promise.resolve(str).then(
+          (text) => new Blob([text], { type: 'text/plain' })
         ),
       });
       navigator.clipboard.write([text]).then(callback);
@@ -38,6 +38,6 @@ export const copyToClipboard = async (
         .then(callback);
     }
   } else {
-    toast.error("Unable to copy to clipboard");
+    toast.error('Unable to copy to clipboard');
   }
 };

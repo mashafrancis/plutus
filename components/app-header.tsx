@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import dayjs from "dayjs";
-import { type ReactNode, useState } from "react";
-import ReactMarkdown from "react-markdown";
+import dayjs from 'dayjs';
+import { type ReactNode, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import {
   type DatePickerValue,
   DateTimePicker,
-} from "@/components/ui/date-picker";
-import { EXPLORER_DATEPICKER_HELPERS } from "@/constants/time";
-import { useTimeQuery } from "@/hooks/use-time-query";
-import type { DatePickerToFrom } from "@/types/ui.types";
+} from '@/components/ui/date-picker';
+import { EXPLORER_DATEPICKER_HELPERS } from '@/constants/time';
+import { useTimeQuery } from '@/hooks/use-time-query';
+import type { DatePickerToFrom } from '@/types/ui.types';
 
 type DashboardHeaderProps = {
   title: string;
@@ -36,7 +36,7 @@ export default function AppHeader({
       return {
         to: defaultTo || to,
         from: defaultFrom || from,
-        text: `${dayjs(defaultFrom).format("DD MMM, HH:mm")} - ${dayjs(defaultTo).format("DD MMM, HH:mm")}`,
+        text: `${dayjs(defaultFrom).format('DD MMM, HH:mm')} - ${dayjs(defaultTo).format('DD MMM, HH:mm')}`,
         isHelper: false,
       };
     }
@@ -52,7 +52,7 @@ export default function AppHeader({
     useState<DatePickerValue>(getDefaultDatePickerValue());
 
   const handleDateChange = ({ to, from }: DatePickerToFrom) => {
-    onSearch(from || "", to || "");
+    onSearch(from || '', to || '');
   };
 
   return (
@@ -60,7 +60,7 @@ export default function AppHeader({
       <div className="mb-6 flex items-center justify-between">
         <div className="space-y-1">
           <h3 className="text-foreground text-lg">
-            <ReactMarkdown unwrapDisallowed disallowedElements={["p"]}>
+            <ReactMarkdown disallowedElements={['p']} unwrapDisallowed>
               {title}
             </ReactMarkdown>
           </h3>
@@ -75,11 +75,11 @@ export default function AppHeader({
         {showDatePicker ? (
           <DateTimePicker
             helpers={EXPLORER_DATEPICKER_HELPERS}
-            value={selectedDatePickerValue}
             onSubmit={(value) => {
               setSelectedDatePickerValue(value);
               handleDateChange(value);
             }}
+            value={selectedDatePickerValue}
           />
         ) : null}
         {addButton}
