@@ -138,25 +138,26 @@ export function useTable<T>(
     if (props.selectedRows && !deepEqual(props.selectedRows, rowSelection)) {
       setRowSelection(props.selectedRows ?? {});
     }
-  }, [props.selectedRows]);
+  }, [props.selectedRows, rowSelection]);
 
   useEffect(() => {
     props.onRowSelectionChange?.(table.getSelectedRowModel().rows);
-  }, [rowSelection]);
+  }, [props.onRowSelectionChange, table.getSelectedRowModel]);
 
   // Update internal columnVisibility when prop value changes
   useEffect(() => {
     if (
       props.columnVisibility &&
       !deepEqual(props.columnVisibility, columnVisibility)
-    )
+    ) {
       setColumnVisibility(props.columnVisibility ?? {});
-  }, [props.columnVisibility]);
+    }
+  }, [props.columnVisibility, columnVisibility]);
 
   // Call onColumnVisibilityChange when internal columnVisibility changes
   useEffect(() => {
     props.onColumnVisibilityChange?.(columnVisibility);
-  }, [columnVisibility]);
+  }, [columnVisibility, props.onColumnVisibilityChange]);
 
   const table = useReactTable({
     data,
@@ -230,7 +231,9 @@ const ResizableTableRow = memo(
           onRowClick
             ? (e) => {
                 // Ignore if click is on an interactive child
-                if (isClickOnInteractiveChild(e)) return;
+                if (isClickOnInteractiveChild(e)) {
+                  return;
+                }
                 onRowClick(row, e);
               }
             : undefined
@@ -311,11 +314,13 @@ export function Table<T>({
 }: TableProps<T>) {
   // Memoize table width calculation
   const tableWidth = useMemo(() => {
-    if (!enableColumnResizing) return '100%';
+    if (!enableColumnResizing) {
+      return '100%';
+    }
     return table
       .getVisibleLeafColumns()
       .reduce((acc, column) => acc + column.getSize(), 0);
-  }, [enableColumnResizing, table.getVisibleLeafColumns()]);
+  }, [enableColumnResizing, table.getVisibleLeafColumns]);
 
   return (
     <div
@@ -462,7 +467,9 @@ export function Table<T>({
                     onClick={
                       onRowClick
                         ? (e) => {
-                            if (isClickOnInteractiveChild(e)) return;
+                            if (isClickOnInteractiveChild(e)) {
+                              return;
+                            }
                             onRowClick(row, e);
                           }
                         : undefined

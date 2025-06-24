@@ -24,7 +24,9 @@ export const calculateRenewalDate = (date: string, paid: string) => {
       startDate,
       differenceInMonths(today, startDate)
     );
-    if (isToday(monthlyDate) && !isToday(startDate)) return today;
+    if (isToday(monthlyDate) && !isToday(startDate)) {
+      return today;
+    }
     return addMonths(monthlyDate, 1);
   }
 
@@ -32,7 +34,9 @@ export const calculateRenewalDate = (date: string, paid: string) => {
     startDate,
     differenceInYears(today, startDate)
   );
-  if (isToday(yearRenewalDate) && !isToday(startDate)) return today;
+  if (isToday(yearRenewalDate) && !isToday(startDate)) {
+    return today;
+  }
   return addYears(yearRenewalDate, 1);
 };
 
@@ -57,8 +61,10 @@ export const calculatePaidDates = (
   datum: any,
   start: string,
   end: string
-): Array<Date> => {
-  if (!(start && end)) return [];
+): Date[] => {
+  if (!(start && end)) {
+    return [];
+  }
 
   const hasValidCancelledAt =
     !datum.active &&
@@ -86,9 +92,11 @@ export const calculatePaidDates = (
       differenceInYears(rangeEndDate, startDate) + startDateCount;
   }
 
-  if (noOfPaidDurations < 0) return [];
+  if (noOfPaidDurations < 0) {
+    return [];
+  }
 
-  return [...Array(noOfPaidDurations).keys()]
+  return [...new Array(noOfPaidDurations).keys()]
     .map((_, index) => {
       return addMonths(startDate, index);
     })

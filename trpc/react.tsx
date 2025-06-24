@@ -27,7 +27,9 @@ function getQueryClient() {
   // This is very important, so we don't re-make a new client if React
   // suspends during the initial render. This may not be needed if we
   // have a suspense boundary BELOW the creation of the query client
-  if (!browserQueryClient) browserQueryClient = createQueryClient();
+  if (!browserQueryClient) {
+    browserQueryClient = createQueryClient();
+  }
 
   return browserQueryClient;
 }
@@ -68,7 +70,11 @@ export function TRPCReactProvider(props: { children: ReactNode }) {
 }
 
 const getBaseUrl = () => {
-  if (!isServer) return window.location.origin;
-  if (env.VERCEL_URL) return `https://${env.VERCEL_URL}`;
+  if (!isServer) {
+    return window.location.origin;
+  }
+  if (env.VERCEL_URL) {
+    return `https://${env.VERCEL_URL}`;
+  }
   return `http://localhost:${process.env.PORT ?? 3000}`;
 };

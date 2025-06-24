@@ -1,6 +1,7 @@
 import posthog from 'posthog-js';
 
 // Initialize Posthog when this module is loaded by Next.js
+// biome-ignore lint/style/noNonNullAssertion: <explanation>
 posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
   api_host: '/ingest',
   ui_host: 'https://us.posthog.com',

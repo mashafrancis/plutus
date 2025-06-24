@@ -41,9 +41,9 @@ export default function AppHeader({
       };
     }
     return {
-      to: EXPLORER_DATEPICKER_HELPERS[0]!.calcTo(),
-      from: EXPLORER_DATEPICKER_HELPERS[0]!.calcFrom(),
-      text: EXPLORER_DATEPICKER_HELPERS[0]!.text,
+      to: EXPLORER_DATEPICKER_HELPERS[0]?.calcTo(),
+      from: EXPLORER_DATEPICKER_HELPERS[0]?.calcFrom(),
+      text: EXPLORER_DATEPICKER_HELPERS[0]?.text,
       isHelper: true,
     };
   }

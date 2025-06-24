@@ -33,9 +33,7 @@ const handler = async (req: NextRequest) => {
         auth,
         headers: req.headers,
       }),
-    onError({ error, path }) {
-      console.error(`>>> tRPC Error on '${path}'`, error);
-    },
+    onError({ error, path }) {},
   });
 
   setCorsHeaders(response);

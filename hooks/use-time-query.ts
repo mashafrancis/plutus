@@ -48,7 +48,7 @@ export function useTimeQuery() {
     (range: string) => {
       setTimeRange(range || defaultState.timeRange);
     },
-    [setTimestampStartValue, setTimestampEndValue, setTimeRange]
+    [setTimeRange]
   );
 
   return {

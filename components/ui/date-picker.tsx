@@ -148,7 +148,6 @@ export const DateTimePicker = ({
           const json = JSON.parse(text);
 
           if (!(json.from && json.to)) {
-            console.warn('Invalid date range format in clipboard');
             return;
           }
 
@@ -160,7 +159,6 @@ export const DateTimePicker = ({
             Number.isNaN(fromDate.getTime()) ||
             Number.isNaN(toDate.getTime())
           ) {
-            console.warn('Invalid date values in clipboard');
             return;
           }
 
@@ -181,20 +179,15 @@ export const DateTimePicker = ({
           });
 
           setPasted(true);
-        } catch (error) {
-          console.warn(
-            'Failed to parse clipboard content as date range:',
-            error
-          );
-        }
+        } catch (_error) {}
       })
-      .catch((error) => {
-        console.warn('Failed to read clipboard:', error);
-      });
+      .catch((_error) => {});
   }
 
   function handleCopy() {
-    if (!(startDate && endDate)) return;
+    if (!(startDate && endDate)) {
+      return;
+    }
 
     const fromDate = new Date(startDate);
     const toDate = new Date(endDate);
@@ -230,7 +223,7 @@ export const DateTimePicker = ({
       document.removeEventListener('paste', handlePaste);
       document.removeEventListener('copy', handleCopy);
     };
-  }, [open, startDate, endDate]);
+  }, [open, handleCopy, handlePaste]);
 
   const isLargeRange =
     Math.abs(dayjs(startDate).diff(dayjs(endDate), 'days')) >

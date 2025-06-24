@@ -69,7 +69,9 @@ export const getCurrencySymbol = ({
 };
 
 export const getChange = (past: number, current: number): number => {
-  if (past === 0 || !past) return 100;
+  if (past === 0 || !past) {
+    return 100;
+  }
   const change = ((current - past) / past) * 100;
   return Math.round(Math.min(change, 100));
 };

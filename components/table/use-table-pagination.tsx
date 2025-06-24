@@ -24,7 +24,7 @@ export function useTablePagination({
 
   useEffect(() => {
     onPageChange?.(pagination.pageIndex);
-  }, [pagination]);
+  }, [pagination, onPageChange]);
 
   return { pagination, setPagination };
 }

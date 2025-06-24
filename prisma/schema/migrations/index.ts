@@ -23,15 +23,10 @@ export const defaultProgressReport: ProgressReportCallback = ({
   processed,
   performance,
 }) => {
-  const length = totalCount.toString().length;
-  const pct = Math.round((100 * processed) / totalCount)
+  const _length = totalCount.toString().length;
+  const _pct = Math.round((100 * processed) / totalCount)
     .toString()
     .padStart(3);
-  console.info(
-    `${model.padEnd(12)} ${pct}% processed ${processed
-      .toString()
-      .padStart(length)} / ${totalCount} (took ${performance.toFixed(2)}ms)`
-  );
 };
 
 // --

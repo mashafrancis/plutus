@@ -20,13 +20,25 @@ const TimeSplitInput = ({
   function handleOnBlur() {
     const _time = time;
 
-    if (_time.HH.length === 1) _time.HH = `0${_time.HH}`;
-    if (_time.mm.length === 1) _time.mm = `0${_time.mm}`;
-    if (_time.ss.length === 1) _time.ss = `0${_time.ss}`;
+    if (_time.HH.length === 1) {
+      _time.HH = `0${_time.HH}`;
+    }
+    if (_time.mm.length === 1) {
+      _time.mm = `0${_time.mm}`;
+    }
+    if (_time.ss.length === 1) {
+      _time.ss = `0${_time.ss}`;
+    }
 
-    if (!_time.HH) _time.HH = '00';
-    if (!_time.mm) _time.mm = '00';
-    if (!_time.ss) _time.ss = '00';
+    if (!_time.HH) {
+      _time.HH = '00';
+    }
+    if (!_time.mm) {
+      _time.mm = '00';
+    }
+    if (!_time.ss) {
+      _time.ss = '00';
+    }
 
     let endTimeChanges = false;
     const endTimePayload = endTime;
@@ -130,17 +142,25 @@ const TimeSplitInput = ({
       mm: time.mm,
       ss: time.ss,
     };
-    if (value.length > 2) return;
+    if (value.length > 2) {
+      return;
+    }
 
     switch (valueType) {
       case 'HH':
-        if (value && Number(value) > 23) return;
+        if (value && Number(value) > 23) {
+          return;
+        }
         break;
       case 'mm':
-        if (value && Number(value) > 59) return;
+        if (value && Number(value) > 59) {
+          return;
+        }
         break;
       case 'ss':
-        if (value && Number(value) > 59) return;
+        if (value && Number(value) > 59) {
+          return;
+        }
         break;
       default:
         break;
@@ -157,7 +177,7 @@ const TimeSplitInput = ({
 
   useEffect(() => {
     handleOnBlur();
-  }, [startDate, endDate]);
+  }, [handleOnBlur]);
 
   return (
     <div
