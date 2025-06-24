@@ -24,7 +24,13 @@ export default function OverviewCard({
   const _increase = negative ? data.change <= 0 : data.change >= 0;
 
   return (
-    <div className={cn('group card relative p-4')}>
+    <div
+      className={cn(
+        'group/metric flex flex-col gap-2 p-2',
+        'max-sm:screen-line-before max-sm:screen-line-after',
+        'sm:nth-[2n+1]:screen-line-before sm:nth-[2n+1]:screen-line-after'
+      )}
+    >
       <MetricCardNumber
         enhancer={
           <PreviousDiffIndicator

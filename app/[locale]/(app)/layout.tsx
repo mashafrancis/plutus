@@ -1,16 +1,19 @@
+import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
-import { AppSidebar } from '@/components/app-sidebar';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { Sidebar } from '@/components/app-sidebar';
+import { getQueryClient, trpc } from '@/trpc/server';
 
 export default async function Layout({ children }: { children: ReactNode }) {
+  const queryClient = getQueryClient();
+  const user = await queryClient.fetchQuery(trpc.users.me.queryOptions());
+
+  if (!user) {
+    redirect('/login');
+  }
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <div className="flex flex-1 flex-col gap-4 overflow-hidden p-4">
-          {children}
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
+    <div className="relative">
+      <Sidebar />
+      <main className="flex flex-1 flex-col md:ml-[70px]">{children}</main>
+    </div>
   );
 }

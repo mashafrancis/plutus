@@ -56,8 +56,8 @@ export default function AppHeader({
   };
 
   return (
-    <div className="flex flex-col justify-between gap-2 md:flex-row">
-      <div className="mb-6 flex items-center justify-between">
+    <header className="desktop:sticky sticky desktop:top-0 top-0 z-10 flex h-[70px] items-center justify-between desktop:rounded-t-[10px] bg-background bg-opacity-70 px-6 backdrop-blur-xl backdrop-filter md:static md:m-0 md:border-b md:backdrop-blur-none md:backdrop-filter">
+      <div className="flex items-center justify-between">
         <div className="space-y-1">
           <h3 className="text-foreground text-lg">
             <ReactMarkdown disallowedElements={['p']} unwrapDisallowed>
@@ -84,6 +84,6 @@ export default function AppHeader({
         ) : null}
         {addButton}
       </div>
-    </div>
+    </header>
   );
 }

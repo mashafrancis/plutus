@@ -22,7 +22,7 @@ export default function Add({
   onLookup,
 }: AddProps) {
   return (
-    <Button className="capitalize">
+    <Button className="rounded-full capitalize">
       <PlusIcon size={12} />
       {type}
     </Button>

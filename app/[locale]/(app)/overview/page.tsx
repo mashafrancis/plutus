@@ -49,8 +49,16 @@ export default async function Page(props: Props) {
   const totalBalance = totalIncome - totalSpent;
 
   return (
-    <>
-      <div className="grid auto-rows-min gap-4 md:grid-cols-5">
+    <div className="relative py-0">
+      <div className="-z-1 pointer-events-none absolute inset-0 grid grid-cols-1 gap-4 max-sm:hidden sm:grid-cols-5">
+        <div className="border-edge border-r" />
+        <div className="border-edge border-x" />
+        <div className="border-edge border-x" />
+        <div className="border-edge border-x" />
+        <div className="border-edge border-l" />
+        {/*<div className="border-edge border-l"/>*/}
+      </div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
         <OverviewCard
           data={
             totalIncome
@@ -131,6 +139,16 @@ export default async function Page(props: Props) {
         {/*<div className='aspect-video rounded-xl bg-muted/50' />*/}
       </div>
       <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-    </>
+    </div>
   );
 }
+
+// function Separator() {
+// 	return (
+// 		<div
+// 			className="-z-1 pointer-events-none grid grid-cols-1 gap-4 max-sm:hidden sm:grid-cols-5">
+// 			<div className="border-edge border-r"/>
+// 			<div className="border-edge border-l"/>
+// 		</div>
+// 	);
+// }

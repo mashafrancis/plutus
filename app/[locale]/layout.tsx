@@ -53,8 +53,6 @@ export default async function RootLayout({
             'min-[100dvh] overscroll-none scroll-smooth whitespace-pre-line bg-alternative! font-sans antialiased',
             fontSans.variable,
             fontMono.variable
-            // geist.variable,
-            // geist_mono.variable,
           )}
         >
           <Providers locale={locale}>{await children}</Providers>

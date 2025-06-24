@@ -11,7 +11,7 @@ export default function Layout({ children }: { children?: ReactNode }) {
         showDatePicker
         title="Overview"
       />
-      {children}
+      <div className="p-4">{children}</div>
     </>
   );
 }

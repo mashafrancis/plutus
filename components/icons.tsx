@@ -1,9 +1,6 @@
 import { clsx } from 'clsx';
 import type { LucideProps } from 'lucide-react';
-
-export interface ThemeSwitchProps extends LucideProps {
-  resolvedTheme?: 'light' | 'dark';
-}
+import { FiBarChart } from 'react-icons/fi';
 
 const arrowRotationMap = {
   up: 'rotate-180',
@@ -18,6 +15,46 @@ interface ArrowIconProps {
   size?: number;
   className?: string;
 }
+
+type SVGIconProps = {
+  size?: number;
+  stroke?: string;
+  fill?: string;
+  strokeWidth?: number;
+  className?: string;
+  children?: React.ReactNode;
+  viewBox?: string;
+};
+
+const _SVGIcon: React.FC<SVGIconProps> = ({
+  size = 20,
+  stroke = 'currentColor',
+  fill = 'currentColor',
+  strokeWidth = 0.25,
+  className,
+  children,
+  viewBox,
+}) => {
+  const intrinsicContentDimension = 20;
+  const defaultViewBox = `0 0 ${intrinsicContentDimension} ${intrinsicContentDimension}`;
+
+  return (
+    <svg
+      className={className}
+      fill={fill}
+      height={size}
+      stroke={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={strokeWidth}
+      viewBox={viewBox || defaultViewBox}
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {children}
+    </svg>
+  );
+};
 
 export function ArrowIcon({
   direction,
@@ -80,4 +117,5 @@ export const Icons = {
       </g>
     </svg>
   ),
+  Overview: FiBarChart,
 };

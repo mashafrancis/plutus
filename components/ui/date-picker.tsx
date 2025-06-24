@@ -232,7 +232,10 @@ export const DateTimePicker = ({
   return (
     <Popover onOpenChange={setOpen} open={open}>
       <PopoverTrigger asChild>
-        <Button className="bg-muted" variant="ghost">
+        <Button
+          className="cursor-pointer rounded-full bg-muted"
+          variant="ghost"
+        >
           <Clock size={12} />
           {value.isHelper
             ? value.text
