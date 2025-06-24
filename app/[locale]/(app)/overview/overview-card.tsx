@@ -1,6 +1,6 @@
+import type { ReactNode } from "react";
 import { PreviousDiffIndicator } from "@/components/previous-diff-indicator";
 import { cn } from "@/lib/utils";
-import type { ReactNode } from "react";
 
 interface OverviewCardProps {
   heading: string;
@@ -21,7 +21,7 @@ export default function OverviewCard({
   changePrefix,
   valuePrefix,
 }: OverviewCardProps) {
-  const increase = negative ? data.change <= 0 : data.change >= 0;
+  const _increase = negative ? data.change <= 0 : data.change >= 0;
 
   return (
     <div className={cn("group card relative p-4")}>

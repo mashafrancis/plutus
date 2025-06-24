@@ -1,13 +1,12 @@
 "use client";
 
-import type { ReactNode } from "react";
-
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { I18nProviderClient } from "@/locales/client";
-import { TRPCReactProvider } from "@/trpc/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/react";
+import type { ReactNode } from "react";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { I18nProviderClient } from "@/locales/client";
+import { TRPCReactProvider } from "@/trpc/react";
 
 interface ProviderProps {
   locale: string;

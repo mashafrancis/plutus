@@ -1,9 +1,9 @@
+import { z } from "zod/v4";
 import {
   ZCreateOrPatchIncomeSchema,
   ZGetIncomeSchema,
 } from "@/server/api/schema";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
-import { z } from "zod/v4";
 
 export const incomeRouter = createTRPCRouter({
   create: protectedProcedure

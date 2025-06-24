@@ -1,8 +1,8 @@
-import { auth } from "@/auth/server";
-import { getLocale } from "@/lib/location";
-import { createI18nMiddleware } from "next-international/middleware";
 import { headers } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
+import { createI18nMiddleware } from "next-international/middleware";
+import { auth } from "@/auth/server";
+import { getLocale } from "@/lib/location";
 
 export async function middleware(request: NextRequest) {
   const session = await auth.api.getSession({
@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
   });
 
   const response = handleI18nRouting(request);
-  const url = new URL("/", request.url);
+  const _url = new URL("/", request.url);
   const nextUrl = request.nextUrl;
 
   const pathnameLocale = nextUrl.pathname.split("/", 2)?.[1];

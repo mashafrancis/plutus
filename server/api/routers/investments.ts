@@ -1,9 +1,9 @@
+import { z } from "zod/v4";
 import {
   ZCreateOrPatchInvestmentsSchema,
   ZGetInvestmentsSchema,
 } from "@/server/api/schema";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
-import { z } from "zod/v4";
 
 export const investmentsRouter = createTRPCRouter({
   create: protectedProcedure

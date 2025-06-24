@@ -1,5 +1,9 @@
 "use client";
 
+import { Home, Inbox, LifeBuoy, Search, Send, Sparkles } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import type { ComponentProps } from "react";
 import { authClient } from "@/auth/client";
 import { NavMain } from "@/components/nav-main";
 import { NavSecondary } from "@/components/nav-secondary";
@@ -13,10 +17,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Home, Inbox, LifeBuoy, Search, Send, Sparkles } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import type { ComponentProps } from "react";
 
 const logoImage = "/logo.svg";
 
@@ -104,7 +104,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        {!session ? <>No user</> : <NavUser user={user} />}
+        {!session ? "No user" : <NavUser user={user} />}
       </SidebarFooter>
     </Sidebar>
   );

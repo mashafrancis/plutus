@@ -1,9 +1,9 @@
 import "server-only";
 
-import { env } from "@/env";
-import { initAuth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { cache } from "react";
+import { env } from "@/env";
+import { initAuth } from "@/lib/auth";
 
 const baseUrl =
   env.VERCEL_ENV === "production"

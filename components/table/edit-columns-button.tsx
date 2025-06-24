@@ -1,5 +1,5 @@
 import { cn } from "@dub/utils";
-import { Table } from "@tanstack/react-table";
+import type { Table } from "@tanstack/react-table";
 import { Command } from "cmdk";
 import { useState } from "react";
 import { Button } from "../button";

@@ -1,8 +1,8 @@
-import type { TimeSplitInputProps, TimeType } from "@/types/ui.types";
 import { format } from "date-fns";
 import { Clock } from "lucide-react";
 import type React from "react";
 import { useEffect, useState } from "react";
+import type { TimeSplitInputProps, TimeType } from "@/types/ui.types";
 
 const TimeSplitInput = ({
   type,
@@ -161,8 +161,7 @@ const TimeSplitInput = ({
 
   return (
     <div
-      className={`mx-1.5 flex h-7 items-center justify-center gap-0 rounded-sm border bg-muted/10 text-muted-foreground text-xs ${focus && " border-primary/50 outline outline-0 outline-border"}
-    `}
+      className={`mx-1.5 flex h-7 items-center justify-center gap-0 rounded-sm border bg-muted/10 text-muted-foreground text-xs ${focus && " border-primary/50 outline outline-0 outline-border"} `}
     >
       <div className="mr-1 text-muted-foreground">
         <Clock size={14} strokeWidth={1.5} />

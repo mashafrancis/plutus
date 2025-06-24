@@ -1,8 +1,8 @@
 "use client";
 
+import { PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import shortcuts from "@/constants/shortcuts";
-import { PlusIcon } from "lucide-react";
 
 const _openShortcutKey = Object.values(shortcuts.modal.open.shortcut);
 

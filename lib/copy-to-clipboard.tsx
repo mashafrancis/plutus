@@ -1,5 +1,5 @@
-import { noop } from "@/lib/utils";
 import { toast } from "sonner";
+import { noop } from "@/lib/utils";
 
 /**
  * Copy text content (string or Promise<string>) into Clipboard. Safari doesn't support write text into clipboard async,

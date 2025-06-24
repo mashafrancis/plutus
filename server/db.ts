@@ -1,19 +1,19 @@
-import {PrismaClient} from "@/generated/prisma";
-import {withAccelerate} from "@prisma/extension-accelerate";
+import { withAccelerate } from "@prisma/extension-accelerate";
+import { fieldEncryptionExtension } from "prisma-field-encryption";
 
-import {env} from "@/env";
-import {fieldEncryptionExtension} from "prisma-field-encryption";
+import { env } from "@/env";
+import { PrismaClient } from "@/generated/prisma";
 
 const createPrismaClient = () =>
-	new PrismaClient({
-		log:
-			env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
-	})
-		.$extends(withAccelerate())
-		.$extends(fieldEncryptionExtension());
+  new PrismaClient({
+    log:
+      env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+  })
+    .$extends(withAccelerate())
+    .$extends(fieldEncryptionExtension());
 
 const globalForPrisma = globalThis as unknown as {
-	prisma: ReturnType<typeof createPrismaClient> | undefined;
+  prisma: ReturnType<typeof createPrismaClient> | undefined;
 };
 
 export const db = globalForPrisma.prisma ?? createPrismaClient();

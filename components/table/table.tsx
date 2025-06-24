@@ -1,29 +1,29 @@
 import { cn, deepEqual, isClickOnInteractiveChild } from "@dub/utils";
 import {
-  Cell,
-  Column,
-  ColumnDef,
-  ColumnPinningState,
-  ColumnResizeMode,
+  type Cell,
+  type Column,
+  type ColumnDef,
+  type ColumnPinningState,
+  type ColumnResizeMode,
   flexRender,
   getCoreRowModel,
-  PaginationState,
-  Row,
-  RowSelectionState,
-  Table as TableType,
+  type PaginationState,
+  type Row,
+  type RowSelectionState,
+  type Table as TableType,
   useReactTable,
-  VisibilityState,
+  type VisibilityState,
 } from "@tanstack/react-table";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  CSSProperties,
-  Dispatch,
-  HTMLAttributes,
+  type CSSProperties,
+  type Dispatch,
+  type HTMLAttributes,
+  type MouseEvent,
   memo,
-  MouseEvent,
-  PropsWithChildren,
-  ReactNode,
-  SetStateAction,
+  type PropsWithChildren,
+  type ReactNode,
+  type SetStateAction,
   useEffect,
   useMemo,
   useState,
@@ -33,20 +33,20 @@ import { LoadingSpinner, SortOrder } from "../icons";
 
 const tableCellClassName = (columnId: string, clickable?: boolean) =>
   cn([
-    "py-2.5 text-left text-sm leading-6 whitespace-nowrap border-border-subtle px-4 relative",
-    "border-l border-b",
-    columnId === "menu" && "bg-bg-default border-l-transparent py-0 px-1",
-    clickable && "group-hover/row:bg-bg-muted transition-colors duration-75",
+    "relative whitespace-nowrap border-border-subtle px-4 py-2.5 text-left text-sm leading-6",
+    "border-b border-l",
+    columnId === "menu" && "border-l-transparent bg-bg-default px-1 py-0",
+    clickable && "transition-colors duration-75 group-hover/row:bg-bg-muted",
   ]);
 
 const resizingClassName = cn([
-  "absolute right-0 top-0 h-full w-1 cursor-col-resize select-none touch-none",
+  "absolute top-0 right-0 h-full w-1 cursor-col-resize touch-none select-none",
   "bg-neutral-300/50",
-  "opacity-0 group-hover/resize:opacity-100 hover:opacity-100",
-  "group-hover/resize:bg-neutral-300 hover:bg-neutral-400",
+  "opacity-0 hover:opacity-100 group-hover/resize:opacity-100",
+  "hover:bg-neutral-400 group-hover/resize:bg-neutral-300",
   "transition-all duration-200",
   "-mr-px",
-  "after:absolute after:right-0 after:top-0 after:h-full after:w-4 after:translate-x-1/2",
+  "after:absolute after:top-0 after:right-0 after:h-full after:w-4 after:translate-x-1/2",
 ]);
 
 type BaseTableProps<T> = {
@@ -110,7 +110,7 @@ type TableProps<T> = BaseTableProps<T> &
     | { pagination?: never; rowCount?: never }
   );
 
-export function useTable<T extends any>(
+export function useTable<T>(
   props: UseTableProps<T>,
 ): TableProps<T> & { table: TableType<T> } {
   const {
@@ -242,7 +242,7 @@ const ResizableTableRow = memo(
             key={cell.id}
             className={cn(
               tableCellClassName(cell.column.id, !!onRowClick),
-              "text-content-default group",
+              "group text-content-default",
               getCommonPinningClassNames(
                 cell.column,
                 row.index === table.getRowModel().rows.length - 1,
@@ -320,7 +320,7 @@ export function Table<T>({
   return (
     <div
       className={cn(
-        "border-border-subtle bg-bg-default relative rounded-xl border",
+        "relative rounded-xl border border-border-subtle bg-bg-default",
         containerClassName,
       )}
     >
@@ -364,7 +364,7 @@ export function Table<T>({
                         colSpan={header.colSpan}
                         className={cn(
                           tableCellClassName(header.id),
-                          "text-content-emphasis select-none font-medium",
+                          "select-none font-medium text-content-emphasis",
                           getCommonPinningClassNames(
                             header.column,
                             !table.getRowModel().rows.length,
@@ -379,7 +379,7 @@ export function Table<T>({
                           ...getCommonPinningStyles(header.column),
                         }}
                       >
-                        <div className="flex items-center justify-between gap-6 !pr-0">
+                        <div className="!pr-0 flex items-center justify-between gap-6">
                           <ButtonOrDiv
                             className="flex items-center gap-2"
                             {...(isSortableColumn && {
@@ -474,7 +474,7 @@ export function Table<T>({
                         key={cell.id}
                         className={cn(
                           tableCellClassName(cell.column.id, !!onRowClick),
-                          "text-content-default group",
+                          "group text-content-default",
                           getCommonPinningClassNames(
                             cell.column,
                             row.index === table.getRowModel().rows.length - 1,
@@ -509,14 +509,14 @@ export function Table<T>({
           {children}
         </div>
       ) : (
-        <div className="text-content-subtle flex h-96 w-full items-center justify-center text-sm">
+        <div className="flex h-96 w-full items-center justify-center text-content-subtle text-sm">
           {error ||
             emptyState ||
             `No ${resourceName?.(true) || "items"} found.`}
         </div>
       )}
       {pagination && !error && !!data?.length && !!rowCount && (
-        <div className="border-border-subtle bg-bg-default text-content-default sticky bottom-0 mx-auto -mt-px flex w-full max-w-full items-center justify-between rounded-b-[inherit] border-t px-4 py-3.5 text-sm leading-6">
+        <div className="-mt-px sticky bottom-0 mx-auto flex w-full max-w-full items-center justify-between rounded-b-[inherit] border-border-subtle border-t bg-bg-default px-4 py-3.5 text-content-default text-sm leading-6">
           <div>
             <span className="hidden sm:inline-block">Viewing</span>{" "}
             <span className="font-medium">
@@ -564,7 +564,7 @@ export function Table<T>({
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-bg-default/50 absolute inset-0 h-full"
+            className="absolute inset-0 h-full bg-bg-default/50"
           >
             <div className="flex h-[75vh] w-full items-center justify-center">
               <LoadingSpinner />

@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
 import { Layers2Icon } from "lucide-react";
 import type * as React from "react";
+import { cn } from "@/lib/utils";
 
 interface EmptyPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;

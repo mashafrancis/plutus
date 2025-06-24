@@ -11,7 +11,7 @@ export async function register() {
       fetch: {
         ignoreUrls: [/^https:\/\/telemetry.nextjs.org/],
         propagateContextUrls: [/^http:\/\/localhost:\d+/],
-        dontPropagateContextUrls: [/no-propagation\=1/],
+        dontPropagateContextUrls: [/no-propagation=1/],
       },
     },
   };

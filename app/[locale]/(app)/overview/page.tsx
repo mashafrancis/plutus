@@ -1,8 +1,8 @@
+import type { Metadata } from "next";
+import type { SearchParams } from "nuqs";
 import { loadMetricsParams } from "@/hooks/use-metrics-params";
 import { getCurrencySymbol } from "@/lib/formatter";
 import { getQueryClient, trpc } from "@/trpc/server";
-import type { Metadata } from "next";
-import type { SearchParams } from "nuqs";
 import OverviewCard from "./overview-card";
 
 export const metadata: Metadata = {

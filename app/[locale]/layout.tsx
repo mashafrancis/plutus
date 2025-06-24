@@ -2,16 +2,15 @@ import "@/styles/globals.css";
 
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { ViewTransitions } from "next-view-transitions";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-
+import { ViewTransitions } from "next-view-transitions";
+import type { ReactNode } from "react";
+import { Toaster } from "sonner";
 import { Providers } from "@/app/[locale]/providers";
 import { fontMono, fontSans } from "@/app/fonts";
 import { constructMetadata } from "@/lib/construct-metadata";
 import { cn } from "@/lib/utils";
-import type { ReactNode } from "react";
-import { Toaster } from "sonner";
 
 export const metadata = constructMetadata();
 
@@ -26,8 +25,8 @@ export const viewport = {
   ],
 };
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
-const geist_mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
+const _geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const _geist_mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 type Params = Promise<{ locale: string }>;
 

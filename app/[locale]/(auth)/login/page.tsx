@@ -1,11 +1,11 @@
-import { auth, getSession } from "@/auth/server";
-import { Icons } from "@/components/icons";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import posthog from "posthog-js";
+import { auth, getSession } from "@/auth/server";
+import { Icons } from "@/components/icons";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -17,7 +17,7 @@ export default async function Page({
 }: {
   searchParams: Promise<{ error?: string; correlationId?: string }>;
 }) {
-  const session = await getSession();
+  const _session = await getSession();
   const error = (await searchParams).error;
   const correlationId = (await searchParams).correlationId;
 

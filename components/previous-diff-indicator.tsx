@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 export function getDiffIndicator<A, B, C>(
   inverted: boolean | undefined,

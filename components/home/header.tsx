@@ -1,9 +1,9 @@
+import Link from "next/link";
+import type React from "react";
 import { getSession } from "@/auth/server";
 import SectionContainer from "@/components/section-container";
 import { buttonVariants } from "@/components/ui/button";
 import { cn, fancyId } from "@/lib/utils";
-import Link from "next/link";
-import type React from "react";
 
 interface Props {
   h1: string | React.ReactNode;

@@ -7,7 +7,8 @@ import {
   CreditCard,
   LogOut,
 } from "lucide-react";
-
+import { useRouter } from "next/navigation";
+import posthog from "posthog-js";
 import { authClient } from "@/auth/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -26,8 +27,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useRouter } from "next/navigation";
-import posthog from "posthog-js";
 
 export function NavUser({
   user,

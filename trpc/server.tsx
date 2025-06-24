@@ -1,21 +1,21 @@
 import "server-only";
-import { auth } from "@/auth/server";
-import { getCountryCode, getLocale, getTimezone } from "@/lib/location";
-import { type AppRouter, appRouter } from "@/server/api/root";
-import { createTRPCContext } from "@/server/api/trpc";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import {
   createTRPCClient,
   httpBatchStreamLink,
   loggerLink,
 } from "@trpc/client";
 import {
-  type TRPCQueryOptions,
   createTRPCOptionsProxy,
+  type TRPCQueryOptions,
 } from "@trpc/tanstack-react-query";
 import { headers } from "next/headers";
-import { type ReactNode, cache } from "react";
+import { cache, type ReactNode } from "react";
 import superjson from "superjson";
+import { auth } from "@/auth/server";
+import { getCountryCode, getLocale, getTimezone } from "@/lib/location";
+import { type AppRouter, appRouter } from "@/server/api/root";
+import { createTRPCContext } from "@/server/api/trpc";
 import { createQueryClient } from "./query-client";
 
 export const getQueryClient = cache(createQueryClient);

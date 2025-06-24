@@ -1,8 +1,8 @@
 "use client";
 
-import { defaultDateValues } from "@/constants/date";
 import { createParser, useQueryState } from "nuqs";
 import { useCallback } from "react";
+import { defaultDateValues } from "@/constants/date";
 
 export const nuqsOptions = { history: "push" } as const;
 
