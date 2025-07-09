@@ -46,6 +46,7 @@ const config: NextConfig = {
   // Required to support PostHog trailing slash API requests
   skipTrailingSlashRedirect: true,
   // PostHog rewrites
+  // biome-ignore lint/suspicious/useAwait: <explanation>
   async rewrites() {
     return [
       {
@@ -62,6 +63,7 @@ const config: NextConfig = {
       },
     ];
   },
+  // biome-ignore lint/suspicious/useAwait: <explanation>
   async headers() {
     return [{ source: '/(.*)', headers: securityHeaders }];
   },

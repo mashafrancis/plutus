@@ -1,6 +1,7 @@
 import { type BetterAuthOptions, betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { PrismaClient } from '@/prisma/generated/prisma';
+import { apiKey, organization } from 'better-auth/plugins';
+import { PrismaClient } from '@/prisma/generated/prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -30,6 +31,7 @@ export function initAuth(options: {
         clientSecret: options.googleClientSecret,
       },
     },
+    plugins: [organization(), apiKey()],
   } satisfies BetterAuthOptions;
 
   return betterAuth(config);

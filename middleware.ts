@@ -13,8 +13,8 @@ export async function middleware(request: NextRequest) {
     defaultLocale: 'en',
     locales: [await getLocale()],
     urlMappingStrategy: 'rewrite',
-    resolveLocaleFromRequest: (request) => {
-      return request.headers.get('x-user-locale') || 'en';
+    resolveLocaleFromRequest: (localeRequest) => {
+      return localeRequest.headers.get('x-user-locale') || 'en';
     },
   });
 

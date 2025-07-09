@@ -231,7 +231,7 @@ export const DateTimePicker = ({
 
   return (
     <Popover onOpenChange={setOpen} open={open}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger>
         <Button
           className="cursor-pointer rounded-full bg-muted"
           variant="ghost"

@@ -15,6 +15,7 @@ export const env = createEnv({
    */
   server: {
     DATABASE_URL: z.url(),
+    DIRECT_URL: z.url(),
     AUTH_GOOGLE_ID: z.string().min(1),
     AUTH_GOOGLE_SECRET: z.string().min(1),
     AUTH_GITHUB_ID: z.string().min(1),
