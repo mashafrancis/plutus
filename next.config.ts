@@ -7,9 +7,6 @@ import type { NextConfig } from 'next';
 
 const config: NextConfig = {
   reactStrictMode: true,
-  experimental: {
-    nodeMiddleware: true,
-  },
   images: {
     remotePatterns: [
       {
@@ -71,7 +68,7 @@ const config: NextConfig = {
 
 const ContentSecurityPolicy = `
     default-src 'self' francismasha.com;
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' *.francismasha.com *.vercel-scripts.com fonts.googleapis.com fonts.gstatic.com *.cloudfront.net api.seline.com openpanel.dev cdn.seline.so assets.lemonsqueezy.com *.googletagmanager.com accounts.google.com vercel.live;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' *.francismasha.com *.vercel-scripts.com fonts.googleapis.com fonts.gstatic.com *.cloudfront.net api.seline.com openpanel.dev cdn.seline.so cdn.databuddy.cc assets.lemonsqueezy.com *.googletagmanager.com accounts.google.com vercel.live;
     child-src 'self' plutus.lemonsqueezy.com;
     style-src 'self' 'unsafe-inline' fonts.googleapis.com;
     img-src * blob: data:;

@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 
+import { Databuddy } from '@databuddy/sdk';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -44,7 +45,7 @@ export default async function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <Script
           async
-          data-token="82a54f4e6018731"
+          data-token={process.env.NEXT_PUBLIC_SELINE_CLIENT_ID as string}
           src="https://cdn.seline.so/seline.js"
           strategy="afterInteractive"
         />
@@ -59,6 +60,20 @@ export default async function RootLayout({
           {/*<OpenPanelAnalytics/>*/}
           <Analytics />
           <SpeedInsights />
+          <Databuddy
+            clientId={process.env.NEXT_PUBLIC_DATABUDDY_CLIENT_ID as string}
+            enableBatching={true}
+            trackAttributes={true}
+            trackBounceRate={true}
+            trackEngagement={true}
+            trackErrors={true}
+            trackExitIntent={true}
+            trackHashChanges={true}
+            trackInteractions={true}
+            trackOutgoingLinks={true}
+            trackScrollDepth={true}
+            trackWebVitals={true}
+          />
           <Toaster
             className="font-normal font-sans"
             position="bottom-right"
