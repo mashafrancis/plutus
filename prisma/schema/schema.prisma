@@ -2,13 +2,9 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client"
-  previewFeatures = ["driverAdapters", "queryCompiler"]
-  output          = "../generated/prisma"
-  runtime         = "nodejs"
-  // importFileExtension    = ""
-  // moduleFormat    = "esm"
-  // generatedFileExtension = "ts"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  runtime  = "nodejs"
 }
 
 // generator fieldEncryptionMigrations {
@@ -16,9 +12,7 @@ generator client {
 // }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
 }
 
 model Subscription {
