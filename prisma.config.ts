@@ -1,13 +1,16 @@
 import path from 'node:path';
-import type { PrismaConfig } from 'prisma';
+import {defineConfig} from "prisma/config";
 
 import 'dotenv/config';
 
 type Env = {
-  DATABASE_URL: string;
+	DATABASE_URL: string;
 };
 
-export default {
-  earlyAccess: true,
-  schema: path.join('prisma', 'schema'),
-} satisfies PrismaConfig<Env>;
+export default defineConfig({
+	schema: path.join('prisma', 'schema'),
+	experimental: {
+		studio: true,
+		adapter: true
+	}
+})

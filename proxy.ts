@@ -1,10 +1,10 @@
-import { headers } from 'next/headers';
-import { type NextRequest, NextResponse } from 'next/server';
-import { createI18nMiddleware } from 'next-international/middleware';
-import { auth } from '@/auth/server';
-import { getLocale } from '@/lib/location';
+import { headers } from "next/headers";
+import { type NextRequest, NextResponse } from "next/server";
+import { createI18nMiddleware } from "next-international/middleware";
+import { auth } from "@/auth/server";
+import { getLocale } from "@/lib/location";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -56,7 +56,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  runtime: 'nodejs',
+  // runtime: 'nodejs',
   matcher: [
     '/((?!_next/static|_next/image|monitoring|ingest|api|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
