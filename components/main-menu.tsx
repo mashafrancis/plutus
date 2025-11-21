@@ -1,37 +1,37 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Icons } from './icons';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Icons } from "./icons";
 
 const icons = {
-  '/overview': () => <Icons.Overview className="m-auto" size={22} />,
-  '/expenses': () => <Icons.Overview className="m-auto" size={22} />,
-  '/income': () => <Icons.Overview className="m-auto" size={22} />,
-  '/investments': () => <Icons.Overview className="m-auto" size={22} />,
-  '/subscriptions': () => <Icons.Overview className="m-auto" size={22} />,
+  "/overview": () => <Icons.Overview className="m-auto" size={22} />,
+  "/expenses": () => <Icons.Overview className="m-auto" size={22} />,
+  "/income": () => <Icons.Overview className="m-auto" size={22} />,
+  "/investments": () => <Icons.Overview className="m-auto" size={22} />,
+  "/subscriptions": () => <Icons.Overview className="m-auto" size={22} />,
 } as const;
 
 const items = [
   {
-    path: '/overview',
-    name: 'Overview',
+    path: "/overview",
+    name: "Overview",
   },
   {
-    path: '/expenses',
-    name: 'Expenses',
+    path: "/expenses",
+    name: "Expenses",
   },
   {
-    path: '/income',
-    name: 'Income',
+    path: "/income",
+    name: "Income",
   },
   {
-    path: '/investments',
-    name: 'Investments',
+    path: "/investments",
+    name: "Investments",
   },
   {
-    path: '/subscriptions',
-    name: 'Subscriptions',
+    path: "/subscriptions",
+    name: "Subscriptions",
   },
   // {
   // 	path: '/customers',
@@ -82,7 +82,7 @@ type Props = {
 
 export function MainMenu({ onSelect }: Props) {
   const pathname = usePathname();
-  const part = pathname?.split('/')[1];
+  const part = pathname?.split("/")[1];
 
   return (
     <div className="mt-6">
@@ -90,8 +90,8 @@ export function MainMenu({ onSelect }: Props) {
         <div className="flex flex-col gap-2">
           {items.map((item) => {
             const isActive =
-              (pathname === '/' && item.path === '/') ||
-              (pathname !== '/' && item.path.startsWith(`/${part}`));
+              (pathname === "/" && item.path === "/") ||
+              (pathname !== "/" && item.path.startsWith(`/${part}`));
 
             return (
               <Item

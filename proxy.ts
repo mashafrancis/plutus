@@ -10,19 +10,18 @@ export async function proxy(request: NextRequest) {
   });
 
   const handleI18nRouting = createI18nMiddleware({
-    defaultLocale: 'en',
+    defaultLocale: "en",
     locales: [await getLocale()],
-    urlMappingStrategy: 'rewrite',
-    resolveLocaleFromRequest: (localeRequest) => {
-      return localeRequest.headers.get('x-user-locale') || 'en';
-    },
+    urlMappingStrategy: "rewrite",
+    resolveLocaleFromRequest: (localeRequest) =>
+      localeRequest.headers.get("x-user-locale") || "en",
   });
 
   const response = handleI18nRouting(request);
-  const _url = new URL('/', request.url);
+  const _url = new URL("/", request.url);
   const nextUrl = request.nextUrl;
 
-  const pathnameLocale = nextUrl.pathname.split('/', 2)?.[1];
+  const pathnameLocale = nextUrl.pathname.split("/", 2)?.[1];
 
   // Remove the locale from the pathname
   const pathnameWithoutLocale = pathnameLocale
@@ -30,7 +29,7 @@ export async function proxy(request: NextRequest) {
     : nextUrl.pathname;
 
   // Create a new URL without the locale in the pathname
-  const newUrl = new URL(pathnameWithoutLocale || '/', request.url);
+  const newUrl = new URL(pathnameWithoutLocale || "/", request.url);
 
   const encodedSearchParams = `${newUrl?.pathname?.substring(1)}${
     newUrl.search
@@ -38,14 +37,14 @@ export async function proxy(request: NextRequest) {
 
   if (
     !session &&
-    newUrl.pathname !== '/' &&
-    newUrl.pathname !== '/login' &&
-    !newUrl.pathname.includes('/i/')
+    newUrl.pathname !== "/" &&
+    newUrl.pathname !== "/login" &&
+    !newUrl.pathname.includes("/i/")
   ) {
-    const url = new URL('/login', request.url);
+    const url = new URL("/login", request.url);
 
     if (encodedSearchParams) {
-      url.searchParams.append('return_to', encodedSearchParams);
+      url.searchParams.append("return_to", encodedSearchParams);
     }
 
     return NextResponse.redirect(url);
@@ -58,6 +57,6 @@ export async function proxy(request: NextRequest) {
 export const config = {
   // runtime: 'nodejs',
   matcher: [
-    '/((?!_next/static|_next/image|monitoring|ingest|api|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    "/((?!_next/static|_next/image|monitoring|ingest|api|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

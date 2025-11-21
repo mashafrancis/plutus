@@ -1,28 +1,28 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
-export const HOME_DOMAIN = 'https://plutus.francismasha.com';
+export const HOME_DOMAIN = "https://plutus.francismasha.com";
 
 export function constructMetadata({
-  title = 'Plutus - Your personal finance tracker',
-  description = 'Organize your finances like never before.',
-  image = '/thumbnail.png',
+  title = "Plutus - Your personal finance tracker",
+  description = "Organize your finances like never before.",
+  image = "/thumbnail.png",
   icons = [
     {
-      rel: 'apple-touch-icon',
-      sizes: '32x32',
-      url: '/apple-touch-icon.png',
+      rel: "apple-touch-icon",
+      sizes: "32x32",
+      url: "/apple-touch-icon.png",
     },
     {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '32x32',
-      url: '/favicon-32x32.png',
+      rel: "icon",
+      type: "image/png",
+      sizes: "32x32",
+      url: "/favicon-32x32.png",
     },
     {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '16x16',
-      url: '/favicon-16x16.png',
+      rel: "icon",
+      type: "image/png",
+      sizes: "16x16",
+      url: "/favicon-16x16.png",
     },
   ],
   noIndex = false,
@@ -30,7 +30,7 @@ export function constructMetadata({
   title?: string;
   description?: string;
   image?: string;
-  icons?: Metadata['icons'];
+  icons?: Metadata["icons"];
   noIndex?: boolean;
 } = {}): Metadata {
   return {
@@ -46,11 +46,11 @@ export function constructMetadata({
       ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
       images: [image],
-      creator: '@fkonde',
+      creator: "@fkonde",
     },
     icons,
     metadataBase: new URL(HOME_DOMAIN),
@@ -61,10 +61,10 @@ export function constructMetadata({
       },
     }),
     keywords: [
-      'Monitoring',
-      'Open Source app analytics',
-      'safaricom',
-      'safaricom observability',
+      "Monitoring",
+      "Open Source app analytics",
+      "safaricom",
+      "safaricom observability",
     ],
   };
 }

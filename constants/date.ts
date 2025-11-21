@@ -4,12 +4,12 @@ import {
   format,
   startOfMonth,
   startOfWeek,
-} from 'date-fns';
+} from "date-fns";
 
-import { views } from './table';
+import { views } from "./table";
 
-export const dateFormat: string = 'yyyy-MM-dd';
-export const datePattern: string = 'd{2}-d{2}-d{4}';
+export const dateFormat: string = "yyyy-MM-dd";
+export const datePattern: string = "d{2}-d{2}-d{4}";
 
 export const getRangeDateForFilter = (filter: any) => {
   const dateObj = new Date();

@@ -1,6 +1,6 @@
-import { ArrowDownIcon, ArrowUpIcon } from 'lucide-react';
-import type { ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 export function getDiffIndicator<A, B, C>(
   inverted: boolean | undefined,
@@ -9,14 +9,14 @@ export function getDiffIndicator<A, B, C>(
   negative: B,
   neutral: C
 ): A | B | C {
-  if (state === 'neutral' || !state) {
+  if (state === "neutral" || !state) {
     return neutral;
   }
 
   if (inverted === true) {
-    return state === 'positive' ? negative : positive;
+    return state === "positive" ? negative : positive;
   }
-  return state === 'positive' ? positive : negative;
+  return state === "positive" ? positive : negative;
 }
 
 // TODO: Fix this mess!
@@ -27,7 +27,7 @@ interface PreviousDiffIndicatorProps {
   children?: ReactNode;
   inverted?: boolean;
   className?: string;
-  size?: 'sm' | 'lg';
+  size?: "sm" | "lg";
   previousIndicatorInverted?: boolean;
   previous?: boolean;
 }
@@ -36,7 +36,7 @@ export function PreviousDiffIndicator({
   diff,
   state,
   inverted,
-  size = 'sm',
+  size = "sm",
   children,
   className,
   previous,
@@ -45,8 +45,8 @@ export function PreviousDiffIndicator({
   const variant = getDiffIndicator(
     inverted ?? previousIndicatorInverted,
     state,
-    'bg-primary/30',
-    'bg-destructive/30',
+    "bg-primary/30",
+    "bg-destructive/30",
     undefined
   );
 
@@ -55,10 +55,10 @@ export function PreviousDiffIndicator({
   }
 
   const renderIcon = () => {
-    if (state === 'positive') {
+    if (state === "positive") {
       return <ArrowUpIcon color="#000" size={10} strokeWidth={3} />;
     }
-    if (state === 'negative') {
+    if (state === "negative") {
       return <ArrowDownIcon color="#000" size={10} strokeWidth={3} />;
     }
     return null;
@@ -68,16 +68,16 @@ export function PreviousDiffIndicator({
     <>
       <div
         className={cn(
-          'flex items-center gap-1 font-medium font-mono',
-          size === 'lg' && 'gap-2',
+          "flex items-center gap-1 font-medium font-mono",
+          size === "lg" && "gap-2",
           className
         )}
       >
         <div
           className={cn(
-            'flex size-4 items-center justify-center rounded-full',
+            "flex size-4 items-center justify-center rounded-full",
             variant,
-            size === 'lg' && 'size-8'
+            size === "lg" && "size-8"
           )}
         >
           {renderIcon()}

@@ -1,17 +1,17 @@
-import { clsx } from 'clsx';
-import type { LucideProps } from 'lucide-react';
-import { FiBarChart } from 'react-icons/fi';
+import { clsx } from "clsx";
+import type { LucideProps } from "lucide-react";
+import { FiBarChart } from "react-icons/fi";
 
 const arrowRotationMap = {
-  up: 'rotate-180',
-  right: '-rotate-90',
-  down: 'rotate-0',
-  left: 'rotate-90',
-  'top-right': '-rotate-135',
+  up: "rotate-180",
+  right: "-rotate-90",
+  down: "rotate-0",
+  left: "rotate-90",
+  "top-right": "-rotate-135",
 };
 
 interface ArrowIconProps {
-  direction: 'up' | 'right' | 'down' | 'left' | 'top-right';
+  direction: "up" | "right" | "down" | "left" | "top-right";
   size?: number;
   className?: string;
 }
@@ -28,8 +28,8 @@ type SVGIconProps = {
 
 const _SVGIcon: React.FC<SVGIconProps> = ({
   size = 20,
-  stroke = 'currentColor',
-  fill = 'currentColor',
+  stroke = "currentColor",
+  fill = "currentColor",
   strokeWidth = 0.25,
   className,
   children,
@@ -64,7 +64,7 @@ export function ArrowIcon({
 }: ArrowIconProps) {
   return (
     <svg
-      className={clsx(className, 'transform', arrowRotationMap[direction])}
+      className={clsx(className, "transform", arrowRotationMap[direction])}
       fill="none"
       height={size}
       viewBox="0 0 32 32"

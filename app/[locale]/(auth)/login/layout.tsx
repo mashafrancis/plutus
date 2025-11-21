@@ -1,12 +1,12 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import type { ReactNode } from 'react';
+import Image from "next/image";
+import Link from "next/link";
+import type { ReactNode } from "react";
 
 interface AuthLayoutProps {
   children: ReactNode;
 }
 
-const logoImage = '/logo.svg';
+const logoImage = "/logo.svg";
 
 export default async function AuthLayout({ children }: AuthLayoutProps) {
   return (
@@ -28,19 +28,19 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
 
           <div className="sm:text-center">
             <p className="text-muted-foreground text-xs sm:mx-auto sm:max-w-sm">
-              By continuing, you agree to our{' '}
+              By continuing, you agree to our{" "}
               <Link
                 className="underline underline-offset-4 hover:text-primary"
                 href="/terms"
               >
                 Terms of Service
-              </Link>{' '}
-              and{' '}
+              </Link>{" "}
+              and{" "}
               <Link
                 className="underline underline-offset-4 hover:text-primary"
                 href="/privacy"
               >
-                Privacy Policy{' '}
+                Privacy Policy{" "}
               </Link>
               and to receive periodic emails with updates.
             </p>

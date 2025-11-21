@@ -1,8 +1,8 @@
-import type { TRPCQueryOptions } from '@trpc/tanstack-react-query';
-import { unstable_noStore } from 'next/cache';
-import { Fragment, type ReactNode, Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { HydrateClient, prefetch as prefetchTRPC } from '@/trpc/server';
+import type { TRPCQueryOptions } from "@trpc/tanstack-react-query";
+import { unstable_noStore } from "next/cache";
+import { Fragment, type ReactNode, Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { HydrateClient, prefetch as prefetchTRPC } from "@/trpc/server";
 
 type AwaitProps<T> =
   | {

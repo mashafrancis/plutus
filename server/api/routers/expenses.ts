@@ -1,9 +1,9 @@
-import { z } from 'zod/v4';
+import { z } from "zod/v4";
 import {
   ZCreateOrPatchExpensesSchema,
   ZGetExpensesSchema,
-} from '@/server/api/schema';
-import { createTRPCRouter, protectedProcedure } from '@/server/api/trpc';
+} from "@/server/api/schema";
+import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 
 export const expensesRouter = createTRPCRouter({
   create: protectedProcedure
@@ -32,7 +32,7 @@ export const expensesRouter = createTRPCRouter({
       const { categories, to, from } = input;
       const OR = {
         OR: categories
-          ?.split(',')
+          ?.split(",")
           .map((category: any) => ({ category: { contains: category } })),
       };
 
@@ -48,7 +48,7 @@ export const expensesRouter = createTRPCRouter({
 
       const post = await ctx.db.expense.findMany({
         where,
-        orderBy: { updatedAt: 'desc' },
+        orderBy: { updatedAt: "desc" },
         select: {
           notes: true,
           name: true,

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { BadgeCheck, Bell, CreditCard, LogOut } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import posthog from 'posthog-js';
-import { authClient } from '@/auth/client';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { BadgeCheck, Bell, CreditCard, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
+import posthog from "posthog-js";
+import { authClient } from "@/auth/client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +14,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 export function NavUser({
   user,
@@ -38,7 +38,7 @@ export function NavUser({
       <DropdownMenuContent
         align="end"
         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-        side={'right'}
+        side={"right"}
         sideOffset={4}
       >
         <DropdownMenuLabel className="p-0 font-normal">
@@ -79,8 +79,8 @@ export function NavUser({
               authClient.signOut({
                 fetchOptions: {
                   onSuccess: () => {
-                    posthog.capture('Logout');
-                    router.push('/'); // redirect to home page
+                    posthog.capture("Logout");
+                    router.push("/"); // redirect to home page
                   },
                 },
               });

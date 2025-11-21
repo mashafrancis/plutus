@@ -7,15 +7,15 @@ type Views = {
 
 export const views: Views = {
   all: {
-    name: 'All',
-    key: 'all',
+    name: "All",
+    key: "all",
   },
   thisWeek: {
-    name: 'This week',
-    key: 'thisWeek',
+    name: "This week",
+    key: "thisWeek",
   },
   thisMonth: {
-    name: 'This month',
-    key: 'thisMonth',
+    name: "This month",
+    key: "thisMonth",
   },
 };

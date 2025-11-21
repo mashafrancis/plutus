@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
-import { PreviousDiffIndicator } from '@/components/previous-diff-indicator';
-import { cn } from '@/lib/utils';
+import type { ReactNode } from "react";
+import { PreviousDiffIndicator } from "@/components/previous-diff-indicator";
+import { cn } from "@/lib/utils";
 
 interface OverviewCardProps {
   heading: string;
@@ -26,9 +26,9 @@ export default function OverviewCard({
   return (
     <div
       className={cn(
-        'group/metric flex flex-col gap-2 p-2',
-        'max-sm:screen-line-before max-sm:screen-line-after',
-        'sm:nth-[2n+1]:screen-line-before sm:nth-[2n+1]:screen-line-after'
+        "group/metric flex flex-col gap-2 p-2",
+        "max-sm:screen-line-before max-sm:screen-line-after",
+        "sm:nth-[2n+1]:screen-line-before sm:nth-[2n+1]:screen-line-after"
       )}
     >
       <MetricCardNumber
@@ -106,7 +106,7 @@ function MetricCardNumber({
   className?: string;
 }) {
   return (
-    <div className={cn('flex min-w-0 flex-col gap-2', className)}>
+    <div className={cn("flex min-w-0 flex-col gap-2", className)}>
       <div className="flex items-center justify-between gap-4">
         <span className="truncate text-muted-foreground">{label}</span>
         {enhancer}

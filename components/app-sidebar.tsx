@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { getSession } from '@/auth/server';
-import { MainMenu } from '@/components/main-menu';
-import { NavUser } from '@/components/nav-user';
+import Image from "next/image";
+import Link from "next/link";
+import { getSession } from "@/auth/server";
+import { MainMenu } from "@/components/main-menu";
+import { NavUser } from "@/components/nav-user";
 
-const logoImage = '/logo.svg';
+const logoImage = "/logo.svg";
 
 export async function Sidebar() {
   const session = await getSession();
@@ -33,7 +33,7 @@ export async function Sidebar() {
         <MainMenu />
       </div>
 
-      {session ? <NavUser user={user} /> : 'No user'}
+      {session ? <NavUser user={user} /> : "No user"}
     </aside>
     // <Sidebar variant="inset" {...props}>
     //   <SidebarHeader>

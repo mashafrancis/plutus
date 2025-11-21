@@ -1,23 +1,23 @@
-import {PrismaPg} from '@prisma/adapter-pg';
+import { PrismaPg } from "@prisma/adapter-pg";
 // import {env} from '../env';
-import {PrismaClient} from '@/prisma/generated/prisma/client';
+import { PrismaClient } from "@/prisma/generated/prisma/client";
 
 export type GetDbParams = {
-	connectionString: string;
+  connectionString: string;
 };
 
-export function getDb({connectionString}: GetDbParams) {
-	const pool = new PrismaPg({connectionString});
-	return new PrismaClient({
-		adapter: pool,
-		log:
-			process.env.NODE_ENV === 'development'
-				? ['query', 'error', 'warn']
-				: ['error'],
-	});
+export function getDb({ connectionString }: GetDbParams) {
+  const pool = new PrismaPg({ connectionString });
+  return new PrismaClient({
+    adapter: pool,
+    log:
+      process.env.NODE_ENV === "development"
+        ? ["query", "error", "warn"]
+        : ["error"],
+  });
 }
 
-export const db = getDb({connectionString: process.env.DIRECT_URL as string});
+export const db = getDb({ connectionString: process.env.DIRECT_URL as string });
 // export default db;
 
 // const createPrismaClient = () =>

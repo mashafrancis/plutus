@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import type React from 'react';
-import { getSession } from '@/auth/server';
-import SectionContainer from '@/components/section-container';
-import { buttonVariants } from '@/components/ui/button';
-import { cn, fancyId } from '@/lib/utils';
+import Link from "next/link";
+import type React from "react";
+import { getSession } from "@/auth/server";
+import SectionContainer from "@/components/section-container";
+import { buttonVariants } from "@/components/ui/button";
+import { cn, fancyId } from "@/lib/utils";
 
 interface Props {
   h1: string | React.ReactNode;
@@ -39,32 +39,30 @@ export default async function HomeHeader(props: Props) {
             )}
             <h1
               className="h1 text-3xl tracking-[-.15px] md:text-4xl! lg:text-4xl! 2xl:text-6xl!"
-              key={'h1'}
+              key={"h1"}
             >
               {props.h1}
             </h1>
           </div>
           <div>
-            {props.subheader?.map((subheader) => {
-              return (
-                <p
-                  className="p max-w-lg text-muted-foreground lg:max-w-none lg:text-lg"
-                  key={fancyId()}
-                >
-                  {subheader}
-                </p>
-              );
-            })}
+            {props.subheader?.map((subheader) => (
+              <p
+                className="p max-w-lg text-muted-foreground lg:max-w-none lg:text-lg"
+                key={fancyId()}
+              >
+                {subheader}
+              </p>
+            ))}
           </div>
           <div className="flex flex-row gap-2 md:flex-row md:items-center">
             <Link
               className={cn(
                 buttonVariants({
-                  size: 'lg',
-                  variant: 'default',
+                  size: "lg",
+                  variant: "default",
                 })
               )}
-              href={session?.user.email ? '/overview' : '/login'}
+              href={session?.user.email ? "/overview" : "/login"}
             >
               Manage finances
             </Link>

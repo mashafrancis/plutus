@@ -1,17 +1,17 @@
-import dayjs from 'dayjs';
-import { ChevronLeft, ChevronRight, Clock, XIcon } from 'lucide-react';
-import { type PropsWithChildren, useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
-import { useHotkeys } from 'react-hotkeys-hook';
-import { DATA_LARGE_DATE_RANGE_DAYS_THRESHOLD } from '@/constants/time';
-import { copyToClipboard } from '@/lib/copy-to-clipboard';
-import { cn } from '@/lib/utils';
-import type { DatetimeHelper } from '@/types/ui.types';
-import { Button } from './button';
-import { Label } from './label';
-import { Popover, PopoverContent, PopoverTrigger } from './popover';
-import { RadioGroup, RadioGroupItem } from './radio-group';
-import TimeSplitInput from './time-split';
+import dayjs from "dayjs";
+import { ChevronLeft, ChevronRight, Clock, XIcon } from "lucide-react";
+import { type PropsWithChildren, useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import { useHotkeys } from "react-hotkeys-hook";
+import { DATA_LARGE_DATE_RANGE_DAYS_THRESHOLD } from "@/constants/time";
+import { copyToClipboard } from "@/lib/copy-to-clipboard";
+import { cn } from "@/lib/utils";
+import type { DatetimeHelper } from "@/types/ui.types";
+import { Button } from "./button";
+import { Label } from "./label";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import { RadioGroup, RadioGroupItem } from "./radio-group";
+import TimeSplitInput from "./time-split";
 
 export type DatePickerValue = {
   to: string;
@@ -35,7 +35,7 @@ export const DateTimePicker = ({
 }: PropsWithChildren<Props>) => {
   const [open, setOpen] = useState(false);
   useHotkeys(
-    'd',
+    "d",
     () => setOpen((prevState) => !prevState),
     { preventDefault: true },
     [setOpen]
@@ -51,20 +51,20 @@ export const DateTimePicker = ({
       const toDate = value.to ? new Date(value.to) : null;
 
       setStartTime({
-        HH: fromDate?.getHours().toString().padStart(2, '0') || '00',
-        mm: fromDate?.getMinutes().toString().padStart(2, '0') || '00',
-        ss: fromDate?.getSeconds().toString().padStart(2, '0') || '00',
+        HH: fromDate?.getHours().toString().padStart(2, "0") || "00",
+        mm: fromDate?.getMinutes().toString().padStart(2, "0") || "00",
+        ss: fromDate?.getSeconds().toString().padStart(2, "0") || "00",
       });
 
       const now = new Date();
-      const nowHH = now.getHours().toString().padStart(2, '0');
-      const nowMM = now.getMinutes().toString().padStart(2, '0');
-      const nowSS = now.getSeconds().toString().padStart(2, '0');
+      const nowHH = now.getHours().toString().padStart(2, "0");
+      const nowMM = now.getMinutes().toString().padStart(2, "0");
+      const nowSS = now.getSeconds().toString().padStart(2, "0");
 
       setEndTime({
-        HH: toDate?.getHours().toString().padStart(2, '0') || nowHH,
-        mm: toDate?.getMinutes().toString().padStart(2, '0') || nowMM,
-        ss: toDate?.getSeconds().toString().padStart(2, '0') || nowSS,
+        HH: toDate?.getHours().toString().padStart(2, "0") || nowHH,
+        mm: toDate?.getMinutes().toString().padStart(2, "0") || nowMM,
+        ss: toDate?.getSeconds().toString().padStart(2, "0") || nowSS,
       });
     }
   }, [open, value]);
@@ -91,14 +91,14 @@ export const DateTimePicker = ({
   );
 
   const [startTime, setStartTime] = useState({
-    HH: startDate?.getHours().toString() || '00',
-    mm: startDate?.getMinutes().toString() || '00',
-    ss: startDate?.getSeconds().toString() || '00',
+    HH: startDate?.getHours().toString() || "00",
+    mm: startDate?.getMinutes().toString() || "00",
+    ss: startDate?.getSeconds().toString() || "00",
   });
   const [endTime, setEndTime] = useState({
-    HH: endDate?.getHours().toString() || '23',
-    mm: endDate?.getMinutes().toString() || '59',
-    ss: endDate?.getSeconds().toString() || '59',
+    HH: endDate?.getHours().toString() || "23",
+    mm: endDate?.getMinutes().toString() || "59",
+    ss: endDate?.getSeconds().toString() || "59",
   });
 
   function handleDatePickerChange(dates: [from: Date | null, to: Date | null]) {
@@ -216,17 +216,17 @@ export const DateTimePicker = ({
 
   useEffect(() => {
     if (open) {
-      document.addEventListener('paste', handlePaste);
-      document.addEventListener('copy', handleCopy);
+      document.addEventListener("paste", handlePaste);
+      document.addEventListener("copy", handleCopy);
     }
     return () => {
-      document.removeEventListener('paste', handlePaste);
-      document.removeEventListener('copy', handleCopy);
+      document.removeEventListener("paste", handlePaste);
+      document.removeEventListener("copy", handleCopy);
     };
   }, [open, handleCopy, handlePaste]);
 
   const isLargeRange =
-    Math.abs(dayjs(startDate).diff(dayjs(endDate), 'days')) >
+    Math.abs(dayjs(startDate).diff(dayjs(endDate), "days")) >
     DATA_LARGE_DATE_RANGE_DAYS_THRESHOLD - 1;
 
   return (
@@ -239,21 +239,21 @@ export const DateTimePicker = ({
           <Clock size={12} />
           {value.isHelper
             ? value.text
-            : `${dayjs(value.from).format('DD MMM, HH:mm')} - ${dayjs(value.to || new Date()).format('DD MMM, HH:mm')}`}
+            : `${dayjs(value.from).format("DD MMM, HH:mm")} - ${dayjs(value.to || new Date()).format("DD MMM, HH:mm")}`}
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="flex w-full p-0" side="bottom">
         <RadioGroup
           className="flex flex-col gap-px border-r p-2"
           onValueChange={handleHelperChange}
-          value={value.isHelper ? value.text : ''}
+          value={value.isHelper ? value.text : ""}
         >
           {helpers.map((helper) => (
             <Label
               className={cn(
-                'flex cursor-pointer items-center gap-2 rounded-sm px-4 py-1.5 text-muted-foreground text-xs transition-all hover:bg-background-overlay-hover hover:text-foreground [&:has([data-state=checked])]:bg-background-overlay-hover [&:has([data-state=checked])]:text-foreground',
+                "flex cursor-pointer items-center gap-2 rounded-sm px-4 py-1.5 text-muted-foreground text-xs transition-all hover:bg-background-overlay-hover hover:text-foreground [&:has([data-state=checked])]:bg-background-overlay-hover [&:has([data-state=checked])]:text-foreground",
                 {
-                  'pointer-events-none cursor-not-allowed opacity-50':
+                  "pointer-events-none cursor-not-allowed opacity-50":
                     helper.disabled,
                 }
               )}
@@ -301,8 +301,8 @@ export const DateTimePicker = ({
               <Button
                 className="px-1"
                 onClick={() => {
-                  setStartTime({ HH: '00', mm: '00', ss: '00' });
-                  setEndTime({ HH: '00', mm: '00', ss: '00' });
+                  setStartTime({ HH: "00", mm: "00", ss: "00" });
+                  setEndTime({ HH: "00", mm: "00", ss: "00" });
                 }}
                 size="icon"
                 variant="ghost"
@@ -314,7 +314,7 @@ export const DateTimePicker = ({
           <div className="border-t p-2">
             <DatePicker
               dateFormat="MMMM d, yyyy h:mm aa"
-              dayClassName={() => 'cursor-pointer'}
+              dayClassName={() => "cursor-pointer"}
               endDate={endDate}
               inline
               onChange={(dates) => {
@@ -339,7 +339,7 @@ export const DateTimePicker = ({
                       <ChevronLeft size={14} strokeWidth={2} />
                     </Button>
                     <span className="text-muted-foreground text-sm">
-                      {dayjs(date).format('MMMM YYYY')}
+                      {dayjs(date).format("MMMM YYYY")}
                     </span>
                     <Button
                       className="px-1.5"
@@ -366,13 +366,13 @@ export const DateTimePicker = ({
             {startDate && endDate ? (
               <Button
                 className={cn({
-                  'text-primary': copied || pasted,
+                  "text-primary": copied || pasted,
                 })}
                 onClick={handleCopy}
                 size="sm"
                 variant="ghost"
               >
-                {copied ? 'Copied!' : pasted ? 'Pasted!' : 'Copy range'}
+                {copied ? "Copied!" : pasted ? "Pasted!" : "Copy range"}
               </Button>
             ) : null}
 

@@ -1,7 +1,7 @@
-import { Popover as BasePopover } from '@base-ui-components/react/popover';
-import type * as React from 'react';
+import { Popover as BasePopover } from "@base-ui-components/react/popover";
+import type * as React from "react";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 function Popover({ ...props }: React.ComponentProps<typeof BasePopover.Root>) {
   return <BasePopover.Root data-slot="popover" {...props} />;
@@ -37,10 +37,10 @@ function PopoverPositioner({
   return <BasePopover.Positioner data-slot="popover-positioner" {...props} />;
 }
 
-function PopoverHeader({ className, ...props }: React.ComponentProps<'div'>) {
+function PopoverHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      className={cn('relative flex flex-col gap-y-1', className)}
+      className={cn("relative flex flex-col gap-y-1", className)}
       data-slot="popover-header"
       {...props}
     />
@@ -53,7 +53,7 @@ function PopoverTitle({
 }: React.ComponentProps<typeof BasePopover.Title>) {
   return (
     <BasePopover.Title
-      className={cn('font-semibold text-sm', className)}
+      className={cn("font-semibold text-sm", className)}
       data-slot="popover-title"
       {...props}
     />
@@ -66,7 +66,7 @@ function PopoverDescription({
 }: React.ComponentProps<typeof BasePopover.Description>) {
   return (
     <BasePopover.Description
-      className={cn('text-muted-foreground text-sm', className)}
+      className={cn("text-muted-foreground text-sm", className)}
       data-slot="popover-description"
       {...props}
     />
@@ -76,13 +76,13 @@ function PopoverDescription({
 function PopoverContent({
   children,
   className,
-  align = 'center',
+  align = "center",
   sideOffset = 8,
   arrow = true,
   ...props
 }: React.ComponentProps<typeof BasePopover.Popup> & {
-  align?: BasePopover.Positioner.Props['align'];
-  sideOffset?: BasePopover.Positioner.Props['sideOffset'];
+  align?: BasePopover.Positioner.Props["align"];
+  sideOffset?: BasePopover.Positioner.Props["sideOffset"];
   arrow?: boolean;
 }) {
   return (
@@ -94,7 +94,7 @@ function PopoverContent({
       >
         <BasePopover.Popup
           className={cn(
-            '-outline-offset-1 z-50 w-72 origin-[var(--transform-origin)] rounded-md bg-popover p-4 text-popover-foreground shadow-md outline outline-border transition-[transform,scale,opacity] data-[ending-style]:scale-95 data-[starting-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0',
+            "-outline-offset-1 z-50 w-72 origin-[var(--transform-origin)] rounded-md bg-popover p-4 text-popover-foreground shadow-md outline outline-border transition-[transform,scale,opacity] data-[ending-style]:scale-95 data-[starting-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0",
             className
           )}
           data-slot="popover-content"
@@ -121,11 +121,11 @@ function PopoverContent({
   );
 }
 
-function PopoverFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function PopoverFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end',
+        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
         className
       )}
       data-slot="popover-footer"

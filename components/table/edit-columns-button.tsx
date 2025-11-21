@@ -1,10 +1,10 @@
-import { cn } from '@dub/utils';
-import type { Table } from '@tanstack/react-table';
-import { Command } from 'cmdk';
-import { useState } from 'react';
-import { Button } from '../button';
-import { Gear } from '../icons';
-import { Popover } from '../popover';
+import { cn } from "@dub/utils";
+import type { Table } from "@tanstack/react-table";
+import { Command } from "cmdk";
+import { useState } from "react";
+import { Button } from "../button";
+import { Gear } from "../icons";
+import { Popover } from "../popover";
 
 export function EditColumnsButton({ table }: { table: Table<any> }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,8 +21,8 @@ export function EditColumnsButton({ table }: { table: Table<any> }) {
               .map((column) => (
                 <Command.Item
                   className={cn(
-                    'flex cursor-pointer select-none items-center gap-2 whitespace-nowrap rounded-md px-3 py-1.5',
-                    'data-[selected=true]:bg-neutral-100'
+                    "flex cursor-pointer select-none items-center gap-2 whitespace-nowrap rounded-md px-3 py-1.5",
+                    "data-[selected=true]:bg-neutral-100"
                   )}
                   key={column.id}
                   onSelect={() => column.toggleVisibility()}

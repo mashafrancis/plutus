@@ -1,13 +1,13 @@
-import type { Metadata } from 'next';
-import type { SearchParams } from 'nuqs';
-import { loadMetricsParams } from '@/hooks/use-metrics-params';
-import { getCurrencySymbol } from '@/lib/formatter';
-import { getQueryClient, trpc } from '@/trpc/server';
-import OverviewCard from './overview-card';
+import type { Metadata } from "next";
+import type { SearchParams } from "nuqs";
+import { loadMetricsParams } from "@/hooks/use-metrics-params";
+import { getCurrencySymbol } from "@/lib/formatter";
+import { getQueryClient, trpc } from "@/trpc/server";
+import OverviewCard from "./overview-card";
 
 export const metadata: Metadata = {
-  title: 'Overview',
-  description: 'Plutus finance tracker.',
+  title: "Overview",
+  description: "Plutus finance tracker.",
 };
 
 type Props = {

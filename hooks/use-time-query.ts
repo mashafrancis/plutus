@@ -1,35 +1,35 @@
-'use client';
+"use client";
 
-import { createParser, useQueryState } from 'nuqs';
-import { useCallback } from 'react';
-import { defaultDateValues } from '@/constants/date';
+import { createParser, useQueryState } from "nuqs";
+import { useCallback } from "react";
+import { defaultDateValues } from "@/constants/date";
 
-export const nuqsOptions = { history: 'push' } as const;
+export const nuqsOptions = { history: "push" } as const;
 
 const defaultState = {
   timestampStart: defaultDateValues.from,
   timestampEnd: defaultDateValues.to,
-  timeRange: '',
+  timeRange: "",
 };
 
 const stringWithDefault = (defaultValue: string) =>
   createParser({
     parse: (v) => v ?? defaultValue,
-    serialize: (v) => v || '',
+    serialize: (v) => v || "",
   });
 
 export function useTimeQuery() {
   // Initialize URL query state
   const [timestampStartValue, setTimestampStartValue] = useQueryState(
-    'from',
+    "from",
     stringWithDefault(defaultState.timestampStart).withOptions(nuqsOptions)
   );
   const [timestampEndValue, setTimestampEndValue] = useQueryState(
-    'to',
+    "to",
     stringWithDefault(defaultState.timestampEnd).withOptions(nuqsOptions)
   );
   const [range, setTimeRange] = useQueryState(
-    'range',
+    "range",
     stringWithDefault(defaultState.timeRange).withOptions(nuqsOptions)
   );
 

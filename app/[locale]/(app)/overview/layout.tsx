@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
-import Add from '@/components/add-button';
-import AppHeader from '@/components/app-header';
+import type { ReactNode } from "react";
+import Add from "@/components/add-button";
+import AppHeader from "@/components/app-header";
 
 export default function Layout({ children }: { children?: ReactNode }) {
   return (
