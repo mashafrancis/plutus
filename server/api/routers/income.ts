@@ -1,86 +1,40 @@
-import { z } from "zod/v4";
-import {
-  ZCreateOrPatchIncomeSchema,
-  ZGetIncomeSchema,
-} from "@/server/api/schema";
+import { Effect, Schema } from "effect";
+import { RuntimeServer } from "@/lib/runtime-server";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import { IncomeInputs } from "@/server/data-access/income/income.schema";
+import { IncomeService } from "@/server/data-access/income/income.service";
 
-export const incomeRouter = createTRPCRouter({
-  create: protectedProcedure
-    .input(ZCreateOrPatchIncomeSchema.omit({ id: true }))
-    .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
-      const { notes, name, price, category, date } = input;
+export const incomeRouter = Effect.gen(function* () {
+  const incomeService = yield* IncomeService;
 
-      return ctx.db.income.create({
-        data: {
-          notes,
-          name,
-          price,
-          category,
-          date,
-          userId,
-        },
-      });
-    }),
-
-  get: protectedProcedure
-    .input(ZGetIncomeSchema)
-    .query(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
-      const { categories, to, from } = input;
-      const OR = {
-        OR: categories
-          ?.split(",")
-          .map((category: any) => ({ category: { contains: category } })),
-      };
-
-      const where = {
-        userId,
-        ...(categories?.length && OR),
-        ...(to && from && { date: { lte: to, gte: from } }),
-      };
-
-      if (!(from || to)) {
-        where.date = undefined;
-      }
-
-      const post = await ctx.db.income.findMany({
-        where,
-        orderBy: { updatedAt: "desc" },
-        select: {
-          notes: true,
-          name: true,
-          price: true,
-          category: true,
-          id: true,
-          date: true,
-          createdAt: true,
-          updatedAt: true,
-        },
-      });
-
-      return post ?? null;
-    }),
-
-  patch: protectedProcedure
-    .input(ZCreateOrPatchIncomeSchema)
-    .mutation(async ({ ctx, input }) => {
-      const { notes, name, price, category, id, date } = input;
-
-      return ctx.db.income.update({
-        data: { notes, name, price, date, category },
-        where: { id },
-      });
-    }),
-
-  delete: protectedProcedure
-    .input(z.object({ id: z.string() }))
-    .mutation(async ({ ctx, input }) => {
-      const { id } = input;
-
-      return ctx.db.income.delete({
-        where: { id },
-      });
-    }),
-});
+  return {
+    create: protectedProcedure
+      .input(Schema.standardSchemaV1(IncomeInputs.create))
+      .mutation(async ({ ctx, input }) => {
+        const userId = ctx.session.user.id;
+        return await incomeService
+          .createIncome({ userId, ...input })
+          .pipe(RuntimeServer.runPromise);
+      }),
+    get: protectedProcedure
+      .input(Schema.standardSchemaV1(IncomeInputs.get))
+      .query(async ({ ctx, input }) => {
+        const userId = ctx.session.user.id;
+        return await incomeService
+          .getIncome({ userId, ...input })
+          .pipe(RuntimeServer.runPromise);
+      }),
+    patch: protectedProcedure
+      .input(Schema.standardSchemaV1(IncomeInputs.update))
+      .mutation(
+        async ({ input }) =>
+          await incomeService.updateIncome(input).pipe(RuntimeServer.runPromise)
+      ),
+    delete: protectedProcedure
+      .input(Schema.standardSchemaV1(IncomeInputs.delete))
+      .mutation(
+        async ({ input }) =>
+          await incomeService.deleteIncome(input).pipe(RuntimeServer.runPromise)
+      ),
+  };
+}).pipe((result) => createTRPCRouter(RuntimeServer.runSync(result)));

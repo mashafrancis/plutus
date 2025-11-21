@@ -1,86 +1,44 @@
-import { z } from "zod/v4";
-import {
-  ZCreateOrPatchInvestmentsSchema,
-  ZGetInvestmentsSchema,
-} from "@/server/api/schema";
+import { Effect, Schema } from "effect";
+import { RuntimeServer } from "@/lib/runtime-server";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import { InvestmentInputs } from "@/server/data-access/investments/investments.schema";
+import { InvestmentsService } from "@/server/data-access/investments/investments.service";
 
-export const investmentsRouter = createTRPCRouter({
-  create: protectedProcedure
-    .input(ZCreateOrPatchInvestmentsSchema.omit({ id: true }))
-    .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
-      const { notes, name, price, category, date } = input;
+export const investmentsRouter = Effect.gen(function* () {
+  const investmentsService = yield* InvestmentsService;
 
-      return ctx.db.investment.create({
-        data: {
-          notes,
-          name,
-          price,
-          category,
-          date,
-          userId,
-        },
-      });
-    }),
-
-  get: protectedProcedure
-    .input(ZGetInvestmentsSchema)
-    .query(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
-      const { categories, to, from } = input;
-      const OR = {
-        OR: categories
-          ?.split(",")
-          .map((category: any) => ({ category: { contains: category } })),
-      };
-
-      const where = {
-        userId,
-        ...(categories?.length && OR),
-        ...(to && from && { date: { lte: to, gte: from } }),
-      };
-
-      if (!(from || to)) {
-        where.date = undefined;
-      }
-
-      const post = await ctx.db.investment.findMany({
-        where,
-        orderBy: { updatedAt: "desc" },
-        select: {
-          notes: true,
-          name: true,
-          price: true,
-          category: true,
-          id: true,
-          date: true,
-          createdAt: true,
-          updatedAt: true,
-        },
-      });
-
-      return post ?? null;
-    }),
-
-  patch: protectedProcedure
-    .input(ZCreateOrPatchInvestmentsSchema)
-    .mutation(async ({ ctx, input }) => {
-      const { notes, name, price, category, date, id } = input;
-
-      return ctx.db.investment.update({
-        data: { notes, name, price, date, category },
-        where: { id },
-      });
-    }),
-
-  delete: protectedProcedure
-    .input(z.object({ id: z.string() }))
-    .mutation(async ({ ctx, input }) => {
-      const { id } = input;
-
-      return ctx.db.investment.delete({
-        where: { id },
-      });
-    }),
-});
+  return {
+    create: protectedProcedure
+      .input(Schema.standardSchemaV1(InvestmentInputs.create))
+      .mutation(async ({ ctx, input }) => {
+        const userId = ctx.session.user.id;
+        return await investmentsService
+          .createInvestment({ userId, ...input })
+          .pipe(RuntimeServer.runPromise);
+      }),
+    get: protectedProcedure
+      .input(Schema.standardSchemaV1(InvestmentInputs.get))
+      .query(async ({ ctx, input }) => {
+        const userId = ctx.session.user.id;
+        return await investmentsService
+          .getInvestments({ userId, ...input })
+          .pipe(RuntimeServer.runPromise);
+      }),
+    patch: protectedProcedure
+      .input(Schema.standardSchemaV1(InvestmentInputs.update))
+      .mutation(
+        async ({ input }) =>
+          await investmentsService
+            .updateInvestment(input)
+            .pipe(RuntimeServer.runPromise)
+      ),
+    delete: protectedProcedure
+      .input(Schema.standardSchemaV1(InvestmentInputs.delete))
+      .mutation(
+        async ({ input }) =>
+          await investmentsService
+            .deleteInvestment(input)
+            .pipe(RuntimeServer.runPromise)
+      ),
+  };
+}).pipe((result) => createTRPCRouter(RuntimeServer.runSync(result)));

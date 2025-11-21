@@ -1,7 +1,7 @@
-import { betterAuth, type BetterAuthOptions } from "better-auth";
+import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { apiKey, organization } from "better-auth/plugins";
-import { db } from "@/server/db";
+import { prisma } from "@/lib/db/client";
 
 export function initAuth(options: {
   baseUrl: string;
@@ -14,7 +14,7 @@ export function initAuth(options: {
   googleClientSecret: string;
 }) {
   const config = {
-    database: prismaAdapter(db, {
+    database: prismaAdapter(prisma, {
       provider: "postgresql",
     }),
     baseURL: options.baseUrl,

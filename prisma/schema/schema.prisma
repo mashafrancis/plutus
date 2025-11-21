@@ -7,11 +7,7 @@ generator client {
   runtime  = "nodejs"
 }
 
-// generator fieldEncryptionMigrations {
-//   provider = "prisma-field-encryption"
-// }
-
-datasource db {
+datasource client {
   provider = "postgresql"
 }
 
@@ -27,8 +23,8 @@ model Subscription {
   paid        String
   notify      Boolean  @default(false)
   date        String
-  createdAt   DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt   DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
   userId      String
   active      Boolean? @default(true)
   cancelledAt String?
@@ -49,8 +45,8 @@ model Expense {
   paid_via  String   @default("")
   category  String
   date      String
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
   userId    String
   nameHash  String?
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -68,8 +64,8 @@ model Income {
   price     String   @default("0")
   category  String
   date      String
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
   userId    String
   nameHash  String?
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -89,8 +85,8 @@ model Investment {
   units     String   @default("0")
   category  String
   date      String
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
   userId    String
   nameHash  String?
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -98,21 +94,21 @@ model Investment {
   @@map("investment")
 }
 
-model feedback {
+model Feedback {
   id        Int      @id @default(autoincrement())
   message   String
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  createdAt DateTime @default(now())
   userId    String
 
   @@map("feedback")
 }
 
-model contact {
+model Contact {
   id        Int      @id @default(autoincrement())
   message   String
   subject   String
   email     String
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  createdAt DateTime @default(now())
 
   @@map("contact")
 }
@@ -131,7 +127,7 @@ model User {
   order_status               String?
   billing_start_date         String?
   plan_status                String         @default("basic")
-  trial_start_date           DateTime       @default(now()) @db.Timestamptz(6)
+  trial_start_date           DateTime       @default(now())
   usage                      Int            @default(0)
   basic_usage_limit_email    Boolean        @default(false)
   new_signup_email           Boolean        @default(false)
@@ -142,8 +138,8 @@ model User {
   income                     Income[]
   investments                Investment[]
   subscriptions              Subscription[]
-  createdAt                  DateTime       @default(now()) @db.Timestamptz(6)
-  updatedAt                  DateTime       @default(now()) @updatedAt @db.Timestamptz(6)
+  createdAt                  DateTime       @default(now())
+  updatedAt                  DateTime       @default(now()) @updatedAt
   sessions                   Session[]
   accounts                   Account[]
 
