@@ -2,7 +2,6 @@ import "@/styles/globals.css";
 import { OpenStatusProvider } from "@openstatus/next-monitoring";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { ViewTransitions } from "next-view-transitions";
 import type { ReactNode } from "react";
@@ -25,9 +24,6 @@ export const viewport = {
   ],
 };
 
-const _geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
-const _geist_mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
-
 type Params = Promise<{ locale: string }>;
 
 export default async function RootLayout({
@@ -41,20 +37,23 @@ export default async function RootLayout({
 
   return (
     <ViewTransitions>
-      <html lang="en" suppressHydrationWarning>
+      <html
+        className={cn(
+          "isolate min-h-dvh touch-manipulation overscroll-none whitespace-pre-line bg-background font-sans text-foreground antialiased",
+          fontSans.variable,
+          fontMono.variable
+        )}
+        data-scroll-behavior="smooth"
+        lang="en"
+        suppressHydrationWarning
+      >
         <Script
           async
           data-token={process.env.NEXT_PUBLIC_SELINE_CLIENT_ID as string}
           src="https://cdn.seline.so/seline.js"
           strategy="afterInteractive"
         />
-        <body
-          className={cn(
-            "min-[100dvh] overscroll-none scroll-smooth whitespace-pre-line bg-alternative! font-sans antialiased",
-            fontSans.variable,
-            fontMono.variable
-          )}
-        >
+        <body className="flex min-h-screen max-w-screen flex-col">
           <Providers locale={locale}>{await children}</Providers>
           <Analytics />
           <SpeedInsights />

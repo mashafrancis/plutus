@@ -1,8 +1,8 @@
 "use client";
 
 import { OpenPanelComponent } from "@openpanel/nextjs";
+import { AnimatePresence, motion } from "motion/react";
 // import { Databuddy } from "@databuddy/sdk/react";
-import { AnimatePresence, motion } from "framer-motion";
 import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/react";
 import type { ReactNode } from "react";

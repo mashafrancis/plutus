@@ -6,7 +6,7 @@ import {
   calculatePrevRenewalDate,
   calculateRenewalDate,
 } from "@/lib/date";
-import { prisma } from "@/lib/db/client";
+import { db } from "@/lib/db/client";
 import { execute } from "@/lib/db/execute";
 import type {
   CreateSubscriptionSchema,
@@ -34,7 +34,7 @@ export class SubscriptionsService extends Effect.Service<SubscriptionsService>()
         }: CreateSubscriptionSchema & { userId: string }) =>
           Effect.gen(function* () {
             return yield* execute(
-              prisma.subscription.create({
+              db.subscription.create({
                 data: {
                   notes,
                   name,
@@ -57,7 +57,7 @@ export class SubscriptionsService extends Effect.Service<SubscriptionsService>()
         }: GetSubscriptionsSchema & { userId: string }) =>
           Effect.gen(function* () {
             const data = yield* execute(
-              prisma.subscription.findMany({
+              db.subscription.findMany({
                 where: { userId },
                 orderBy: { date: "desc" },
               })
@@ -98,7 +98,7 @@ export class SubscriptionsService extends Effect.Service<SubscriptionsService>()
         }: UpdateSubscriptionSchema) =>
           Effect.gen(function* () {
             return yield* execute(
-              prisma.subscription.update({
+              db.subscription.update({
                 data: {
                   notes,
                   name,
@@ -116,7 +116,7 @@ export class SubscriptionsService extends Effect.Service<SubscriptionsService>()
         deleteSubscription: ({ id }: DeleteSubscriptionSchema) =>
           Effect.gen(function* () {
             return yield* execute(
-              prisma.subscription.delete({
+              db.subscription.delete({
                 where: { id },
               })
             );

@@ -13,6 +13,7 @@ const config: NextConfig = {
   // Enable cacheComponents (replaces experimental PPR in Next.js 16)
   // cacheComponents: true,
   images: {
+    qualities: [100, 75],
     remotePatterns: [
       {
         protocol: "https",

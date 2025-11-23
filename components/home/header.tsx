@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type React from "react";
-import { getSession } from "@/auth/server";
 import SectionContainer from "@/components/section-container";
 import { buttonVariants } from "@/components/ui/button";
+import { getSession } from "@/lib/auth";
 import { cn, fancyId } from "@/lib/utils";
 
-interface Props {
+type Props = {
   h1: string | React.ReactNode;
   subheader?: string[] | React.ReactNode[];
   icon?: any;
@@ -13,7 +13,7 @@ interface Props {
   image?: React.ReactNode;
   footer?: React.ReactNode;
   logo?: boolean;
-}
+};
 
 export default async function HomeHeader(props: Props) {
   const session = await getSession();

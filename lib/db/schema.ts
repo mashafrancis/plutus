@@ -1,5 +1,5 @@
 import { Data } from "effect";
-import { Prisma } from "@/prisma/generated/prisma/client";
+import { Prisma } from "@/generated/prisma/client";
 
 export type PrismaErrors =
   | Prisma.PrismaClientKnownRequestError

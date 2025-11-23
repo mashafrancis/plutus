@@ -1,5 +1,5 @@
 import { Effect } from "effect";
-import { prisma } from "@/lib/db/client";
+import { db } from "@/lib/db/client";
 import { execute } from "@/lib/db/execute";
 
 export class UsersService extends Effect.Service<UsersService>()(
@@ -10,7 +10,7 @@ export class UsersService extends Effect.Service<UsersService>()(
         getMe: ({ userId }: { userId: string }) =>
           Effect.gen(function* () {
             return yield* execute(
-              prisma.user.findUnique({
+              db.user.findUnique({
                 where: { id: userId },
                 select: {
                   currency: true,

@@ -1,21 +1,16 @@
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@/prisma/generated/prisma/client";
+import "dotenv/config";
+import { PrismaClient } from "@/generated/prisma/client";
+import { withAccelerate } from "@prisma/extension-accelerate";
 
-export type GetDbParams = {
-  connectionString: string;
-};
+const connectionString = process.env.DATABASE_URL;
 
-export function getDb({ connectionString }: GetDbParams) {
-  const pool = new PrismaPg({ connectionString });
+export function getDb() {
+  // const adapter = new PrismaPg({connectionString});
   return new PrismaClient({
-    adapter: pool,
-    log:
-      process.env.NODE_ENV === "development"
+      log: process.env.NODE_ENV === "development"
         ? ["query", "error", "warn"]
         : ["error"],
-  });
+  }).$extends(withAccelerate());
 }
 
-export const prisma = getDb({
-  connectionString: process.env.DIRECT_URL as string,
-});
+export const db = getDb();

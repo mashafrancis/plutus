@@ -12,7 +12,6 @@ import {
 import { headers } from "next/headers";
 import { cache, type ReactNode } from "react";
 import superjson from "superjson";
-import { auth } from "@/auth/server";
 import { getCountryCode, getLocale, getTimezone } from "@/lib/location";
 import { type AppRouter, appRouter } from "@/server/api/root";
 import { createTRPCContext } from "@/server/api/trpc";
@@ -33,7 +32,6 @@ const createContext = cache(async () => {
 
   return createTRPCContext({
     headers: heads,
-    auth,
   });
 });
 

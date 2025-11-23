@@ -7,11 +7,9 @@
  * need to use are documented accordingly near the end.
  */
 import { initTRPC, TRPCError } from "@trpc/server";
+import { cache } from "react";
 import superjson from "superjson";
-import { ZodError, z } from "zod/v4";
-
-import type { Auth } from "@/lib/auth";
-import { db } from "@/server/db";
+import { auth } from "@/lib/auth";
 
 /**
  * 1. CONTEXT
@@ -25,19 +23,14 @@ import { db } from "@/server/db";
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: {
-  headers: Headers;
-  auth: Auth;
-}) => {
-  const authApi = opts.auth.api;
-  const session = await authApi.getSession({
-    headers: opts.headers,
-  });
+export const createTRPCContext = async (opts: { headers: Headers }) => {
+  const getSession = cache(async () =>
+    auth.api.getSession({ headers: opts.headers })
+  );
+  const session = await getSession();
 
   return {
-    authApi,
     session,
-    db,
     ...opts,
   };
 };
@@ -51,16 +44,14 @@ export const createTRPCContext = async (opts: {
  */
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
-  errorFormatter: ({ shape, error }) => ({
-    ...shape,
-    data: {
-      ...shape.data,
-      zodError:
-        error.cause instanceof ZodError
-          ? z.flattenError(error.cause as ZodError<Record<string, unknown>>)
-          : null,
-    },
-  }),
+  errorFormatter({ shape }) {
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+      },
+    };
+  },
 });
 
 /**
@@ -91,7 +82,7 @@ export const createTRPCRouter = t.router;
  * network latency that would occur in production but not in local development.
  */
 const timingMiddleware = t.middleware(async ({ next, path }) => {
-  const _start = Date.now();
+  const start = Date.now();
 
   if (t._config.isDev) {
     // artificial delay in dev
@@ -101,7 +92,8 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
 
   const result = await next();
 
-  const _end = Date.now();
+  const end = Date.now();
+  console.log(`[TRPC] ${path} took ${end - start}ms to execute`);
 
   return result;
 });

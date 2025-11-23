@@ -1,5 +1,5 @@
 import { Effect } from "effect";
-import { prisma } from "@/lib/db/client";
+import { db } from "@/lib/db/client";
 import { execute } from "@/lib/db/execute";
 import type {
   CreateInvestmentSchema,
@@ -23,7 +23,7 @@ export class InvestmentsService extends Effect.Service<InvestmentsService>()(
         }: CreateInvestmentSchema & { userId: string }) =>
           Effect.gen(function* () {
             return yield* execute(
-              prisma.investment.create({
+              db.investment.create({
                 data: {
                   notes,
                   name,
@@ -60,7 +60,7 @@ export class InvestmentsService extends Effect.Service<InvestmentsService>()(
             }
 
             return yield* execute(
-              prisma.investment.findMany({
+              db.investment.findMany({
                 where,
                 orderBy: { updatedAt: "desc" },
                 select: {
@@ -86,7 +86,7 @@ export class InvestmentsService extends Effect.Service<InvestmentsService>()(
         }: UpdateInvestmentSchema) =>
           Effect.gen(function* () {
             return yield* execute(
-              prisma.investment.update({
+              db.investment.update({
                 data: { notes, name, price, date, category },
                 where: { id },
               })
@@ -95,7 +95,7 @@ export class InvestmentsService extends Effect.Service<InvestmentsService>()(
         deleteInvestment: ({ id }: DeleteInvestmentSchema) =>
           Effect.gen(function* () {
             return yield* execute(
-              prisma.investment.delete({
+              db.investment.delete({
                 where: { id },
               })
             );

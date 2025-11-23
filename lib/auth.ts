@@ -1,39 +1,63 @@
-import { type BetterAuthOptions, betterAuth } from "better-auth";
+import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { apiKey, organization } from "better-auth/plugins";
-import { prisma } from "@/lib/db/client";
+import { headers } from "next/headers";
+import { cache } from "react";
+import { Resend } from "resend";
+import WelcomeEmail from "@/components/email/welcome-email";
+import { env } from "@/env";
+import { db } from "@/lib/db/client";
 
-export function initAuth(options: {
-  baseUrl: string;
-  productionUrl: string;
-  secret: string | undefined;
+const baseUrl =
+  env.VERCEL_ENV === "production"
+    ? `https://${env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : env.VERCEL_ENV === "preview"
+      ? `https://${env.VERCEL_URL}`
+      : "http://localhost:3000";
 
-  githubClientId: string;
-  githubClientSecret: string;
-  googleClientId: string;
-  googleClientSecret: string;
-}) {
-  const config = {
-    database: prismaAdapter(prisma, {
-      provider: "postgresql",
-    }),
-    baseURL: options.baseUrl,
-    secret: options.secret,
-    socialProviders: {
-      github: {
-        clientId: options.githubClientId,
-        clientSecret: options.githubClientSecret,
-      },
-      google: {
-        clientId: options.googleClientId,
-        clientSecret: options.googleClientSecret,
+export const auth = betterAuth({
+  appName: "plutus",
+  database: prismaAdapter(db, {
+    provider: "postgresql",
+  }),
+  baseURL: baseUrl,
+  secret: env.BETTER_AUTH_SECRET,
+  socialProviders: {
+    github: {
+      clientId: env.AUTH_GITHUB_ID,
+      clientSecret: env.AUTH_GITHUB_SECRET,
+    },
+    google: {
+      clientId: env.AUTH_GOOGLE_ID,
+      clientSecret: env.AUTH_GOOGLE_SECRET,
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          const resend = new Resend(process.env.RESEND_API_KEY as string);
+          await resend.emails.send({
+            from: "Plutus <noreply@plutus.com>",
+            to: user.email,
+            subject: "Welcome to Plutus",
+            react: WelcomeEmail({
+              username: user.name,
+              url: process.env.BETTER_AUTH_URL as string,
+            }),
+          });
+        },
       },
     },
-    plugins: [organization(), apiKey()],
-  } satisfies BetterAuthOptions;
+  },
+  onAPIError: {
+    throw: false,
+    onError: (error) => {
+      console.error(error);
+    },
+    errorURL: "/auth/error",
+  },
+});
 
-  return betterAuth(config);
-}
-
-export type Auth = ReturnType<typeof initAuth>;
-export type Session = Auth["$Infer"]["Session"];
+export const getSession = cache(async () =>
+  auth.api.getSession({ headers: await headers() })
+);

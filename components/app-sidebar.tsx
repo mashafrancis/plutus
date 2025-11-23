@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getSession } from "@/auth/server";
 import { MainMenu } from "@/components/main-menu";
 import { NavUser } from "@/components/nav-user";
+import { getSession } from "@/lib/auth";
 
 const logoImage = "/logo.svg";
 

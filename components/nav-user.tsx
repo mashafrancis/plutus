@@ -3,7 +3,6 @@
 import { BadgeCheck, Bell, CreditCard, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import posthog from "posthog-js";
-import { authClient } from "@/auth/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { signOut } from "@/lib/auth-client";
 
 export function NavUser({
   user,
@@ -76,7 +76,7 @@ export function NavUser({
           <Button
             className="w-full"
             onClick={() => {
-              authClient.signOut({
+              signOut({
                 fetchOptions: {
                   onSuccess: () => {
                     posthog.capture("Logout");
