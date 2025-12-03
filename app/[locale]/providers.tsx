@@ -1,8 +1,8 @@
 "use client";
 
+import { Databuddy } from "@databuddy/sdk/react";
 import { OpenPanelComponent } from "@openpanel/nextjs";
 import { AnimatePresence, motion } from "motion/react";
-// import { Databuddy } from "@databuddy/sdk/react";
 import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/react";
 import type { ReactNode } from "react";
@@ -52,22 +52,22 @@ export function Providers({ children, locale }: ProviderProps) {
                   trackOutgoingLinks
                   trackScreenViews
                 />
-                {/*<Databuddy*/}
-                {/*  clientId={*/}
-                {/*    process.env.NEXT_PUBLIC_DATABUDDY_CLIENT_ID as string*/}
-                {/*  }*/}
-                {/*  enableBatching={true}*/}
-                {/*  trackAttributes={true}*/}
-                {/*  trackBounceRate={true}*/}
-                {/*  trackEngagement={true}*/}
-                {/*  trackErrors={true}*/}
-                {/*  trackExitIntent={true}*/}
-                {/*  trackHashChanges={true}*/}
-                {/*  trackInteractions={true}*/}
-                {/*  trackOutgoingLinks={true}*/}
-                {/*  trackScrollDepth={true}*/}
-                {/*  trackWebVitals={true}*/}
-                {/*/>*/}
+                <Databuddy
+                  clientId={
+                    process.env.NEXT_PUBLIC_DATABUDDY_CLIENT_ID as string
+                  }
+                  enableBatching={true}
+                  trackAttributes={true}
+                  // trackBounceRate={true}
+                  // trackEngagement={true}
+                  trackErrors={true}
+                  // trackExitIntent={true}
+                  trackHashChanges={true}
+                  trackInteractions={true}
+                  trackOutgoingLinks={true}
+                  trackScrollDepth={true}
+                  trackWebVitals={true}
+                />
                 <TooltipProvider delayDuration={100}>
                   {children}
                 </TooltipProvider>
