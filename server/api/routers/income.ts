@@ -97,34 +97,36 @@ export const incomeRouter = Effect.gen(function* () {
       }),
     getData: protectedProcedure
       .input(
-        Schema.optional(
-          Schema.Struct({
-            dateRange: Schema.optional(
-              Schema.Struct({
-                from: Schema.String,
-                to: Schema.String,
-              })
-            ),
-            filters: Schema.optional(
-              Schema.Struct({
-                source: Schema.optional(Schema.String),
-                accountId: Schema.optional(Schema.String),
-                tags: Schema.optional(Schema.Array(Schema.String)),
-                amountRange: Schema.optional(
-                  Schema.Struct({
-                    min: Schema.optional(Schema.Number),
-                    max: Schema.optional(Schema.Number),
-                  })
-                ),
-                recurring: Schema.optional(
-                  Schema.Literal("all", "recurring", "one-time")
-                ),
-                search: Schema.optional(Schema.String),
-                sortBy: Schema.optional(Schema.String),
-                sortDirection: Schema.optional(Schema.Literal("asc", "desc")),
-              })
-            ),
-          })
+        Schema.standardSchemaV1(
+          Schema.optional(
+            Schema.Struct({
+              dateRange: Schema.optional(
+                Schema.Struct({
+                  from: Schema.String,
+                  to: Schema.String,
+                })
+              ),
+              filters: Schema.optional(
+                Schema.Struct({
+                  source: Schema.optional(Schema.String),
+                  accountId: Schema.optional(Schema.String),
+                  tags: Schema.optional(Schema.Array(Schema.String)),
+                  amountRange: Schema.optional(
+                    Schema.Struct({
+                      min: Schema.optional(Schema.Number),
+                      max: Schema.optional(Schema.Number),
+                    })
+                  ),
+                  recurring: Schema.optional(
+                    Schema.Literal("all", "recurring", "one-time")
+                  ),
+                  search: Schema.optional(Schema.String),
+                  sortBy: Schema.optional(Schema.String),
+                  sortDirection: Schema.optional(Schema.Literal("asc", "desc")),
+                })
+              ),
+            })
+          )
         )
       )
       .query(async ({ ctx, input }) => {

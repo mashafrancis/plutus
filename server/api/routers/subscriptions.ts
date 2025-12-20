@@ -50,15 +50,17 @@ export const subscriptionsRouter = Effect.gen(function* () {
       }),
     getSummaryMetrics: protectedProcedure
       .input(
-        Schema.optional(
-          Schema.Struct({
-            dateRange: Schema.optional(
-              Schema.Struct({
-                from: Schema.String,
-                to: Schema.String,
-              })
-            ),
-          })
+        Schema.standardSchemaV1(
+          Schema.optional(
+            Schema.Struct({
+              dateRange: Schema.optional(
+                Schema.Struct({
+                  from: Schema.String,
+                  to: Schema.String,
+                })
+              ),
+            })
+          )
         )
       )
       .query(async ({ ctx, input }) => {
@@ -143,31 +145,33 @@ export const subscriptionsRouter = Effect.gen(function* () {
       ),
     getData: protectedProcedure
       .input(
-        Schema.optional(
-          Schema.Struct({
-            dateRange: Schema.optional(
-              Schema.Struct({
-                from: Schema.String,
-                to: Schema.String,
-              })
-            ),
-            filters: Schema.optional(
-              Schema.Struct({
-                category: Schema.optional(Schema.String),
-                status: Schema.optional(Schema.String),
-                billingCycle: Schema.optional(Schema.String),
-                amountRange: Schema.optional(
-                  Schema.Struct({
-                    min: Schema.optional(Schema.Number),
-                    max: Schema.optional(Schema.Number),
-                  })
-                ),
-                search: Schema.optional(Schema.String),
-                sortBy: Schema.optional(Schema.String),
-                sortDirection: Schema.optional(Schema.Literal("asc", "desc")),
-              })
-            ),
-          })
+        Schema.standardSchemaV1(
+          Schema.optional(
+            Schema.Struct({
+              dateRange: Schema.optional(
+                Schema.Struct({
+                  from: Schema.String,
+                  to: Schema.String,
+                })
+              ),
+              filters: Schema.optional(
+                Schema.Struct({
+                  category: Schema.optional(Schema.String),
+                  status: Schema.optional(Schema.String),
+                  billingCycle: Schema.optional(Schema.String),
+                  amountRange: Schema.optional(
+                    Schema.Struct({
+                      min: Schema.optional(Schema.Number),
+                      max: Schema.optional(Schema.Number),
+                    })
+                  ),
+                  search: Schema.optional(Schema.String),
+                  sortBy: Schema.optional(Schema.String),
+                  sortDirection: Schema.optional(Schema.Literal("asc", "desc")),
+                })
+              ),
+            })
+          )
         )
       )
       .query(async ({ ctx, input }) => {

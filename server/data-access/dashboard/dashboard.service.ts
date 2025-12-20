@@ -164,7 +164,7 @@ export class DashboardService extends Effect.Service<DashboardService>()(
                 db.subscription.findMany({
                   where: {
                     userId,
-                    active: true,
+                    status: "active",
                   },
                 })
               ),
@@ -229,7 +229,7 @@ export class DashboardService extends Effect.Service<DashboardService>()(
 
             // Calculate investment values
             const investmentValue = investments.reduce(
-              (sum, inv) => sum + Number(inv.price) * Number(inv.units),
+              (sum, inv) => sum + Number(inv.costBasis) * Number(inv.shares),
               0
             );
             const prevInvestmentValue = investmentValue; // Simplified
@@ -326,7 +326,7 @@ export class DashboardService extends Effect.Service<DashboardService>()(
 
             // Investment performance
             const investmentCostBasis = investments.reduce(
-              (sum, inv) => sum + Number(inv.price) * Number(inv.units),
+              (sum, inv) => sum + Number(inv.costBasis) * Number(inv.shares),
               0
             );
             const totalGain = investmentValue - investmentCostBasis;
@@ -336,7 +336,7 @@ export class DashboardService extends Effect.Service<DashboardService>()(
                 : 0;
 
             const holdings: InvestmentHolding[] = investments.map((inv) => {
-              const value = Number(inv.price) * Number(inv.units);
+              const value = Number(inv.costBasis) * Number(inv.shares);
               const costBasis = value; // Simplified
               const gain = value - costBasis;
               const gainPercent = costBasis > 0 ? (gain / costBasis) * 100 : 0;
@@ -365,7 +365,7 @@ export class DashboardService extends Effect.Service<DashboardService>()(
 
             const upcomingSubscriptions: Subscription[] = subscriptions
               .filter((sub) => {
-                const nextDate = new Date(sub.date);
+                const nextDate = new Date(sub.nextPaymentDate || sub.startDate);
                 return nextDate >= today && nextDate <= nextMonth;
               })
               .slice(0, 5)
@@ -373,8 +373,8 @@ export class DashboardService extends Effect.Service<DashboardService>()(
                 id: sub.id,
                 name: sub.name,
                 amount: Number(sub.price),
-                nextPaymentDate: sub.date,
-                frequency: sub.paid as "monthly" | "yearly" | "weekly",
+                nextPaymentDate: sub.nextPaymentDate || sub.startDate,
+                frequency: sub.billingCycle as "monthly" | "yearly" | "weekly",
                 accountId: sub.accountId || "",
               }));
 

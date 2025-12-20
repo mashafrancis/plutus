@@ -101,17 +101,19 @@ export const investmentsRouter = Effect.gen(function* () {
       ),
     getData: protectedProcedure
       .input(
-        Schema.optional(
-          Schema.Struct({
-            filters: Schema.optional(
-              Schema.Struct({
-                assetType: Schema.optional(Schema.String),
-                account: Schema.optional(Schema.String),
-                gainLossStatus: Schema.optional(Schema.String),
-                search: Schema.optional(Schema.String),
-              })
-            ),
-          })
+        Schema.standardSchemaV1(
+          Schema.optional(
+            Schema.Struct({
+              filters: Schema.optional(
+                Schema.Struct({
+                  assetType: Schema.optional(Schema.String),
+                  account: Schema.optional(Schema.String),
+                  gainLossStatus: Schema.optional(Schema.String),
+                  search: Schema.optional(Schema.String),
+                })
+              ),
+            })
+          )
         )
       )
       .query(async ({ ctx, input }) => {
