@@ -73,26 +73,30 @@ model Expense {
 }
 
 model Income {
-  id        String   @id @default(uuid())
+  id               String       @id @default(uuid())
   /// @encrypted
-  name      String
+  name             String
   /// @encrypted
-  notes     String?
+  notes            String?
   /// @encrypted
-  price     String   @default("0")
-  category  String
-  categoryId String?
-  accountId String?
-  date      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  userId    String
-  nameHash  String?
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  price            String        @default("0")
+  source           String
+  categoryId       String?
+  accountId        String?
+  date             String
+  recurring        Boolean       @default(false)
+  recurringFrequency String?     // monthly, weekly, quarterly, yearly, semi-annual
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @default(now()) @updatedAt
+  userId           String
+  nameHash         String?
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tags             IncomeTag[]
 
   @@index([userId])
   @@index([categoryId])
   @@index([accountId])
+  @@index([recurring])
   @@map("income")
 }
 
@@ -272,10 +276,24 @@ model Tag {
   userId   String
   user     User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   expenses ExpenseTag[]
+  incomeEntries IncomeTag[]
 
   @@unique([userId, name])
   @@index([userId])
   @@map("tag")
+}
+
+model IncomeTag {
+  id        String   @id @default(uuid())
+  incomeId  String
+  tagId     String
+  income    Income   @relation(fields: [incomeId], references: [id], onDelete: Cascade)
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([incomeId, tagId])
+  @@index([incomeId])
+  @@index([tagId])
+  @@map("income_tag")
 }
 
 model ExpenseTag {
