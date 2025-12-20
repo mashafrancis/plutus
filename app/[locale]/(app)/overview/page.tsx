@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import type { SearchParams } from "nuqs";
-import { loadMetricsParams } from "@/hooks/use-metrics-params";
-import { getCurrencySymbol } from "@/lib/formatter";
 import { getQueryClient, trpc } from "@/trpc/server";
-import OverviewCard from "./overview-card";
+import { DashboardClient } from "./dashboard-client";
 
 export const metadata: Metadata = {
-  title: "Overview",
-  description: "Plutus finance tracker.",
+  title: "Dashboard",
+  description: "Your financial overview at a glance",
 };
 
 type Props = {
@@ -17,138 +15,23 @@ type Props = {
 export default async function Page(props: Props) {
   const queryClient = getQueryClient();
   const searchParams = await props.searchParams;
-  const { from, to } = loadMetricsParams(searchParams);
+  const timeframe = (searchParams.timeframe as string) || "month";
 
-  const [user, expenses, income, investments, subscriptions] =
-    await Promise.all([
-      queryClient.fetchQuery(trpc.users.me.queryOptions()),
-      queryClient.fetchQuery(trpc.expenses.get.queryOptions({ from, to })),
-      queryClient.fetchQuery(trpc.income.get.queryOptions({ from, to })),
-      queryClient.fetchQuery(trpc.investments.get.queryOptions({ from, to })),
-      queryClient.fetchQuery(trpc.subscriptions.get.queryOptions({ from, to })),
-    ]);
-
-  const totalExpenses = expenses.reduce(
-    (acc: any, { price }: any) => Number(price) + acc,
-    0
-  );
-  const totalIncome = income.reduce(
-    (acc: any, { price }: any) => Number(price) + acc,
-    0
-  );
-  const totalInvestments = investments.reduce(
-    (acc: any, { price, units }: any) => Number(price) * Number(units) + acc,
-    0
-  );
-  const totalSubscriptions = subscriptions.reduce(
-    (acc: any, { price, paid_dates }: any) =>
-      Number(price) * paid_dates.length + acc,
-    0
-  );
-  const totalSpent = totalExpenses + totalInvestments + totalSubscriptions;
-  const totalBalance = totalIncome - totalSpent;
+  const [user, dashboardData] = await Promise.all([
+    queryClient.fetchQuery(trpc.users.me.queryOptions()),
+    queryClient.fetchQuery(
+      trpc.dashboard.getData.queryOptions({
+        timeframe: timeframe as any,
+      })
+    ),
+  ]);
 
   return (
-    <div className="relative py-0">
-      <div className="pointer-events-none absolute inset-0 -z-1 grid grid-cols-1 gap-4 max-sm:hidden sm:grid-cols-5">
-        <div className="border-edge border-r" />
-        <div className="border-edge border-x" />
-        <div className="border-edge border-x" />
-        <div className="border-edge border-x" />
-        <div className="border-edge border-l" />
-        {/*<div className="border-edge border-l"/>*/}
-      </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
-        <OverviewCard
-          data={
-            totalIncome
-              ? { change: 0, current: totalIncome }
-              : {
-                  change: 0,
-                  current: 0,
-                }
-          }
-          heading="Total income"
-          valuePrefix={getCurrencySymbol({
-            currency: user?.currency,
-            locale: user?.locale,
-          })}
-        />
-        <OverviewCard
-          data={
-            totalBalance
-              ? { change: 0, current: totalBalance }
-              : {
-                  change: 0,
-                  current: 0,
-                }
-          }
-          heading="Available balance"
-          valuePrefix={getCurrencySymbol({
-            currency: user?.currency,
-            locale: user?.locale,
-          })}
-        />
-        <OverviewCard
-          data={
-            totalSpent
-              ? { change: 0, current: totalSpent }
-              : {
-                  change: 0,
-                  current: 0,
-                }
-          }
-          heading="Total spent"
-          valuePrefix={getCurrencySymbol({
-            currency: user?.currency,
-            locale: user?.locale,
-          })}
-        />
-        <OverviewCard
-          data={
-            totalInvestments
-              ? { change: 0, current: totalInvestments }
-              : {
-                  change: 0,
-                  current: 0,
-                }
-          }
-          heading="Total investment"
-          valuePrefix={getCurrencySymbol({
-            currency: user?.currency,
-            locale: user?.locale,
-          })}
-        />
-        <OverviewCard
-          data={
-            totalSubscriptions
-              ? { change: 0, current: totalSubscriptions }
-              : {
-                  change: 0,
-                  current: 0,
-                }
-          }
-          heading="Total subscriptions"
-          valuePrefix={getCurrencySymbol({
-            currency: user?.currency,
-            locale: user?.locale,
-          })}
-        />
-        {/*<div className='aspect-video rounded-xl bg-muted/50' />*/}
-        {/*<div className='aspect-video rounded-xl bg-muted/50' />*/}
-        {/*<div className='aspect-video rounded-xl bg-muted/50' />*/}
-      </div>
-      <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-    </div>
+    <DashboardClient
+      currency={user?.currency || "USD"}
+      initialData={dashboardData}
+      locale={user?.locale || "en-US"}
+      timeframe={timeframe as any}
+    />
   );
 }
-
-// function Separator() {
-// 	return (
-// 		<div
-// 			className="-z-1 pointer-events-none grid grid-cols-1 gap-4 max-sm:hidden sm:grid-cols-5">
-// 			<div className="border-edge border-r"/>
-// 			<div className="border-edge border-l"/>
-// 		</div>
-// 	);
-// }

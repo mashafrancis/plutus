@@ -1,0 +1,396 @@
+{
+  "_meta": {
+    "models": {
+      "summaryMetrics": "Aggregated expense metrics showing total spending, daily average, top category, budget progress, comparison to last month, and transaction count.",
+      "expenses": "Individual expense transactions with amount, date, category, account, tags, notes, and recurring status.",
+      "filterOptions": "Available options for filtering expenses by category, account, or tag.",
+      "budgetProgress": "Current spending versus monthly budget targets per category, showing progress toward limits."
+    },
+    "relationships": [
+      "Summary Metrics aggregate data from Expenses",
+      "Expenses belong to Accounts and Categories",
+      "Expenses can have multiple Tags",
+      "Budget Progress compares Expense totals to Budget targets",
+      "Filter Options are extracted from unique values in Expenses"
+    ]
+  },
+  "summaryMetrics": {
+    "totalSpendingThisMonth": {
+      "value": 3240.0,
+      "previousValue": 3580.0,
+      "change": -340.0,
+      "changePercent": -9.5,
+      "trend": "down"
+    },
+    "averageDailySpending": {
+      "value": 108.0,
+      "previousValue": 115.48,
+      "change": -7.48,
+      "changePercent": -6.48,
+      "trend": "down"
+    },
+    "topSpendingCategory": {
+      "category": "Housing",
+      "amount": 1850.0,
+      "percentage": 57.1
+    },
+    "budgetProgress": {
+      "totalSpent": 3240.0,
+      "totalBudget": 4000.0,
+      "percentage": 81.0,
+      "status": "warning"
+    },
+    "comparisonToLastMonth": {
+      "change": -340.0,
+      "changePercent": -9.5,
+      "trend": "down",
+      "message": "9.5% less than last month"
+    },
+    "transactionCount": {
+      "thisMonth": 18,
+      "lastMonth": 22,
+      "change": -4
+    }
+  },
+  "expenses": [
+    {
+      "id": "exp-001",
+      "type": "expense",
+      "amount": 1850.0,
+      "category": "Housing",
+      "description": "Monthly Rent",
+      "date": "2024-12-01",
+      "accountId": "acc-001",
+      "tags": ["rent", "recurring"],
+      "notes": "December rent payment",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    },
+    {
+      "id": "exp-002",
+      "type": "expense",
+      "amount": 45.5,
+      "category": "Food & Dining",
+      "description": "Coffee & Breakfast",
+      "date": "2024-12-10",
+      "accountId": "acc-001",
+      "tags": ["coffee", "morning"],
+      "notes": "",
+      "recurring": false
+    },
+    {
+      "id": "exp-003",
+      "type": "expense",
+      "amount": 89.5,
+      "category": "Transportation",
+      "description": "Gas & Parking",
+      "date": "2024-12-07",
+      "accountId": "acc-002",
+      "tags": ["gas", "car"],
+      "notes": "Full tank + downtown parking",
+      "recurring": false
+    },
+    {
+      "id": "exp-004",
+      "type": "expense",
+      "amount": 125.0,
+      "category": "Shopping",
+      "description": "Winter Clothing",
+      "date": "2024-12-08",
+      "accountId": "acc-001",
+      "tags": ["clothing", "winter"],
+      "notes": "New jacket and gloves",
+      "recurring": false
+    },
+    {
+      "id": "exp-005",
+      "type": "expense",
+      "amount": 15.99,
+      "category": "Subscriptions",
+      "description": "Netflix",
+      "date": "2024-12-05",
+      "accountId": "acc-001",
+      "tags": ["streaming", "entertainment"],
+      "notes": "",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    },
+    {
+      "id": "exp-006",
+      "type": "expense",
+      "amount": 9.99,
+      "category": "Subscriptions",
+      "description": "Spotify Premium",
+      "date": "2024-12-04",
+      "accountId": "acc-001",
+      "tags": ["music", "streaming"],
+      "notes": "",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    },
+    {
+      "id": "exp-007",
+      "type": "expense",
+      "amount": 52.99,
+      "category": "Subscriptions",
+      "description": "Adobe Creative Cloud",
+      "date": "2024-12-03",
+      "accountId": "acc-001",
+      "tags": ["software", "work"],
+      "notes": "Annual plan, monthly billing",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    },
+    {
+      "id": "exp-008",
+      "type": "expense",
+      "amount": 49.99,
+      "category": "Health & Fitness",
+      "description": "Gym Membership",
+      "date": "2024-12-02",
+      "accountId": "acc-001",
+      "tags": ["fitness", "recurring"],
+      "notes": "",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    },
+    {
+      "id": "exp-009",
+      "type": "expense",
+      "amount": 680.0,
+      "category": "Food & Dining",
+      "description": "Grocery Shopping",
+      "date": "2024-12-09",
+      "accountId": "acc-001",
+      "tags": ["groceries", "weekly"],
+      "notes": "Weekly grocery run - includes meal prep ingredients",
+      "recurring": false
+    },
+    {
+      "id": "exp-010",
+      "type": "expense",
+      "amount": 95.0,
+      "category": "Health & Fitness",
+      "description": "Doctor Visit",
+      "date": "2024-12-06",
+      "accountId": "acc-002",
+      "tags": ["health", "medical"],
+      "notes": "Annual checkup",
+      "recurring": false
+    },
+    {
+      "id": "exp-011",
+      "type": "expense",
+      "amount": 180.0,
+      "category": "Entertainment",
+      "description": "Concert Tickets",
+      "date": "2024-12-11",
+      "accountId": "acc-001",
+      "tags": ["music", "events"],
+      "notes": "Two tickets for New Year's Eve concert",
+      "recurring": false
+    },
+    {
+      "id": "exp-012",
+      "type": "expense",
+      "amount": 320.0,
+      "category": "Shopping",
+      "description": "Electronics",
+      "date": "2024-12-12",
+      "accountId": "acc-001",
+      "tags": ["electronics", "tech"],
+      "notes": "Wireless headphones",
+      "recurring": false
+    },
+    {
+      "id": "exp-013",
+      "type": "expense",
+      "amount": 420.0,
+      "category": "Transportation",
+      "description": "Car Insurance",
+      "date": "2024-12-01",
+      "accountId": "acc-002",
+      "tags": ["insurance", "car"],
+      "notes": "Quarterly payment",
+      "recurring": true,
+      "recurringFrequency": "quarterly"
+    },
+    {
+      "id": "exp-014",
+      "type": "expense",
+      "amount": 28.5,
+      "category": "Food & Dining",
+      "description": "Lunch Meeting",
+      "date": "2024-12-11",
+      "accountId": "acc-001",
+      "tags": ["business", "lunch"],
+      "notes": "Client lunch",
+      "recurring": false
+    },
+    {
+      "id": "exp-015",
+      "type": "expense",
+      "amount": 150.0,
+      "category": "Other",
+      "description": "Charity Donation",
+      "date": "2024-12-10",
+      "accountId": "acc-001",
+      "tags": ["charity", "donation"],
+      "notes": "Monthly donation to local food bank",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    },
+    {
+      "id": "exp-016",
+      "type": "expense",
+      "amount": 75.0,
+      "category": "Entertainment",
+      "description": "Movie Night",
+      "date": "2024-12-09",
+      "accountId": "acc-001",
+      "tags": ["movies", "entertainment"],
+      "notes": "",
+      "recurring": false
+    },
+    {
+      "id": "exp-017",
+      "type": "expense",
+      "amount": 35.0,
+      "category": "Transportation",
+      "description": "Uber Ride",
+      "date": "2024-12-08",
+      "accountId": "acc-001",
+      "tags": ["rideshare", "transportation"],
+      "notes": "Airport pickup",
+      "recurring": false
+    },
+    {
+      "id": "exp-018",
+      "type": "expense",
+      "amount": 12.99,
+      "category": "Subscriptions",
+      "description": "Cloud Storage",
+      "date": "2024-12-07",
+      "accountId": "acc-001",
+      "tags": ["storage", "cloud"],
+      "notes": "",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    }
+  ],
+  "filterOptions": {
+    "categories": [
+      "Housing",
+      "Food & Dining",
+      "Transportation",
+      "Shopping",
+      "Subscriptions",
+      "Health & Fitness",
+      "Entertainment",
+      "Other"
+    ],
+    "accounts": [
+      {
+        "id": "acc-001",
+        "name": "Chase Checking",
+        "type": "checking"
+      },
+      {
+        "id": "acc-002",
+        "name": "Chase Credit Card",
+        "type": "credit"
+      }
+    ],
+    "tags": [
+      "rent",
+      "recurring",
+      "coffee",
+      "morning",
+      "gas",
+      "car",
+      "clothing",
+      "winter",
+      "streaming",
+      "entertainment",
+      "music",
+      "software",
+      "work",
+      "fitness",
+      "groceries",
+      "weekly",
+      "health",
+      "medical",
+      "events",
+      "electronics",
+      "tech",
+      "insurance",
+      "business",
+      "lunch",
+      "charity",
+      "donation",
+      "movies",
+      "rideshare",
+      "transportation",
+      "storage",
+      "cloud"
+    ]
+  },
+  "budgetProgress": [
+    {
+      "category": "Housing",
+      "spent": 1850.0,
+      "target": 2000.0,
+      "percentage": 92.5,
+      "status": "warning"
+    },
+    {
+      "category": "Food & Dining",
+      "spent": 755.0,
+      "target": 750.0,
+      "percentage": 100.7,
+      "status": "over"
+    },
+    {
+      "category": "Transportation",
+      "spent": 544.5,
+      "target": 500.0,
+      "percentage": 108.9,
+      "status": "over"
+    },
+    {
+      "category": "Shopping",
+      "spent": 445.0,
+      "target": 400.0,
+      "percentage": 111.3,
+      "status": "over"
+    },
+    {
+      "category": "Subscriptions",
+      "spent": 145.0,
+      "target": 150.0,
+      "percentage": 96.7,
+      "status": "warning"
+    },
+    {
+      "category": "Entertainment",
+      "spent": 255.0,
+      "target": 200.0,
+      "percentage": 127.5,
+      "status": "over"
+    },
+    {
+      "category": "Health & Fitness",
+      "spent": 144.99,
+      "target": 150.0,
+      "percentage": 96.7,
+      "status": "good"
+    },
+    {
+      "category": "Other",
+      "spent": 150.0,
+      "target": 200.0,
+      "percentage": 75.0,
+      "status": "good"
+    }
+  ]
+}

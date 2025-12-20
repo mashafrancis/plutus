@@ -15,6 +15,17 @@ const modals = {
     loading: Loading,
   }),
   expenses: dynamic(() => import("./expenses")),
+  income: dynamic(() => import("./income")),
+  subscriptions: dynamic(() => import("./subscriptions")),
+  "payment-history": dynamic(() => import("./payment-history")),
+  investments: dynamic(() => import("./investments")),
+  "investment-transaction": dynamic(() => import("./investment-transaction")),
+  "investment-value": dynamic(() => import("./investment-value")),
+  "investment-history": dynamic(() => import("./investment-history")),
+  account: dynamic(() => import("./account")),
+  category: dynamic(() => import("./category")),
+  tag: dynamic(() => import("./tag")),
+  budget: dynamic(() => import("./budget")),
 };
 
 export const {

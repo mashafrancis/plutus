@@ -22,6 +22,12 @@ export const CreateExpenseSchema = Schema.Struct({
   category: Schema.String,
   date: Schema.String,
   paid_via: Schema.String,
+  accountId: Schema.optional(Schema.String),
+  recurring: Schema.optional(Schema.Boolean),
+  recurringFrequency: Schema.optional(
+    Schema.Literal("monthly", "weekly", "quarterly", "yearly")
+  ),
+  tagIds: Schema.optional(Schema.Array(Schema.String)),
 });
 
 export type CreateExpenseSchema = Schema.Schema.Type<
@@ -36,6 +42,12 @@ export const UpdateExpenseSchema = Schema.Struct({
   category: Schema.String,
   date: Schema.String,
   paid_via: Schema.String,
+  accountId: Schema.optional(Schema.String),
+  recurring: Schema.optional(Schema.Boolean),
+  recurringFrequency: Schema.optional(
+    Schema.Literal("monthly", "weekly", "quarterly", "yearly")
+  ),
+  tagIds: Schema.optional(Schema.Array(Schema.String)),
 });
 
 export type UpdateExpenseSchema = Schema.Schema.Type<
@@ -64,9 +76,63 @@ export type DeleteExpenseSchema = Schema.Schema.Type<
   typeof DeleteExpenseSchema
 >;
 
+export const GetExpensesWithFiltersSchema = Schema.Struct({
+  dateRange: Schema.optional(
+    Schema.Struct({
+      from: Schema.String,
+      to: Schema.String,
+    })
+  ),
+  category: Schema.optional(Schema.String),
+  accountId: Schema.optional(Schema.String),
+  tags: Schema.optional(Schema.Array(Schema.String)),
+  amountRange: Schema.optional(
+    Schema.Struct({
+      min: Schema.optional(Schema.Number),
+      max: Schema.optional(Schema.Number),
+    })
+  ),
+  recurring: Schema.optional(Schema.Literal("all", "recurring", "one-time")),
+  search: Schema.optional(Schema.String),
+  sortBy: Schema.optional(Schema.String),
+  sortDirection: Schema.optional(Schema.Literal("asc", "desc")),
+});
+
+export type GetExpensesWithFiltersSchema = Schema.Schema.Type<
+  typeof GetExpensesWithFiltersSchema
+>;
+
+export const BulkDeleteExpensesSchema = Schema.Struct({
+  expenseIds: Schema.Array(Schema.String),
+});
+
+export type BulkDeleteExpensesSchema = Schema.Schema.Type<
+  typeof BulkDeleteExpensesSchema
+>;
+
+export const BulkUpdateCategorySchema = Schema.Struct({
+  expenseIds: Schema.Array(Schema.String),
+  category: Schema.String,
+});
+
+export type BulkUpdateCategorySchema = Schema.Schema.Type<
+  typeof BulkUpdateCategorySchema
+>;
+
+export const BulkAddTagsSchema = Schema.Struct({
+  expenseIds: Schema.Array(Schema.String),
+  tagIds: Schema.Array(Schema.String),
+});
+
+export type BulkAddTagsSchema = Schema.Schema.Type<typeof BulkAddTagsSchema>;
+
 export const ExpenseInputs = {
   get: GetExpensesSchema,
   create: CreateExpenseSchema,
   update: UpdateExpenseSchema,
   delete: DeleteExpenseSchema,
+  getWithFilters: GetExpensesWithFiltersSchema,
+  bulkDelete: BulkDeleteExpensesSchema,
+  bulkUpdateCategory: BulkUpdateCategorySchema,
+  bulkAddTags: BulkAddTagsSchema,
 };

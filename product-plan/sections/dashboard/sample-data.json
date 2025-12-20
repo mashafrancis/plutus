@@ -1,0 +1,342 @@
+{
+  "_meta": {
+    "models": {
+      "metrics": "Aggregated financial metrics showing net worth, cash flow, balances, savings rate, and monthly totals.",
+      "cashFlowData": "Monthly income and expense totals over time, used to visualize cash flow trends.",
+      "netWorthData": "Monthly net worth values showing how total assets minus liabilities change over time.",
+      "spendingByCategory": "Total spending amounts grouped by category, used for spending analysis charts.",
+      "incomeBySource": "Total income amounts grouped by source (salary, freelance, etc.), used for income analysis charts.",
+      "budgetProgress": "Current spending versus monthly budget targets per category, showing progress toward limits.",
+      "investmentPerformance": "Portfolio performance data including total value, gains/losses, and percentage change.",
+      "upcomingSubscriptions": "Subscriptions with upcoming payment dates this month, showing what's due soon.",
+      "recentTransactions": "The most recent expense and income transactions, showing latest financial activity.",
+      "insights": "Smart alerts and patterns surfaced by the system, such as spending anomalies or trend changes.",
+      "accounts": "User's financial accounts including bank accounts, cards, and investment accounts."
+    },
+    "relationships": [
+      "Metrics aggregate data from Transactions, Investments, and Accounts",
+      "Cash Flow Data is derived from Transactions grouped by month",
+      "Net Worth Data combines Account balances, Investment values, and Liability balances",
+      "Spending by Category groups Transactions by their Category",
+      "Income by Source groups Transactions by their source",
+      "Budget Progress compares Transaction totals to Budget targets",
+      "Upcoming Subscriptions are filtered from all Subscriptions by payment date",
+      "Recent Transactions are the latest entries from all Transactions",
+      "Insights reference Transactions, Subscriptions, or Investments to provide context"
+    ]
+  },
+  "metrics": {
+    "netWorth": {
+      "value": 125430.5,
+      "previousValue": 118920.0,
+      "change": 6510.5,
+      "changePercent": 5.48,
+      "trend": "up"
+    },
+    "monthlyCashFlow": {
+      "value": 2840.0,
+      "previousValue": 2150.0,
+      "change": 690.0,
+      "changePercent": 32.09,
+      "trend": "up"
+    },
+    "totalBalance": {
+      "value": 45620.0,
+      "previousValue": 42800.0,
+      "change": 2820.0,
+      "changePercent": 6.59,
+      "trend": "up"
+    },
+    "savingsRate": {
+      "value": 28.5,
+      "previousValue": 24.2,
+      "change": 4.3,
+      "changePercent": 17.77,
+      "trend": "up"
+    },
+    "monthlySpending": {
+      "value": 3240.0,
+      "previousValue": 3580.0,
+      "change": -340.0,
+      "changePercent": -9.5,
+      "trend": "down"
+    },
+    "monthlyIncome": {
+      "value": 6080.0,
+      "previousValue": 5730.0,
+      "change": 350.0,
+      "changePercent": 6.11,
+      "trend": "up"
+    }
+  },
+  "cashFlowData": [
+    { "month": "2024-01", "income": 5800.0, "expenses": 3420.0 },
+    { "month": "2024-02", "income": 5800.0, "expenses": 3650.0 },
+    { "month": "2024-03", "income": 5800.0, "expenses": 3890.0 },
+    { "month": "2024-04", "income": 5800.0, "expenses": 3120.0 },
+    { "month": "2024-05", "income": 5800.0, "expenses": 3450.0 },
+    { "month": "2024-06", "income": 5800.0, "expenses": 3780.0 },
+    { "month": "2024-07", "income": 5800.0, "expenses": 3210.0 },
+    { "month": "2024-08", "income": 5800.0, "expenses": 3540.0 },
+    { "month": "2024-09", "income": 5800.0, "expenses": 3670.0 },
+    { "month": "2024-10", "income": 5730.0, "expenses": 3580.0 },
+    { "month": "2024-11", "income": 6080.0, "expenses": 3240.0 },
+    { "month": "2024-12", "income": 6080.0, "expenses": 3100.0 }
+  ],
+  "netWorthData": [
+    { "month": "2024-01", "value": 98500.0 },
+    { "month": "2024-02", "value": 100230.0 },
+    { "month": "2024-03", "value": 102150.0 },
+    { "month": "2024-04", "value": 105420.0 },
+    { "month": "2024-05", "value": 107890.0 },
+    { "month": "2024-06", "value": 110340.0 },
+    { "month": "2024-07", "value": 112780.0 },
+    { "month": "2024-08", "value": 115200.0 },
+    { "month": "2024-09", "value": 117650.0 },
+    { "month": "2024-10", "value": 118920.0 },
+    { "month": "2024-11", "value": 122150.0 },
+    { "month": "2024-12", "value": 125430.5 }
+  ],
+  "spendingByCategory": [
+    { "category": "Housing", "amount": 1850.0, "color": "#3b82f6" },
+    { "category": "Food & Dining", "amount": 680.0, "color": "#10b981" },
+    { "category": "Transportation", "amount": 420.0, "color": "#f59e0b" },
+    { "category": "Subscriptions", "amount": 145.0, "color": "#8b5cf6" },
+    { "category": "Shopping", "amount": 320.0, "color": "#ec4899" },
+    { "category": "Entertainment", "amount": 180.0, "color": "#06b6d4" },
+    { "category": "Health & Fitness", "amount": 95.0, "color": "#14b8a6" },
+    { "category": "Other", "amount": 150.0, "color": "#64748b" }
+  ],
+  "incomeBySource": [
+    { "source": "Salary", "amount": 5200.0 },
+    { "source": "Freelance", "amount": 680.0 },
+    { "source": "Investment Returns", "amount": 120.0 },
+    { "source": "Side Business", "amount": 80.0 },
+    { "source": "Other", "amount": 0.0 }
+  ],
+  "budgetProgress": [
+    {
+      "category": "Housing",
+      "spent": 1850.0,
+      "target": 2000.0,
+      "percentage": 92.5
+    },
+    {
+      "category": "Food & Dining",
+      "spent": 680.0,
+      "target": 750.0,
+      "percentage": 90.7
+    },
+    {
+      "category": "Transportation",
+      "spent": 420.0,
+      "target": 500.0,
+      "percentage": 84.0
+    },
+    {
+      "category": "Shopping",
+      "spent": 320.0,
+      "target": 400.0,
+      "percentage": 80.0
+    },
+    {
+      "category": "Entertainment",
+      "spent": 180.0,
+      "target": 200.0,
+      "percentage": 90.0
+    },
+    {
+      "category": "Subscriptions",
+      "spent": 145.0,
+      "target": 150.0,
+      "percentage": 96.7
+    }
+  ],
+  "investmentPerformance": {
+    "totalValue": 79810.5,
+    "totalCostBasis": 72000.0,
+    "totalGain": 7810.5,
+    "gainPercent": 10.85,
+    "monthlyChange": 1250.0,
+    "monthlyChangePercent": 1.59,
+    "holdings": [
+      {
+        "name": "S&P 500 ETF",
+        "value": 45200.0,
+        "gain": 3200.0,
+        "gainPercent": 7.62
+      },
+      {
+        "name": "Tech Stocks",
+        "value": 18650.0,
+        "gain": 2150.0,
+        "gainPercent": 13.03
+      },
+      {
+        "name": "Crypto",
+        "value": 8960.5,
+        "gain": 1460.5,
+        "gainPercent": 19.48
+      },
+      {
+        "name": "Savings Account",
+        "value": 7000.0,
+        "gain": 0.0,
+        "gainPercent": 0.0
+      }
+    ]
+  },
+  "upcomingSubscriptions": [
+    {
+      "id": "sub-001",
+      "name": "Netflix",
+      "amount": 15.99,
+      "nextPaymentDate": "2024-12-15",
+      "frequency": "monthly",
+      "accountId": "acc-001"
+    },
+    {
+      "id": "sub-002",
+      "name": "Spotify Premium",
+      "amount": 9.99,
+      "nextPaymentDate": "2024-12-18",
+      "frequency": "monthly",
+      "accountId": "acc-001"
+    },
+    {
+      "id": "sub-003",
+      "name": "Adobe Creative Cloud",
+      "amount": 52.99,
+      "nextPaymentDate": "2024-12-22",
+      "frequency": "monthly",
+      "accountId": "acc-001"
+    },
+    {
+      "id": "sub-004",
+      "name": "Gym Membership",
+      "amount": 49.99,
+      "nextPaymentDate": "2024-12-28",
+      "frequency": "monthly",
+      "accountId": "acc-002"
+    }
+  ],
+  "recentTransactions": [
+    {
+      "id": "txn-001",
+      "type": "expense",
+      "amount": 45.5,
+      "category": "Food & Dining",
+      "description": "Coffee & Breakfast",
+      "date": "2024-12-10",
+      "accountId": "acc-001",
+      "tags": ["coffee", "morning"]
+    },
+    {
+      "id": "txn-002",
+      "type": "income",
+      "amount": 680.0,
+      "category": "Freelance",
+      "description": "Web Design Project",
+      "date": "2024-12-09",
+      "accountId": "acc-001",
+      "tags": ["freelance", "design"]
+    },
+    {
+      "id": "txn-003",
+      "type": "expense",
+      "amount": 125.0,
+      "category": "Shopping",
+      "description": "Winter Clothing",
+      "date": "2024-12-08",
+      "accountId": "acc-001",
+      "tags": ["clothing"]
+    },
+    {
+      "id": "txn-004",
+      "type": "expense",
+      "amount": 89.5,
+      "category": "Transportation",
+      "description": "Gas & Parking",
+      "date": "2024-12-07",
+      "accountId": "acc-002",
+      "tags": ["gas", "car"]
+    },
+    {
+      "id": "txn-005",
+      "type": "income",
+      "amount": 5200.0,
+      "category": "Salary",
+      "description": "Monthly Salary",
+      "date": "2024-12-05",
+      "accountId": "acc-001",
+      "tags": ["salary"]
+    }
+  ],
+  "insights": [
+    {
+      "id": "insight-001",
+      "type": "spending_anomaly",
+      "title": "Higher than usual spending",
+      "message": "You spent 15% more on Food & Dining this month compared to your 3-month average.",
+      "severity": "warning",
+      "category": "Food & Dining",
+      "actionLabel": "Review spending",
+      "dismissed": false
+    },
+    {
+      "id": "insight-002",
+      "type": "savings_trend",
+      "title": "Savings rate improved",
+      "message": "Your savings rate increased from 24.2% to 28.5% this month. Great progress!",
+      "severity": "success",
+      "actionLabel": "View details",
+      "dismissed": false
+    },
+    {
+      "id": "insight-003",
+      "type": "subscription_ratio",
+      "title": "Subscriptions account for 4.5% of expenses",
+      "message": "Your monthly subscriptions total $145, which is within a healthy range. Consider reviewing unused subscriptions.",
+      "severity": "info",
+      "actionLabel": "Manage subscriptions",
+      "dismissed": false
+    }
+  ],
+  "accounts": [
+    {
+      "id": "acc-001",
+      "name": "Chase Checking",
+      "type": "checking",
+      "balance": 12450.0,
+      "currency": "USD"
+    },
+    {
+      "id": "acc-002",
+      "name": "Chase Credit Card",
+      "type": "credit",
+      "balance": -1250.0,
+      "currency": "USD"
+    },
+    {
+      "id": "acc-003",
+      "name": "Savings Account",
+      "type": "savings",
+      "balance": 7000.0,
+      "currency": "USD"
+    },
+    {
+      "id": "acc-004",
+      "name": "Investment Portfolio",
+      "type": "investment",
+      "balance": 79810.5,
+      "currency": "USD"
+    },
+    {
+      "id": "acc-005",
+      "name": "Cash Wallet",
+      "type": "cash",
+      "balance": 210.0,
+      "currency": "USD"
+    }
+  ]
+}

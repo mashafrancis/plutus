@@ -1,0 +1,6 @@
+{"location":"dashboard.service.ts:231","message":"Calculating investment values","data":{"investmentCount":0,"firstInv":null},"timestamp":1766243351939,"sessionId":"debug-session","hypothesisId":"D"}
+{"location":"dashboard.service.ts:366","message":"Processing subscriptions","data":{"subscriptionCount":0,"firstSub":null},"timestamp":1766243351941,"sessionId":"debug-session","hypothesisId":"B,C"}
+{"location":"dashboard.service.ts:516","message":"Dashboard data fetched successfully","data":{"subscriptionCount":0,"investmentCount":0,"expenseCount":0},"timestamp":1766243351942,"sessionId":"debug-session","hypothesisId":"ALL"}
+{"location":"dashboard.service.ts:366","message":"Processing subscriptions","data":{"subscriptionCount":0,"firstSub":null},"timestamp":1766243356022,"sessionId":"debug-session","hypothesisId":"B,C"}
+{"location":"dashboard.service.ts:516","message":"Dashboard data fetched successfully","data":{"subscriptionCount":0,"investmentCount":0,"expenseCount":0},"timestamp":1766243356023,"sessionId":"debug-session","hypothesisId":"ALL"}
+{"location":"dashboard.service.ts:516","message":"Dashboard data fetched successfully","data":{"subscriptionCount":0,"investmentCount":0,"expenseCount":0},"timestamp":1766243370569,"sessionId":"debug-session","hypothesisId":"ALL"}
