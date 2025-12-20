@@ -1,6 +1,6 @@
 import { Loader2Icon } from "lucide-react";
 import dynamic from "next/dynamic";
-import { createPushModal } from "pushmodal";
+import { createPushModal } from "@/components/pushmodal/factory";
 import { ModalContent } from "@/modals/common/container";
 import type { ConfirmProps } from "@/modals/confirm";
 

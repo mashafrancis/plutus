@@ -1,4 +1,4 @@
-import type { DialogContentProps } from "@radix-ui/react-dialog";
+import type { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { XIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import {
@@ -11,7 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 import { popModal } from "@/modals";
 
-interface ModalContentProps extends DialogContentProps {
+interface ModalContentProps extends DialogPrimitive.Popup.Props {
   children: ReactNode;
 }
 

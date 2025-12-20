@@ -8,7 +8,7 @@ const HomeHero = () => {
 
   return (
     <div
-      className="-left-28 sm:-left-32 sm:-top-2 md:-left-44 lg:-left-10 lg:-top-10 xl:-left-32 absolute inset-0 top-4 aspect-978/678 w-[150%] md:w-[150%] lg:w-[130%] xl:w-[130%]"
+      className="absolute inset-0 top-4 -left-28 aspect-978/678 w-[150%] sm:-top-2 sm:-left-32 md:-left-44 md:w-[150%] lg:-top-10 lg:-left-10 lg:w-[130%] xl:-left-32 xl:w-[130%]"
       id="functions-hero"
       ref={ref}
     >

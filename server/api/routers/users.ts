@@ -7,12 +7,11 @@ export const usersRouter = Effect.gen(function* () {
   const usersService = yield* UsersService;
 
   return {
-    me: protectedProcedure
-      .query(async ({ ctx }) => {
-        const userId = ctx.session.user.id;
-        return await usersService
-          .getMe({ userId })
-          .pipe(RuntimeServer.runPromise);
-      }),
+    me: protectedProcedure.query(async ({ ctx }) => {
+      const userId = ctx.session.user.id;
+      return await usersService
+        .getMe({ userId })
+        .pipe(RuntimeServer.runPromise);
+    }),
   };
 }).pipe((result) => createTRPCRouter(RuntimeServer.runSync(result)));

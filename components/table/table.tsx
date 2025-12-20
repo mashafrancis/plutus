@@ -523,7 +523,7 @@ export function Table<T>({
         </div>
       )}
       {pagination && !error && !!data?.length && !!rowCount && (
-        <div className="-mt-px sticky bottom-0 mx-auto flex w-full max-w-full items-center justify-between rounded-b-[inherit] border-border-subtle border-t bg-bg-default px-4 py-3.5 text-content-default text-sm leading-6">
+        <div className="sticky bottom-0 mx-auto -mt-px flex w-full max-w-full items-center justify-between rounded-b-[inherit] border-border-subtle border-t bg-bg-default px-4 py-3.5 text-content-default text-sm leading-6">
           <div>
             <span className="hidden sm:inline-block">Viewing</span>{" "}
             <span className="font-medium">

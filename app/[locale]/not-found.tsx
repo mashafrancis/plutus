@@ -23,8 +23,8 @@ export default function NotFound() {
           </p>
         </div>
         <div className="flex items-center space-x-4">
-          <Button asChild size="sm" variant="default">
-            <Link href="/console">Take me home</Link>
+          <Button render={<Link href="/console" />} size="sm" variant="default">
+            Take me home
           </Button>
         </div>
       </div>
