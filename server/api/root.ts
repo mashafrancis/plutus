@@ -2,6 +2,7 @@ import { dashboardRouter } from "@/server/api/routers/dashboard";
 import { expensesRouter } from "@/server/api/routers/expenses";
 import { incomeRouter } from "@/server/api/routers/income";
 import { investmentsRouter } from "@/server/api/routers/investments";
+import { settingsRouter } from "@/server/api/routers/settings";
 import { subscriptionsRouter } from "@/server/api/routers/subscriptions";
 import { usersRouter } from "@/server/api/routers/users";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
@@ -18,6 +19,7 @@ export const appRouter = createTRPCRouter({
   income: incomeRouter,
   subscriptions: subscriptionsRouter,
   dashboard: dashboardRouter,
+  settings: settingsRouter,
 });
 
 // export type definition of API

@@ -119,29 +119,74 @@ model Income {
 }
 
 model Investment {
-  id        String   @id @default(uuid())
+  id           String                   @id @default(uuid())
   /// @encrypted
-  name      String
+  name         String
   /// @encrypted
-  notes     String?
+  ticker       String?
   /// @encrypted
-  price     String   @default("0")
+  notes        String?
+  assetType    String                   @default("stocks") // stocks, etfs, crypto, bonds, savings, retirement, real-estate, other
   /// @encrypted
-  units     String   @default("0")
-  category  String
-  categoryId String?
-  accountId String?
-  date      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  userId    String
-  nameHash  String?
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  shares       String                   @default("0") // renamed from units
+  /// @encrypted
+  costBasis    String                   @default("0") // renamed from price
+  /// @encrypted
+  currentValue String                   @default("0")
+  sector       String?
+  category     String
+  categoryId   String?
+  accountId    String?
+  date         String
+  /// @encrypted
+  note         String?
+  createdAt    DateTime                 @default(now())
+  updatedAt    DateTime                 @default(now()) @updatedAt
+  userId       String
+  nameHash     String?
+  user         User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions InvestmentTransaction[]
+  priceHistory InvestmentPriceHistory[]
 
   @@index([userId])
   @@index([categoryId])
   @@index([accountId])
+  @@index([assetType])
   @@map("investment")
+}
+
+model InvestmentTransaction {
+  id           String     @id @default(uuid())
+  investmentId String
+  type         String     // buy, sell
+  /// @encrypted
+  shares       String
+  /// @encrypted
+  price        String     // price per share
+  /// @encrypted
+  total        String     // total transaction amount
+  date         String
+  createdAt    DateTime   @default(now())
+  investment   Investment @relation(fields: [investmentId], references: [id], onDelete: Cascade)
+
+  @@index([investmentId])
+  @@index([date])
+  @@map("investment_transaction")
+}
+
+model InvestmentPriceHistory {
+  id           String     @id @default(uuid())
+  investmentId String
+  date         String
+  /// @encrypted
+  value        String     // total value at end of day
+  createdAt    DateTime   @default(now())
+  investment   Investment @relation(fields: [investmentId], references: [id], onDelete: Cascade)
+
+  @@index([investmentId])
+  @@index([date])
+  @@unique([investmentId, date])
+  @@map("investment_price_history")
 }
 
 model Feedback {
@@ -197,6 +242,7 @@ model User {
   tags                       Tag[]
   budgets                    Budget[]
   liabilities                Liability[]
+  preferences                Preferences?
 
   @@unique([email])
   @@map("user")
@@ -333,6 +379,7 @@ model Budget {
   limit              Decimal @db.Decimal(19, 4)
   period             String  // monthly, weekly, quarterly, yearly
   rolloverEnabled    Boolean @default(false)
+  recurringEnabled   Boolean @default(true)
   alertThreshold     Int     @default(80)
   alertThresholdType String  @default("percentage") // percentage or dollar
   userId             String
@@ -358,4 +405,26 @@ model Liability {
   @@index([userId])
   @@index([accountId])
   @@map("liability")
+}
+
+model Preferences {
+  id                       String   @id @default(uuid())
+  userId                   String   @unique
+  theme                    String   @default("system")
+  currency                 String   @default("USD")
+  dateFormat               String   @default("MM/DD/YYYY")
+  emailNotificationsEnabled Boolean @default(true)
+  emailBudgetAlerts        Boolean  @default(true)
+  emailSubscriptionReminders Boolean @default(true)
+  emailWeeklySummary       Boolean  @default(false)
+  emailMonthlyReport       Boolean  @default(true)
+  inAppNotificationsEnabled Boolean @default(true)
+  inAppBudgetAlerts        Boolean  @default(true)
+  inAppSubscriptionReminders Boolean @default(true)
+  inAppInsights            Boolean  @default(true)
+  subscriptionReminderDays Int      @default(3)
+  enabledInsights          String[] @default([])
+  user                     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("preferences")
 }
