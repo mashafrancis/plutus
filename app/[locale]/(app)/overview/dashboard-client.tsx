@@ -1,10 +1,13 @@
-"use client";
-
+"use client";;
 import { useRouter } from "next/navigation";
 import { Dashboard } from "@/components/dashboard";
 import type { DashboardData, Timeframe } from "@/lib/types/dashboard";
 import { pushModal } from "@/modals";
-import { trpc } from "@/trpc/react";
+import { useTRPC } from "@/trpc/react";
+
+import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface DashboardClientProps {
   initialData: DashboardData;
@@ -19,22 +22,23 @@ export function DashboardClient({
   locale = "en-US",
   timeframe = "month",
 }: DashboardClientProps) {
+  const trpc = useTRPC();
   const router = useRouter();
-  const utils = trpc.useUtils();
+  const queryClient = useQueryClient();
 
-  const { data: dashboardData = initialData } = trpc.dashboard.getData.useQuery(
+  const { data: dashboardData = initialData } = useQuery(trpc.dashboard.getData.queryOptions(
     { timeframe },
     {
       initialData,
       refetchOnMount: false,
     }
-  );
+  ));
 
-  const dismissInsight = trpc.dashboard.dismissInsight.useMutation({
+  const dismissInsight = useMutation(trpc.dashboard.dismissInsight.mutationOptions({
     onSuccess: () => {
-      utils.dashboard.getData.invalidate();
+      queryClient.invalidateQueries(trpc.dashboard.getData.pathFilter());
     },
-  });
+  }));
 
   return (
     <Dashboard

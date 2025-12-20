@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -14,7 +13,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { popModal } from "@/modals";
 import { ModalContent, ModalHeader } from "@/modals/common/container";
-import { trpc } from "@/trpc/react";
+import { useTRPC } from "@/trpc/react";
+
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const incomeSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -27,12 +29,13 @@ const incomeSchema = z.object({
 type IncomeFormData = z.infer<typeof incomeSchema>;
 
 export default function AddIncomeModal() {
-  const utils = trpc.useUtils();
-  const createIncome = trpc.income.create.useMutation({
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
+  const createIncome = useMutation(trpc.income.create.mutationOptions({
     onSuccess: () => {
       toast.success("Income added successfully");
-      utils.dashboard.getData.invalidate();
-      utils.income.get.invalidate();
+      queryClient.invalidateQueries(trpc.dashboard.getData.pathFilter());
+      queryClient.invalidateQueries(trpc.income.get.pathFilter());
       popModal();
     },
     onError: (error) => {
@@ -40,7 +43,7 @@ export default function AddIncomeModal() {
         description: error.message,
       });
     },
-  });
+  }));
 
   const form = useForm<IncomeFormData>({
     resolver: zodResolver(incomeSchema),

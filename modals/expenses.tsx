@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -14,7 +13,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { popModal } from "@/modals";
 import { ModalContent, ModalHeader } from "@/modals/common/container";
-import { trpc } from "@/trpc/react";
+import { useTRPC } from "@/trpc/react";
+
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const expenseSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -28,12 +30,13 @@ const expenseSchema = z.object({
 type ExpenseFormData = z.infer<typeof expenseSchema>;
 
 export default function AddExpenseModal() {
-  const utils = trpc.useUtils();
-  const createExpense = trpc.expenses.create.useMutation({
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
+  const createExpense = useMutation(trpc.expenses.create.mutationOptions({
     onSuccess: () => {
       toast.success("Expense added successfully");
-      utils.dashboard.getData.invalidate();
-      utils.expenses.get.invalidate();
+      queryClient.invalidateQueries(trpc.dashboard.getData.pathFilter());
+      queryClient.invalidateQueries(trpc.expenses.get.pathFilter());
       popModal();
     },
     onError: (error) => {
@@ -41,7 +44,7 @@ export default function AddExpenseModal() {
         description: error.message,
       });
     },
-  });
+  }));
 
   const form = useForm<ExpenseFormData>({
     resolver: zodResolver(expenseSchema),
