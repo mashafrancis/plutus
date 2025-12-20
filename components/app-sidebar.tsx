@@ -98,22 +98,23 @@ export function AppSidebar({ user }: AppSidebarProps) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild size="lg">
-              <Link href="/overview" prefetch>
-                <Image
-                  alt="Plutus"
-                  className="flex aspect-square size-8 items-center justify-center rounded-lg"
-                  height={32}
-                  src={logoImage}
-                  width={32}
-                />
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Plutus</span>
-                  <span className="truncate text-muted-foreground text-xs">
-                    Personal finances
-                  </span>
-                </div>
-              </Link>
+            <SidebarMenuButton
+              render={<Link href="/overview" prefetch />}
+              size="lg"
+            >
+              <Image
+                alt="Plutus"
+                className="flex aspect-square size-8 items-center justify-center rounded-lg"
+                height={32}
+                src={logoImage}
+                width={32}
+              />
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-semibold">Plutus</span>
+                <span className="truncate text-muted-foreground text-xs">
+                  Personal finances
+                </span>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -131,14 +132,12 @@ export function AppSidebar({ user }: AppSidebarProps) {
                 return (
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
-                      asChild
                       isActive={isActive}
+                      render={<Link href={item.href} prefetch />}
                       tooltip={item.label}
                     >
-                      <Link href={item.href} prefetch>
-                        <item.icon />
-                        <span>{item.label}</span>
-                      </Link>
+                      <item.icon />
+                      <span>{item.label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );

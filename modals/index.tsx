@@ -15,6 +15,7 @@ const modals = {
     loading: Loading,
   }),
   expenses: dynamic(() => import("./expenses")),
+  income: dynamic(() => import("./income")),
 };
 
 export const {

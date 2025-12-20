@@ -16,55 +16,53 @@ import { popModal } from "@/modals";
 import { ModalContent, ModalHeader } from "@/modals/common/container";
 import { trpc } from "@/trpc/react";
 
-const expenseSchema = z.object({
+const incomeSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  price: z.string().min(1, "Price is required"),
+  price: z.string().min(1, "Amount is required"),
   category: z.string().min(1, "Category is required"),
   date: z.string().min(1, "Date is required"),
-  paid_via: z.string().min(1, "Payment method is required"),
   notes: z.string().optional(),
 });
 
-type ExpenseFormData = z.infer<typeof expenseSchema>;
+type IncomeFormData = z.infer<typeof incomeSchema>;
 
-export default function AddExpenseModal() {
+export default function AddIncomeModal() {
   const utils = trpc.useUtils();
-  const createExpense = trpc.expenses.create.useMutation({
+  const createIncome = trpc.income.create.useMutation({
     onSuccess: () => {
-      toast.success("Expense added successfully");
+      toast.success("Income added successfully");
       utils.dashboard.getData.invalidate();
-      utils.expenses.get.invalidate();
+      utils.income.get.invalidate();
       popModal();
     },
     onError: (error) => {
-      toast.error("Failed to add expense", {
+      toast.error("Failed to add income", {
         description: error.message,
       });
     },
   });
 
-  const form = useForm<ExpenseFormData>({
-    resolver: zodResolver(expenseSchema),
+  const form = useForm<IncomeFormData>({
+    resolver: zodResolver(incomeSchema),
     defaultValues: {
       name: "",
       price: "",
       category: "",
       date: new Date().toISOString().split("T")[0],
-      paid_via: "",
       notes: "",
     },
   });
 
-  function onSubmit(data: ExpenseFormData) {
-    createExpense.mutate(data);
+  function onSubmit(data: IncomeFormData) {
+    createIncome.mutate(data);
   }
 
   return (
     <ModalContent>
       <ModalHeader
         className="items-start justify-start"
-        text="Add a new expense to track your spending"
-        title="Add Expense"
+        text="Add a new income entry to track your earnings"
+        title="Add Income"
       />
       <form
         className="flex flex-col gap-4 p-6"
@@ -75,7 +73,7 @@ export default function AddExpenseModal() {
           <FieldContent>
             <Input
               {...form.register("name")}
-              placeholder="e.g. Groceries"
+              placeholder="e.g. Salary"
               type="text"
             />
             <FieldError errors={[form.formState.errors.name]} />
@@ -100,7 +98,7 @@ export default function AddExpenseModal() {
           <FieldContent>
             <Input
               {...form.register("category")}
-              placeholder="e.g. Food & Dining"
+              placeholder="e.g. Salary"
               type="text"
             />
             <FieldError errors={[form.formState.errors.category]} />
@@ -112,18 +110,6 @@ export default function AddExpenseModal() {
           <FieldContent>
             <Input {...form.register("date")} type="date" />
             <FieldError errors={[form.formState.errors.date]} />
-          </FieldContent>
-        </Field>
-
-        <Field>
-          <FieldLabel>Payment Method *</FieldLabel>
-          <FieldContent>
-            <Input
-              {...form.register("paid_via")}
-              placeholder="e.g. Credit Card"
-              type="text"
-            />
-            <FieldError errors={[form.formState.errors.paid_via]} />
           </FieldContent>
         </Field>
 
@@ -143,8 +129,8 @@ export default function AddExpenseModal() {
           <Button onClick={() => popModal()} type="button" variant="secondary">
             Cancel
           </Button>
-          <Button disabled={createExpense.isPending} type="submit">
-            {createExpense.isPending ? "Adding..." : "Add Expense"}
+          <Button disabled={createIncome.isPending} type="submit">
+            {createIncome.isPending ? "Adding..." : "Add Income"}
           </Button>
         </div>
       </form>

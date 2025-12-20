@@ -231,17 +231,20 @@ export const DateTimePicker = ({
 
   return (
     <Popover onOpenChange={setOpen} open={open}>
-      <PopoverTrigger>
-        <Button
-          className="cursor-pointer rounded-full bg-muted"
-          variant="ghost"
-        >
-          <Clock size={12} />
-          {value.isHelper
-            ? value.text
-            : `${dayjs(value.from).format("DD MMM, HH:mm")} - ${dayjs(value.to || new Date()).format("DD MMM, HH:mm")}`}
-        </Button>
-      </PopoverTrigger>
+      <PopoverTrigger
+        render={(props) => (
+          <Button
+            {...props}
+            className="cursor-pointer rounded-full bg-muted"
+            variant="ghost"
+          >
+            <Clock size={12} />
+            {value.isHelper
+              ? value.text
+              : `${dayjs(value.from).format("DD MMM, HH:mm")} - ${dayjs(value.to || new Date()).format("DD MMM, HH:mm")}`}
+          </Button>
+        )}
+      />
       <PopoverContent align="end" className="flex w-full p-0" side="bottom">
         <RadioGroup
           className="flex flex-col gap-px border-r p-2"
