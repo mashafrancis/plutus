@@ -1,55 +1,79 @@
-import { ChevronLeft, ChevronRight, LogOut } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
-import { Button } from '../../ui/button'
-import { cn } from './utils'
+import { ChevronLeft, ChevronRight, LogOut } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { Button } from "../../ui/button";
+import { cn } from "./utils";
 
 interface UserMenuProps {
   user: {
-    name: string
-    avatarUrl?: string
-  }
-  isCollapsed: boolean
-  onToggleCollapse: () => void
-  onLogout?: () => void
+    name: string;
+    avatarUrl?: string;
+  };
+  isCollapsed: boolean;
+  onToggleCollapse: () => void;
+  onLogout?: () => void;
 }
 
 function getInitials(name: string): string {
   return name
-    .split(' ')
+    .split(" ")
     .map((n) => n[0])
-    .join('')
+    .join("")
     .toUpperCase()
-    .slice(0, 2)
+    .slice(0, 2);
 }
 
-export function UserMenu({ user, isCollapsed, onToggleCollapse, onLogout }: UserMenuProps) {
-  const initials = getInitials(user.name)
+export function UserMenu({
+  user,
+  isCollapsed,
+  onToggleCollapse,
+  onLogout,
+}: UserMenuProps) {
+  const initials = getInitials(user.name);
 
   return (
-    <div className={cn('border-t border-neutral-200 dark:border-neutral-800 p-2', isCollapsed && 'px-2')}>
-      <div className={cn('flex items-center gap-3 px-2 py-2', isCollapsed && 'justify-center')}>
+    <div
+      className={cn(
+        "border-neutral-200 border-t p-2 dark:border-neutral-800",
+        isCollapsed && "px-2"
+      )}
+    >
+      <div
+        className={cn(
+          "flex items-center gap-3 px-2 py-2",
+          isCollapsed && "justify-center"
+        )}
+      >
         <Avatar className="h-8 w-8 shrink-0">
-          <AvatarImage src={user.avatarUrl} alt={user.name} />
-          <AvatarFallback className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-xs font-medium">
+          <AvatarImage alt={user.name} src={user.avatarUrl} />
+          <AvatarFallback className="bg-blue-100 font-medium text-blue-700 text-xs dark:bg-blue-900 dark:text-blue-300">
             {initials}
           </AvatarFallback>
         </Avatar>
         {!isCollapsed && (
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{user.name}</p>
+          <div className="min-w-0 flex-1">
+            <p className="truncate font-medium text-neutral-900 text-sm dark:text-neutral-100">
+              {user.name}
+            </p>
           </div>
         )}
       </div>
-      <div className={cn('flex items-center gap-1 px-2', isCollapsed && 'justify-center')}>
+      <div
+        className={cn(
+          "flex items-center gap-1 px-2",
+          isCollapsed && "justify-center"
+        )}
+      >
         <Button
-          variant="ghost"
-          size="sm"
-          onClick={onToggleCollapse}
           className={cn(
-            'h-8 w-full justify-start text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100',
-            isCollapsed && 'justify-center w-auto'
+            "h-8 w-full justify-start text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100",
+            isCollapsed && "w-auto justify-center"
           )}
-          title={isCollapsed ? (isCollapsed ? 'Expand' : 'Collapse') : undefined}
+          onClick={onToggleCollapse}
+          size="sm"
+          title={
+            isCollapsed ? (isCollapsed ? "Expand" : "Collapse") : undefined
+          }
+          variant="ghost"
         >
           {isCollapsed ? (
             <ChevronRight className="h-4 w-4" />
@@ -62,16 +86,15 @@ export function UserMenu({ user, isCollapsed, onToggleCollapse, onLogout }: User
         </Button>
         {!isCollapsed && (
           <Button
-            variant="ghost"
-            size="sm"
+            className="h-8 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             onClick={onLogout}
-            className="h-8 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
+            size="sm"
+            variant="ghost"
           >
             <LogOut className="h-4 w-4" />
           </Button>
         )}
       </div>
     </div>
-  )
+  );
 }
-

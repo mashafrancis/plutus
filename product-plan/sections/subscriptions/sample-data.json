@@ -64,10 +64,30 @@
       "startDate": "2022-03-15",
       "totalSpent": 643.72,
       "paymentHistory": [
-        { "id": "pay-001", "date": "2024-11-22", "amount": 22.99, "status": "paid" },
-        { "id": "pay-002", "date": "2024-10-22", "amount": 22.99, "status": "paid" },
-        { "id": "pay-003", "date": "2024-09-22", "amount": 22.99, "status": "paid" },
-        { "id": "pay-004", "date": "2024-08-22", "amount": 22.99, "status": "paid" }
+        {
+          "id": "pay-001",
+          "date": "2024-11-22",
+          "amount": 22.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-002",
+          "date": "2024-10-22",
+          "amount": 22.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-003",
+          "date": "2024-09-22",
+          "amount": 22.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-004",
+          "date": "2024-08-22",
+          "amount": 22.99,
+          "status": "paid"
+        }
       ]
     },
     {
@@ -80,11 +100,26 @@
       "status": "active",
       "paymentMethodId": "acc-002",
       "startDate": "2021-08-01",
-      "totalSpent": 679.60,
+      "totalSpent": 679.6,
       "paymentHistory": [
-        { "id": "pay-005", "date": "2024-11-20", "amount": 16.99, "status": "paid" },
-        { "id": "pay-006", "date": "2024-10-20", "amount": 16.99, "status": "paid" },
-        { "id": "pay-007", "date": "2024-09-20", "amount": 16.99, "status": "paid" }
+        {
+          "id": "pay-005",
+          "date": "2024-11-20",
+          "amount": 16.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-006",
+          "date": "2024-10-20",
+          "amount": 16.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-007",
+          "date": "2024-09-20",
+          "amount": 16.99,
+          "status": "paid"
+        }
       ]
     },
     {
@@ -99,28 +134,68 @@
       "startDate": "2023-01-10",
       "totalSpent": 1264.77,
       "paymentHistory": [
-        { "id": "pay-008", "date": "2024-11-25", "amount": 54.99, "status": "paid" },
-        { "id": "pay-009", "date": "2024-10-25", "amount": 54.99, "status": "paid" },
-        { "id": "pay-010", "date": "2024-09-25", "amount": 54.99, "status": "paid" },
-        { "id": "pay-011", "date": "2024-08-25", "amount": 54.99, "status": "paid" },
-        { "id": "pay-012", "date": "2024-07-25", "amount": 54.99, "status": "paid" }
+        {
+          "id": "pay-008",
+          "date": "2024-11-25",
+          "amount": 54.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-009",
+          "date": "2024-10-25",
+          "amount": 54.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-010",
+          "date": "2024-09-25",
+          "amount": 54.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-011",
+          "date": "2024-08-25",
+          "amount": 54.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-012",
+          "date": "2024-07-25",
+          "amount": 54.99,
+          "status": "paid"
+        }
       ]
     },
     {
       "id": "sub-004",
       "name": "ChatGPT Plus",
       "category": "Software",
-      "amount": 20.00,
+      "amount": 20.0,
       "billingCycle": "monthly",
       "nextPaymentDate": "2024-12-21",
       "status": "active",
       "paymentMethodId": "acc-001",
       "startDate": "2024-02-15",
-      "totalSpent": 200.00,
+      "totalSpent": 200.0,
       "paymentHistory": [
-        { "id": "pay-013", "date": "2024-11-21", "amount": 20.00, "status": "paid" },
-        { "id": "pay-014", "date": "2024-10-21", "amount": 20.00, "status": "paid" },
-        { "id": "pay-015", "date": "2024-09-21", "amount": 20.00, "status": "paid" }
+        {
+          "id": "pay-013",
+          "date": "2024-11-21",
+          "amount": 20.0,
+          "status": "paid"
+        },
+        {
+          "id": "pay-014",
+          "date": "2024-10-21",
+          "amount": 20.0,
+          "status": "paid"
+        },
+        {
+          "id": "pay-015",
+          "date": "2024-09-21",
+          "amount": 20.0,
+          "status": "paid"
+        }
       ]
     },
     {
@@ -135,9 +210,24 @@
       "startDate": "2023-06-01",
       "totalSpent": 449.82,
       "paymentHistory": [
-        { "id": "pay-016", "date": "2024-11-28", "amount": 24.99, "status": "paid" },
-        { "id": "pay-017", "date": "2024-10-28", "amount": 24.99, "status": "paid" },
-        { "id": "pay-018", "date": "2024-09-28", "amount": 24.99, "status": "paid" }
+        {
+          "id": "pay-016",
+          "date": "2024-11-28",
+          "amount": 24.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-017",
+          "date": "2024-10-28",
+          "amount": 24.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-018",
+          "date": "2024-09-28",
+          "amount": 24.99,
+          "status": "paid"
+        }
       ]
     },
     {
@@ -152,29 +242,74 @@
       "startDate": "2020-09-20",
       "totalSpent": 152.49,
       "paymentHistory": [
-        { "id": "pay-019", "date": "2024-11-19", "amount": 2.99, "status": "paid" },
-        { "id": "pay-020", "date": "2024-10-19", "amount": 2.99, "status": "paid" },
-        { "id": "pay-021", "date": "2024-09-19", "amount": 2.99, "status": "paid" },
-        { "id": "pay-022", "date": "2024-08-19", "amount": 2.99, "status": "paid" },
-        { "id": "pay-023", "date": "2024-07-19", "amount": 2.99, "status": "paid" },
-        { "id": "pay-024", "date": "2024-06-19", "amount": 2.99, "status": "paid" }
+        {
+          "id": "pay-019",
+          "date": "2024-11-19",
+          "amount": 2.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-020",
+          "date": "2024-10-19",
+          "amount": 2.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-021",
+          "date": "2024-09-19",
+          "amount": 2.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-022",
+          "date": "2024-08-19",
+          "amount": 2.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-023",
+          "date": "2024-07-19",
+          "amount": 2.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-024",
+          "date": "2024-06-19",
+          "amount": 2.99,
+          "status": "paid"
+        }
       ]
     },
     {
       "id": "sub-007",
       "name": "The New York Times",
       "category": "News & Media",
-      "amount": 17.00,
+      "amount": 17.0,
       "billingCycle": "monthly",
       "nextPaymentDate": "2025-01-05",
       "status": "active",
       "paymentMethodId": "acc-001",
       "startDate": "2024-05-05",
-      "totalSpent": 136.00,
+      "totalSpent": 136.0,
       "paymentHistory": [
-        { "id": "pay-025", "date": "2024-12-05", "amount": 17.00, "status": "paid" },
-        { "id": "pay-026", "date": "2024-11-05", "amount": 17.00, "status": "paid" },
-        { "id": "pay-027", "date": "2024-10-05", "amount": 17.00, "status": "paid" }
+        {
+          "id": "pay-025",
+          "date": "2024-12-05",
+          "amount": 17.0,
+          "status": "paid"
+        },
+        {
+          "id": "pay-026",
+          "date": "2024-11-05",
+          "amount": 17.0,
+          "status": "paid"
+        },
+        {
+          "id": "pay-027",
+          "date": "2024-10-05",
+          "amount": 17.0,
+          "status": "paid"
+        }
       ]
     },
     {
@@ -189,9 +324,24 @@
       "startDate": "2023-11-10",
       "totalSpent": 220.87,
       "paymentHistory": [
-        { "id": "pay-028", "date": "2024-10-10", "amount": 16.99, "status": "paid" },
-        { "id": "pay-029", "date": "2024-09-10", "amount": 16.99, "status": "paid" },
-        { "id": "pay-030", "date": "2024-08-10", "amount": 16.99, "status": "paid" }
+        {
+          "id": "pay-028",
+          "date": "2024-10-10",
+          "amount": 16.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-029",
+          "date": "2024-09-10",
+          "amount": 16.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-030",
+          "date": "2024-08-10",
+          "amount": 16.99,
+          "status": "paid"
+        }
       ]
     },
     {
@@ -206,8 +356,18 @@
       "startDate": "2023-03-15",
       "totalSpent": 139.98,
       "paymentHistory": [
-        { "id": "pay-031", "date": "2024-03-15", "amount": 69.99, "status": "paid" },
-        { "id": "pay-032", "date": "2023-03-15", "amount": 69.99, "status": "paid" }
+        {
+          "id": "pay-031",
+          "date": "2024-03-15",
+          "amount": 69.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-032",
+          "date": "2023-03-15",
+          "amount": 69.99,
+          "status": "paid"
+        }
       ]
     },
     {
@@ -222,9 +382,24 @@
       "startDate": "2023-12-23",
       "totalSpent": 167.88,
       "paymentHistory": [
-        { "id": "pay-033", "date": "2024-11-23", "amount": 13.99, "status": "paid" },
-        { "id": "pay-034", "date": "2024-10-23", "amount": 13.99, "status": "paid" },
-        { "id": "pay-035", "date": "2024-09-23", "amount": 13.99, "status": "paid" }
+        {
+          "id": "pay-033",
+          "date": "2024-11-23",
+          "amount": 13.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-034",
+          "date": "2024-10-23",
+          "amount": 13.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-035",
+          "date": "2024-09-23",
+          "amount": 13.99,
+          "status": "paid"
+        }
       ]
     },
     {
@@ -239,9 +414,24 @@
       "startDate": "2022-06-30",
       "totalSpent": 503.72,
       "paymentHistory": [
-        { "id": "pay-036", "date": "2024-09-30", "amount": 17.99, "status": "paid" },
-        { "id": "pay-037", "date": "2024-08-30", "amount": 17.99, "status": "paid" },
-        { "id": "pay-038", "date": "2024-07-30", "amount": 17.99, "status": "paid" }
+        {
+          "id": "pay-036",
+          "date": "2024-09-30",
+          "amount": 17.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-037",
+          "date": "2024-08-30",
+          "amount": 17.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-038",
+          "date": "2024-07-30",
+          "amount": 17.99,
+          "status": "paid"
+        }
       ]
     },
     {
@@ -256,9 +446,24 @@
       "startDate": "2023-05-15",
       "totalSpent": 287.82,
       "paymentHistory": [
-        { "id": "pay-039", "date": "2024-10-15", "amount": 15.99, "status": "paid" },
-        { "id": "pay-040", "date": "2024-09-15", "amount": 15.99, "status": "paid" },
-        { "id": "pay-041", "date": "2024-08-15", "amount": 15.99, "status": "paid" }
+        {
+          "id": "pay-039",
+          "date": "2024-10-15",
+          "amount": 15.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-040",
+          "date": "2024-09-15",
+          "amount": 15.99,
+          "status": "paid"
+        },
+        {
+          "id": "pay-041",
+          "date": "2024-08-15",
+          "amount": 15.99,
+          "status": "paid"
+        }
       ]
     }
   ],
@@ -273,16 +478,8 @@
       "Gaming",
       "Utilities"
     ],
-    "statuses": [
-      "active",
-      "paused",
-      "cancelled"
-    ],
-    "billingCycles": [
-      "monthly",
-      "yearly",
-      "weekly"
-    ],
+    "statuses": ["active", "paused", "cancelled"],
+    "billingCycles": ["monthly", "yearly", "weekly"],
     "accounts": [
       {
         "id": "acc-001",
@@ -297,4 +494,3 @@
     ]
   }
 }
-

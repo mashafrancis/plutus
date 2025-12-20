@@ -1,18 +1,18 @@
-import { Trash2, Tag, FolderTree, X } from 'lucide-react'
-import { Button } from '../../ui/button'
+import { FolderTree, Tag, Trash2, X } from "lucide-react";
+import { Button } from "../../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
+} from "../../ui/dropdown-menu";
 
 interface BulkActionBarProps {
-  selectedCount: number
-  onBulkDelete?: () => void
-  onBulkChangeSource?: () => void
-  onBulkAddTags?: () => void
-  onClearSelection?: () => void
+  selectedCount: number;
+  onBulkDelete?: () => void;
+  onBulkChangeSource?: () => void;
+  onBulkAddTags?: () => void;
+  onClearSelection?: () => void;
 }
 
 export function BulkActionBar({
@@ -22,21 +22,22 @@ export function BulkActionBar({
   onBulkAddTags,
   onClearSelection,
 }: BulkActionBarProps) {
-  if (selectedCount === 0) return null
+  if (selectedCount === 0) return null;
 
   return (
-    <div className="sticky top-0 z-10 bg-blue-50 dark:bg-blue-950 border-b border-blue-200 dark:border-blue-800 px-6 py-3 flex items-center justify-between shadow-sm">
+    <div className="sticky top-0 z-10 flex items-center justify-between border-blue-200 border-b bg-blue-50 px-6 py-3 shadow-sm dark:border-blue-800 dark:bg-blue-950">
       <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-blue-900 dark:text-blue-100 font-geist-sans">
-          {selectedCount} {selectedCount === 1 ? 'income entry' : 'income entries'} selected
+        <span className="font-geist-sans font-medium text-blue-900 text-sm dark:text-blue-100">
+          {selectedCount}{" "}
+          {selectedCount === 1 ? "income entry" : "income entries"} selected
         </span>
         <Button
-          variant="ghost"
-          size="sm"
+          className="h-7 px-2 text-blue-700 hover:text-blue-900 dark:text-blue-300 dark:hover:text-blue-100"
           onClick={onClearSelection}
-          className="h-7 px-2 text-blue-700 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-100"
+          size="sm"
+          variant="ghost"
         >
-          <X className="h-3 w-3 mr-1" />
+          <X className="mr-1 h-3 w-3" />
           Clear
         </Button>
       </div>
@@ -45,16 +46,19 @@ export function BulkActionBar({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              variant="outline"
+              className="h-7 border-blue-300 font-geist-sans text-blue-700 hover:bg-blue-100 dark:border-blue-700 dark:text-blue-300 dark:hover:bg-blue-900"
               size="sm"
-              className="h-7 border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900 font-geist-sans"
+              variant="outline"
             >
-              <FolderTree className="h-3 w-3 mr-1" />
+              <FolderTree className="mr-1 h-3 w-3" />
               Change Source
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={onBulkChangeSource} className="font-geist-sans">
+            <DropdownMenuItem
+              className="font-geist-sans"
+              onClick={onBulkChangeSource}
+            >
               Select source...
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -63,32 +67,34 @@ export function BulkActionBar({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              variant="outline"
+              className="h-7 border-blue-300 font-geist-sans text-blue-700 hover:bg-blue-100 dark:border-blue-700 dark:text-blue-300 dark:hover:bg-blue-900"
               size="sm"
-              className="h-7 border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900 font-geist-sans"
+              variant="outline"
             >
-              <Tag className="h-3 w-3 mr-1" />
+              <Tag className="mr-1 h-3 w-3" />
               Add Tags
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={onBulkAddTags} className="font-geist-sans">
+            <DropdownMenuItem
+              className="font-geist-sans"
+              onClick={onBulkAddTags}
+            >
               Select tags...
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
         <Button
-          variant="outline"
-          size="sm"
+          className="h-7 border-red-300 font-geist-sans text-red-700 hover:bg-red-100 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-900"
           onClick={onBulkDelete}
-          className="h-7 border-red-300 dark:border-red-700 text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-900 font-geist-sans"
+          size="sm"
+          variant="outline"
         >
-          <Trash2 className="h-3 w-3 mr-1" />
+          <Trash2 className="mr-1 h-3 w-3" />
           Delete
         </Button>
       </div>
     </div>
-  )
+  );
 }
-

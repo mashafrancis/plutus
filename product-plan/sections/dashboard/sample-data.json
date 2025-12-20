@@ -27,23 +27,23 @@
   },
   "metrics": {
     "netWorth": {
-      "value": 125430.50,
-      "previousValue": 118920.00,
-      "change": 6510.50,
+      "value": 125430.5,
+      "previousValue": 118920.0,
+      "change": 6510.5,
       "changePercent": 5.48,
       "trend": "up"
     },
     "monthlyCashFlow": {
-      "value": 2840.00,
-      "previousValue": 2150.00,
-      "change": 690.00,
+      "value": 2840.0,
+      "previousValue": 2150.0,
+      "change": 690.0,
       "changePercent": 32.09,
       "trend": "up"
     },
     "totalBalance": {
-      "value": 45620.00,
-      "previousValue": 42800.00,
-      "change": 2820.00,
+      "value": 45620.0,
+      "previousValue": 42800.0,
+      "change": 2820.0,
       "changePercent": 6.59,
       "trend": "up"
     },
@@ -55,85 +55,135 @@
       "trend": "up"
     },
     "monthlySpending": {
-      "value": 3240.00,
-      "previousValue": 3580.00,
-      "change": -340.00,
-      "changePercent": -9.50,
+      "value": 3240.0,
+      "previousValue": 3580.0,
+      "change": -340.0,
+      "changePercent": -9.5,
       "trend": "down"
     },
     "monthlyIncome": {
-      "value": 6080.00,
-      "previousValue": 5730.00,
-      "change": 350.00,
+      "value": 6080.0,
+      "previousValue": 5730.0,
+      "change": 350.0,
       "changePercent": 6.11,
       "trend": "up"
     }
   },
   "cashFlowData": [
-    { "month": "2024-01", "income": 5800.00, "expenses": 3420.00 },
-    { "month": "2024-02", "income": 5800.00, "expenses": 3650.00 },
-    { "month": "2024-03", "income": 5800.00, "expenses": 3890.00 },
-    { "month": "2024-04", "income": 5800.00, "expenses": 3120.00 },
-    { "month": "2024-05", "income": 5800.00, "expenses": 3450.00 },
-    { "month": "2024-06", "income": 5800.00, "expenses": 3780.00 },
-    { "month": "2024-07", "income": 5800.00, "expenses": 3210.00 },
-    { "month": "2024-08", "income": 5800.00, "expenses": 3540.00 },
-    { "month": "2024-09", "income": 5800.00, "expenses": 3670.00 },
-    { "month": "2024-10", "income": 5730.00, "expenses": 3580.00 },
-    { "month": "2024-11", "income": 6080.00, "expenses": 3240.00 },
-    { "month": "2024-12", "income": 6080.00, "expenses": 3100.00 }
+    { "month": "2024-01", "income": 5800.0, "expenses": 3420.0 },
+    { "month": "2024-02", "income": 5800.0, "expenses": 3650.0 },
+    { "month": "2024-03", "income": 5800.0, "expenses": 3890.0 },
+    { "month": "2024-04", "income": 5800.0, "expenses": 3120.0 },
+    { "month": "2024-05", "income": 5800.0, "expenses": 3450.0 },
+    { "month": "2024-06", "income": 5800.0, "expenses": 3780.0 },
+    { "month": "2024-07", "income": 5800.0, "expenses": 3210.0 },
+    { "month": "2024-08", "income": 5800.0, "expenses": 3540.0 },
+    { "month": "2024-09", "income": 5800.0, "expenses": 3670.0 },
+    { "month": "2024-10", "income": 5730.0, "expenses": 3580.0 },
+    { "month": "2024-11", "income": 6080.0, "expenses": 3240.0 },
+    { "month": "2024-12", "income": 6080.0, "expenses": 3100.0 }
   ],
   "netWorthData": [
-    { "month": "2024-01", "value": 98500.00 },
-    { "month": "2024-02", "value": 100230.00 },
-    { "month": "2024-03", "value": 102150.00 },
-    { "month": "2024-04", "value": 105420.00 },
-    { "month": "2024-05", "value": 107890.00 },
-    { "month": "2024-06", "value": 110340.00 },
-    { "month": "2024-07", "value": 112780.00 },
-    { "month": "2024-08", "value": 115200.00 },
-    { "month": "2024-09", "value": 117650.00 },
-    { "month": "2024-10", "value": 118920.00 },
-    { "month": "2024-11", "value": 122150.00 },
-    { "month": "2024-12", "value": 125430.50 }
+    { "month": "2024-01", "value": 98500.0 },
+    { "month": "2024-02", "value": 100230.0 },
+    { "month": "2024-03", "value": 102150.0 },
+    { "month": "2024-04", "value": 105420.0 },
+    { "month": "2024-05", "value": 107890.0 },
+    { "month": "2024-06", "value": 110340.0 },
+    { "month": "2024-07", "value": 112780.0 },
+    { "month": "2024-08", "value": 115200.0 },
+    { "month": "2024-09", "value": 117650.0 },
+    { "month": "2024-10", "value": 118920.0 },
+    { "month": "2024-11", "value": 122150.0 },
+    { "month": "2024-12", "value": 125430.5 }
   ],
   "spendingByCategory": [
-    { "category": "Housing", "amount": 1850.00, "color": "#3b82f6" },
-    { "category": "Food & Dining", "amount": 680.00, "color": "#10b981" },
-    { "category": "Transportation", "amount": 420.00, "color": "#f59e0b" },
-    { "category": "Subscriptions", "amount": 145.00, "color": "#8b5cf6" },
-    { "category": "Shopping", "amount": 320.00, "color": "#ec4899" },
-    { "category": "Entertainment", "amount": 180.00, "color": "#06b6d4" },
-    { "category": "Health & Fitness", "amount": 95.00, "color": "#14b8a6" },
-    { "category": "Other", "amount": 150.00, "color": "#64748b" }
+    { "category": "Housing", "amount": 1850.0, "color": "#3b82f6" },
+    { "category": "Food & Dining", "amount": 680.0, "color": "#10b981" },
+    { "category": "Transportation", "amount": 420.0, "color": "#f59e0b" },
+    { "category": "Subscriptions", "amount": 145.0, "color": "#8b5cf6" },
+    { "category": "Shopping", "amount": 320.0, "color": "#ec4899" },
+    { "category": "Entertainment", "amount": 180.0, "color": "#06b6d4" },
+    { "category": "Health & Fitness", "amount": 95.0, "color": "#14b8a6" },
+    { "category": "Other", "amount": 150.0, "color": "#64748b" }
   ],
   "incomeBySource": [
-    { "source": "Salary", "amount": 5200.00 },
-    { "source": "Freelance", "amount": 680.00 },
-    { "source": "Investment Returns", "amount": 120.00 },
-    { "source": "Side Business", "amount": 80.00 },
-    { "source": "Other", "amount": 0.00 }
+    { "source": "Salary", "amount": 5200.0 },
+    { "source": "Freelance", "amount": 680.0 },
+    { "source": "Investment Returns", "amount": 120.0 },
+    { "source": "Side Business", "amount": 80.0 },
+    { "source": "Other", "amount": 0.0 }
   ],
   "budgetProgress": [
-    { "category": "Housing", "spent": 1850.00, "target": 2000.00, "percentage": 92.5 },
-    { "category": "Food & Dining", "spent": 680.00, "target": 750.00, "percentage": 90.7 },
-    { "category": "Transportation", "spent": 420.00, "target": 500.00, "percentage": 84.0 },
-    { "category": "Shopping", "spent": 320.00, "target": 400.00, "percentage": 80.0 },
-    { "category": "Entertainment", "spent": 180.00, "target": 200.00, "percentage": 90.0 },
-    { "category": "Subscriptions", "spent": 145.00, "target": 150.00, "percentage": 96.7 }
+    {
+      "category": "Housing",
+      "spent": 1850.0,
+      "target": 2000.0,
+      "percentage": 92.5
+    },
+    {
+      "category": "Food & Dining",
+      "spent": 680.0,
+      "target": 750.0,
+      "percentage": 90.7
+    },
+    {
+      "category": "Transportation",
+      "spent": 420.0,
+      "target": 500.0,
+      "percentage": 84.0
+    },
+    {
+      "category": "Shopping",
+      "spent": 320.0,
+      "target": 400.0,
+      "percentage": 80.0
+    },
+    {
+      "category": "Entertainment",
+      "spent": 180.0,
+      "target": 200.0,
+      "percentage": 90.0
+    },
+    {
+      "category": "Subscriptions",
+      "spent": 145.0,
+      "target": 150.0,
+      "percentage": 96.7
+    }
   ],
   "investmentPerformance": {
-    "totalValue": 79810.50,
-    "totalCostBasis": 72000.00,
-    "totalGain": 7810.50,
+    "totalValue": 79810.5,
+    "totalCostBasis": 72000.0,
+    "totalGain": 7810.5,
     "gainPercent": 10.85,
-    "monthlyChange": 1250.00,
+    "monthlyChange": 1250.0,
     "monthlyChangePercent": 1.59,
     "holdings": [
-      { "name": "S&P 500 ETF", "value": 45200.00, "gain": 3200.00, "gainPercent": 7.62 },
-      { "name": "Tech Stocks", "value": 18650.00, "gain": 2150.00, "gainPercent": 13.03 },
-      { "name": "Crypto", "value": 8960.50, "gain": 1460.50, "gainPercent": 19.48 },
-      { "name": "Savings Account", "value": 7000.00, "gain": 0.00, "gainPercent": 0.00 }
+      {
+        "name": "S&P 500 ETF",
+        "value": 45200.0,
+        "gain": 3200.0,
+        "gainPercent": 7.62
+      },
+      {
+        "name": "Tech Stocks",
+        "value": 18650.0,
+        "gain": 2150.0,
+        "gainPercent": 13.03
+      },
+      {
+        "name": "Crypto",
+        "value": 8960.5,
+        "gain": 1460.5,
+        "gainPercent": 19.48
+      },
+      {
+        "name": "Savings Account",
+        "value": 7000.0,
+        "gain": 0.0,
+        "gainPercent": 0.0
+      }
     ]
   },
   "upcomingSubscriptions": [
@@ -174,7 +224,7 @@
     {
       "id": "txn-001",
       "type": "expense",
-      "amount": 45.50,
+      "amount": 45.5,
       "category": "Food & Dining",
       "description": "Coffee & Breakfast",
       "date": "2024-12-10",
@@ -184,7 +234,7 @@
     {
       "id": "txn-002",
       "type": "income",
-      "amount": 680.00,
+      "amount": 680.0,
       "category": "Freelance",
       "description": "Web Design Project",
       "date": "2024-12-09",
@@ -194,7 +244,7 @@
     {
       "id": "txn-003",
       "type": "expense",
-      "amount": 125.00,
+      "amount": 125.0,
       "category": "Shopping",
       "description": "Winter Clothing",
       "date": "2024-12-08",
@@ -204,7 +254,7 @@
     {
       "id": "txn-004",
       "type": "expense",
-      "amount": 89.50,
+      "amount": 89.5,
       "category": "Transportation",
       "description": "Gas & Parking",
       "date": "2024-12-07",
@@ -214,7 +264,7 @@
     {
       "id": "txn-005",
       "type": "income",
-      "amount": 5200.00,
+      "amount": 5200.0,
       "category": "Salary",
       "description": "Monthly Salary",
       "date": "2024-12-05",
@@ -257,37 +307,36 @@
       "id": "acc-001",
       "name": "Chase Checking",
       "type": "checking",
-      "balance": 12450.00,
+      "balance": 12450.0,
       "currency": "USD"
     },
     {
       "id": "acc-002",
       "name": "Chase Credit Card",
       "type": "credit",
-      "balance": -1250.00,
+      "balance": -1250.0,
       "currency": "USD"
     },
     {
       "id": "acc-003",
       "name": "Savings Account",
       "type": "savings",
-      "balance": 7000.00,
+      "balance": 7000.0,
       "currency": "USD"
     },
     {
       "id": "acc-004",
       "name": "Investment Portfolio",
       "type": "investment",
-      "balance": 79810.50,
+      "balance": 79810.5,
       "currency": "USD"
     },
     {
       "id": "acc-005",
       "name": "Cash Wallet",
       "type": "cash",
-      "balance": 210.00,
+      "balance": 210.0,
       "currency": "USD"
     }
   ]
 }
-

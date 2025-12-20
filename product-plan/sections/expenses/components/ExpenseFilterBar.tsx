@@ -1,21 +1,21 @@
-import { useState } from 'react'
-import { Search, X, ChevronDown } from 'lucide-react'
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
+import { ChevronDown, Search, X } from "lucide-react";
+import { useState } from "react";
+import { Badge } from "../../ui/badge";
+import { Button } from "../../ui/button";
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuCheckboxItem,
+  DropdownMenuContent,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
-import { Badge } from '../../ui/badge'
-import { cn } from './utils'
-import type { ExpensesFilters, FilterOptions, RecurringFilter } from '../types'
+} from "../../ui/dropdown-menu";
+import { Input } from "../../ui/input";
+import type { ExpensesFilters, FilterOptions, RecurringFilter } from "../types";
+import { cn } from "./utils";
 
 interface ExpenseFilterBarProps {
-  filters?: ExpensesFilters
-  filterOptions: FilterOptions
-  onFilterChange?: (filters: ExpensesFilters) => void
+  filters?: ExpensesFilters;
+  filterOptions: FilterOptions;
+  onFilterChange?: (filters: ExpensesFilters) => void;
 }
 
 export function ExpenseFilterBar({
@@ -23,61 +23,61 @@ export function ExpenseFilterBar({
   filterOptions,
   onFilterChange,
 }: ExpenseFilterBarProps) {
-  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false)
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   const handleCategoryChange = (category: string) => {
     onFilterChange?.({
       ...filters,
       category: filters?.category === category ? undefined : category,
-    })
-  }
+    });
+  };
 
   const handleAccountChange = (accountId: string) => {
     onFilterChange?.({
       ...filters,
       account: filters?.account === accountId ? undefined : accountId,
-    })
-  }
+    });
+  };
 
   const handleTagToggle = (tag: string) => {
-    const currentTags = filters?.tags || []
+    const currentTags = filters?.tags || [];
     const newTags = currentTags.includes(tag)
-      ? currentTags.filter(t => t !== tag)
-      : [...currentTags, tag]
+      ? currentTags.filter((t) => t !== tag)
+      : [...currentTags, tag];
     onFilterChange?.({
       ...filters,
       tags: newTags.length > 0 ? newTags : undefined,
-    })
-  }
+    });
+  };
 
   const handleRecurringChange = (recurring: RecurringFilter) => {
     onFilterChange?.({
       ...filters,
       recurring: filters?.recurring === recurring ? undefined : recurring,
-    })
-  }
+    });
+  };
 
   const handleSearchChange = (search: string) => {
     onFilterChange?.({
       ...filters,
       search: search || undefined,
-    })
-  }
+    });
+  };
 
-  const handleAmountRangeChange = (field: 'min' | 'max', value: string) => {
-    const numValue = value ? parseFloat(value) : undefined
+  const handleAmountRangeChange = (field: "min" | "max", value: string) => {
+    const numValue = value ? Number.parseFloat(value) : undefined;
     onFilterChange?.({
       ...filters,
       amountRange: {
         ...filters?.amountRange,
         [field]: numValue,
       },
-    })
-  }
+    });
+  };
 
   const clearFilters = () => {
-    onFilterChange?.({})
-  }
+    onFilterChange?.({});
+  };
 
   const activeFilterCount = [
     filters?.category,
@@ -87,46 +87,53 @@ export function ExpenseFilterBar({
     filters?.search,
     filters?.amountRange?.min,
     filters?.amountRange?.max,
-  ].filter(Boolean).length
+  ].filter(Boolean).length;
 
-  const selectedCategory = filters?.category
-  const selectedAccount = filters?.account
-  const selectedTags = filters?.tags || []
-  const selectedRecurring = filters?.recurring
+  const selectedCategory = filters?.category;
+  const selectedAccount = filters?.account;
+  const selectedTags = filters?.tags || [];
+  const selectedRecurring = filters?.recurring;
 
   return (
     <div className="space-y-4">
       {/* Mobile: Collapsible filter button */}
       <div className="lg:hidden">
         <Button
-          variant="outline"
-          onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
           className="w-full justify-between"
+          onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
+          variant="outline"
         >
           <span className="font-geist-sans">Filters</span>
           {activeFilterCount > 0 && (
-            <Badge variant="secondary" className="ml-2">
+            <Badge className="ml-2" variant="secondary">
               {activeFilterCount}
             </Badge>
           )}
-          <ChevronDown className={cn("h-4 w-4 transition-transform", isMobileFiltersOpen && "rotate-180")} />
+          <ChevronDown
+            className={cn(
+              "h-4 w-4 transition-transform",
+              isMobileFiltersOpen && "rotate-180"
+            )}
+          />
         </Button>
       </div>
 
       {/* Filter controls */}
-      <div className={cn(
-        "flex flex-wrap items-center gap-3",
-        !isMobileFiltersOpen && "hidden lg:flex"
-      )}>
+      <div
+        className={cn(
+          "flex flex-wrap items-center gap-3",
+          !isMobileFiltersOpen && "hidden lg:flex"
+        )}
+      >
         {/* Date Range - Placeholder */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="font-geist-sans">
+            <Button className="font-geist-sans" variant="outline">
               Date Range <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56">
-            <div className="p-2 text-sm text-neutral-500 dark:text-neutral-400 font-geist-sans">
+            <div className="p-2 font-geist-sans text-neutral-500 text-sm dark:text-neutral-400">
               Date picker placeholder
             </div>
           </DropdownMenuContent>
@@ -135,17 +142,18 @@ export function ExpenseFilterBar({
         {/* Category Filter */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="font-geist-sans">
-              {selectedCategory || 'Category'} <ChevronDown className="ml-2 h-4 w-4" />
+            <Button className="font-geist-sans" variant="outline">
+              {selectedCategory || "Category"}{" "}
+              <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56">
             {filterOptions.categories.map((category) => (
               <DropdownMenuCheckboxItem
-                key={category}
                 checked={selectedCategory === category}
-                onCheckedChange={() => handleCategoryChange(category)}
                 className="font-geist-sans"
+                key={category}
+                onCheckedChange={() => handleCategoryChange(category)}
               >
                 {category}
               </DropdownMenuCheckboxItem>
@@ -156,17 +164,21 @@ export function ExpenseFilterBar({
         {/* Account Filter */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="font-geist-sans">
-              {selectedAccount ? filterOptions.accounts.find(a => a.id === selectedAccount)?.name : 'Account'} <ChevronDown className="ml-2 h-4 w-4" />
+            <Button className="font-geist-sans" variant="outline">
+              {selectedAccount
+                ? filterOptions.accounts.find((a) => a.id === selectedAccount)
+                    ?.name
+                : "Account"}{" "}
+              <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56">
             {filterOptions.accounts.map((account) => (
               <DropdownMenuCheckboxItem
-                key={account.id}
                 checked={selectedAccount === account.id}
-                onCheckedChange={() => handleAccountChange(account.id)}
                 className="font-geist-sans"
+                key={account.id}
+                onCheckedChange={() => handleAccountChange(account.id)}
               >
                 {account.name}
               </DropdownMenuCheckboxItem>
@@ -177,17 +189,21 @@ export function ExpenseFilterBar({
         {/* Tags Filter */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="font-geist-sans">
-              Tags {selectedTags.length > 0 && `(${selectedTags.length})`} <ChevronDown className="ml-2 h-4 w-4" />
+            <Button className="font-geist-sans" variant="outline">
+              Tags {selectedTags.length > 0 && `(${selectedTags.length})`}{" "}
+              <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-56 max-h-64 overflow-y-auto">
+          <DropdownMenuContent
+            align="start"
+            className="max-h-64 w-56 overflow-y-auto"
+          >
             {filterOptions.tags.map((tag) => (
               <DropdownMenuCheckboxItem
-                key={tag}
                 checked={selectedTags.includes(tag)}
-                onCheckedChange={() => handleTagToggle(tag)}
                 className="font-geist-sans"
+                key={tag}
+                onCheckedChange={() => handleTagToggle(tag)}
               >
                 {tag}
               </DropdownMenuCheckboxItem>
@@ -198,29 +214,34 @@ export function ExpenseFilterBar({
         {/* Recurring Filter */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="font-geist-sans">
-              {selectedRecurring === 'recurring' ? 'Recurring Only' : selectedRecurring === 'one-time' ? 'One-Time Only' : 'All'} <ChevronDown className="ml-2 h-4 w-4" />
+            <Button className="font-geist-sans" variant="outline">
+              {selectedRecurring === "recurring"
+                ? "Recurring Only"
+                : selectedRecurring === "one-time"
+                  ? "One-Time Only"
+                  : "All"}{" "}
+              <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56">
             <DropdownMenuCheckboxItem
-              checked={!selectedRecurring || selectedRecurring === 'all'}
-              onCheckedChange={() => handleRecurringChange('all')}
+              checked={!selectedRecurring || selectedRecurring === "all"}
               className="font-geist-sans"
+              onCheckedChange={() => handleRecurringChange("all")}
             >
               All
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              checked={selectedRecurring === 'recurring'}
-              onCheckedChange={() => handleRecurringChange('recurring')}
+              checked={selectedRecurring === "recurring"}
               className="font-geist-sans"
+              onCheckedChange={() => handleRecurringChange("recurring")}
             >
               Recurring Only
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              checked={selectedRecurring === 'one-time'}
-              onCheckedChange={() => handleRecurringChange('one-time')}
+              checked={selectedRecurring === "one-time"}
               className="font-geist-sans"
+              onCheckedChange={() => handleRecurringChange("one-time")}
             >
               One-Time Only
             </DropdownMenuCheckboxItem>
@@ -230,90 +251,99 @@ export function ExpenseFilterBar({
         {/* Amount Range */}
         <div className="flex items-center gap-2">
           <Input
-            type="number"
+            className="w-24 font-geist-mono"
+            onChange={(e) => handleAmountRangeChange("min", e.target.value)}
             placeholder="Min $"
-            value={filters?.amountRange?.min || ''}
-            onChange={(e) => handleAmountRangeChange('min', e.target.value)}
-            className="w-24 font-geist-mono"
-          />
-          <span className="text-neutral-500 dark:text-neutral-400 font-geist-sans">-</span>
-          <Input
             type="number"
-            placeholder="Max $"
-            value={filters?.amountRange?.max || ''}
-            onChange={(e) => handleAmountRangeChange('max', e.target.value)}
+            value={filters?.amountRange?.min || ""}
+          />
+          <span className="font-geist-sans text-neutral-500 dark:text-neutral-400">
+            -
+          </span>
+          <Input
             className="w-24 font-geist-mono"
+            onChange={(e) => handleAmountRangeChange("max", e.target.value)}
+            placeholder="Max $"
+            type="number"
+            value={filters?.amountRange?.max || ""}
           />
         </div>
 
         {/* Search */}
-        <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400" />
+        <div className="relative min-w-[200px] flex-1">
+          <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
           <Input
-            type="text"
-            placeholder="Search expenses..."
-            value={filters?.search || ''}
-            onChange={(e) => handleSearchChange(e.target.value)}
             className="pl-9 font-geist-sans"
+            onChange={(e) => handleSearchChange(e.target.value)}
+            placeholder="Search expenses..."
+            type="text"
+            value={filters?.search || ""}
           />
         </div>
 
         {/* Clear Filters */}
         {activeFilterCount > 0 && (
           <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearFilters}
             className="font-geist-sans"
+            onClick={clearFilters}
+            size="sm"
+            variant="ghost"
           >
-            <X className="h-4 w-4 mr-1" />
+            <X className="mr-1 h-4 w-4" />
             Clear
           </Button>
         )}
       </div>
 
       {/* Active filter badges */}
-      {(selectedCategory || selectedAccount || selectedTags.length > 0 || selectedRecurring) && (
+      {(selectedCategory ||
+        selectedAccount ||
+        selectedTags.length > 0 ||
+        selectedRecurring) && (
         <div className="flex flex-wrap gap-2">
           {selectedCategory && (
-            <Badge variant="secondary" className="font-geist-sans">
+            <Badge className="font-geist-sans" variant="secondary">
               Category: {selectedCategory}
               <button
-                onClick={() => handleCategoryChange(selectedCategory)}
                 className="ml-2 hover:text-neutral-900 dark:hover:text-neutral-100"
+                onClick={() => handleCategoryChange(selectedCategory)}
               >
                 <X className="h-3 w-3" />
               </button>
             </Badge>
           )}
           {selectedAccount && (
-            <Badge variant="secondary" className="font-geist-sans">
-              Account: {filterOptions.accounts.find(a => a.id === selectedAccount)?.name}
+            <Badge className="font-geist-sans" variant="secondary">
+              Account:{" "}
+              {
+                filterOptions.accounts.find((a) => a.id === selectedAccount)
+                  ?.name
+              }
               <button
-                onClick={() => handleAccountChange(selectedAccount)}
                 className="ml-2 hover:text-neutral-900 dark:hover:text-neutral-100"
+                onClick={() => handleAccountChange(selectedAccount)}
               >
                 <X className="h-3 w-3" />
               </button>
             </Badge>
           )}
           {selectedTags.map((tag) => (
-            <Badge key={tag} variant="secondary" className="font-geist-sans">
+            <Badge className="font-geist-sans" key={tag} variant="secondary">
               {tag}
               <button
-                onClick={() => handleTagToggle(tag)}
                 className="ml-2 hover:text-neutral-900 dark:hover:text-neutral-100"
+                onClick={() => handleTagToggle(tag)}
               >
                 <X className="h-3 w-3" />
               </button>
             </Badge>
           ))}
-          {selectedRecurring && selectedRecurring !== 'all' && (
-            <Badge variant="secondary" className="font-geist-sans">
-              {selectedRecurring === 'recurring' ? 'Recurring' : 'One-Time'}
+          {selectedRecurring && selectedRecurring !== "all" && (
+            <Badge className="font-geist-sans" variant="secondary">
+              {selectedRecurring === "recurring" ? "Recurring" : "One-Time"}
               <button
-                onClick={() => handleRecurringChange(selectedRecurring)}
                 className="ml-2 hover:text-neutral-900 dark:hover:text-neutral-100"
+                onClick={() => handleRecurringChange(selectedRecurring)}
               >
                 <X className="h-3 w-3" />
               </button>
@@ -322,6 +352,5 @@ export function ExpenseFilterBar({
         </div>
       )}
     </div>
-  )
+  );
 }
-

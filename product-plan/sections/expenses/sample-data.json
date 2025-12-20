@@ -16,14 +16,14 @@
   },
   "summaryMetrics": {
     "totalSpendingThisMonth": {
-      "value": 3240.00,
-      "previousValue": 3580.00,
-      "change": -340.00,
+      "value": 3240.0,
+      "previousValue": 3580.0,
+      "change": -340.0,
       "changePercent": -9.5,
       "trend": "down"
     },
     "averageDailySpending": {
-      "value": 108.00,
+      "value": 108.0,
       "previousValue": 115.48,
       "change": -7.48,
       "changePercent": -6.48,
@@ -31,17 +31,17 @@
     },
     "topSpendingCategory": {
       "category": "Housing",
-      "amount": 1850.00,
+      "amount": 1850.0,
       "percentage": 57.1
     },
     "budgetProgress": {
-      "totalSpent": 3240.00,
-      "totalBudget": 4000.00,
+      "totalSpent": 3240.0,
+      "totalBudget": 4000.0,
       "percentage": 81.0,
       "status": "warning"
     },
     "comparisonToLastMonth": {
-      "change": -340.00,
+      "change": -340.0,
       "changePercent": -9.5,
       "trend": "down",
       "message": "9.5% less than last month"
@@ -56,7 +56,7 @@
     {
       "id": "exp-001",
       "type": "expense",
-      "amount": 1850.00,
+      "amount": 1850.0,
       "category": "Housing",
       "description": "Monthly Rent",
       "date": "2024-12-01",
@@ -69,7 +69,7 @@
     {
       "id": "exp-002",
       "type": "expense",
-      "amount": 45.50,
+      "amount": 45.5,
       "category": "Food & Dining",
       "description": "Coffee & Breakfast",
       "date": "2024-12-10",
@@ -81,7 +81,7 @@
     {
       "id": "exp-003",
       "type": "expense",
-      "amount": 89.50,
+      "amount": 89.5,
       "category": "Transportation",
       "description": "Gas & Parking",
       "date": "2024-12-07",
@@ -93,7 +93,7 @@
     {
       "id": "exp-004",
       "type": "expense",
-      "amount": 125.00,
+      "amount": 125.0,
       "category": "Shopping",
       "description": "Winter Clothing",
       "date": "2024-12-08",
@@ -157,7 +157,7 @@
     {
       "id": "exp-009",
       "type": "expense",
-      "amount": 680.00,
+      "amount": 680.0,
       "category": "Food & Dining",
       "description": "Grocery Shopping",
       "date": "2024-12-09",
@@ -169,7 +169,7 @@
     {
       "id": "exp-010",
       "type": "expense",
-      "amount": 95.00,
+      "amount": 95.0,
       "category": "Health & Fitness",
       "description": "Doctor Visit",
       "date": "2024-12-06",
@@ -181,7 +181,7 @@
     {
       "id": "exp-011",
       "type": "expense",
-      "amount": 180.00,
+      "amount": 180.0,
       "category": "Entertainment",
       "description": "Concert Tickets",
       "date": "2024-12-11",
@@ -193,7 +193,7 @@
     {
       "id": "exp-012",
       "type": "expense",
-      "amount": 320.00,
+      "amount": 320.0,
       "category": "Shopping",
       "description": "Electronics",
       "date": "2024-12-12",
@@ -205,7 +205,7 @@
     {
       "id": "exp-013",
       "type": "expense",
-      "amount": 420.00,
+      "amount": 420.0,
       "category": "Transportation",
       "description": "Car Insurance",
       "date": "2024-12-01",
@@ -218,7 +218,7 @@
     {
       "id": "exp-014",
       "type": "expense",
-      "amount": 28.50,
+      "amount": 28.5,
       "category": "Food & Dining",
       "description": "Lunch Meeting",
       "date": "2024-12-11",
@@ -230,7 +230,7 @@
     {
       "id": "exp-015",
       "type": "expense",
-      "amount": 150.00,
+      "amount": 150.0,
       "category": "Other",
       "description": "Charity Donation",
       "date": "2024-12-10",
@@ -243,7 +243,7 @@
     {
       "id": "exp-016",
       "type": "expense",
-      "amount": 75.00,
+      "amount": 75.0,
       "category": "Entertainment",
       "description": "Movie Night",
       "date": "2024-12-09",
@@ -255,7 +255,7 @@
     {
       "id": "exp-017",
       "type": "expense",
-      "amount": 35.00,
+      "amount": 35.0,
       "category": "Transportation",
       "description": "Uber Ride",
       "date": "2024-12-08",
@@ -338,60 +338,59 @@
   "budgetProgress": [
     {
       "category": "Housing",
-      "spent": 1850.00,
-      "target": 2000.00,
+      "spent": 1850.0,
+      "target": 2000.0,
       "percentage": 92.5,
       "status": "warning"
     },
     {
       "category": "Food & Dining",
-      "spent": 755.00,
-      "target": 750.00,
+      "spent": 755.0,
+      "target": 750.0,
       "percentage": 100.7,
       "status": "over"
     },
     {
       "category": "Transportation",
-      "spent": 544.50,
-      "target": 500.00,
+      "spent": 544.5,
+      "target": 500.0,
       "percentage": 108.9,
       "status": "over"
     },
     {
       "category": "Shopping",
-      "spent": 445.00,
-      "target": 400.00,
+      "spent": 445.0,
+      "target": 400.0,
       "percentage": 111.3,
       "status": "over"
     },
     {
       "category": "Subscriptions",
-      "spent": 145.00,
-      "target": 150.00,
+      "spent": 145.0,
+      "target": 150.0,
       "percentage": 96.7,
       "status": "warning"
     },
     {
       "category": "Entertainment",
-      "spent": 255.00,
-      "target": 200.00,
+      "spent": 255.0,
+      "target": 200.0,
       "percentage": 127.5,
       "status": "over"
     },
     {
       "category": "Health & Fitness",
       "spent": 144.99,
-      "target": 150.00,
+      "target": 150.0,
       "percentage": 96.7,
       "status": "good"
     },
     {
       "category": "Other",
-      "spent": 150.00,
-      "target": 200.00,
+      "spent": 150.0,
+      "target": 200.0,
       "percentage": 75.0,
       "status": "good"
     }
   ]
 }
-

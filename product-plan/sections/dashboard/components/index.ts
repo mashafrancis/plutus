@@ -1,8 +1,8 @@
-export { Dashboard } from './Dashboard'
-export { MetricCard } from './MetricCard'
-export { InsightCard } from './InsightCard'
-export { TransactionRow } from './TransactionRow'
-export { SubscriptionItem } from './SubscriptionItem'
-export { BudgetProgressBar } from './BudgetProgressBar'
-export { SpendingChart } from './SpendingChart'
-export { IncomeChart } from './IncomeChart'
+export { BudgetProgressBar } from "./BudgetProgressBar";
+export { Dashboard } from "./Dashboard";
+export { IncomeChart } from "./IncomeChart";
+export { InsightCard } from "./InsightCard";
+export { MetricCard } from "./MetricCard";
+export { SpendingChart } from "./SpendingChart";
+export { SubscriptionItem } from "./SubscriptionItem";
+export { TransactionRow } from "./TransactionRow";

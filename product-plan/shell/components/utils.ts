@@ -3,6 +3,5 @@
  * Replace with your preferred utility (e.g., clsx, classnames, or tailwind-merge)
  */
 export function cn(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
-

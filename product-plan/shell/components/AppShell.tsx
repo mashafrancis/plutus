@@ -1,80 +1,92 @@
-import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
-import { MainNav, type NavigationItem } from './MainNav'
-import { UserMenu } from './UserMenu'
-import { Button } from '../../ui/button'
-import { cn } from './utils'
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { Button } from "../../ui/button";
+import { MainNav, type NavigationItem } from "./MainNav";
+import { UserMenu } from "./UserMenu";
+import { cn } from "./utils";
 
 export interface AppShellProps {
-  children: React.ReactNode
-  navigationItems: NavigationItem[]
+  children: React.ReactNode;
+  navigationItems: NavigationItem[];
   user?: {
-    name: string
-    avatarUrl?: string
-  }
-  onNavigate?: (href: string) => void
-  onLogout?: () => void
+    name: string;
+    avatarUrl?: string;
+  };
+  onNavigate?: (href: string) => void;
+  onLogout?: () => void;
 }
 
 export function AppShell({
   children,
   navigationItems,
-  user = { name: 'User' },
+  user = { name: "User" },
   onNavigate,
   onLogout,
 }: AppShellProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false)
-  const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed)
-  }
+    setIsCollapsed(!isCollapsed);
+  };
 
   const handleNavigate = (href: string) => {
-    onNavigate?.(href)
-    setIsMobileOpen(false)
-  }
+    onNavigate?.(href);
+    setIsMobileOpen(false);
+  };
 
   return (
     <div className="flex h-screen overflow-hidden bg-neutral-50 dark:bg-neutral-950">
       {/* Desktop Sidebar */}
       <aside
         className={cn(
-          'hidden lg:flex flex-col border-r border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 transition-all duration-300',
-          isCollapsed ? 'w-16' : 'w-72'
+          "hidden flex-col border-neutral-200 border-r bg-white transition-all duration-300 lg:flex dark:border-neutral-800 dark:bg-neutral-900",
+          isCollapsed ? "w-16" : "w-72"
         )}
       >
-        <div className="flex h-16 items-center border-b border-neutral-200 dark:border-neutral-800 px-4">
+        <div className="flex h-16 items-center border-neutral-200 border-b px-4 dark:border-neutral-800">
           {!isCollapsed && (
-            <h1 className="text-xl font-bold text-neutral-900 dark:text-neutral-100">Plutus</h1>
+            <h1 className="font-bold text-neutral-900 text-xl dark:text-neutral-100">
+              Plutus
+            </h1>
           )}
           {isCollapsed && (
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">P</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
+              <span className="font-bold text-sm text-white">P</span>
             </div>
           )}
         </div>
         <div className="flex-1 overflow-y-auto">
-          <MainNav items={navigationItems} isCollapsed={isCollapsed} onNavigate={handleNavigate} />
+          <MainNav
+            isCollapsed={isCollapsed}
+            items={navigationItems}
+            onNavigate={handleNavigate}
+          />
         </div>
         <UserMenu
-          user={user}
           isCollapsed={isCollapsed}
-          onToggleCollapse={toggleCollapse}
           onLogout={onLogout}
+          onToggleCollapse={toggleCollapse}
+          user={user}
         />
       </aside>
 
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 h-16 border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-center justify-between px-4">
-        <h1 className="text-xl font-bold text-neutral-900 dark:text-neutral-100">Plutus</h1>
+      <div className="fixed top-0 right-0 left-0 z-50 flex h-16 items-center justify-between border-neutral-200 border-b bg-white px-4 lg:hidden dark:border-neutral-800 dark:bg-neutral-900">
+        <h1 className="font-bold text-neutral-900 text-xl dark:text-neutral-100">
+          Plutus
+        </h1>
         <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
           className="lg:hidden"
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+          size="icon"
+          variant="ghost"
         >
-          {isMobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {isMobileOpen ? (
+            <X className="h-5 w-5" />
+          ) : (
+            <Menu className="h-5 w-5" />
+          )}
         </Button>
       </div>
 
@@ -82,28 +94,31 @@ export function AppShell({
       {isMobileOpen && (
         <>
           <div
-            className="lg:hidden fixed inset-0 bg-black/50 z-40"
+            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
             onClick={() => setIsMobileOpen(false)}
           />
-          <aside className="lg:hidden fixed left-0 top-16 bottom-0 z-50 w-72 bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 flex flex-col">
+          <aside className="fixed top-16 bottom-0 left-0 z-50 flex w-72 flex-col border-neutral-200 border-r bg-white lg:hidden dark:border-neutral-800 dark:bg-neutral-900">
             <div className="flex-1 overflow-y-auto">
-              <MainNav items={navigationItems} isCollapsed={false} onNavigate={handleNavigate} />
+              <MainNav
+                isCollapsed={false}
+                items={navigationItems}
+                onNavigate={handleNavigate}
+              />
             </div>
             <UserMenu
-              user={user}
               isCollapsed={false}
-              onToggleCollapse={() => { }}
               onLogout={onLogout}
+              onToggleCollapse={() => {}}
+              user={user}
             />
           </aside>
         </>
       )}
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto lg:ml-0 pt-16 lg:pt-0">
+      <main className="flex-1 overflow-y-auto pt-16 lg:ml-0 lg:pt-0">
         {children}
       </main>
     </div>
-  )
+  );
 }
-

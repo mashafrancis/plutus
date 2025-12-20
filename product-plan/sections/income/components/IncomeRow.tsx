@@ -1,21 +1,20 @@
-import { MoreVertical, Repeat } from 'lucide-react'
-import { Badge } from '../../ui/badge'
+import { MoreVertical, Repeat } from "lucide-react";
+import { Badge } from "../../ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
-import { cn } from './utils'
-import type { Income, Account } from '../types'
+} from "../../ui/dropdown-menu";
+import type { Account, Income } from "../types";
 
 interface IncomeRowProps {
-  income: Income
-  account?: Account
-  isSelected?: boolean
-  onSelect?: (incomeId: string, selected: boolean) => void
-  onEdit?: (incomeId: string) => void
-  onDelete?: (incomeId: string) => void
+  income: Income;
+  account?: Account;
+  isSelected?: boolean;
+  onSelect?: (incomeId: string, selected: boolean) => void;
+  onEdit?: (incomeId: string) => void;
+  onDelete?: (incomeId: string) => void;
 }
 
 export function IncomeRow({
@@ -27,29 +26,28 @@ export function IncomeRow({
   onDelete,
 }: IncomeRowProps) {
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-  }
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
 
-  const formatCurrency = (amount: number) => {
-    return `$${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-  }
+  const formatCurrency = (amount: number) =>
+    `$${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
   return (
-    <tr className="border-b border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors">
+    <tr className="border-neutral-200 border-b transition-colors hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-900">
       {/* Checkbox */}
       <td className="w-12 px-4">
         <input
-          type="checkbox"
           checked={isSelected}
+          className="h-4 w-4 cursor-pointer rounded border-neutral-300 text-blue-600 focus:ring-blue-500 dark:border-neutral-700 dark:focus:ring-blue-400"
           onChange={(e) => onSelect?.(income.id, e.target.checked)}
-          className="h-4 w-4 rounded border-neutral-300 dark:border-neutral-700 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-400 cursor-pointer"
+          type="checkbox"
         />
       </td>
 
       {/* Date */}
       <td className="px-4 py-3">
-        <span className="text-sm text-neutral-600 dark:text-neutral-400 font-geist-sans">
+        <span className="font-geist-sans text-neutral-600 text-sm dark:text-neutral-400">
           {formatDate(income.date)}
         </span>
       </td>
@@ -57,18 +55,21 @@ export function IncomeRow({
       {/* Description */}
       <td className="px-4 py-3">
         <div className="flex items-center gap-2">
-          <span className="font-medium text-neutral-900 dark:text-neutral-100 font-geist-sans">
+          <span className="font-geist-sans font-medium text-neutral-900 dark:text-neutral-100">
             {income.description}
           </span>
           {income.recurring && (
-            <Badge variant="outline" className="text-xs px-1.5 py-0.5 border-sky-300 dark:border-sky-700 text-sky-700 dark:text-sky-300">
-              <Repeat className="h-3 w-3 mr-1" />
-              {income.recurringFrequency || 'recurring'}
+            <Badge
+              className="border-sky-300 px-1.5 py-0.5 text-sky-700 text-xs dark:border-sky-700 dark:text-sky-300"
+              variant="outline"
+            >
+              <Repeat className="mr-1 h-3 w-3" />
+              {income.recurringFrequency || "recurring"}
             </Badge>
           )}
         </div>
         {income.notes && (
-          <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-1 font-geist-sans">
+          <p className="mt-1 font-geist-sans text-neutral-500 text-xs dark:text-neutral-500">
             {income.notes}
           </p>
         )}
@@ -76,21 +77,21 @@ export function IncomeRow({
 
       {/* Source */}
       <td className="px-4 py-3">
-        <Badge variant="outline" className="font-geist-sans">
+        <Badge className="font-geist-sans" variant="outline">
           {income.source}
         </Badge>
       </td>
 
       {/* Amount */}
       <td className="px-4 py-3">
-        <span className="font-semibold text-emerald-600 dark:text-emerald-400 font-geist-mono">
+        <span className="font-geist-mono font-semibold text-emerald-600 dark:text-emerald-400">
           {formatCurrency(income.amount)}
         </span>
       </td>
 
       {/* Account */}
       <td className="px-4 py-3">
-        <span className="text-sm text-neutral-600 dark:text-neutral-400 font-geist-sans">
+        <span className="font-geist-sans text-neutral-600 text-sm dark:text-neutral-400">
           {account?.name || income.accountId}
         </span>
       </td>
@@ -100,17 +101,17 @@ export function IncomeRow({
         <div className="flex flex-wrap gap-1">
           {income.tags.slice(0, 2).map((tag) => (
             <Badge
+              className="border-sky-200 bg-sky-50 px-1.5 py-0.5 font-geist-sans text-sky-700 text-xs dark:border-sky-800 dark:bg-sky-950 dark:text-sky-300"
               key={tag}
               variant="secondary"
-              className="text-xs px-1.5 py-0.5 bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800 font-geist-sans"
             >
               {tag}
             </Badge>
           ))}
           {income.tags.length > 2 && (
             <Badge
+              className="px-1.5 py-0.5 font-geist-sans text-xs"
               variant="secondary"
-              className="text-xs px-1.5 py-0.5 font-geist-sans"
             >
               +{income.tags.length - 2}
             </Badge>
@@ -122,20 +123,20 @@ export function IncomeRow({
       <td className="px-4 py-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="p-1 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded transition-colors">
+            <button className="rounded p-1 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800">
               <MoreVertical className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => onEdit?.(income.id)}
               className="font-geist-sans"
+              onClick={() => onEdit?.(income.id)}
             >
               Edit
             </DropdownMenuItem>
             <DropdownMenuItem
+              className="font-geist-sans text-red-600 dark:text-red-400"
               onClick={() => onDelete?.(income.id)}
-              className="text-red-600 dark:text-red-400 font-geist-sans"
             >
               Delete
             </DropdownMenuItem>
@@ -143,6 +144,5 @@ export function IncomeRow({
         </DropdownMenu>
       </td>
     </tr>
-  )
+  );
 }
-

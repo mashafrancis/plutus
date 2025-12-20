@@ -1,20 +1,26 @@
-import { MoreVertical, Edit, Trash2, Archive, ArchiveRestore } from 'lucide-react'
-import { Badge } from '../../ui/badge'
+import {
+  Archive,
+  ArchiveRestore,
+  Edit,
+  MoreVertical,
+  Trash2,
+} from "lucide-react";
+import { Badge } from "../../ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
-import { cn } from './utils'
-import type { Category } from '../types'
+} from "../../ui/dropdown-menu";
+import type { Category } from "../types";
+import { cn } from "./utils";
 
 interface CategoryRowProps {
-  category: Category
-  onEdit?: (categoryId: string) => void
-  onDelete?: (categoryId: string) => void
-  onArchive?: (categoryId: string, archived: boolean) => void
+  category: Category;
+  onEdit?: (categoryId: string) => void;
+  onDelete?: (categoryId: string) => void;
+  onArchive?: (categoryId: string, archived: boolean) => void;
 }
 
 export function CategoryRow({
@@ -25,54 +31,72 @@ export function CategoryRow({
 }: CategoryRowProps) {
   // Map color names to Tailwind classes
   const colorMap: Record<string, string> = {
-    blue: 'bg-blue-500',
-    orange: 'bg-orange-500',
-    green: 'bg-green-500',
-    purple: 'bg-purple-500',
-    red: 'bg-red-500',
-    pink: 'bg-pink-500',
-    emerald: 'bg-emerald-500',
-    gray: 'bg-gray-500',
-  }
+    blue: "bg-blue-500",
+    orange: "bg-orange-500",
+    green: "bg-green-500",
+    purple: "bg-purple-500",
+    red: "bg-red-500",
+    pink: "bg-pink-500",
+    emerald: "bg-emerald-500",
+    gray: "bg-gray-500",
+  };
 
-  const colorClass = colorMap[category.color] || 'bg-neutral-500'
+  const colorClass = colorMap[category.color] || "bg-neutral-500";
 
   return (
-    <div className={cn(
-      "flex items-center justify-between p-3 border border-neutral-200 dark:border-neutral-800 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors",
-      category.isArchived && "opacity-60"
-    )}>
-      <div className="flex items-center gap-3 flex-1">
-        <div className={cn("w-8 h-8 rounded-full flex items-center justify-center text-white text-xs", colorClass)}>
+    <div
+      className={cn(
+        "flex items-center justify-between rounded-lg border border-neutral-200 p-3 transition-colors hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-900",
+        category.isArchived && "opacity-60"
+      )}
+    >
+      <div className="flex flex-1 items-center gap-3">
+        <div
+          className={cn(
+            "flex h-8 w-8 items-center justify-center rounded-full text-white text-xs",
+            colorClass
+          )}
+        >
           {/* Icon placeholder - would use lucide-react icons in production */}
-          <span className="font-geist-sans">{category.icon.charAt(0).toUpperCase()}</span>
+          <span className="font-geist-sans">
+            {category.icon.charAt(0).toUpperCase()}
+          </span>
         </div>
         <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <p className="font-medium text-neutral-900 dark:text-neutral-100 font-geist-sans">
+          <div className="mb-1 flex items-center gap-2">
+            <p className="font-geist-sans font-medium text-neutral-900 dark:text-neutral-100">
               {category.name}
             </p>
-            <Badge variant="outline" className={cn(
-              "text-xs font-geist-sans",
-              category.type === 'expense' 
-                ? "bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800"
-                : "bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
-            )}>
-              {category.type === 'expense' ? 'Expense' : 'Income'}
+            <Badge
+              className={cn(
+                "font-geist-sans text-xs",
+                category.type === "expense"
+                  ? "border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300"
+                  : "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
+              )}
+              variant="outline"
+            >
+              {category.type === "expense" ? "Expense" : "Income"}
             </Badge>
             {category.isDefault && (
-              <Badge variant="outline" className="bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-xs font-geist-sans">
+              <Badge
+                className="bg-neutral-100 font-geist-sans text-neutral-600 text-xs dark:bg-neutral-800 dark:text-neutral-400"
+                variant="outline"
+              >
                 Default
               </Badge>
             )}
             {category.isArchived && (
-              <Badge variant="outline" className="bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-xs font-geist-sans">
+              <Badge
+                className="bg-neutral-100 font-geist-sans text-neutral-600 text-xs dark:bg-neutral-800 dark:text-neutral-400"
+                variant="outline"
+              >
                 Archived
               </Badge>
             )}
           </div>
           {category.notes && (
-            <p className="text-xs text-neutral-500 dark:text-neutral-500 font-geist-sans">
+            <p className="font-geist-sans text-neutral-500 text-xs dark:text-neutral-500">
               {category.notes}
             </p>
           )}
@@ -80,45 +104,44 @@ export function CategoryRow({
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="p-1 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded transition-colors">
+          <button className="rounded p-1 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800">
             <MoreVertical className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem
-            onClick={() => onEdit?.(category.id)}
             className="font-geist-sans"
+            onClick={() => onEdit?.(category.id)}
           >
-            <Edit className="h-4 w-4 mr-2" />
+            <Edit className="mr-2 h-4 w-4" />
             Edit
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            onClick={() => onArchive?.(category.id, !category.isArchived)}
             className="font-geist-sans"
+            onClick={() => onArchive?.(category.id, !category.isArchived)}
           >
             {category.isArchived ? (
               <>
-                <ArchiveRestore className="h-4 w-4 mr-2" />
+                <ArchiveRestore className="mr-2 h-4 w-4" />
                 Unarchive
               </>
             ) : (
               <>
-                <Archive className="h-4 w-4 mr-2" />
+                <Archive className="mr-2 h-4 w-4" />
                 Archive
               </>
             )}
           </DropdownMenuItem>
           <DropdownMenuItem
+            className="font-geist-sans text-red-600 dark:text-red-400"
             onClick={() => onDelete?.(category.id)}
-            className="text-red-600 dark:text-red-400 font-geist-sans"
           >
-            <Trash2 className="h-4 w-4 mr-2" />
+            <Trash2 className="mr-2 h-4 w-4" />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  )
+  );
 }
-

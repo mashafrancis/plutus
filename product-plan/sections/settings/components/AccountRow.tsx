@@ -1,22 +1,30 @@
-import { MoreVertical, Edit, Trash2, Archive, ArchiveRestore, Star, DollarSign } from 'lucide-react'
-import { Badge } from '../../ui/badge'
+import {
+  Archive,
+  ArchiveRestore,
+  DollarSign,
+  Edit,
+  MoreVertical,
+  Star,
+  Trash2,
+} from "lucide-react";
+import { Badge } from "../../ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
-import { cn } from './utils'
-import type { Account } from '../types'
+} from "../../ui/dropdown-menu";
+import type { Account } from "../types";
+import { cn } from "./utils";
 
 interface AccountRowProps {
-  account: Account
-  onEdit?: (accountId: string) => void
-  onDelete?: (accountId: string) => void
-  onArchive?: (accountId: string, archived: boolean) => void
-  onSetDefault?: (accountId: string) => void
-  onUpdateBalance?: (accountId: string, balance: number) => void
+  account: Account;
+  onEdit?: (accountId: string) => void;
+  onDelete?: (accountId: string) => void;
+  onArchive?: (accountId: string, archived: boolean) => void;
+  onSetDefault?: (accountId: string) => void;
+  onUpdateBalance?: (accountId: string, balance: number) => void;
 }
 
 export function AccountRow({
@@ -27,110 +35,122 @@ export function AccountRow({
   onSetDefault,
   onUpdateBalance,
 }: AccountRowProps) {
-  const formatCurrency = (amount: number) => {
-    return `$${Math.abs(amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-  }
+  const formatCurrency = (amount: number) =>
+    `$${Math.abs(amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-  const formatAccountType = (type: string) => {
-    return type.charAt(0).toUpperCase() + type.slice(1)
-  }
+  const formatAccountType = (type: string) =>
+    type.charAt(0).toUpperCase() + type.slice(1);
 
-  const isNegative = account.currentBalance < 0
+  const isNegative = account.currentBalance < 0;
 
   return (
-    <div className={cn(
-      "flex items-center justify-between p-4 border border-neutral-200 dark:border-neutral-800 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors",
-      account.isArchived && "opacity-60"
-    )}>
+    <div
+      className={cn(
+        "flex items-center justify-between rounded-lg border border-neutral-200 p-4 transition-colors hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-900",
+        account.isArchived && "opacity-60"
+      )}
+    >
       <div className="flex-1">
-        <div className="flex items-center gap-2 mb-1">
-          <p className="font-medium text-neutral-900 dark:text-neutral-100 font-geist-sans">
+        <div className="mb-1 flex items-center gap-2">
+          <p className="font-geist-sans font-medium text-neutral-900 dark:text-neutral-100">
             {account.name}
           </p>
           {account.isDefault && (
-            <Badge variant="outline" className="bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800 text-xs font-geist-sans">
-              <Star className="h-3 w-3 mr-1" />
+            <Badge
+              className="border-blue-200 bg-blue-50 font-geist-sans text-blue-700 text-xs dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300"
+              variant="outline"
+            >
+              <Star className="mr-1 h-3 w-3" />
               Default
             </Badge>
           )}
           {account.isArchived && (
-            <Badge variant="outline" className="bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-xs font-geist-sans">
+            <Badge
+              className="bg-neutral-100 font-geist-sans text-neutral-600 text-xs dark:bg-neutral-800 dark:text-neutral-400"
+              variant="outline"
+            >
               Archived
             </Badge>
           )}
         </div>
-        <div className="flex items-center gap-4 text-sm text-neutral-600 dark:text-neutral-400 font-geist-sans">
+        <div className="flex items-center gap-4 font-geist-sans text-neutral-600 text-sm dark:text-neutral-400">
           <span>{formatAccountType(account.type)}</span>
-          <span className={cn(
-            "font-geist-mono",
-            isNegative ? "text-red-600 dark:text-red-400" : "text-neutral-900 dark:text-neutral-100"
-          )}>
-            {isNegative ? '-' : ''}{formatCurrency(account.currentBalance)}
+          <span
+            className={cn(
+              "font-geist-mono",
+              isNegative
+                ? "text-red-600 dark:text-red-400"
+                : "text-neutral-900 dark:text-neutral-100"
+            )}
+          >
+            {isNegative ? "-" : ""}
+            {formatCurrency(account.currentBalance)}
           </span>
         </div>
         {account.notes && (
-          <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-1 font-geist-sans">
+          <p className="mt-1 font-geist-sans text-neutral-500 text-xs dark:text-neutral-500">
             {account.notes}
           </p>
         )}
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="p-1 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded transition-colors">
+          <button className="rounded p-1 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800">
             <MoreVertical className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           {!account.isDefault && (
             <DropdownMenuItem
-              onClick={() => onSetDefault?.(account.id)}
               className="font-geist-sans"
+              onClick={() => onSetDefault?.(account.id)}
             >
-              <Star className="h-4 w-4 mr-2" />
+              <Star className="mr-2 h-4 w-4" />
               Set as Default
             </DropdownMenuItem>
           )}
           <DropdownMenuItem
-            onClick={() => onUpdateBalance?.(account.id, account.currentBalance)}
             className="font-geist-sans"
+            onClick={() =>
+              onUpdateBalance?.(account.id, account.currentBalance)
+            }
           >
-            <DollarSign className="h-4 w-4 mr-2" />
+            <DollarSign className="mr-2 h-4 w-4" />
             Update Balance
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => onEdit?.(account.id)}
             className="font-geist-sans"
+            onClick={() => onEdit?.(account.id)}
           >
-            <Edit className="h-4 w-4 mr-2" />
+            <Edit className="mr-2 h-4 w-4" />
             Edit
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            onClick={() => onArchive?.(account.id, !account.isArchived)}
             className="font-geist-sans"
+            onClick={() => onArchive?.(account.id, !account.isArchived)}
           >
             {account.isArchived ? (
               <>
-                <ArchiveRestore className="h-4 w-4 mr-2" />
+                <ArchiveRestore className="mr-2 h-4 w-4" />
                 Unarchive
               </>
             ) : (
               <>
-                <Archive className="h-4 w-4 mr-2" />
+                <Archive className="mr-2 h-4 w-4" />
                 Archive
               </>
             )}
           </DropdownMenuItem>
           <DropdownMenuItem
+            className="font-geist-sans text-red-600 dark:text-red-400"
             onClick={() => onDelete?.(account.id)}
-            className="text-red-600 dark:text-red-400 font-geist-sans"
           >
-            <Trash2 className="h-4 w-4 mr-2" />
+            <Trash2 className="mr-2 h-4 w-4" />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  )
+  );
 }
-

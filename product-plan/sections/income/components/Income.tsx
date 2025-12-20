@@ -1,46 +1,46 @@
-import { useState, useRef, useEffect } from 'react'
-import { Plus } from 'lucide-react'
-import { Button } from '../../ui/button'
-import { Card, CardContent } from '../../ui/card'
+import { Plus } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Button } from "../../ui/button";
+import { Card, CardContent } from "../../ui/card";
 import {
   Table,
   TableBody,
   TableHead,
   TableHeader,
   TableRow,
-} from '../../ui/table'
-import { IncomeMetricCard } from './IncomeMetricCard'
-import { IncomeFilterBar } from './IncomeFilterBar'
-import { IncomeRow } from './IncomeRow'
-import { BulkActionBar } from './BulkActionBar'
-import type { IncomeProps } from '../types'
+} from "../../ui/table";
+import type { IncomeProps } from "../types";
+import { BulkActionBar } from "./BulkActionBar";
+import { IncomeFilterBar } from "./IncomeFilterBar";
+import { IncomeMetricCard } from "./IncomeMetricCard";
+import { IncomeRow } from "./IncomeRow";
 
 function SelectAllCheckbox({
   checked,
   indeterminate,
   onChange,
 }: {
-  checked: boolean
-  indeterminate: boolean
-  onChange: (checked: boolean) => void
+  checked: boolean;
+  indeterminate: boolean;
+  onChange: (checked: boolean) => void;
 }) {
-  const checkboxRef = useRef<HTMLInputElement>(null)
+  const checkboxRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (checkboxRef.current) {
-      checkboxRef.current.indeterminate = indeterminate
+      checkboxRef.current.indeterminate = indeterminate;
     }
-  }, [indeterminate])
+  }, [indeterminate]);
 
   return (
     <input
+      checked={checked}
+      className="h-4 w-4 cursor-pointer rounded border-neutral-300 text-blue-600 focus:ring-blue-500 dark:border-neutral-700 dark:focus:ring-blue-400"
+      onChange={(e) => onChange(e.target.checked)}
       ref={checkboxRef}
       type="checkbox"
-      checked={checked}
-      onChange={(e) => onChange(e.target.checked)}
-      className="h-4 w-4 rounded border-neutral-300 dark:border-neutral-700 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-400 cursor-pointer"
     />
-  )
+  );
 }
 
 export function Income({
@@ -55,128 +55,128 @@ export function Income({
   onBulkAction,
   onSort,
 }: IncomeProps) {
-  const [selectedIds, setSelectedIds] = useState<string[]>(initialSelectedIds)
-  const [filters, setFilters] = useState(initialFilters || {})
+  const [selectedIds, setSelectedIds] = useState<string[]>(initialSelectedIds);
+  const [filters, setFilters] = useState(initialFilters || {});
 
   const handleSelect = (incomeId: string, selected: boolean) => {
     const newSelection = selected
       ? [...selectedIds, incomeId]
-      : selectedIds.filter(id => id !== incomeId)
-    setSelectedIds(newSelection)
-    onSelectionChange?.(newSelection)
-  }
+      : selectedIds.filter((id) => id !== incomeId);
+    setSelectedIds(newSelection);
+    onSelectionChange?.(newSelection);
+  };
 
   const handleSelectAll = (checked: boolean) => {
-    const newSelection = checked ? data.income.map(i => i.id) : []
-    setSelectedIds(newSelection)
-    onSelectionChange?.(newSelection)
-  }
+    const newSelection = checked ? data.income.map((i) => i.id) : [];
+    setSelectedIds(newSelection);
+    onSelectionChange?.(newSelection);
+  };
 
   const handleFilterChange = (newFilters: typeof filters) => {
-    setFilters(newFilters)
-    onFilterChange?.(newFilters)
-  }
+    setFilters(newFilters);
+    onFilterChange?.(newFilters);
+  };
 
-  const handleBulkAction = (action: 'delete' | 'changeSource' | 'addTags') => {
-    onBulkAction?.(action, selectedIds)
-    if (action === 'delete') {
-      setSelectedIds([])
-      onSelectionChange?.([])
+  const handleBulkAction = (action: "delete" | "changeSource" | "addTags") => {
+    onBulkAction?.(action, selectedIds);
+    if (action === "delete") {
+      setSelectedIds([]);
+      onSelectionChange?.([]);
     }
-  }
+  };
 
-  const formatCurrency = (value: number) => {
-    return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-  }
+  const formatCurrency = (value: number) =>
+    `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-  const allSelected = selectedIds.length === data.income.length && data.income.length > 0
-  const someSelected = selectedIds.length > 0 && selectedIds.length < data.income.length
+  const allSelected =
+    selectedIds.length === data.income.length && data.income.length > 0;
+  const someSelected =
+    selectedIds.length > 0 && selectedIds.length < data.income.length;
 
   // Get account info for each income entry
-  const getAccount = (accountId: string) => {
-    return data.filterOptions.accounts.find(a => a.id === accountId)
-  }
+  const getAccount = (accountId: string) =>
+    data.filterOptions.accounts.find((a) => a.id === accountId);
 
   return (
-    <div className="container mx-auto p-6 space-y-6 font-geist-sans">
+    <div className="container mx-auto space-y-6 p-6 font-geist-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 font-geist-sans">
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <h1 className="font-bold font-geist-sans text-3xl text-neutral-900 dark:text-neutral-100">
           Income
         </h1>
         <Button
+          className="bg-blue-600 font-geist-sans text-white hover:bg-blue-700"
           onClick={onAddIncome}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-geist-sans"
         >
-          <Plus className="h-4 w-4 mr-2" />
+          <Plus className="mr-2 h-4 w-4" />
           Add Income
         </Button>
       </div>
 
       {/* Summary Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <IncomeMetricCard
-          label="Total Income"
-          value={data.summaryMetrics.totalIncomeThisMonth.value}
-          previousValue={data.summaryMetrics.totalIncomeThisMonth.previousValue}
           change={data.summaryMetrics.totalIncomeThisMonth.change}
           changePercent={data.summaryMetrics.totalIncomeThisMonth.changePercent}
-          trend={data.summaryMetrics.totalIncomeThisMonth.trend}
           formatValue={formatCurrency}
+          label="Total Income"
+          previousValue={data.summaryMetrics.totalIncomeThisMonth.previousValue}
+          trend={data.summaryMetrics.totalIncomeThisMonth.trend}
+          value={data.summaryMetrics.totalIncomeThisMonth.value}
         />
         <IncomeMetricCard
-          label="Monthly Average"
-          value={data.summaryMetrics.averageMonthlyIncome.value}
-          previousValue={data.summaryMetrics.averageMonthlyIncome.previousValue}
           change={data.summaryMetrics.averageMonthlyIncome.change}
           changePercent={data.summaryMetrics.averageMonthlyIncome.changePercent}
-          trend={data.summaryMetrics.averageMonthlyIncome.trend}
           formatValue={formatCurrency}
+          label="Monthly Average"
+          previousValue={data.summaryMetrics.averageMonthlyIncome.previousValue}
+          trend={data.summaryMetrics.averageMonthlyIncome.trend}
+          value={data.summaryMetrics.averageMonthlyIncome.value}
         />
         <IncomeMetricCard
           label="Top Source"
-          value={data.summaryMetrics.topIncomeSource.source}
           topSource={data.summaryMetrics.topIncomeSource}
+          value={data.summaryMetrics.topIncomeSource.source}
         />
         <IncomeMetricCard
-          label="vs Last Month"
-          value={data.summaryMetrics.totalIncomeThisMonth.value}
           comparison={data.summaryMetrics.comparisonToLastMonth}
           formatValue={formatCurrency}
+          label="vs Last Month"
+          value={data.summaryMetrics.totalIncomeThisMonth.value}
         />
         <IncomeMetricCard
-          label="Recurring Total"
-          value={data.summaryMetrics.totalRecurringIncome.value}
-          previousValue={data.summaryMetrics.totalRecurringIncome.previousValue}
           change={data.summaryMetrics.totalRecurringIncome.change}
           changePercent={data.summaryMetrics.totalRecurringIncome.changePercent}
-          trend={data.summaryMetrics.totalRecurringIncome.trend}
           formatValue={formatCurrency}
+          label="Recurring Total"
+          previousValue={data.summaryMetrics.totalRecurringIncome.previousValue}
+          trend={data.summaryMetrics.totalRecurringIncome.trend}
+          value={data.summaryMetrics.totalRecurringIncome.value}
         />
         <IncomeMetricCard
           label="Entries"
-          value={data.summaryMetrics.transactionCount.thisMonth}
           transactionCount={data.summaryMetrics.transactionCount}
+          value={data.summaryMetrics.transactionCount.thisMonth}
         />
       </div>
 
       {/* Filter Bar */}
       <IncomeFilterBar
-        filters={filters}
         filterOptions={data.filterOptions}
+        filters={filters}
         onFilterChange={handleFilterChange}
       />
 
       {/* Bulk Action Bar */}
       <BulkActionBar
-        selectedCount={selectedIds.length}
-        onBulkDelete={() => handleBulkAction('delete')}
-        onBulkChangeSource={() => handleBulkAction('changeSource')}
-        onBulkAddTags={() => handleBulkAction('addTags')}
+        onBulkAddTags={() => handleBulkAction("addTags")}
+        onBulkChangeSource={() => handleBulkAction("changeSource")}
+        onBulkDelete={() => handleBulkAction("delete")}
         onClearSelection={() => {
-          setSelectedIds([])
-          onSelectionChange?.([])
+          setSelectedIds([]);
+          onSelectionChange?.([]);
         }}
+        selectedCount={selectedIds.length}
       />
 
       {/* Income Table */}
@@ -198,26 +198,29 @@ export function Income({
                 <TableHead className="font-geist-sans">Amount</TableHead>
                 <TableHead className="font-geist-sans">Account</TableHead>
                 <TableHead className="font-geist-sans">Tags</TableHead>
-                <TableHead className="w-12"></TableHead>
+                <TableHead className="w-12" />
               </TableRow>
             </TableHeader>
             <TableBody>
               {data.income.length === 0 ? (
                 <TableRow>
-                  <td colSpan={8} className="text-center py-8 text-neutral-500 dark:text-neutral-400 font-geist-sans">
+                  <td
+                    className="py-8 text-center font-geist-sans text-neutral-500 dark:text-neutral-400"
+                    colSpan={8}
+                  >
                     No income entries found
                   </td>
                 </TableRow>
               ) : (
                 data.income.map((income) => (
                   <IncomeRow
-                    key={income.id}
-                    income={income}
                     account={getAccount(income.accountId)}
+                    income={income}
                     isSelected={selectedIds.includes(income.id)}
-                    onSelect={handleSelect}
-                    onEdit={onEditIncome}
+                    key={income.id}
                     onDelete={onDeleteIncome}
+                    onEdit={onEditIncome}
+                    onSelect={handleSelect}
                   />
                 ))
               )}
@@ -226,6 +229,5 @@ export function Income({
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
-

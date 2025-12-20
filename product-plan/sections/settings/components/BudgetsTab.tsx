@@ -1,16 +1,16 @@
-import { Plus } from 'lucide-react'
-import { Button } from '../../ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card'
-import { BudgetCard } from './BudgetCard'
-import type { Budget, Category } from '../types'
+import { Plus } from "lucide-react";
+import { Button } from "../../ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
+import type { Budget, Category } from "../types";
+import { BudgetCard } from "./BudgetCard";
 
 interface BudgetsTabProps {
-  budgets: Budget[]
-  categories: Category[]
-  onAddBudget?: () => void
-  onEditBudget?: (budgetId: string) => void
-  onDeleteBudget?: (budgetId: string) => void
-  onUpdateBudget?: (budgetId: string, updates: Partial<Budget>) => void
+  budgets: Budget[];
+  categories: Category[];
+  onAddBudget?: () => void;
+  onEditBudget?: (budgetId: string) => void;
+  onDeleteBudget?: (budgetId: string) => void;
+  onUpdateBudget?: (budgetId: string, updates: Partial<Budget>) => void;
 }
 
 export function BudgetsTab({
@@ -21,8 +21,8 @@ export function BudgetsTab({
   onDeleteBudget,
   onUpdateBudget,
 }: BudgetsTabProps) {
-  const categoryBudgets = budgets.filter(b => b.categoryId !== null)
-  const overallBudget = budgets.find(b => b.categoryId === null)
+  const categoryBudgets = budgets.filter((b) => b.categoryId !== null);
+  const overallBudget = budgets.find((b) => b.categoryId === null);
 
   return (
     <div className="space-y-6">
@@ -30,15 +30,15 @@ export function BudgetsTab({
       {overallBudget && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 font-geist-sans">
+            <CardTitle className="font-geist-sans font-semibold text-lg text-neutral-900 dark:text-neutral-100">
               Overall Budget
             </CardTitle>
           </CardHeader>
           <CardContent>
             <BudgetCard
               budget={overallBudget}
-              onEdit={onEditBudget}
               onDelete={onDeleteBudget}
+              onEdit={onEditBudget}
               onUpdate={onUpdateBudget}
             />
           </CardContent>
@@ -49,32 +49,32 @@ export function BudgetsTab({
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 font-geist-sans">
+            <CardTitle className="font-geist-sans font-semibold text-lg text-neutral-900 dark:text-neutral-100">
               Category Budgets
             </CardTitle>
             <Button
+              className="bg-blue-600 font-geist-sans text-white hover:bg-blue-700"
               onClick={onAddBudget}
               size="sm"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-geist-sans"
             >
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="mr-2 h-4 w-4" />
               Add Budget
             </Button>
           </div>
         </CardHeader>
         <CardContent>
           {categoryBudgets.length === 0 ? (
-            <p className="text-sm text-neutral-500 dark:text-neutral-400 text-center py-4 font-geist-sans">
+            <p className="py-4 text-center font-geist-sans text-neutral-500 text-sm dark:text-neutral-400">
               No category budgets set. Add budgets to track spending limits.
             </p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {categoryBudgets.map((budget) => (
                 <BudgetCard
-                  key={budget.id}
                   budget={budget}
-                  onEdit={onEditBudget}
+                  key={budget.id}
                   onDelete={onDeleteBudget}
+                  onEdit={onEditBudget}
                   onUpdate={onUpdateBudget}
                 />
               ))}
@@ -83,6 +83,5 @@ export function BudgetsTab({
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
-

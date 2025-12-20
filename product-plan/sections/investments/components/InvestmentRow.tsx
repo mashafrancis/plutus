@@ -1,23 +1,32 @@
-import { MoreVertical, TrendingUp, TrendingDown, Edit, Trash2, Plus, DollarSign, History } from 'lucide-react'
-import { Badge } from '../../ui/badge'
+import {
+  DollarSign,
+  Edit,
+  History,
+  MoreVertical,
+  Plus,
+  Trash2,
+  TrendingDown,
+  TrendingUp,
+} from "lucide-react";
+import { Badge } from "../../ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
-import { cn } from './utils'
-import type { Investment, Account } from '../types'
+} from "../../ui/dropdown-menu";
+import type { Account, Investment } from "../types";
+import { cn } from "./utils";
 
 interface InvestmentRowProps {
-  investment: Investment
-  account?: Account
-  onEdit?: (investmentId: string) => void
-  onDelete?: (investmentId: string) => void
-  onRecordTransaction?: (investmentId: string) => void
-  onUpdateValue?: (investmentId: string) => void
-  onViewHistory?: (investmentId: string) => void
+  investment: Investment;
+  account?: Account;
+  onEdit?: (investmentId: string) => void;
+  onDelete?: (investmentId: string) => void;
+  onRecordTransaction?: (investmentId: string) => void;
+  onUpdateValue?: (investmentId: string) => void;
+  onViewHistory?: (investmentId: string) => void;
 }
 
 export function InvestmentRow({
@@ -29,28 +38,29 @@ export function InvestmentRow({
   onUpdateValue,
   onViewHistory,
 }: InvestmentRowProps) {
-  const formatCurrency = (amount: number) => {
-    return `$${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-  }
+  const formatCurrency = (amount: number) =>
+    `$${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-  const formatAssetType = (type: string) => {
-    return type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
-  }
+  const formatAssetType = (type: string) =>
+    type
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
 
-  const isPositive = investment.gainLossDollar > 0
-  const isNegative = investment.gainLossDollar < 0
-  const todayIsPositive = investment.todayChangeDollar > 0
-  const todayIsNegative = investment.todayChangeDollar < 0
+  const isPositive = investment.gainLossDollar > 0;
+  const isNegative = investment.gainLossDollar < 0;
+  const todayIsPositive = investment.todayChangeDollar > 0;
+  const todayIsNegative = investment.todayChangeDollar < 0;
 
   return (
-    <tr className="border-b border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors">
+    <tr className="border-neutral-200 border-b transition-colors hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-900">
       {/* Name/Ticker */}
       <td className="px-4 py-3">
         <div>
-          <p className="font-medium text-neutral-900 dark:text-neutral-100 font-geist-sans">
+          <p className="font-geist-sans font-medium text-neutral-900 dark:text-neutral-100">
             {investment.name}
           </p>
-          <p className="text-xs text-neutral-500 dark:text-neutral-500 font-geist-mono">
+          <p className="font-geist-mono text-neutral-500 text-xs dark:text-neutral-500">
             {investment.ticker}
           </p>
         </div>
@@ -58,28 +68,30 @@ export function InvestmentRow({
 
       {/* Asset Type */}
       <td className="px-4 py-3">
-        <Badge variant="outline" className="font-geist-sans">
+        <Badge className="font-geist-sans" variant="outline">
           {formatAssetType(investment.assetType)}
         </Badge>
       </td>
 
       {/* Shares/Units */}
       <td className="px-4 py-3">
-        <span className="text-sm text-neutral-700 dark:text-neutral-300 font-geist-mono">
-          {investment.shares.toLocaleString(undefined, { maximumFractionDigits: 4 })}
+        <span className="font-geist-mono text-neutral-700 text-sm dark:text-neutral-300">
+          {investment.shares.toLocaleString(undefined, {
+            maximumFractionDigits: 4,
+          })}
         </span>
       </td>
 
       {/* Cost Basis */}
       <td className="px-4 py-3">
-        <span className="text-sm text-neutral-700 dark:text-neutral-300 font-geist-mono">
+        <span className="font-geist-mono text-neutral-700 text-sm dark:text-neutral-300">
           {formatCurrency(investment.costBasis)}
         </span>
       </td>
 
       {/* Current Value */}
       <td className="px-4 py-3">
-        <span className="font-semibold text-neutral-900 dark:text-neutral-100 font-geist-mono">
+        <span className="font-geist-mono font-semibold text-neutral-900 dark:text-neutral-100">
           {formatCurrency(investment.currentValue)}
         </span>
       </td>
@@ -87,21 +99,29 @@ export function InvestmentRow({
       {/* Gain/Loss */}
       <td className="px-4 py-3">
         <div className="flex flex-col">
-          <span className={cn(
-            "text-sm font-semibold font-geist-mono",
-            isPositive && "text-emerald-600 dark:text-emerald-400",
-            isNegative && "text-red-600 dark:text-red-400",
-            !isPositive && !isNegative && "text-neutral-600 dark:text-neutral-400"
-          )}>
-            {isPositive ? '+' : ''}{formatCurrency(investment.gainLossDollar)}
+          <span
+            className={cn(
+              "font-geist-mono font-semibold text-sm",
+              isPositive && "text-emerald-600 dark:text-emerald-400",
+              isNegative && "text-red-600 dark:text-red-400",
+              !(isPositive || isNegative) &&
+                "text-neutral-600 dark:text-neutral-400"
+            )}
+          >
+            {isPositive ? "+" : ""}
+            {formatCurrency(investment.gainLossDollar)}
           </span>
-          <span className={cn(
-            "text-xs font-geist-mono",
-            isPositive && "text-emerald-600 dark:text-emerald-400",
-            isNegative && "text-red-600 dark:text-red-400",
-            !isPositive && !isNegative && "text-neutral-600 dark:text-neutral-400"
-          )}>
-            {isPositive ? '+' : ''}{investment.gainLossPercent.toFixed(1)}%
+          <span
+            className={cn(
+              "font-geist-mono text-xs",
+              isPositive && "text-emerald-600 dark:text-emerald-400",
+              isNegative && "text-red-600 dark:text-red-400",
+              !(isPositive || isNegative) &&
+                "text-neutral-600 dark:text-neutral-400"
+            )}
+          >
+            {isPositive ? "+" : ""}
+            {investment.gainLossPercent.toFixed(1)}%
           </span>
         </div>
       </td>
@@ -109,37 +129,49 @@ export function InvestmentRow({
       {/* Today's Change */}
       <td className="px-4 py-3">
         <div className="flex items-center gap-1">
-          {todayIsPositive && <TrendingUp className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />}
-          {todayIsNegative && <TrendingDown className="h-3 w-3 text-red-600 dark:text-red-400" />}
-          <span className={cn(
-            "text-sm font-geist-mono",
-            todayIsPositive && "text-emerald-600 dark:text-emerald-400",
-            todayIsNegative && "text-red-600 dark:text-red-400",
-            !todayIsPositive && !todayIsNegative && "text-neutral-600 dark:text-neutral-400"
-          )}>
-            {todayIsPositive ? '+' : ''}{formatCurrency(investment.todayChangeDollar)}
+          {todayIsPositive && (
+            <TrendingUp className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+          )}
+          {todayIsNegative && (
+            <TrendingDown className="h-3 w-3 text-red-600 dark:text-red-400" />
+          )}
+          <span
+            className={cn(
+              "font-geist-mono text-sm",
+              todayIsPositive && "text-emerald-600 dark:text-emerald-400",
+              todayIsNegative && "text-red-600 dark:text-red-400",
+              !(todayIsPositive || todayIsNegative) &&
+                "text-neutral-600 dark:text-neutral-400"
+            )}
+          >
+            {todayIsPositive ? "+" : ""}
+            {formatCurrency(investment.todayChangeDollar)}
           </span>
         </div>
-        <span className={cn(
-          "text-xs font-geist-mono",
-          todayIsPositive && "text-emerald-600 dark:text-emerald-400",
-          todayIsNegative && "text-red-600 dark:text-red-400",
-          !todayIsPositive && !todayIsNegative && "text-neutral-600 dark:text-neutral-400"
-        )}>
-          {todayIsPositive ? '+' : ''}{investment.todayChangePercent.toFixed(2)}%
+        <span
+          className={cn(
+            "font-geist-mono text-xs",
+            todayIsPositive && "text-emerald-600 dark:text-emerald-400",
+            todayIsNegative && "text-red-600 dark:text-red-400",
+            !(todayIsPositive || todayIsNegative) &&
+              "text-neutral-600 dark:text-neutral-400"
+          )}
+        >
+          {todayIsPositive ? "+" : ""}
+          {investment.todayChangePercent.toFixed(2)}%
         </span>
       </td>
 
       {/* Allocation %} */}
       <td className="px-4 py-3">
-        <span className="text-sm text-neutral-600 dark:text-neutral-400 font-geist-mono">
+        <span className="font-geist-mono text-neutral-600 text-sm dark:text-neutral-400">
           {investment.allocationPercent.toFixed(1)}%
         </span>
       </td>
 
       {/* Account */}
       <td className="px-4 py-3">
-        <span className="text-sm text-neutral-600 dark:text-neutral-400 font-geist-sans">
+        <span className="font-geist-sans text-neutral-600 text-sm dark:text-neutral-400">
           {account?.name || investment.accountId}
         </span>
       </td>
@@ -148,51 +180,50 @@ export function InvestmentRow({
       <td className="px-4 py-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="p-1 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded transition-colors">
+            <button className="rounded p-1 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800">
               <MoreVertical className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => onEdit?.(investment.id)}
               className="font-geist-sans"
+              onClick={() => onEdit?.(investment.id)}
             >
-              <Edit className="h-4 w-4 mr-2" />
+              <Edit className="mr-2 h-4 w-4" />
               Edit
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => onRecordTransaction?.(investment.id)}
               className="font-geist-sans"
+              onClick={() => onRecordTransaction?.(investment.id)}
             >
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="mr-2 h-4 w-4" />
               Record Transaction
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => onUpdateValue?.(investment.id)}
               className="font-geist-sans"
+              onClick={() => onUpdateValue?.(investment.id)}
             >
-              <DollarSign className="h-4 w-4 mr-2" />
+              <DollarSign className="mr-2 h-4 w-4" />
               Update Value
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => onViewHistory?.(investment.id)}
               className="font-geist-sans"
+              onClick={() => onViewHistory?.(investment.id)}
             >
-              <History className="h-4 w-4 mr-2" />
+              <History className="mr-2 h-4 w-4" />
               View History
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
+              className="font-geist-sans text-red-600 dark:text-red-400"
               onClick={() => onDelete?.(investment.id)}
-              className="text-red-600 dark:text-red-400 font-geist-sans"
             >
-              <Trash2 className="h-4 w-4 mr-2" />
+              <Trash2 className="mr-2 h-4 w-4" />
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </td>
     </tr>
-  )
+  );
 }
-

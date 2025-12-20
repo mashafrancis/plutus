@@ -1,21 +1,26 @@
-import { useState } from 'react'
-import { Search, X, ChevronDown } from 'lucide-react'
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
+import { ChevronDown, Search, X } from "lucide-react";
+import { useState } from "react";
+import { Badge } from "../../ui/badge";
+import { Button } from "../../ui/button";
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuCheckboxItem,
+  DropdownMenuContent,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
-import { Badge } from '../../ui/badge'
-import { cn } from './utils'
-import type { SubscriptionsFilters, FilterOptions, SubscriptionStatus, BillingCycle } from '../types'
+} from "../../ui/dropdown-menu";
+import { Input } from "../../ui/input";
+import type {
+  BillingCycle,
+  FilterOptions,
+  SubscriptionStatus,
+  SubscriptionsFilters,
+} from "../types";
+import { cn } from "./utils";
 
 interface SubscriptionFilterBarProps {
-  filters?: SubscriptionsFilters
-  filterOptions: FilterOptions
-  onFilterChange?: (filters: SubscriptionsFilters) => void
+  filters?: SubscriptionsFilters;
+  filterOptions: FilterOptions;
+  onFilterChange?: (filters: SubscriptionsFilters) => void;
 }
 
 export function SubscriptionFilterBar({
@@ -23,50 +28,51 @@ export function SubscriptionFilterBar({
   filterOptions,
   onFilterChange,
 }: SubscriptionFilterBarProps) {
-  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false)
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   const handleCategoryChange = (category: string) => {
     onFilterChange?.({
       ...filters,
       category: filters?.category === category ? undefined : category,
-    })
-  }
+    });
+  };
 
   const handleStatusChange = (status: SubscriptionStatus) => {
     onFilterChange?.({
       ...filters,
       status: filters?.status === status ? undefined : status,
-    })
-  }
+    });
+  };
 
   const handleBillingCycleChange = (billingCycle: BillingCycle) => {
     onFilterChange?.({
       ...filters,
-      billingCycle: filters?.billingCycle === billingCycle ? undefined : billingCycle,
-    })
-  }
+      billingCycle:
+        filters?.billingCycle === billingCycle ? undefined : billingCycle,
+    });
+  };
 
   const handleSearchChange = (search: string) => {
     onFilterChange?.({
       ...filters,
       search: search || undefined,
-    })
-  }
+    });
+  };
 
-  const handleAmountRangeChange = (field: 'min' | 'max', value: string) => {
-    const numValue = value ? parseFloat(value) : undefined
+  const handleAmountRangeChange = (field: "min" | "max", value: string) => {
+    const numValue = value ? Number.parseFloat(value) : undefined;
     onFilterChange?.({
       ...filters,
       amountRange: {
         ...filters?.amountRange,
         [field]: numValue,
       },
-    })
-  }
+    });
+  };
 
   const clearFilters = () => {
-    onFilterChange?.({})
-  }
+    onFilterChange?.({});
+  };
 
   const activeFilterCount = [
     filters?.category,
@@ -75,58 +81,64 @@ export function SubscriptionFilterBar({
     filters?.search,
     filters?.amountRange?.min,
     filters?.amountRange?.max,
-  ].filter(Boolean).length
+  ].filter(Boolean).length;
 
-  const selectedCategory = filters?.category
-  const selectedStatus = filters?.status
-  const selectedBillingCycle = filters?.billingCycle
+  const selectedCategory = filters?.category;
+  const selectedStatus = filters?.status;
+  const selectedBillingCycle = filters?.billingCycle;
 
-  const formatStatus = (status: SubscriptionStatus) => {
-    return status.charAt(0).toUpperCase() + status.slice(1)
-  }
+  const formatStatus = (status: SubscriptionStatus) =>
+    status.charAt(0).toUpperCase() + status.slice(1);
 
-  const formatBillingCycle = (cycle: BillingCycle) => {
-    return cycle.charAt(0).toUpperCase() + cycle.slice(1)
-  }
+  const formatBillingCycle = (cycle: BillingCycle) =>
+    cycle.charAt(0).toUpperCase() + cycle.slice(1);
 
   return (
     <div className="space-y-4">
       {/* Mobile: Collapsible filter button */}
       <div className="lg:hidden">
         <Button
-          variant="outline"
-          onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
           className="w-full justify-between"
+          onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
+          variant="outline"
         >
           <span className="font-geist-sans">Filters</span>
           {activeFilterCount > 0 && (
-            <Badge variant="secondary" className="ml-2">
+            <Badge className="ml-2" variant="secondary">
               {activeFilterCount}
             </Badge>
           )}
-          <ChevronDown className={cn("h-4 w-4 transition-transform", isMobileFiltersOpen && "rotate-180")} />
+          <ChevronDown
+            className={cn(
+              "h-4 w-4 transition-transform",
+              isMobileFiltersOpen && "rotate-180"
+            )}
+          />
         </Button>
       </div>
 
       {/* Filter controls */}
-      <div className={cn(
-        "flex flex-wrap items-center gap-3",
-        !isMobileFiltersOpen && "hidden lg:flex"
-      )}>
+      <div
+        className={cn(
+          "flex flex-wrap items-center gap-3",
+          !isMobileFiltersOpen && "hidden lg:flex"
+        )}
+      >
         {/* Category Filter */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="font-geist-sans">
-              {selectedCategory || 'Category'} <ChevronDown className="ml-2 h-4 w-4" />
+            <Button className="font-geist-sans" variant="outline">
+              {selectedCategory || "Category"}{" "}
+              <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56">
             {filterOptions.categories.map((category) => (
               <DropdownMenuCheckboxItem
-                key={category}
                 checked={selectedCategory === category}
-                onCheckedChange={() => handleCategoryChange(category)}
                 className="font-geist-sans"
+                key={category}
+                onCheckedChange={() => handleCategoryChange(category)}
               >
                 {category}
               </DropdownMenuCheckboxItem>
@@ -137,17 +149,18 @@ export function SubscriptionFilterBar({
         {/* Status Filter */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="font-geist-sans">
-              {selectedStatus ? formatStatus(selectedStatus) : 'Status'} <ChevronDown className="ml-2 h-4 w-4" />
+            <Button className="font-geist-sans" variant="outline">
+              {selectedStatus ? formatStatus(selectedStatus) : "Status"}{" "}
+              <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56">
             {filterOptions.statuses.map((status) => (
               <DropdownMenuCheckboxItem
-                key={status}
                 checked={selectedStatus === status}
-                onCheckedChange={() => handleStatusChange(status)}
                 className="font-geist-sans"
+                key={status}
+                onCheckedChange={() => handleStatusChange(status)}
               >
                 {formatStatus(status)}
               </DropdownMenuCheckboxItem>
@@ -158,17 +171,20 @@ export function SubscriptionFilterBar({
         {/* Billing Cycle Filter */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="font-geist-sans">
-              {selectedBillingCycle ? formatBillingCycle(selectedBillingCycle) : 'Billing Cycle'} <ChevronDown className="ml-2 h-4 w-4" />
+            <Button className="font-geist-sans" variant="outline">
+              {selectedBillingCycle
+                ? formatBillingCycle(selectedBillingCycle)
+                : "Billing Cycle"}{" "}
+              <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56">
             {filterOptions.billingCycles.map((cycle) => (
               <DropdownMenuCheckboxItem
-                key={cycle}
                 checked={selectedBillingCycle === cycle}
-                onCheckedChange={() => handleBillingCycleChange(cycle)}
                 className="font-geist-sans"
+                key={cycle}
+                onCheckedChange={() => handleBillingCycleChange(cycle)}
               >
                 {formatBillingCycle(cycle)}
               </DropdownMenuCheckboxItem>
@@ -179,43 +195,45 @@ export function SubscriptionFilterBar({
         {/* Amount Range */}
         <div className="flex items-center gap-2">
           <Input
-            type="number"
+            className="w-24 font-geist-mono"
+            onChange={(e) => handleAmountRangeChange("min", e.target.value)}
             placeholder="Min $"
-            value={filters?.amountRange?.min || ''}
-            onChange={(e) => handleAmountRangeChange('min', e.target.value)}
-            className="w-24 font-geist-mono"
-          />
-          <span className="text-neutral-500 dark:text-neutral-400 font-geist-sans">-</span>
-          <Input
             type="number"
-            placeholder="Max $"
-            value={filters?.amountRange?.max || ''}
-            onChange={(e) => handleAmountRangeChange('max', e.target.value)}
+            value={filters?.amountRange?.min || ""}
+          />
+          <span className="font-geist-sans text-neutral-500 dark:text-neutral-400">
+            -
+          </span>
+          <Input
             className="w-24 font-geist-mono"
+            onChange={(e) => handleAmountRangeChange("max", e.target.value)}
+            placeholder="Max $"
+            type="number"
+            value={filters?.amountRange?.max || ""}
           />
         </div>
 
         {/* Search */}
-        <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400" />
+        <div className="relative min-w-[200px] flex-1">
+          <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
           <Input
-            type="text"
-            placeholder="Search subscriptions..."
-            value={filters?.search || ''}
-            onChange={(e) => handleSearchChange(e.target.value)}
             className="pl-9 font-geist-sans"
+            onChange={(e) => handleSearchChange(e.target.value)}
+            placeholder="Search subscriptions..."
+            type="text"
+            value={filters?.search || ""}
           />
         </div>
 
         {/* Clear Filters */}
         {activeFilterCount > 0 && (
           <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearFilters}
             className="font-geist-sans"
+            onClick={clearFilters}
+            size="sm"
+            variant="ghost"
           >
-            <X className="h-4 w-4 mr-1" />
+            <X className="mr-1 h-4 w-4" />
             Clear
           </Button>
         )}
@@ -225,33 +243,33 @@ export function SubscriptionFilterBar({
       {(selectedCategory || selectedStatus || selectedBillingCycle) && (
         <div className="flex flex-wrap gap-2">
           {selectedCategory && (
-            <Badge variant="secondary" className="font-geist-sans">
+            <Badge className="font-geist-sans" variant="secondary">
               Category: {selectedCategory}
               <button
-                onClick={() => handleCategoryChange(selectedCategory)}
                 className="ml-2 hover:text-neutral-900 dark:hover:text-neutral-100"
+                onClick={() => handleCategoryChange(selectedCategory)}
               >
                 <X className="h-3 w-3" />
               </button>
             </Badge>
           )}
           {selectedStatus && (
-            <Badge variant="secondary" className="font-geist-sans">
+            <Badge className="font-geist-sans" variant="secondary">
               Status: {formatStatus(selectedStatus)}
               <button
-                onClick={() => handleStatusChange(selectedStatus)}
                 className="ml-2 hover:text-neutral-900 dark:hover:text-neutral-100"
+                onClick={() => handleStatusChange(selectedStatus)}
               >
                 <X className="h-3 w-3" />
               </button>
             </Badge>
           )}
           {selectedBillingCycle && (
-            <Badge variant="secondary" className="font-geist-sans">
+            <Badge className="font-geist-sans" variant="secondary">
               Billing: {formatBillingCycle(selectedBillingCycle)}
               <button
-                onClick={() => handleBillingCycleChange(selectedBillingCycle)}
                 className="ml-2 hover:text-neutral-900 dark:hover:text-neutral-100"
+                onClick={() => handleBillingCycleChange(selectedBillingCycle)}
               >
                 <X className="h-3 w-3" />
               </button>
@@ -260,6 +278,5 @@ export function SubscriptionFilterBar({
         </div>
       )}
     </div>
-  )
+  );
 }
-
