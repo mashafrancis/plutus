@@ -1,13 +1,11 @@
-"use client";;
+"use client";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { Dashboard } from "@/components/dashboard";
 import type { DashboardData, Timeframe } from "@/lib/types/dashboard";
 import { pushModal } from "@/modals";
 import { useTRPC } from "@/trpc/react";
-
-import { useQuery } from "@tanstack/react-query";
-import { useMutation } from "@tanstack/react-query";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface DashboardClientProps {
   initialData: DashboardData;
@@ -26,19 +24,23 @@ export function DashboardClient({
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { data: dashboardData = initialData } = useQuery(trpc.dashboard.getData.queryOptions(
-    { timeframe },
-    {
-      initialData,
-      refetchOnMount: false,
-    }
-  ));
+  const { data: dashboardData = initialData } = useQuery(
+    trpc.dashboard.getData.queryOptions(
+      { timeframe },
+      {
+        initialData,
+        refetchOnMount: false,
+      }
+    )
+  );
 
-  const dismissInsight = useMutation(trpc.dashboard.dismissInsight.mutationOptions({
-    onSuccess: () => {
-      queryClient.invalidateQueries(trpc.dashboard.getData.pathFilter());
-    },
-  }));
+  const dismissInsight = useMutation(
+    trpc.dashboard.dismissInsight.mutationOptions({
+      onSuccess: () => {
+        queryClient.invalidateQueries(trpc.dashboard.getData.pathFilter());
+      },
+    })
+  );
 
   return (
     <Dashboard

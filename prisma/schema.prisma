@@ -44,27 +44,31 @@ model Subscription {
 }
 
 model Expense {
-  id        String   @id @default(uuid())
+  id               String       @id @default(uuid())
   /// @encrypted
-  name      String
+  name             String
   /// @encrypted
-  notes     String?
+  notes            String?
   /// @encrypted
-  price     String   @default("0")
-  paid_via  String   @default("")
-  category  String
-  categoryId String?
-  accountId String?
-  date      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  userId    String
-  nameHash  String?
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  price            String        @default("0")
+  paid_via         String        @default("")
+  category         String
+  categoryId       String?
+  accountId        String?
+  date             String
+  recurring        Boolean       @default(false)
+  recurringFrequency String?     // monthly, weekly, quarterly, yearly
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @default(now()) @updatedAt
+  userId           String
+  nameHash         String?
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tags             ExpenseTag[]
 
   @@index([userId])
   @@index([categoryId])
   @@index([accountId])
+  @@index([recurring])
   @@map("expense")
 }
 
@@ -263,14 +267,28 @@ model Category {
 }
 
 model Tag {
-  id     String @id @default(uuid())
-  name   String
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id       String       @id @default(uuid())
+  name     String
+  userId   String
+  user     User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expenses ExpenseTag[]
 
   @@unique([userId, name])
   @@index([userId])
   @@map("tag")
+}
+
+model ExpenseTag {
+  id        String   @id @default(uuid())
+  expenseId String
+  tagId     String
+  expense   Expense  @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([expenseId, tagId])
+  @@index([expenseId])
+  @@index([tagId])
+  @@map("expense_tag")
 }
 
 model Budget {

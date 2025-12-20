@@ -1,3 +1,4 @@
+import { dashboardRouter } from "@/server/api/routers/dashboard";
 import { expensesRouter } from "@/server/api/routers/expenses";
 import { incomeRouter } from "@/server/api/routers/income";
 import { investmentsRouter } from "@/server/api/routers/investments";

@@ -2,13 +2,7 @@ import { Schema } from "effect";
 
 export const GetDashboardDataSchema = Schema.Struct({
   timeframe: Schema.optional(
-    Schema.Union([
-      Schema.Literal("week"),
-      Schema.Literal("month"),
-      Schema.Literal("quarter"),
-      Schema.Literal("year"),
-      Schema.Literal("custom"),
-    ])
+    Schema.Literal("week", "month", "quarter", "year", "custom")
   ),
   from: Schema.optional(Schema.String),
   to: Schema.optional(Schema.String),
