@@ -16,6 +16,8 @@ const modals = {
   }),
   expenses: dynamic(() => import("./expenses")),
   income: dynamic(() => import("./income")),
+  subscriptions: dynamic(() => import("./subscriptions")),
+  "payment-history": dynamic(() => import("./payment-history")),
 };
 
 export const {

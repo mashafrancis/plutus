@@ -19,6 +19,14 @@ export const calculateRenewalDate = (date: string, paid: string) => {
     return startDate;
   }
 
+  if (paid === "weekly") {
+    const weeklyDate = addWeeks(startDate, differenceInWeeks(today, startDate));
+    if (isToday(weeklyDate) && !isToday(startDate)) {
+      return today;
+    }
+    return addWeeks(weeklyDate, 1);
+  }
+
   if (paid === "monthly") {
     const monthlyDate = addMonths(
       startDate,

@@ -16,31 +16,49 @@ datasource db {
 }
 
 model Subscription {
-  id          String   @id @default(uuid())
+  id             String               @id @default(uuid())
   /// @encrypted
-  name        String
+  name           String
   /// @encrypted
-  notes       String?
-  url         String
+  notes          String?
+  url            String
   /// @encrypted
-  price       String   @default("0")
-  paid        String
-  notify      Boolean  @default(false)
-  date        String
-  categoryId  String?
-  accountId   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
-  userId      String
-  active      Boolean? @default(true)
-  cancelledAt String?
-  nameHash    String?
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  price          String               @default("0")
+  billingCycle   String               // monthly, yearly, weekly (renamed from paid)
+  category       String               // new field
+  status         String               @default("active") // active, paused, cancelled
+  notify         Boolean              @default(false)
+  startDate      String               // renamed from date
+  nextPaymentDate String?             // calculated, can be stored for queries
+  categoryId     String?
+  accountId      String?
+  cancelledAt   String?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @default(now()) @updatedAt
+  userId         String
+  nameHash       String?
+  user           User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payments       SubscriptionPayment[]
 
   @@index([userId])
   @@index([categoryId])
   @@index([accountId])
+  @@index([status])
   @@map("subscription")
+}
+
+model SubscriptionPayment {
+  id             String       @id @default(uuid())
+  subscriptionId String
+  /// @encrypted
+  amount         String       // Store as string to match price format
+  date           String
+  status         String       // paid, pending, failed
+  createdAt      DateTime     @default(now())
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+
+  @@index([subscriptionId])
+  @@map("subscription_payment")
 }
 
 model Expense {
