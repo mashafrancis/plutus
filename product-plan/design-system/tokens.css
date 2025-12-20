@@ -1,0 +1,14 @@
+/* Design Tokens for Plutus */
+
+:root {
+  /* Colors */
+  --color-primary: blue;
+  --color-secondary: sky;
+  --color-neutral: neutral;
+
+  /* Typography */
+  --font-heading: 'Geist Sans', sans-serif;
+  --font-body: 'Geist Sans', sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+}
+

@@ -1,0 +1,309 @@
+{
+  "_meta": {
+    "models": {
+      "summaryMetrics": "Aggregated income metrics showing total income, average monthly income, top source, comparison to last month, total recurring income, and transaction count.",
+      "income": "Individual income transactions with amount, date, source, account, tags, notes, and recurring status.",
+      "filterOptions": "Available options for filtering income by source, account, or tag."
+    },
+    "relationships": [
+      "Summary Metrics aggregate data from Income transactions",
+      "Income transactions belong to Accounts",
+      "Income transactions can have multiple Tags",
+      "Filter Options are extracted from unique values in Income transactions"
+    ]
+  },
+  "summaryMetrics": {
+    "totalIncomeThisMonth": {
+      "value": 6080.00,
+      "previousValue": 5730.00,
+      "change": 350.00,
+      "changePercent": 6.1,
+      "trend": "up"
+    },
+    "averageMonthlyIncome": {
+      "value": 5950.00,
+      "previousValue": 5650.00,
+      "change": 300.00,
+      "changePercent": 5.3,
+      "trend": "up"
+    },
+    "topIncomeSource": {
+      "source": "Salary",
+      "amount": 5200.00,
+      "percentage": 85.5
+    },
+    "comparisonToLastMonth": {
+      "change": 350.00,
+      "changePercent": 6.1,
+      "trend": "up",
+      "message": "6.1% more than last month"
+    },
+    "totalRecurringIncome": {
+      "value": 5400.00,
+      "previousValue": 5200.00,
+      "change": 200.00,
+      "changePercent": 3.8,
+      "trend": "up"
+    },
+    "transactionCount": {
+      "thisMonth": 8,
+      "lastMonth": 7,
+      "change": 1
+    }
+  },
+  "income": [
+    {
+      "id": "inc-001",
+      "type": "income",
+      "amount": 5200.00,
+      "source": "Salary",
+      "description": "Monthly Salary",
+      "date": "2024-12-05",
+      "accountId": "acc-001",
+      "tags": ["salary", "recurring"],
+      "notes": "December salary payment",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    },
+    {
+      "id": "inc-002",
+      "type": "income",
+      "amount": 680.00,
+      "source": "Freelance",
+      "description": "Web Design Project",
+      "date": "2024-12-09",
+      "accountId": "acc-001",
+      "tags": ["freelance", "design", "project"],
+      "notes": "Completed website redesign for client",
+      "recurring": false
+    },
+    {
+      "id": "inc-003",
+      "type": "income",
+      "amount": 150.00,
+      "source": "Investment",
+      "description": "Stock Dividends",
+      "date": "2024-12-15",
+      "accountId": "acc-003",
+      "tags": ["dividends", "stocks", "investment"],
+      "notes": "Quarterly dividend payment",
+      "recurring": true,
+      "recurringFrequency": "quarterly"
+    },
+    {
+      "id": "inc-004",
+      "type": "income",
+      "amount": 1200.00,
+      "source": "Rental",
+      "description": "Apartment Rental Income",
+      "date": "2024-12-01",
+      "accountId": "acc-001",
+      "tags": ["rental", "property", "recurring"],
+      "notes": "Monthly rent from tenant",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    },
+    {
+      "id": "inc-005",
+      "type": "income",
+      "amount": 250.00,
+      "source": "Passive",
+      "description": "Book Royalties",
+      "date": "2024-12-10",
+      "accountId": "acc-001",
+      "tags": ["royalties", "passive", "books"],
+      "notes": "Monthly royalty payment from publisher",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    },
+    {
+      "id": "inc-006",
+      "type": "income",
+      "amount": 450.00,
+      "source": "Business",
+      "description": "Consulting Services",
+      "date": "2024-12-12",
+      "accountId": "acc-001",
+      "tags": ["consulting", "business", "services"],
+      "notes": "One-time consulting engagement",
+      "recurring": false
+    },
+    {
+      "id": "inc-007",
+      "type": "income",
+      "amount": 100.00,
+      "source": "Gifts",
+      "description": "Birthday Gift",
+      "date": "2024-12-08",
+      "accountId": "acc-001",
+      "tags": ["gift", "personal"],
+      "notes": "Cash gift from family",
+      "recurring": false
+    },
+    {
+      "id": "inc-008",
+      "type": "income",
+      "amount": 50.00,
+      "source": "Gifts",
+      "description": "Refund - Returned Item",
+      "date": "2024-12-11",
+      "accountId": "acc-002",
+      "tags": ["refund", "return"],
+      "notes": "Store credit refund",
+      "recurring": false
+    },
+    {
+      "id": "inc-009",
+      "type": "income",
+      "amount": 320.00,
+      "source": "Freelance",
+      "description": "Content Writing",
+      "date": "2024-12-07",
+      "accountId": "acc-001",
+      "tags": ["freelance", "writing", "content"],
+      "notes": "Article series for tech blog",
+      "recurring": false
+    },
+    {
+      "id": "inc-010",
+      "type": "income",
+      "amount": 180.00,
+      "source": "Investment",
+      "description": "Bond Interest",
+      "date": "2024-12-20",
+      "accountId": "acc-003",
+      "tags": ["bonds", "interest", "investment"],
+      "notes": "Semi-annual bond interest payment",
+      "recurring": true,
+      "recurringFrequency": "semi-annual"
+    },
+    {
+      "id": "inc-011",
+      "type": "income",
+      "amount": 750.00,
+      "source": "Business",
+      "description": "Product Sales",
+      "date": "2024-12-14",
+      "accountId": "acc-001",
+      "tags": ["sales", "business", "products"],
+      "notes": "Online store sales for the week",
+      "recurring": false
+    },
+    {
+      "id": "inc-012",
+      "type": "income",
+      "amount": 200.00,
+      "source": "Passive",
+      "description": "Affiliate Commission",
+      "date": "2024-12-13",
+      "accountId": "acc-001",
+      "tags": ["affiliate", "commission", "passive"],
+      "notes": "Monthly affiliate marketing commission",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    },
+    {
+      "id": "inc-013",
+      "type": "income",
+      "amount": 95.00,
+      "source": "Other",
+      "description": "Miscellaneous Income",
+      "date": "2024-12-06",
+      "accountId": "acc-001",
+      "tags": ["misc", "other"],
+      "notes": "Various small income sources",
+      "recurring": false
+    },
+    {
+      "id": "inc-014",
+      "type": "income",
+      "amount": 1250.00,
+      "source": "Freelance",
+      "description": "Mobile App Development",
+      "date": "2024-12-16",
+      "accountId": "acc-001",
+      "tags": ["freelance", "development", "mobile", "app"],
+      "notes": "Completed mobile app project milestone payment",
+      "recurring": false
+    },
+    {
+      "id": "inc-015",
+      "type": "income",
+      "amount": 85.00,
+      "source": "Investment",
+      "description": "ETF Dividends",
+      "date": "2024-12-18",
+      "accountId": "acc-003",
+      "tags": ["dividends", "etf", "investment"],
+      "notes": "Monthly ETF dividend distribution",
+      "recurring": true,
+      "recurringFrequency": "monthly"
+    }
+  ],
+  "filterOptions": {
+    "sources": [
+      "Salary",
+      "Freelance",
+      "Business",
+      "Investment",
+      "Rental",
+      "Passive",
+      "Gifts",
+      "Other"
+    ],
+    "accounts": [
+      {
+        "id": "acc-001",
+        "name": "Chase Checking",
+        "type": "checking"
+      },
+      {
+        "id": "acc-002",
+        "name": "Chase Credit Card",
+        "type": "credit"
+      },
+      {
+        "id": "acc-003",
+        "name": "Investment Account",
+        "type": "investment"
+      }
+    ],
+    "tags": [
+      "salary",
+      "recurring",
+      "freelance",
+      "design",
+      "project",
+      "dividends",
+      "stocks",
+      "investment",
+      "rental",
+      "property",
+      "royalties",
+      "passive",
+      "books",
+      "consulting",
+      "business",
+      "services",
+      "gift",
+      "personal",
+      "refund",
+      "return",
+      "writing",
+      "content",
+      "bonds",
+      "interest",
+      "sales",
+      "products",
+      "affiliate",
+      "commission",
+      "misc",
+      "other",
+      "development",
+      "mobile",
+      "app",
+      "etf"
+    ]
+  }
+}
+

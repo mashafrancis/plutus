@@ -1,0 +1,454 @@
+{
+  "_meta": {
+    "models": {
+      "summaryMetrics": "Aggregated portfolio metrics showing total value, invested amount, gain/loss, today's change, top/worst performers, and asset allocation breakdown.",
+      "investments": "Individual investment holdings with name, ticker, asset type, shares, cost basis, current value, gain/loss, and account information.",
+      "transactionHistory": "Buy and sell transactions for investments, showing date, type, shares, price, and total amount.",
+      "filterOptions": "Available options for filtering investments by asset type, account, or gain/loss status.",
+      "chartData": "Data for visualization including asset allocation percentages, portfolio performance over time, gain/loss by investment, and sector breakdown."
+    },
+    "relationships": [
+      "Summary Metrics aggregate data from Investments",
+      "Investments belong to Accounts",
+      "Transaction History belongs to Investments",
+      "Chart Data is derived from Investments",
+      "Filter Options are extracted from unique values in Investments"
+    ]
+  },
+  "summaryMetrics": {
+    "totalPortfolioValue": {
+      "value": 187450.75,
+      "previousValue": 185230.50,
+      "change": 2220.25,
+      "changePercent": 1.2
+    },
+    "totalInvested": {
+      "value": 165000.00,
+      "previousValue": 165000.00,
+      "change": 0,
+      "changePercent": 0
+    },
+    "totalGainLoss": {
+      "dollar": 22450.75,
+      "percent": 13.6,
+      "trend": "up"
+    },
+    "todayChange": {
+      "dollar": 2220.25,
+      "percent": 1.2,
+      "trend": "up"
+    },
+    "assetAllocation": {
+      "stocks": 35.2,
+      "etfs": 28.5,
+      "crypto": 15.8,
+      "retirement": 12.3,
+      "bonds": 4.1,
+      "savings": 2.8,
+      "realEstate": 1.3
+    },
+    "topPerformer": {
+      "name": "Apple Inc.",
+      "ticker": "AAPL",
+      "gainLossPercent": 24.5,
+      "gainLossDollar": 3675.00
+    },
+    "worstPerformer": {
+      "name": "Coinbase Global",
+      "ticker": "COIN",
+      "gainLossPercent": -18.2,
+      "gainLossDollar": -910.00
+    }
+  },
+  "investments": [
+    {
+      "id": "inv-001",
+      "name": "Apple Inc.",
+      "ticker": "AAPL",
+      "assetType": "stocks",
+      "shares": 50,
+      "costBasis": 15000.00,
+      "currentValue": 18675.00,
+      "gainLossDollar": 3675.00,
+      "gainLossPercent": 24.5,
+      "todayChangeDollar": 125.50,
+      "todayChangePercent": 0.68,
+      "allocationPercent": 10.0,
+      "accountId": "acc-004",
+      "sector": "Technology",
+      "transactionHistory": [
+        { "id": "txn-001", "date": "2023-06-15", "type": "buy", "shares": 50, "price": 150.00, "total": 15000.00 },
+        { "id": "txn-002", "date": "2024-11-20", "type": "sell", "shares": 10, "price": 185.50, "total": 1855.00 }
+      ]
+    },
+    {
+      "id": "inv-002",
+      "name": "Vanguard S&P 500 ETF",
+      "ticker": "VOO",
+      "assetType": "etfs",
+      "shares": 120,
+      "costBasis": 42000.00,
+      "currentValue": 53460.00,
+      "gainLossDollar": 11460.00,
+      "gainLossPercent": 27.3,
+      "todayChangeDollar": 240.00,
+      "todayChangePercent": 0.45,
+      "allocationPercent": 28.5,
+      "accountId": "acc-004",
+      "sector": "Diversified",
+      "transactionHistory": [
+        { "id": "txn-003", "date": "2022-01-10", "type": "buy", "shares": 50, "price": 350.00, "total": 17500.00 },
+        { "id": "txn-004", "date": "2023-03-15", "type": "buy", "shares": 70, "price": 350.00, "total": 24500.00 }
+      ]
+    },
+    {
+      "id": "inv-003",
+      "name": "Bitcoin",
+      "ticker": "BTC",
+      "assetType": "crypto",
+      "shares": 0.75,
+      "costBasis": 18000.00,
+      "currentValue": 29625.00,
+      "gainLossDollar": 11625.00,
+      "gainLossPercent": 64.6,
+      "todayChangeDollar": 225.00,
+      "todayChangePercent": 0.76,
+      "allocationPercent": 15.8,
+      "accountId": "acc-005",
+      "sector": "Cryptocurrency",
+      "transactionHistory": [
+        { "id": "txn-005", "date": "2023-11-01", "type": "buy", "shares": 0.5, "price": 24000.00, "total": 12000.00 },
+        { "id": "txn-006", "date": "2024-02-10", "type": "buy", "shares": 0.25, "price": 24000.00, "total": 6000.00 }
+      ]
+    },
+    {
+      "id": "inv-004",
+      "name": "Microsoft Corporation",
+      "ticker": "MSFT",
+      "assetType": "stocks",
+      "shares": 30,
+      "costBasis": 9000.00,
+      "currentValue": 11250.00,
+      "gainLossDollar": 2250.00,
+      "gainLossPercent": 25.0,
+      "todayChangeDollar": 45.00,
+      "todayChangePercent": 0.40,
+      "allocationPercent": 6.0,
+      "accountId": "acc-004",
+      "sector": "Technology",
+      "transactionHistory": [
+        { "id": "txn-007", "date": "2023-08-20", "type": "buy", "shares": 30, "price": 300.00, "total": 9000.00 }
+      ]
+    },
+    {
+      "id": "inv-005",
+      "name": "Fidelity 401(k) Retirement",
+      "ticker": "FID-401K",
+      "assetType": "retirement",
+      "shares": 1,
+      "costBasis": 23000.00,
+      "currentValue": 23050.00,
+      "gainLossDollar": 50.00,
+      "gainLossPercent": 0.2,
+      "todayChangeDollar": 25.00,
+      "todayChangePercent": 0.11,
+      "allocationPercent": 12.3,
+      "accountId": "acc-006",
+      "sector": "Retirement",
+      "transactionHistory": [
+        { "id": "txn-008", "date": "2024-01-01", "type": "buy", "shares": 1, "price": 23000.00, "total": 23000.00 }
+      ]
+    },
+    {
+      "id": "inv-006",
+      "name": "Ethereum",
+      "ticker": "ETH",
+      "assetType": "crypto",
+      "shares": 8.5,
+      "costBasis": 12000.00,
+      "currentValue": 20400.00,
+      "gainLossDollar": 8400.00,
+      "gainLossPercent": 70.0,
+      "todayChangeDollar": -85.00,
+      "todayChangePercent": -0.41,
+      "allocationPercent": 10.9,
+      "accountId": "acc-005",
+      "sector": "Cryptocurrency",
+      "transactionHistory": [
+        { "id": "txn-009", "date": "2023-12-05", "type": "buy", "shares": 5, "price": 1500.00, "total": 7500.00 },
+        { "id": "txn-010", "date": "2024-05-15", "type": "buy", "shares": 3.5, "price": 1285.71, "total": 4500.00 }
+      ]
+    },
+    {
+      "id": "inv-007",
+      "name": "Tesla Inc.",
+      "ticker": "TSLA",
+      "assetType": "stocks",
+      "shares": 25,
+      "costBasis": 5000.00,
+      "currentValue": 6250.00,
+      "gainLossDollar": 1250.00,
+      "gainLossPercent": 25.0,
+      "todayChangeDollar": -62.50,
+      "todayChangePercent": -0.99,
+      "allocationPercent": 3.3,
+      "accountId": "acc-004",
+      "sector": "Automotive",
+      "transactionHistory": [
+        { "id": "txn-011", "date": "2024-01-25", "type": "buy", "shares": 25, "price": 200.00, "total": 5000.00 }
+      ]
+    },
+    {
+      "id": "inv-008",
+      "name": "US Treasury Bond 10Y",
+      "ticker": "US10Y",
+      "assetType": "bonds",
+      "shares": 1,
+      "costBasis": 7500.00,
+      "currentValue": 7687.50,
+      "gainLossDollar": 187.50,
+      "gainLossPercent": 2.5,
+      "todayChangeDollar": 12.50,
+      "todayChangePercent": 0.16,
+      "allocationPercent": 4.1,
+      "accountId": "acc-004",
+      "sector": "Fixed Income",
+      "transactionHistory": [
+        { "id": "txn-012", "date": "2023-09-10", "type": "buy", "shares": 1, "price": 7500.00, "total": 7500.00 }
+      ]
+    },
+    {
+      "id": "inv-009",
+      "name": "High-Yield Savings Account",
+      "ticker": "HYSA",
+      "assetType": "savings",
+      "shares": 1,
+      "costBasis": 5000.00,
+      "currentValue": 5250.00,
+      "gainLossDollar": 250.00,
+      "gainLossPercent": 5.0,
+      "todayChangeDollar": 0.50,
+      "todayChangePercent": 0.01,
+      "allocationPercent": 2.8,
+      "accountId": "acc-007",
+      "sector": "Cash",
+      "transactionHistory": [
+        { "id": "txn-013", "date": "2024-01-01", "type": "buy", "shares": 1, "price": 5000.00, "total": 5000.00 }
+      ]
+    },
+    {
+      "id": "inv-010",
+      "name": "Coinbase Global",
+      "ticker": "COIN",
+      "assetType": "stocks",
+      "shares": 20,
+      "costBasis": 5000.00,
+      "currentValue": 4090.00,
+      "gainLossDollar": -910.00,
+      "gainLossPercent": -18.2,
+      "todayChangeDollar": -40.00,
+      "todayChangePercent": -0.97,
+      "allocationPercent": 2.2,
+      "accountId": "acc-004",
+      "sector": "Financial Services",
+      "transactionHistory": [
+        { "id": "txn-014", "date": "2024-03-20", "type": "buy", "shares": 20, "price": 250.00, "total": 5000.00 }
+      ]
+    },
+    {
+      "id": "inv-011",
+      "name": "Amazon.com Inc.",
+      "ticker": "AMZN",
+      "assetType": "stocks",
+      "shares": 15,
+      "costBasis": 1800.00,
+      "currentValue": 2250.00,
+      "gainLossDollar": 450.00,
+      "gainLossPercent": 25.0,
+      "todayChangeDollar": 22.50,
+      "todayChangePercent": 1.01,
+      "allocationPercent": 1.2,
+      "accountId": "acc-004",
+      "sector": "E-commerce",
+      "transactionHistory": [
+        { "id": "txn-015", "date": "2024-06-10", "type": "buy", "shares": 15, "price": 120.00, "total": 1800.00 }
+      ]
+    },
+    {
+      "id": "inv-012",
+      "name": "Rental Property - Main St",
+      "ticker": "PROP-001",
+      "assetType": "real-estate",
+      "shares": 1,
+      "costBasis": 200000.00,
+      "currentValue": 2437.50,
+      "gainLossDollar": 2437.50,
+      "gainLossPercent": 1.2,
+      "todayChangeDollar": 0,
+      "todayChangePercent": 0,
+      "allocationPercent": 1.3,
+      "accountId": "acc-008",
+      "sector": "Real Estate",
+      "transactionHistory": [
+        { "id": "txn-016", "date": "2020-05-15", "type": "buy", "shares": 1, "price": 200000.00, "total": 200000.00 }
+      ],
+      "note": "Note: This represents equity value only, not full property value"
+    },
+    {
+      "id": "inv-013",
+      "name": "Invesco QQQ Trust",
+      "ticker": "QQQ",
+      "assetType": "etfs",
+      "shares": 40,
+      "costBasis": 12000.00,
+      "currentValue": 15600.00,
+      "gainLossDollar": 3600.00,
+      "gainLossPercent": 30.0,
+      "todayChangeDollar": 80.00,
+      "todayChangePercent": 0.51,
+      "allocationPercent": 8.3,
+      "accountId": "acc-004",
+      "sector": "Technology",
+      "transactionHistory": [
+        { "id": "txn-017", "date": "2023-11-15", "type": "buy", "shares": 40, "price": 300.00, "total": 12000.00 }
+      ]
+    },
+    {
+      "id": "inv-014",
+      "name": "Solana",
+      "ticker": "SOL",
+      "assetType": "crypto",
+      "shares": 100,
+      "costBasis": 2000.00,
+      "currentValue": 1500.00,
+      "gainLossDollar": -500.00,
+      "gainLossPercent": -25.0,
+      "todayChangeDollar": 15.00,
+      "todayChangePercent": 1.01,
+      "allocationPercent": 0.8,
+      "accountId": "acc-005",
+      "sector": "Cryptocurrency",
+      "transactionHistory": [
+        { "id": "txn-018", "date": "2024-04-01", "type": "buy", "shares": 100, "price": 20.00, "total": 2000.00 }
+      ]
+    },
+    {
+      "id": "inv-015",
+      "name": "NVIDIA Corporation",
+      "ticker": "NVDA",
+      "assetType": "stocks",
+      "shares": 10,
+      "costBasis": 4000.00,
+      "currentValue": 5500.00,
+      "gainLossDollar": 1500.00,
+      "gainLossPercent": 37.5,
+      "todayChangeDollar": 55.00,
+      "todayChangePercent": 1.01,
+      "allocationPercent": 2.9,
+      "accountId": "acc-004",
+      "sector": "Technology",
+      "transactionHistory": [
+        { "id": "txn-019", "date": "2024-02-05", "type": "buy", "shares": 10, "price": 400.00, "total": 4000.00 }
+      ]
+    }
+  ],
+  "filterOptions": {
+    "assetTypes": [
+      "stocks",
+      "etfs",
+      "crypto",
+      "bonds",
+      "savings",
+      "retirement",
+      "real-estate",
+      "other"
+    ],
+    "accounts": [
+      {
+        "id": "acc-004",
+        "name": "Robinhood",
+        "type": "investment"
+      },
+      {
+        "id": "acc-005",
+        "name": "Coinbase",
+        "type": "investment"
+      },
+      {
+        "id": "acc-006",
+        "name": "Fidelity 401(k)",
+        "type": "investment"
+      },
+      {
+        "id": "acc-007",
+        "name": "Ally High-Yield Savings",
+        "type": "savings"
+      },
+      {
+        "id": "acc-008",
+        "name": "Real Estate Holdings",
+        "type": "investment"
+      }
+    ],
+    "gainLossStatuses": [
+      "all",
+      "winners",
+      "losers"
+    ]
+  },
+  "chartData": {
+    "allocation": [
+      { "type": "stocks", "percentage": 35.2, "value": 65950.00 },
+      { "type": "etfs", "percentage": 28.5, "value": 53460.00 },
+      { "type": "crypto", "percentage": 15.8, "value": 29625.00 },
+      { "type": "retirement", "percentage": 12.3, "value": 23050.00 },
+      { "type": "bonds", "percentage": 4.1, "value": 7687.50 },
+      { "type": "savings", "percentage": 2.8, "value": 5250.00 },
+      { "type": "real-estate", "percentage": 1.3, "value": 2437.50 }
+    ],
+    "performanceOverTime": [
+      { "date": "2024-01-01", "value": 165000.00 },
+      { "date": "2024-02-01", "value": 168500.00 },
+      { "date": "2024-03-01", "value": 171200.00 },
+      { "date": "2024-04-01", "value": 173800.00 },
+      { "date": "2024-05-01", "value": 176500.00 },
+      { "date": "2024-06-01", "value": 179200.00 },
+      { "date": "2024-07-01", "value": 181000.00 },
+      { "date": "2024-08-01", "value": 182500.00 },
+      { "date": "2024-09-01", "value": 183800.00 },
+      { "date": "2024-10-01", "value": 184500.00 },
+      { "date": "2024-11-01", "value": 185230.50 },
+      { "date": "2024-12-01", "value": 187450.75 }
+    ],
+    "gainLossByInvestment": [
+      { "name": "Bitcoin", "ticker": "BTC", "gainLossDollar": 11625.00, "gainLossPercent": 64.6 },
+      { "name": "Ethereum", "ticker": "ETH", "gainLossDollar": 8400.00, "gainLossPercent": 70.0 },
+      { "name": "Vanguard S&P 500 ETF", "ticker": "VOO", "gainLossDollar": 11460.00, "gainLossPercent": 27.3 },
+      { "name": "Apple Inc.", "ticker": "AAPL", "gainLossDollar": 3675.00, "gainLossPercent": 24.5 },
+      { "name": "NVIDIA Corporation", "ticker": "NVDA", "gainLossDollar": 1500.00, "gainLossPercent": 37.5 },
+      { "name": "Tesla Inc.", "ticker": "TSLA", "gainLossDollar": 1250.00, "gainLossPercent": 25.0 },
+      { "name": "Microsoft Corporation", "ticker": "MSFT", "gainLossDollar": 2250.00, "gainLossPercent": 25.0 },
+      { "name": "Amazon.com Inc.", "ticker": "AMZN", "gainLossDollar": 450.00, "gainLossPercent": 25.0 },
+      { "name": "US Treasury Bond 10Y", "ticker": "US10Y", "gainLossDollar": 187.50, "gainLossPercent": 2.5 },
+      { "name": "High-Yield Savings Account", "ticker": "HYSA", "gainLossDollar": 250.00, "gainLossPercent": 5.0 },
+      { "name": "Rental Property - Main St", "ticker": "PROP-001", "gainLossDollar": 2437.50, "gainLossPercent": 1.2 },
+      { "name": "Fidelity 401(k) Retirement", "ticker": "FID-401K", "gainLossDollar": 50.00, "gainLossPercent": 0.2 },
+      { "name": "Invesco QQQ Trust", "ticker": "QQQ", "gainLossDollar": 3600.00, "gainLossPercent": 30.0 },
+      { "name": "Solana", "ticker": "SOL", "gainLossDollar": -500.00, "gainLossPercent": -25.0 },
+      { "name": "Coinbase Global", "ticker": "COIN", "gainLossDollar": -910.00, "gainLossPercent": -18.2 }
+    ],
+    "sectorBreakdown": [
+      { "sector": "Technology", "percentage": 42.5, "value": 79675.00 },
+      { "sector": "Cryptocurrency", "percentage": 15.8, "value": 29625.00 },
+      { "sector": "Diversified", "percentage": 28.5, "value": 53460.00 },
+      { "sector": "Retirement", "percentage": 12.3, "value": 23050.00 },
+      { "sector": "Fixed Income", "percentage": 4.1, "value": 7687.50 },
+      { "sector": "Cash", "percentage": 2.8, "value": 5250.00 },
+      { "sector": "Real Estate", "percentage": 1.3, "value": 2437.50 },
+      { "sector": "Automotive", "percentage": 3.3, "value": 6250.00 },
+      { "sector": "Financial Services", "percentage": 2.2, "value": 4090.00 },
+      { "sector": "E-commerce", "percentage": 1.2, "value": 2250.00 }
+    ]
+  }
+}
+

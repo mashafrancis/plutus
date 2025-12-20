@@ -1,0 +1,300 @@
+{
+  "_meta": {
+    "models": {
+      "summaryMetrics": "Aggregated subscription metrics showing total monthly cost, yearly cost, active count, upcoming renewals, top category, and comparison to last month.",
+      "subscriptions": "Individual recurring payment services with name, category, amount, billing cycle, next payment date, status, payment method, start date, total spent, and payment history.",
+      "upcomingRenewals": "Subscriptions due within the next 7 days, extracted from the main subscriptions list with urgency indicators.",
+      "filterOptions": "Available options for filtering subscriptions by category, status, or billing cycle."
+    },
+    "relationships": [
+      "Summary Metrics aggregate data from Subscriptions",
+      "Subscriptions are linked to Accounts (payment methods)",
+      "Upcoming Renewals are filtered from Subscriptions based on next payment date",
+      "Payment History belongs to each Subscription",
+      "Filter Options are extracted from unique values in Subscriptions"
+    ]
+  },
+  "summaryMetrics": {
+    "totalMonthlyCost": {
+      "value": 187.93,
+      "previousValue": 172.94,
+      "change": 14.99,
+      "changePercent": 8.7,
+      "trend": "up"
+    },
+    "totalYearlyCost": {
+      "value": 2255.16,
+      "previousValue": 2075.28,
+      "change": 179.88,
+      "changePercent": 8.7,
+      "trend": "up"
+    },
+    "activeCount": {
+      "value": 9,
+      "previousValue": 8,
+      "change": 1
+    },
+    "upcomingRenewalsCount": {
+      "thisWeek": 4,
+      "thisMonth": 7,
+      "totalAmount": 67.96
+    },
+    "topSpendingCategory": {
+      "category": "Software",
+      "amount": 54.98,
+      "percentage": 29.3
+    },
+    "comparisonToLastMonth": {
+      "change": 14.99,
+      "changePercent": 8.7,
+      "trend": "up",
+      "message": "8.7% more than last month"
+    }
+  },
+  "subscriptions": [
+    {
+      "id": "sub-001",
+      "name": "Netflix Premium",
+      "category": "Streaming",
+      "amount": 22.99,
+      "billingCycle": "monthly",
+      "nextPaymentDate": "2024-12-22",
+      "status": "active",
+      "paymentMethodId": "acc-002",
+      "startDate": "2022-03-15",
+      "totalSpent": 643.72,
+      "paymentHistory": [
+        { "id": "pay-001", "date": "2024-11-22", "amount": 22.99, "status": "paid" },
+        { "id": "pay-002", "date": "2024-10-22", "amount": 22.99, "status": "paid" },
+        { "id": "pay-003", "date": "2024-09-22", "amount": 22.99, "status": "paid" },
+        { "id": "pay-004", "date": "2024-08-22", "amount": 22.99, "status": "paid" }
+      ]
+    },
+    {
+      "id": "sub-002",
+      "name": "Spotify Family",
+      "category": "Music",
+      "amount": 16.99,
+      "billingCycle": "monthly",
+      "nextPaymentDate": "2024-12-20",
+      "status": "active",
+      "paymentMethodId": "acc-002",
+      "startDate": "2021-08-01",
+      "totalSpent": 679.60,
+      "paymentHistory": [
+        { "id": "pay-005", "date": "2024-11-20", "amount": 16.99, "status": "paid" },
+        { "id": "pay-006", "date": "2024-10-20", "amount": 16.99, "status": "paid" },
+        { "id": "pay-007", "date": "2024-09-20", "amount": 16.99, "status": "paid" }
+      ]
+    },
+    {
+      "id": "sub-003",
+      "name": "Adobe Creative Cloud",
+      "category": "Software",
+      "amount": 54.99,
+      "billingCycle": "monthly",
+      "nextPaymentDate": "2024-12-25",
+      "status": "active",
+      "paymentMethodId": "acc-002",
+      "startDate": "2023-01-10",
+      "totalSpent": 1264.77,
+      "paymentHistory": [
+        { "id": "pay-008", "date": "2024-11-25", "amount": 54.99, "status": "paid" },
+        { "id": "pay-009", "date": "2024-10-25", "amount": 54.99, "status": "paid" },
+        { "id": "pay-010", "date": "2024-09-25", "amount": 54.99, "status": "paid" },
+        { "id": "pay-011", "date": "2024-08-25", "amount": 54.99, "status": "paid" },
+        { "id": "pay-012", "date": "2024-07-25", "amount": 54.99, "status": "paid" }
+      ]
+    },
+    {
+      "id": "sub-004",
+      "name": "ChatGPT Plus",
+      "category": "Software",
+      "amount": 20.00,
+      "billingCycle": "monthly",
+      "nextPaymentDate": "2024-12-21",
+      "status": "active",
+      "paymentMethodId": "acc-001",
+      "startDate": "2024-02-15",
+      "totalSpent": 200.00,
+      "paymentHistory": [
+        { "id": "pay-013", "date": "2024-11-21", "amount": 20.00, "status": "paid" },
+        { "id": "pay-014", "date": "2024-10-21", "amount": 20.00, "status": "paid" },
+        { "id": "pay-015", "date": "2024-09-21", "amount": 20.00, "status": "paid" }
+      ]
+    },
+    {
+      "id": "sub-005",
+      "name": "Planet Fitness",
+      "category": "Health & Fitness",
+      "amount": 24.99,
+      "billingCycle": "monthly",
+      "nextPaymentDate": "2024-12-28",
+      "status": "active",
+      "paymentMethodId": "acc-001",
+      "startDate": "2023-06-01",
+      "totalSpent": 449.82,
+      "paymentHistory": [
+        { "id": "pay-016", "date": "2024-11-28", "amount": 24.99, "status": "paid" },
+        { "id": "pay-017", "date": "2024-10-28", "amount": 24.99, "status": "paid" },
+        { "id": "pay-018", "date": "2024-09-28", "amount": 24.99, "status": "paid" }
+      ]
+    },
+    {
+      "id": "sub-006",
+      "name": "iCloud+ 200GB",
+      "category": "Cloud Storage",
+      "amount": 2.99,
+      "billingCycle": "monthly",
+      "nextPaymentDate": "2024-12-19",
+      "status": "active",
+      "paymentMethodId": "acc-002",
+      "startDate": "2020-09-20",
+      "totalSpent": 152.49,
+      "paymentHistory": [
+        { "id": "pay-019", "date": "2024-11-19", "amount": 2.99, "status": "paid" },
+        { "id": "pay-020", "date": "2024-10-19", "amount": 2.99, "status": "paid" },
+        { "id": "pay-021", "date": "2024-09-19", "amount": 2.99, "status": "paid" },
+        { "id": "pay-022", "date": "2024-08-19", "amount": 2.99, "status": "paid" },
+        { "id": "pay-023", "date": "2024-07-19", "amount": 2.99, "status": "paid" },
+        { "id": "pay-024", "date": "2024-06-19", "amount": 2.99, "status": "paid" }
+      ]
+    },
+    {
+      "id": "sub-007",
+      "name": "The New York Times",
+      "category": "News & Media",
+      "amount": 17.00,
+      "billingCycle": "monthly",
+      "nextPaymentDate": "2025-01-05",
+      "status": "active",
+      "paymentMethodId": "acc-001",
+      "startDate": "2024-05-05",
+      "totalSpent": 136.00,
+      "paymentHistory": [
+        { "id": "pay-025", "date": "2024-12-05", "amount": 17.00, "status": "paid" },
+        { "id": "pay-026", "date": "2024-11-05", "amount": 17.00, "status": "paid" },
+        { "id": "pay-027", "date": "2024-10-05", "amount": 17.00, "status": "paid" }
+      ]
+    },
+    {
+      "id": "sub-008",
+      "name": "Xbox Game Pass Ultimate",
+      "category": "Gaming",
+      "amount": 16.99,
+      "billingCycle": "monthly",
+      "nextPaymentDate": "2025-01-10",
+      "status": "paused",
+      "paymentMethodId": "acc-002",
+      "startDate": "2023-11-10",
+      "totalSpent": 220.87,
+      "paymentHistory": [
+        { "id": "pay-028", "date": "2024-10-10", "amount": 16.99, "status": "paid" },
+        { "id": "pay-029", "date": "2024-09-10", "amount": 16.99, "status": "paid" },
+        { "id": "pay-030", "date": "2024-08-10", "amount": 16.99, "status": "paid" }
+      ]
+    },
+    {
+      "id": "sub-009",
+      "name": "Headspace",
+      "category": "Health & Fitness",
+      "amount": 69.99,
+      "billingCycle": "yearly",
+      "nextPaymentDate": "2025-03-15",
+      "status": "active",
+      "paymentMethodId": "acc-001",
+      "startDate": "2023-03-15",
+      "totalSpent": 139.98,
+      "paymentHistory": [
+        { "id": "pay-031", "date": "2024-03-15", "amount": 69.99, "status": "paid" },
+        { "id": "pay-032", "date": "2023-03-15", "amount": 69.99, "status": "paid" }
+      ]
+    },
+    {
+      "id": "sub-010",
+      "name": "Disney+ Bundle",
+      "category": "Streaming",
+      "amount": 13.99,
+      "billingCycle": "monthly",
+      "nextPaymentDate": "2024-12-23",
+      "status": "active",
+      "paymentMethodId": "acc-002",
+      "startDate": "2023-12-23",
+      "totalSpent": 167.88,
+      "paymentHistory": [
+        { "id": "pay-033", "date": "2024-11-23", "amount": 13.99, "status": "paid" },
+        { "id": "pay-034", "date": "2024-10-23", "amount": 13.99, "status": "paid" },
+        { "id": "pay-035", "date": "2024-09-23", "amount": 13.99, "status": "paid" }
+      ]
+    },
+    {
+      "id": "sub-011",
+      "name": "Hulu (No Ads)",
+      "category": "Streaming",
+      "amount": 17.99,
+      "billingCycle": "monthly",
+      "nextPaymentDate": "2024-12-30",
+      "status": "paused",
+      "paymentMethodId": "acc-002",
+      "startDate": "2022-06-30",
+      "totalSpent": 503.72,
+      "paymentHistory": [
+        { "id": "pay-036", "date": "2024-09-30", "amount": 17.99, "status": "paid" },
+        { "id": "pay-037", "date": "2024-08-30", "amount": 17.99, "status": "paid" },
+        { "id": "pay-038", "date": "2024-07-30", "amount": 17.99, "status": "paid" }
+      ]
+    },
+    {
+      "id": "sub-012",
+      "name": "HBO Max",
+      "category": "Streaming",
+      "amount": 15.99,
+      "billingCycle": "monthly",
+      "nextPaymentDate": "2024-11-15",
+      "status": "cancelled",
+      "paymentMethodId": "acc-002",
+      "startDate": "2023-05-15",
+      "totalSpent": 287.82,
+      "paymentHistory": [
+        { "id": "pay-039", "date": "2024-10-15", "amount": 15.99, "status": "paid" },
+        { "id": "pay-040", "date": "2024-09-15", "amount": 15.99, "status": "paid" },
+        { "id": "pay-041", "date": "2024-08-15", "amount": 15.99, "status": "paid" }
+      ]
+    }
+  ],
+  "filterOptions": {
+    "categories": [
+      "Streaming",
+      "Music",
+      "Software",
+      "Health & Fitness",
+      "Cloud Storage",
+      "News & Media",
+      "Gaming",
+      "Utilities"
+    ],
+    "statuses": [
+      "active",
+      "paused",
+      "cancelled"
+    ],
+    "billingCycles": [
+      "monthly",
+      "yearly",
+      "weekly"
+    ],
+    "accounts": [
+      {
+        "id": "acc-001",
+        "name": "Chase Checking",
+        "type": "checking"
+      },
+      {
+        "id": "acc-002",
+        "name": "Amex Platinum",
+        "type": "credit"
+      }
+    ]
+  }
+}
+
