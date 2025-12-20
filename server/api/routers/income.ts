@@ -46,15 +46,17 @@ export const incomeRouter = Effect.gen(function* () {
       }),
     getSummaryMetrics: protectedProcedure
       .input(
-        Schema.optional(
-          Schema.Struct({
-            dateRange: Schema.optional(
-              Schema.Struct({
-                from: Schema.String,
-                to: Schema.String,
-              })
-            ),
-          })
+        Schema.standardSchemaV1(
+          Schema.optional(
+            Schema.Struct({
+              dateRange: Schema.optional(
+                Schema.Struct({
+                  from: Schema.String,
+                  to: Schema.String,
+                })
+              ),
+            })
+          )
         )
       )
       .query(async ({ ctx, input }) => {

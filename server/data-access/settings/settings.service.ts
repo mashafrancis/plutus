@@ -1,5 +1,5 @@
-import { Decimal } from "@prisma/client/runtime/library";
 import { Effect } from "effect";
+import { Prisma } from "@/generated/prisma/client";
 import { db } from "@/lib/db/client";
 import { execute } from "@/lib/db/execute";
 import type {
@@ -70,7 +70,7 @@ export class SettingsService extends Effect.Service<SettingsService>()(
                 data: {
                   name,
                   type,
-                  currentBalance: new Decimal(currentBalance),
+                  currentBalance: new Prisma.Decimal(currentBalance),
                   currency: currency || "USD",
                   notes,
                   userId,
@@ -94,7 +94,7 @@ export class SettingsService extends Effect.Service<SettingsService>()(
             if (name !== undefined) updateData.name = name;
             if (type !== undefined) updateData.type = type;
             if (currentBalance !== undefined)
-              updateData.currentBalance = new Decimal(currentBalance);
+              updateData.currentBalance = new Prisma.Decimal(currentBalance);
             if (currency !== undefined) updateData.currency = currency;
             if (notes !== undefined) updateData.notes = notes;
             if (isArchived !== undefined) updateData.isArchived = isArchived;
@@ -156,7 +156,7 @@ export class SettingsService extends Effect.Service<SettingsService>()(
             return yield* execute(
               db.financialAccount.update({
                 where: { id },
-                data: { currentBalance: new Decimal(balance) },
+                data: { currentBalance: new Prisma.Decimal(balance) },
               })
             );
           }),
@@ -505,7 +505,7 @@ export class SettingsService extends Effect.Service<SettingsService>()(
               db.budget.create({
                 data: {
                   categoryId: categoryId || null,
-                  limit: new Decimal(limit),
+                  limit: new Prisma.Decimal(limit),
                   period,
                   rolloverEnabled: rolloverEnabled ?? false,
                   recurringEnabled: recurringEnabled ?? true,
@@ -531,7 +531,8 @@ export class SettingsService extends Effect.Service<SettingsService>()(
             const updateData: Record<string, unknown> = {};
             if (categoryId !== undefined)
               updateData.categoryId = categoryId || null;
-            if (limit !== undefined) updateData.limit = new Decimal(limit);
+            if (limit !== undefined)
+              updateData.limit = new Prisma.Decimal(limit);
             if (period !== undefined) updateData.period = period;
             if (rolloverEnabled !== undefined)
               updateData.rolloverEnabled = rolloverEnabled;

@@ -98,7 +98,11 @@ export const subscriptionsRouter = Effect.gen(function* () {
             .pipe(RuntimeServer.runPromise)
       ),
     getPaymentHistory: protectedProcedure
-      .input(Schema.Struct({ subscriptionId: Schema.String }))
+      .input(
+        Schema.standardSchemaV1(
+          Schema.Struct({ subscriptionId: Schema.String })
+        )
+      )
       .query(
         async ({ input }) =>
           await subscriptionsService
