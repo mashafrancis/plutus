@@ -1,0 +1,63 @@
+
+> web@ check-types /Users/guilhermeguerreiro/Documents/Git/pouchy/apps/web
+> tsc --noEmit
+
+src/routes/accounts.tsx(386,25): error TS2322: Type '(updater: Updater<ObjectValue<never, { name: string; type: "checking" | "savings" | "credit" | "cash" | "investment"; currency: string; balance: string; }, "type">>) => void' is not assignable to type '(value: "checking" | "savings" | "credit" | "cash" | "investment" | null, eventDetails: SelectRootChangeEventDetails) => void'.
+  Types of parameters 'updater' and 'value' are incompatible.
+    Type '"checking" | "savings" | "credit" | "cash" | "investment" | null' is not assignable to type 'Updater<ObjectValue<never, { name: string; type: "checking" | "savings" | "credit" | "cash" | "investment"; currency: string; balance: string; }, "type">>'.
+      Type 'null' is not assignable to type 'Updater<ObjectValue<never, { name: string; type: "checking" | "savings" | "credit" | "cash" | "investment"; currency: string; balance: string; }, "type">>'.
+src/routes/accounts.tsx(406,25): error TS2322: Type '(updater: Updater<string>) => void' is not assignable to type '(value: string | null, eventDetails: SelectRootChangeEventDetails) => void'.
+  Types of parameters 'updater' and 'value' are incompatible.
+    Type 'string | null' is not assignable to type 'Updater<string>'.
+      Type 'null' is not assignable to type 'Updater<string>'.
+src/routes/dashboard.tsx(197,25): error TS2322: Type 'CategorySpending[]' is not assignable to type 'ChartDataInput[]'.
+  Type 'CategorySpending' is not assignable to type 'ChartDataInput'.
+    Index signature for type 'string' is missing in type 'CategorySpending'.
+src/routes/goals.tsx(399,29): error TS2551: Property 'useStore' does not exist on type 'ReactFormExtendedApi<{ name: string; targetAmount: string; currentAmount: string; targetDate: string; icon: string; }, FormValidateOrFn<{ name: string; targetAmount: string; currentAmount: string; targetDate: string; icon: string; }> | undefined, ... 9 more ..., unknown>'. Did you mean 'baseStore'?
+src/routes/goals.tsx(399,39): error TS7006: Parameter 'state' implicitly has an 'any' type.
+src/routes/investments.tsx(413,25): error TS2322: Type '(updater: Updater<ObjectValue<never, { name: string; type: "stock" | "etf" | "crypto" | "mutual_fund" | "bond" | "real_estate" | "other"; symbol: string; quantity: string; purchasePrice: string; currentPrice: string; purchaseDate: string; }, "type">>) => void' is not assignable to type '(value: "stock" | "etf" | "crypto" | "mutual_fund" | "bond" | "real_estate" | "other" | null, eventDetails: SelectRootChangeEventDetails) => void'.
+  Types of parameters 'updater' and 'value' are incompatible.
+    Type '"stock" | "etf" | "crypto" | "mutual_fund" | "bond" | "real_estate" | "other" | null' is not assignable to type 'Updater<ObjectValue<never, { name: string; type: "stock" | "etf" | "crypto" | "mutual_fund" | "bond" | "real_estate" | "other"; symbol: string; quantity: string; purchasePrice: string; currentPrice: string; purchaseDate: string; }, "type">>'.
+      Type 'null' is not assignable to type 'Updater<ObjectValue<never, { name: string; type: "stock" | "etf" | "crypto" | "mutual_fund" | "bond" | "real_estate" | "other"; symbol: string; quantity: string; purchasePrice: string; currentPrice: string; purchaseDate: string; }, "type">>'.
+src/routes/settings.tsx(166,15): error TS2322: Type '(currency: string) => Promise<void>' is not assignable to type '(value: string | null, eventDetails: SelectRootChangeEventDetails) => void'.
+  Types of parameters 'currency' and 'value' are incompatible.
+    Type 'string | null' is not assignable to type 'string'.
+      Type 'null' is not assignable to type 'string'.
+src/routes/settings.tsx(199,15): error TS2322: Type '(accountId: string) => Promise<void>' is not assignable to type '(value: string | null, eventDetails: SelectRootChangeEventDetails) => void'.
+  Types of parameters 'accountId' and 'value' are incompatible.
+    Type 'string | null' is not assignable to type 'string'.
+      Type 'null' is not assignable to type 'string'.
+src/routes/settings.tsx(230,15): error TS2322: Type '(days: string) => Promise<void>' is not assignable to type '(value: string | null, eventDetails: SelectRootChangeEventDetails) => void'.
+  Types of parameters 'days' and 'value' are incompatible.
+    Type 'string | null' is not assignable to type 'string'.
+      Type 'null' is not assignable to type 'string'.
+src/routes/subscriptions.tsx(424,19): error TS2322: Type '(updater: Updater<string>) => void' is not assignable to type '(value: string | null, eventDetails: SelectRootChangeEventDetails) => void'.
+  Types of parameters 'updater' and 'value' are incompatible.
+    Type 'string | null' is not assignable to type 'Updater<string>'.
+      Type 'null' is not assignable to type 'Updater<string>'.
+src/routes/subscriptions.tsx(452,19): error TS2322: Type '(updater: Updater<string>) => void' is not assignable to type '(value: string | null, eventDetails: SelectRootChangeEventDetails) => void'.
+  Types of parameters 'updater' and 'value' are incompatible.
+    Type 'string | null' is not assignable to type 'Updater<string>'.
+      Type 'null' is not assignable to type 'Updater<string>'.
+src/routes/subscriptions.tsx(503,27): error TS2322: Type '(updater: Updater<ObjectValue<never, { name: string; accountId: string; categoryId: string; amount: string; frequency: "daily" | "weekly" | "monthly" | "quarterly" | "yearly"; startDate: string; }, "frequency">>) => void' is not assignable to type '(value: "daily" | "weekly" | "monthly" | "quarterly" | "yearly" | null, eventDetails: SelectRootChangeEventDetails) => void'.
+  Types of parameters 'updater' and 'value' are incompatible.
+    Type '"daily" | "weekly" | "monthly" | "quarterly" | "yearly" | null' is not assignable to type 'Updater<ObjectValue<never, { name: string; accountId: string; categoryId: string; amount: string; frequency: "daily" | "weekly" | "monthly" | "quarterly" | "yearly"; startDate: string; }, "frequency">>'.
+      Type 'null' is not assignable to type 'Updater<ObjectValue<never, { name: string; accountId: string; categoryId: string; amount: string; frequency: "daily" | "weekly" | "monthly" | "quarterly" | "yearly"; startDate: string; }, "frequency">>'.
+src/routes/todos.tsx(27,55): error TS2339: Property 'todos' does not exist on type '{ accounts: { list: FunctionReference<"query", "public", { includeArchived?: boolean | undefined; }, { _id: Id<"accounts">; _creationTime: number; icon?: string | undefined; color?: string | undefined; ... 5 more ...; isArchived: boolean; }[], string | undefined>; ... 8 more ...; getTotalBalance: FunctionReference<....'.
+src/routes/todos.tsx(30,38): error TS2339: Property 'todos' does not exist on type '{ accounts: { list: FunctionReference<"query", "public", { includeArchived?: boolean | undefined; }, { _id: Id<"accounts">; _creationTime: number; icon?: string | undefined; color?: string | undefined; ... 5 more ...; isArchived: boolean; }[], string | undefined>; ... 8 more ...; getTotalBalance: FunctionReference<....'.
+src/routes/todos.tsx(31,38): error TS2339: Property 'todos' does not exist on type '{ accounts: { list: FunctionReference<"query", "public", { includeArchived?: boolean | undefined; }, { _id: Id<"accounts">; _creationTime: number; icon?: string | undefined; color?: string | undefined; ... 5 more ...; isArchived: boolean; }[], string | undefined>; ... 8 more ...; getTotalBalance: FunctionReference<....'.
+src/routes/todos.tsx(33,38): error TS2339: Property 'todos' does not exist on type '{ accounts: { list: FunctionReference<"query", "public", { includeArchived?: boolean | undefined; }, { _id: Id<"accounts">; _creationTime: number; icon?: string | undefined; color?: string | undefined; ... 5 more ...; isArchived: boolean; }[], string | undefined>; ... 8 more ...; getTotalBalance: FunctionReference<....'.
+src/routes/todos.tsx(45,42): error TS2344: Type '"todos"' does not satisfy the constraint 'TableNames | SystemTableNames'.
+src/routes/todos.tsx(49,42): error TS2344: Type '"todos"' does not satisfy the constraint 'TableNames | SystemTableNames'.
+src/routes/todos.tsx(75,19): error TS2339: Property 'length' does not exist on type '{}'.
+src/routes/todos.tsx(79,23): error TS2339: Property 'map' does not exist on type '{}'.
+src/routes/todos.tsx(79,28): error TS7006: Parameter 'todo' implicitly has an 'any' type.
+src/routes/transactions.tsx(390,7): error TS2322: Type 'StandardSchemaV1<{ readonly type: "expense" | "income" | "transfer"; readonly accountId: string; readonly categoryId: string; readonly amount: string; readonly description: string; readonly date: string; readonly toAccountId?: string | undefined; }, { ...; }> & SchemaClass<...>' is not assignable to type 'FormValidateOrFn<{ type: "expense" | "income" | "transfer"; accountId: string; categoryId: string; amount: string; description: string; date: string; toAccountId: string; }> | undefined'.
+  Type 'StandardSchemaV1<{ readonly type: "expense" | "income" | "transfer"; readonly accountId: string; readonly categoryId: string; readonly amount: string; readonly description: string; readonly date: string; readonly toAccountId?: string | undefined; }, { ...; }> & SchemaClass<...>' is not assignable to type 'StandardSchemaV1<{ type: "expense" | "income" | "transfer"; accountId: string; categoryId: string; amount: string; description: string; date: string; toAccountId: string; }, unknown>'.
+    The types of ''~standard'.types' are incompatible between these types.
+      Type 'Types<{ readonly type: "expense" | "income" | "transfer"; readonly accountId: string; readonly categoryId: string; readonly amount: string; readonly description: string; readonly date: string; readonly toAccountId?: string | undefined; }, { ...; }> | undefined' is not assignable to type 'StandardSchemaV1Types<{ type: "expense" | "income" | "transfer"; accountId: string; categoryId: string; amount: string; description: string; date: string; toAccountId: string; }, unknown> | undefined'.
+        Type 'Types<{ readonly type: "expense" | "income" | "transfer"; readonly accountId: string; readonly categoryId: string; readonly amount: string; readonly description: string; readonly date: string; readonly toAccountId?: string | undefined; }, { ...; }>' is not assignable to type 'StandardSchemaV1Types<{ type: "expense" | "income" | "transfer"; accountId: string; categoryId: string; amount: string; description: string; date: string; toAccountId: string; }, unknown>'.
+          The types of 'input.toAccountId' are incompatible between these types.
+            Type 'string | undefined' is not assignable to type 'string'.
+              Type 'undefined' is not assignable to type 'string'.
+ ELIFECYCLE  Command failed with exit code 2.

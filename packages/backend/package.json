@@ -1,0 +1,25 @@
+{
+  "name": "@tanstack-effect-convex/backend",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "scripts": {
+    "dev": "convex dev",
+    "dev:setup": "convex dev --configure --until-success",
+    "check-types": "tsc -p convex/tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@convex-dev/better-auth": "catalog:",
+    "better-auth": "catalog:",
+    "convex": "catalog:",
+    "dotenv": "catalog:",
+    "effect": "catalog:"
+  },
+  "devDependencies": {
+    "@effect/language-service": "catalog:",
+    "@tanstack-effect-convex/config": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}
