@@ -5,7 +5,6 @@ import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query
 import { env } from "@tanstack-effect-convex/env/web";
 import * as Sentry from "@sentry/tanstackstart-react";
 
-import "@/app/styles/index.css";
 import { Loading } from "@/components/ui/loading";
 import { routeTree } from "./routeTree.gen";
 

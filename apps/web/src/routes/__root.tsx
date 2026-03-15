@@ -27,6 +27,64 @@ const getAuth = createServerFn({ method: "GET" }).handler(async () => {
   return await getToken();
 });
 
+const AUTH_BOOTSTRAP_RETRY_ATTEMPTS = 3;
+const AUTH_BOOTSTRAP_RETRY_DELAY_MS = 400;
+
+function isAuthBootstrapNetworkError(error: unknown): boolean {
+  if (!(error instanceof Error)) {
+    return false;
+  }
+
+  const errorCode = "code" in error ? String((error as { code?: string }).code ?? "") : "";
+  const message = error.message.toLowerCase();
+
+  if (
+    message.includes("fetch failed") ||
+    message.includes("failed to fetch") ||
+    message.includes("networkerror") ||
+    errorCode === "ECONNREFUSED" ||
+    errorCode === "ECONNRESET" ||
+    errorCode === "ENOTFOUND" ||
+    errorCode === "ETIMEDOUT"
+  ) {
+    return true;
+  }
+
+  return isAuthBootstrapNetworkError(error.cause);
+}
+
+async function sleep(ms: number): Promise<void> {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function loadAuthTokenSafely(): Promise<string | null> {
+  for (let attempt = 1; attempt <= AUTH_BOOTSTRAP_RETRY_ATTEMPTS; attempt++) {
+    try {
+      return (await getAuth()) ?? null;
+    } catch (error) {
+      const shouldRetry =
+        isAuthBootstrapNetworkError(error) && attempt < AUTH_BOOTSTRAP_RETRY_ATTEMPTS;
+
+      if (shouldRetry) {
+        await sleep(AUTH_BOOTSTRAP_RETRY_DELAY_MS * attempt);
+        continue;
+      }
+
+      if (isAuthBootstrapNetworkError(error)) {
+        console.warn(
+          "[auth] Falling back to unauthenticated startup after transient fetch failure.",
+          error,
+        );
+        return null;
+      }
+
+      throw error;
+    }
+  }
+
+  return null;
+}
+
 // Re-export for other routes that may need it
 export type { RouterAppContext } from "@/app/types/router-app-context";
 
@@ -76,7 +134,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 
   component: RootDocument,
   beforeLoad: async (ctx) => {
-    const token = await getAuth();
+    const token = await loadAuthTokenSafely();
     if (token) {
       ctx.context.convexQueryClient.serverHttpClient?.setAuth(token);
     }
