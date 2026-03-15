@@ -27,7 +27,7 @@
     "@tanstack-effect-convex/config": "workspace:*",
     "@types/node": "catalog:",
     "husky": "^9.1.7",
-    "lint-staged": "^16.3.4",
+    "lint-staged": "^16.4.0",
     "turbo": "^2.8.17",
     "typescript": "catalog:",
     "ultracite": "6.5.1"

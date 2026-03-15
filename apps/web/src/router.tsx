@@ -3,6 +3,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 import { env } from "@tanstack-effect-convex/env/web";
+import * as Sentry from "@sentry/tanstackstart-react";
 
 import "@/app/styles/index.css";
 import { Loading } from "@/components/ui/loading";
@@ -41,6 +42,37 @@ export function getRouter() {
     router,
     queryClient,
   });
+
+  if (!router.isServer) {
+    if (!router.isServer) {
+      Sentry.init({
+        dsn: "https://cffb9ca2b0b24bb1bef9ca6d4a038571@o319034.ingest.us.sentry.io/1807584",
+        // Adds request headers and IP for users, for more info visit:
+        // https://docs.sentry.io/platforms/javascript/guides/tanstackstart-react/configuration/options/#sendDefaultPii
+        sendDefaultPii: true,
+        integrations: [
+          Sentry.tanstackRouterBrowserTracingIntegration(router),
+          Sentry.replayIntegration(),
+          Sentry.feedbackIntegration({
+            // Additional SDK configuration goes in here, for example:
+            colorScheme: "system",
+          }),
+        ],
+        // Enable logs to be sent to Sentry
+        enableLogs: true,
+        // Set tracesSampleRate to 1.0 to capture 100%
+        // of transactions for tracing.
+        // We recommend adjusting this value in production.
+        // Learn more at https://docs.sentry.io/platforms/javascript/configuration/options/#traces-sample-rate
+        tracesSampleRate: 1.0,
+        // Capture Replay for 10% of all sessions,
+        // plus for 100% of sessions with an error.
+        // Learn more at https://docs.sentry.io/platforms/javascript/session-replay/configuration/#general-integration-configuration
+        replaysSessionSampleRate: 0.1,
+        replaysOnErrorSampleRate: 1.0,
+      });
+    }
+  }
 
   return router;
 }
