@@ -1,13 +1,9 @@
+import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
 import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
-import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { toast } from "sonner";
-
-import { useAccountsList } from "@/entities/account/api/use-accounts-list";
-import { useCategoriesList } from "@/entities/category/api/use-categories-list";
-import { useTransactionsList } from "@/entities/transaction/api/use-transactions-list";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,6 +14,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useAccountsList } from "@/entities/account/api/use-accounts-list";
+import { useCategoriesList } from "@/entities/category/api/use-categories-list";
+import { useTransactionsList } from "@/entities/transaction/api/use-transactions-list";
 
 export default function StepTransactions() {
   const { data: accounts } = useAccountsList();
@@ -229,7 +228,7 @@ export default function StepTransactions() {
                   size="icon"
                   variant="ghost"
                 >
-                  <TrashIcon weight="bold" aria-hidden />
+                  <TrashIcon aria-hidden weight="bold" />
                 </Button>
               </div>
             ))}

@@ -1,9 +1,8 @@
 import { CheckCircleIcon } from "@phosphor-icons/react";
-
+import { Button } from "@/components/ui/button";
 import { useAccountsList } from "@/entities/account/api/use-accounts-list";
 import { useCategoriesList } from "@/entities/category/api/use-categories-list";
 import { useTransactionsList } from "@/entities/transaction/api/use-transactions-list";
-import { Button } from "@/components/ui/button";
 
 interface StepCompleteProps {
   onNext: () => void;

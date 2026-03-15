@@ -1,9 +1,8 @@
+import { CheckIcon } from "@phosphor-icons/react";
 import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
 import { useMutation } from "convex/react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { CheckIcon } from "@phosphor-icons/react";
 import { useState } from "react";
-import { cn } from "@/shared/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { cn } from "@/shared/lib/utils";
 import StepAccounts from "./step-accounts";
 import StepCategories from "./step-categories";
 import StepComplete from "./step-complete";
@@ -135,7 +135,7 @@ export function OnboardingWizard({
                     type="button"
                   >
                     {index < currentStep ? (
-                      <CheckIcon className="h-5 w-5" aria-hidden />
+                      <CheckIcon aria-hidden className="h-5 w-5" />
                     ) : (
                       <span className="font-semibold text-sm">{index + 1}</span>
                     )}

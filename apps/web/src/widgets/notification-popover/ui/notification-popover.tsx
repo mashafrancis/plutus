@@ -1,24 +1,27 @@
-import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
-import type { Doc } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
-import { useMutation } from "convex/react";
 import type { Icon } from "@phosphor-icons/react";
 import {
-  InfoIcon,
-  BellIcon,
-  CheckIcon,
-  CheckCircleIcon,
   ArrowsClockwiseIcon,
+  BellIcon,
+  CheckCircleIcon,
+  CheckIcon,
+  InfoIcon,
   TargetIcon,
   TrashIcon,
   WalletIcon,
 } from "@phosphor-icons/react";
-
+import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
+import type { Doc } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
+import { useMutation } from "convex/react";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useNotificationsList } from "@/entities/notification/api/use-notifications-list";
 import { useNotificationsUnreadCount } from "@/entities/notification/api/use-notifications-unread-count";
 import { formatRelativeDate } from "@/shared/lib/format/date";
-import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 type NotificationType = Doc<"notifications">["type"];
 
@@ -66,7 +69,7 @@ export function NotificationPopover() {
           size="icon"
           variant="outline"
         >
-          <BellIcon aria-hidden weight="bold" data-icon="inline-start" />
+          <BellIcon aria-hidden data-icon="inline-start" weight="bold" />
           {hasUnread && (
             <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary font-medium text-[10px] text-primary-foreground">
               {unreadCount && unreadCount > 9 ? "9+" : unreadCount}
@@ -146,7 +149,7 @@ export function NotificationPopover() {
                             size="icon-sm"
                             variant="ghost"
                           >
-                            <CheckIcon weight="bold" aria-hidden />
+                            <CheckIcon aria-hidden weight="bold" />
                           </Button>
                         )}
                         <Button
@@ -158,7 +161,7 @@ export function NotificationPopover() {
                           size="icon-sm"
                           variant="ghost"
                         >
-                          <TrashIcon weight="bold" aria-hidden />
+                          <TrashIcon aria-hidden weight="bold" />
                         </Button>
                       </div>
                     </div>

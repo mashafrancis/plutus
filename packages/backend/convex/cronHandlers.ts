@@ -156,6 +156,7 @@ export const updateExchangeRates = internalMutation({
 
     // Base rates relative to USD (in production, fetch from API)
     const baseRates: Record<string, number> = {
+      KES: 129.5,
       EUR: 0.92,
       GBP: 0.79,
       JPY: 149.5,

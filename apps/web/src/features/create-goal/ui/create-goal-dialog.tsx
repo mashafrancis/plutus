@@ -1,10 +1,8 @@
+import { PlusIcon } from "@phosphor-icons/react";
 import { useForm } from "@tanstack/react-form";
 import { Schema } from "effect";
-import { PlusIcon } from "@phosphor-icons/react";
-import { useState } from "react";
+import { isValidElement, useState } from "react";
 import { toast } from "sonner";
-
-import { useCreateGoal } from "@/entities/goal/api/use-create-goal";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,11 +15,20 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useCreateGoal } from "@/entities/goal/api/use-create-goal";
 import { GOAL_ICONS, GoalFormSchema } from "../model/goal-form-schema";
 
 export function CreateGoalDialog({ children }: { children?: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const createGoal = useCreateGoal();
+  const triggerRender = isValidElement(children) ? (
+    children
+  ) : (
+    <Button>
+      <PlusIcon className="mr-2" data-icon="inline-start" />
+      Create Goal
+    </Button>
+  );
 
   const form = useForm({
     defaultValues: {
@@ -39,7 +46,7 @@ export function CreateGoalDialog({ children }: { children?: React.ReactNode }) {
           currentAmount: value.currentAmount
             ? Number.parseFloat(value.currentAmount)
             : undefined,
-          currency: "USD",
+          currency: "KES",
           targetDate: value.targetDate
             ? new Date(value.targetDate).getTime()
             : undefined,
@@ -59,14 +66,7 @@ export function CreateGoalDialog({ children }: { children?: React.ReactNode }) {
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
-      <DialogTrigger asChild>
-        {children || (
-          <Button>
-            <PlusIcon className="mr-2" data-icon="inline-start" />
-            Create Goal
-          </Button>
-        )}
-      </DialogTrigger>
+      <DialogTrigger render={triggerRender} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create Goal</DialogTitle>

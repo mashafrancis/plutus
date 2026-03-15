@@ -1,10 +1,9 @@
+import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
 import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
-import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useCategoriesList } from "@/entities/category/api/use-categories-list";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCategoriesList } from "@/entities/category/api/use-categories-list";
 
 // Simple emoji picker - predefined emojis
 const EMOJI_OPTIONS = [
@@ -222,7 +222,7 @@ export default function StepCategories() {
                   size="icon"
                   variant="ghost"
                 >
-                  <TrashIcon weight="bold" aria-hidden />
+                  <TrashIcon aria-hidden weight="bold" />
                 </Button>
               </div>
             ))}

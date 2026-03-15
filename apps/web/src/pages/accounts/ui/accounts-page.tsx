@@ -5,15 +5,14 @@ import {
   WalletIcon,
 } from "@phosphor-icons/react";
 import { useState } from "react";
-
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useAccountsList } from "@/entities/account/api/use-accounts-list";
 import { useAccountsTotalBalance } from "@/entities/account/api/use-accounts-total-balance";
 import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
 import { CreateAccountDialog } from "@/features/create-account/ui/create-account-dialog";
 import { formatCurrency } from "@/shared/lib/format/currency";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 
 import { AccountCard } from "./account-card";
 
@@ -143,7 +142,7 @@ export function AccountsPage() {
             onClick={() => setShowArchived(!showArchived)}
             variant="ghost"
           >
-            <ArchiveIcon weight="bold" className="mr-2" />
+            <ArchiveIcon className="mr-2" weight="bold" />
             {showArchived ? "Hide" : "Show"} Archived ({archivedAccounts.length}
             )
           </Button>

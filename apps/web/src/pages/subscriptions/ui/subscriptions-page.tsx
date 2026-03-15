@@ -5,7 +5,9 @@ import {
   PlayIcon,
   PlusIcon,
 } from "@phosphor-icons/react";
-
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useAccountsList } from "@/entities/account/api/use-accounts-list";
 import { useCategoriesList } from "@/entities/category/api/use-categories-list";
 import { useSubscriptionsList } from "@/entities/subscription/api/use-subscriptions-list";
@@ -13,9 +15,6 @@ import { useSubscriptionsTotalMonthly } from "@/entities/subscription/api/use-su
 import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
 import { CreateSubscriptionDialog } from "@/features/create-subscription/ui/create-subscription-dialog";
 import { formatCurrency } from "@/shared/lib/format/currency";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 
 import { SubscriptionItem } from "./subscription-item";
 
@@ -107,7 +106,10 @@ export function SubscriptionsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="font-medium text-sm">Monthly Cost</CardTitle>
-            <CurrencyDollarIcon className="h-4 w-4 text-muted-foreground" weight="bold" />
+            <CurrencyDollarIcon
+              className="h-4 w-4 text-muted-foreground"
+              weight="bold"
+            />
           </CardHeader>
           <CardContent>
             <div className="font-bold text-2xl">

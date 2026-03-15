@@ -38,6 +38,7 @@ export const INVESTMENT_TYPES = [
 ] as const;
 
 export const CURRENCIES = [
+  { value: "KES", label: "KES - Kenyan Shilling" },
   { value: "USD", label: "USD - US Dollar" },
   { value: "EUR", label: "EUR - Euro" },
   { value: "GBP", label: "GBP - British Pound" },

@@ -1,10 +1,6 @@
-import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { WalletIcon } from "@phosphor-icons/react";
+import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { toast } from "sonner";
-
-import { useAccountsList } from "@/entities/account/api/use-accounts-list";
-import { useUpdateSettings } from "@/entities/user-settings/api/use-update-settings";
-import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
 import {
   Card,
   CardContent,
@@ -21,6 +17,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAccountsList } from "@/entities/account/api/use-accounts-list";
+import { useUpdateSettings } from "@/entities/user-settings/api/use-update-settings";
+import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
 
 export function AccountForm() {
   const { data: settings } = useUserSettings();

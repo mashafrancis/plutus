@@ -1,21 +1,18 @@
-import { Link } from "@tanstack/react-router";
-import { Authenticated } from "convex/react";
 import {
-  CreditCardIcon,
   ChartLineUpIcon,
-  SignOutIcon,
+  CreditCardIcon,
+  GearIcon,
   ListIcon,
   ReceiptIcon,
-  GearIcon,
+  SignOutIcon,
   TargetIcon,
   TrendUpIcon,
   WalletIcon,
   XIcon,
 } from "@phosphor-icons/react";
+import { Link } from "@tanstack/react-router";
+import { Authenticated } from "convex/react";
 import { useState } from "react";
-
-import { useCurrentUser } from "@/entities/user/api/use-current-user";
-import { authClient } from "@/shared/config/auth-client";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,6 +25,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
+import { useCurrentUser } from "@/entities/user/api/use-current-user";
+import { authClient } from "@/shared/config/auth-client";
 
 const navLinks = [
   { to: "/dashboard", label: "Dashboard", icon: ChartLineUpIcon },
@@ -56,7 +55,7 @@ export function Sidebar() {
           size="icon"
           variant="ghost"
         >
-          <ListIcon weight="bold" aria-hidden />
+          <ListIcon aria-hidden weight="bold" />
         </Button>
         <Link className="flex items-center gap-2 font-semibold" to="/">
           <WalletIcon className="h-6 w-6 text-primary" />
@@ -89,7 +88,7 @@ export function Sidebar() {
             size="icon"
             variant="ghost"
           >
-            <XIcon weight="bold" aria-hidden />
+            <XIcon aria-hidden weight="bold" />
           </Button>
         </div>
 
@@ -198,7 +197,7 @@ function SidebarUser() {
               }}
               variant="destructive"
             >
-              <SignOutIcon weight="bold" className="mr-2" />
+              <SignOutIcon className="mr-2" weight="bold" />
               Sign Out
             </DropdownMenuItem>
           </DropdownMenuGroup>

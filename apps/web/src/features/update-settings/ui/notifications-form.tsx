@@ -1,8 +1,5 @@
 import { BellIcon } from "@phosphor-icons/react";
 import { toast } from "sonner";
-
-import { useUpdateSettings } from "@/entities/user-settings/api/use-update-settings";
-import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
 import {
   Card,
   CardContent,
@@ -13,6 +10,8 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useUpdateSettings } from "@/entities/user-settings/api/use-update-settings";
+import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
 
 export function NotificationsForm() {
   const { data: settings } = useUserSettings();

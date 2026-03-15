@@ -1,19 +1,22 @@
 import type { Icon } from "@phosphor-icons/react";
 import {
-  LightningIcon,
-  ArrowUpRightIcon,
   ArrowsClockwiseIcon,
+  ArrowUpRightIcon,
+  LightningIcon,
   TargetIcon,
   TrashIcon,
   TrendUpIcon,
   WalletIcon,
 } from "@phosphor-icons/react";
-
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useActivitiesGet } from "@/entities/activity/api/use-activities-get";
 import { formatRelativeDate } from "@/shared/lib/format/date";
-import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 function getActivityIcon(type: string, entityType: string): Icon {
   if (type.startsWith("delete_")) {
@@ -79,12 +82,8 @@ export function ActivityPopover() {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button
-          aria-label="Toggle activity feed"
-          size="icon"
-          variant="outline"
-        >
-          <LightningIcon weight="bold" data-icon="inline-start" aria-hidden />
+        <Button aria-label="Toggle activity feed" size="icon" variant="outline">
+          <LightningIcon aria-hidden data-icon="inline-start" weight="bold" />
           <span className="sr-only">Toggle activity feed</span>
         </Button>
       </PopoverTrigger>

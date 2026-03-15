@@ -5,8 +5,8 @@ import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query
 import { env } from "@tanstack-effect-convex/env/web";
 
 import "@/app/styles/index.css";
+import { Loading } from "@/components/ui/loading";
 import { routeTree } from "./routeTree.gen";
-import {Loading} from "@/components/ui/loading";
 
 export function getRouter() {
   const convexUrl = env.VITE_CONVEX_URL;

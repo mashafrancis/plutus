@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import type { SVGProps } from "react";
+import { cn } from "@/lib/utils";
 
 type AnimatedLoadingSpinnerProps = SVGProps<SVGSVGElement> & {
   className?: string;
@@ -35,13 +35,10 @@ export function AnimatedLoadingSpinner({
   return (
     <svg
       {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 18 18"
-      className={cn("motion-reduce:animate-none", className)}
-      role={role}
       aria-label={ariaLabel}
+      className={cn("motion-reduce:animate-none", className)}
+      height={size}
+      role={role}
       style={
         {
           ...props.style,
@@ -49,18 +46,22 @@ export function AnimatedLoadingSpinner({
           "--total-duration-ms": totalDurationMs,
         } as React.CSSProperties
       }
+      viewBox="0 0 18 18"
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g>
         {SEGMENT_PATHS.map((d, index) => (
           <path
-            key={`segment-${index}`}
+            className="motion-reduce:animate-none"
             d={d}
             fill="currentColor"
+            key={`segment-${index}`}
             style={{
-              animation: `loading-spinner-segment calc(var(--total-duration-ms) * 1ms) ease-in-out infinite`,
+              animation:
+                "loading-spinner-segment calc(var(--total-duration-ms) * 1ms) ease-in-out infinite",
               animationDelay: `calc(var(--segment-ms) * ${index} * -1ms)`,
             }}
-            className="motion-reduce:animate-none"
           />
         ))}
         <path

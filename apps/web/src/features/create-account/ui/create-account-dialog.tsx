@@ -1,12 +1,8 @@
-import { useForm } from "@tanstack/react-form";
-
-import { Schema } from "effect";
 import { PlusIcon } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useForm } from "@tanstack/react-form";
+import { Schema } from "effect";
+import { isValidElement, useState } from "react";
 import { toast } from "sonner";
-import { useCreateAccount } from "@/entities/account/api/use-create-account";
-import { ACCOUNT_TYPES } from "@/entities/account/config/account-types";
-import { CURRENCIES } from "@/shared/config/currencies";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -26,6 +22,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCreateAccount } from "@/entities/account/api/use-create-account";
+import { ACCOUNT_TYPES } from "@/entities/account/config/account-types";
+import { CURRENCIES } from "@/shared/config/currencies";
 
 import { AccountFormSchema } from "../model/account-form-schema";
 
@@ -36,6 +35,14 @@ export function CreateAccountDialog({
 }) {
   const [open, setOpen] = useState(false);
   const createAccount = useCreateAccount();
+  const triggerRender = isValidElement(children) ? (
+    children
+  ) : (
+    <Button>
+      <PlusIcon data-icon="inline-start" weight="bold" />
+      Add Account
+    </Button>
+  );
 
   const form = useForm({
     defaultValues: {
@@ -46,7 +53,7 @@ export function CreateAccountDialog({
         | "credit"
         | "cash"
         | "investment",
-      currency: "USD",
+      currency: "KES",
       balance: "",
     },
     validators: {
@@ -71,14 +78,7 @@ export function CreateAccountDialog({
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
-      <DialogTrigger asChild>
-        {children || (
-          <Button>
-            <PlusIcon weight="bold" data-icon="inline-start" />
-            Add Account
-          </Button>
-        )}
-      </DialogTrigger>
+      <DialogTrigger render={triggerRender} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create Account</DialogTitle>

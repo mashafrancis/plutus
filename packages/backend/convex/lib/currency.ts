@@ -2,9 +2,13 @@ import type { GenericQueryCtx } from "convex/server";
 import { Console, Effect } from "effect";
 import type { DataModel } from "../_generated/dataModel";
 
+export const DEFAULT_BASE_CURRENCY = "KES";
+const USD_BASE_CURRENCY = "USD";
+
 // Fallback rates when no exchange rate data is available (rates relative to USD)
 const FALLBACK_RATES: Record<string, number> = {
   USD: 1,
+  KES: 129.5,
   EUR: 0.92,
   GBP: 0.79,
   JPY: 149.5,
@@ -66,25 +70,29 @@ export const getExchangeRate = (
     // Use USD as intermediate currency
     // Treat 'USD' as having a rate of 1 to itself to avoid DB lookup failure
     const fromUSDRate =
-      fromCurrency === "USD"
+      fromCurrency === USD_BASE_CURRENCY
         ? 1
         : (yield* Effect.tryPromise(() =>
             ctx.db
               .query("exchangeRates")
               .withIndex("by_currencies", (q) =>
-                q.eq("baseCurrency", "USD").eq("targetCurrency", fromCurrency)
+                q
+                  .eq("baseCurrency", USD_BASE_CURRENCY)
+                  .eq("targetCurrency", fromCurrency)
               )
               .first()
           ))?.rate;
 
     const toUSDRate =
-      toCurrency === "USD"
+      toCurrency === USD_BASE_CURRENCY
         ? 1
         : (yield* Effect.tryPromise(() =>
             ctx.db
               .query("exchangeRates")
               .withIndex("by_currencies", (q) =>
-                q.eq("baseCurrency", "USD").eq("targetCurrency", toCurrency)
+                q
+                  .eq("baseCurrency", USD_BASE_CURRENCY)
+                  .eq("targetCurrency", toCurrency)
               )
               .first()
           ))?.rate;
@@ -146,6 +154,7 @@ export const formatCurrency = (amount: number, currency: string): string => {
  * Common currency codes with their symbols
  */
 export const CURRENCY_INFO: Record<string, { symbol: string; name: string }> = {
+  KES: { symbol: "KSh", name: "Kenyan Shilling" },
   USD: { symbol: "$", name: "US Dollar" },
   EUR: { symbol: "€", name: "Euro" },
   GBP: { symbol: "£", name: "British Pound" },
@@ -156,4 +165,146 @@ export const CURRENCY_INFO: Record<string, { symbol: string; name: string }> = {
   CNY: { symbol: "¥", name: "Chinese Yuan" },
   BRL: { symbol: "R$", name: "Brazilian Real" },
   INR: { symbol: "₹", name: "Indian Rupee" },
+};
+
+const REGION_TO_CURRENCY: Record<string, string> = {
+  // Africa
+  KE: "KES",
+  UG: "KES",
+  TZ: "KES",
+  RW: "KES",
+  ET: "USD",
+  NG: "USD",
+  GH: "USD",
+  ZA: "USD",
+  EG: "USD",
+  MA: "EUR",
+  TN: "EUR",
+  DZ: "EUR",
+  CI: "EUR",
+  SN: "EUR",
+
+  // North America
+  US: "USD",
+  CA: "CAD",
+  MX: "USD",
+
+  // South America
+  AR: "USD",
+  CL: "USD",
+  CO: "USD",
+  PE: "USD",
+  UY: "USD",
+  AU: "AUD",
+  CH: "CHF",
+
+  // Europe
+  GB: "GBP",
+  NO: "EUR",
+  SE: "EUR",
+  DK: "EUR",
+  PL: "EUR",
+  CZ: "EUR",
+  HU: "EUR",
+  RO: "EUR",
+  JP: "JPY",
+  CN: "CNY",
+  BR: "BRL",
+  IN: "INR",
+  DE: "EUR",
+  FR: "EUR",
+  IT: "EUR",
+  ES: "EUR",
+  NL: "EUR",
+  PT: "EUR",
+  IE: "EUR",
+  AT: "EUR",
+  BE: "EUR",
+  FI: "EUR",
+  GR: "EUR",
+  CY: "EUR",
+  MT: "EUR",
+  SK: "EUR",
+  SI: "EUR",
+  LV: "EUR",
+  LT: "EUR",
+  EE: "EUR",
+
+  // Middle East
+  AE: "USD",
+  SA: "USD",
+  QA: "USD",
+  KW: "USD",
+  BH: "USD",
+  OM: "USD",
+  IL: "USD",
+  JO: "USD",
+  LB: "USD",
+
+  // Asia Pacific
+  KR: "USD",
+  SG: "USD",
+  MY: "USD",
+  TH: "USD",
+  VN: "USD",
+  PH: "USD",
+  ID: "USD",
+  HK: "USD",
+  NZ: "AUD",
+  PK: "USD",
+  BD: "USD",
+  LK: "INR",
+};
+
+const TIMEZONE_TO_REGION: Record<string, string> = {
+  "Africa/Nairobi": "KE",
+  "Africa/Kampala": "UG",
+  "Africa/Dar_es_Salaam": "TZ",
+  "Europe/London": "GB",
+  "Europe/Paris": "FR",
+  "Europe/Berlin": "DE",
+  "America/New_York": "US",
+  "America/Toronto": "CA",
+  "Asia/Tokyo": "JP",
+  "Asia/Shanghai": "CN",
+  "Asia/Kolkata": "IN",
+  "Australia/Sydney": "AU",
+};
+
+const parseRegionFromLocale = (locale: string): string | null => {
+  const normalized = locale.replace("_", "-");
+  const parts = normalized.split("-");
+  for (const part of parts.slice(1)) {
+    if (/^[A-Za-z]{2}$/.test(part)) {
+      return part.toUpperCase();
+    }
+  }
+  return null;
+};
+
+export const getCurrencyFromLocale = (
+  locale: string | undefined,
+  timeZone?: string
+): string => {
+  const region =
+    (locale ? parseRegionFromLocale(locale) : null) ??
+    (timeZone ? TIMEZONE_TO_REGION[timeZone] : undefined);
+
+  if (region) {
+    return REGION_TO_CURRENCY[region] ?? DEFAULT_BASE_CURRENCY;
+  }
+
+  return DEFAULT_BASE_CURRENCY;
+};
+
+export const resolveInitialBaseCurrency = (params: {
+  existingBaseCurrency?: string;
+  locale?: string;
+  timeZone?: string;
+}): string => {
+  if (params.existingBaseCurrency) {
+    return params.existingBaseCurrency;
+  }
+
+  return getCurrencyFromLocale(params.locale, params.timeZone);
 };

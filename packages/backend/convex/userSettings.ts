@@ -2,17 +2,55 @@ import { v } from "convex/values";
 import { Effect } from "effect";
 import type { Doc, Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server";
+import {
+  DEFAULT_BASE_CURRENCY,
+  resolveInitialBaseCurrency,
+} from "./lib/currency";
 import { Policies } from "./lib/policies";
 import { runWithEffect } from "./lib/runtime";
 import { UnknownError } from "./schemas/errors";
 
 const DEFAULT_SETTINGS = {
-  baseCurrency: "USD",
+  baseCurrency: DEFAULT_BASE_CURRENCY,
   notificationsEnabled: true,
   emailNotifications: false,
   dashboardDateRange: 30,
   onboardingCompleted: false,
   onboardingStep: 0,
+};
+
+const sanitizeLocale = (locale: string | undefined): string | undefined => {
+  if (!locale) {
+    return undefined;
+  }
+
+  const trimmed = locale.trim();
+  if (trimmed.length < 2 || trimmed.length > 35) {
+    return undefined;
+  }
+
+  if (!/^[A-Za-z0-9-]+$/.test(trimmed)) {
+    return undefined;
+  }
+
+  return trimmed;
+};
+
+const sanitizeTimeZone = (timeZone: string | undefined): string | undefined => {
+  if (!timeZone) {
+    return undefined;
+  }
+
+  const trimmed = timeZone.trim();
+  if (trimmed.length < 3 || trimmed.length > 60) {
+    return undefined;
+  }
+
+  if (!/^[A-Za-z_]+(?:\/[A-Za-z_]+)+$/.test(trimmed)) {
+    return undefined;
+  }
+
+  return trimmed;
 };
 
 export const get = query({
@@ -189,6 +227,57 @@ export const setBaseCurrency = mutation({
         }
 
         return null;
+      })
+    ),
+});
+
+export const initializeBaseCurrencyFromLocale = mutation({
+  args: {
+    locale: v.optional(v.string()),
+    timeZone: v.optional(v.string()),
+  },
+  handler: (ctx, args): Promise<string> =>
+    runWithEffect(
+      ctx,
+      Effect.gen(function* () {
+        const user = yield* Policies.orFail(Policies.requireSignedIn);
+
+        const existing = yield* Effect.tryPromise({
+          try: () =>
+            ctx.db
+              .query("userSettings")
+              .withIndex("by_userId", (q) => q.eq("userId", user.subject))
+              .first(),
+          catch: (error) => new UnknownError({ error }),
+        });
+
+        // Respect previously saved user settings.
+        if (existing) {
+          return existing.baseCurrency;
+        }
+
+        const safeLocale = sanitizeLocale(args.locale);
+        const safeTimeZone = sanitizeTimeZone(args.timeZone);
+        const inferredCurrency = resolveInitialBaseCurrency({
+          locale: safeLocale,
+          timeZone: safeTimeZone,
+        });
+
+        yield* Effect.tryPromise({
+          try: () =>
+            ctx.db.insert("userSettings", {
+              userId: user.subject,
+              baseCurrency: inferredCurrency,
+              notificationsEnabled: DEFAULT_SETTINGS.notificationsEnabled,
+              emailNotifications: DEFAULT_SETTINGS.emailNotifications,
+              dashboardDateRange: DEFAULT_SETTINGS.dashboardDateRange,
+              onboardingCompleted: DEFAULT_SETTINGS.onboardingCompleted,
+              onboardingStep: DEFAULT_SETTINGS.onboardingStep,
+            }),
+          catch: (error) => new UnknownError({ error }),
+        });
+
+        return inferredCurrency;
       })
     ),
 });

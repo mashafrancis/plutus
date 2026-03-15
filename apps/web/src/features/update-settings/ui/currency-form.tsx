@@ -1,9 +1,9 @@
 import { CurrencyDollarIcon } from "@phosphor-icons/react";
+import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
+import { useMutation } from "convex/react";
+import { useState } from "react";
 import { toast } from "sonner";
-
-import { useUpdateSettings } from "@/entities/user-settings/api/use-update-settings";
-import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
-import { CURRENCIES } from "@/shared/config/currencies";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -20,10 +20,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useUpdateSettings } from "@/entities/user-settings/api/use-update-settings";
+import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
+import { CURRENCIES } from "@/shared/config/currencies";
 
 export function CurrencyForm() {
   const { data: settings } = useUserSettings();
   const updateSettings = useUpdateSettings();
+  const initializeBaseCurrencyFromLocale = useMutation(
+    api.userSettings.initializeBaseCurrencyFromLocale
+  );
+  const [isDetecting, setIsDetecting] = useState(false);
 
   if (!settings) {
     return (
@@ -54,6 +61,25 @@ export function CurrencyForm() {
     }
   };
 
+  const handleAutoDetectCurrency = async () => {
+    setIsDetecting(true);
+    try {
+      const locale = navigator.language;
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const detectedCurrency = await initializeBaseCurrencyFromLocale({
+        locale,
+        timeZone,
+      });
+
+      await updateSettings({ baseCurrency: detectedCurrency });
+      toast.success(`Currency auto-detected: ${detectedCurrency}`);
+    } catch {
+      toast.error("Failed to auto-detect currency");
+    } finally {
+      setIsDetecting(false);
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -73,7 +99,7 @@ export function CurrencyForm() {
             onValueChange={(val: string | null) =>
               val && handleCurrencyChange(val)
             }
-            value={settings.baseCurrency || "USD"}
+            value={settings.baseCurrency || "KES"}
           >
             <SelectTrigger className="w-[200px]">
               <SelectValue placeholder="Select currency" />
@@ -86,6 +112,16 @@ export function CurrencyForm() {
               ))}
             </SelectContent>
           </Select>
+        </div>
+        <div className="flex justify-end">
+          <Button
+            disabled={isDetecting}
+            onClick={handleAutoDetectCurrency}
+            type="button"
+            variant="outline"
+          >
+            {isDetecting ? "Detecting..." : "Auto-detect currency"}
+          </Button>
         </div>
       </CardContent>
     </Card>

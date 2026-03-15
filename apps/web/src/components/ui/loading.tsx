@@ -29,21 +29,21 @@ function parseDurationToMS(duration: string, fallback: number): number {
 }
 
 function Loading({
-                   size,
-                   duration,
-                   className,
-                   type = "spinner",
-                   ...props
-                 }: LoadingProps) {
+  size,
+  duration,
+  className,
+  type = "spinner",
+  ...props
+}: LoadingProps) {
   if (type === "dots") {
     const durationMs = duration
       ? parseDurationToMS(duration, DEFAULT_DOTS_DURATION_MS)
       : DEFAULT_DOTS_DURATION_MS;
     return (
       <DotsLoading
-        size={size ?? 24}
         className={className}
         durationMs={durationMs}
+        size={size ?? 24}
         {...props}
       />
     );
@@ -54,9 +54,9 @@ function Loading({
     : DEFAULT_SPINNER_SEGMENT_MS;
   return (
     <AnimatedLoadingSpinner
-      size={size ?? 18}
-      segmentTimeInMS={segmentTimeInMS}
       className={cn("fill-current", className)}
+      segmentTimeInMS={segmentTimeInMS}
+      size={size ?? 18}
       {...props}
     />
   );
@@ -68,11 +68,11 @@ type DotsLoadingProps = SVGProps<SVGSVGElement> & {
 };
 
 const DotsLoading = ({
-                       size,
-                       className,
-                       durationMs,
-                       ...props
-                     }: DotsLoadingProps) => {
+  size,
+  className,
+  durationMs,
+  ...props
+}: DotsLoadingProps) => {
   const role = props.role ?? "status";
   const ariaLabel = props["aria-label"] ?? "Loading";
   const stagger = durationMs / 3;
@@ -80,15 +80,16 @@ const DotsLoading = ({
   return (
     <svg
       {...props}
-      role={role}
       aria-label={ariaLabel}
       className={cn("fill-current", className)}
-      width={size}
       height={size}
+      role={role}
       viewBox="0 0 24 24"
+      width={size}
       xmlns="http://www.w3.org/2000/svg"
     >
       <circle
+        className="motion-reduce:animate-none"
         cx="4"
         cy="12"
         r="3"
@@ -97,9 +98,9 @@ const DotsLoading = ({
           animationDelay: "0ms",
           transformOrigin: "center",
         }}
-        className="motion-reduce:animate-none"
       />
       <circle
+        className="motion-reduce:animate-none"
         cx="12"
         cy="12"
         r="3"
@@ -108,9 +109,9 @@ const DotsLoading = ({
           animationDelay: `${stagger}ms`,
           transformOrigin: "center",
         }}
-        className="motion-reduce:animate-none"
       />
       <circle
+        className="motion-reduce:animate-none"
         cx="20"
         cy="12"
         r="3"
@@ -119,7 +120,6 @@ const DotsLoading = ({
           animationDelay: `${stagger * 2}ms`,
           transformOrigin: "center",
         }}
-        className="motion-reduce:animate-none"
       />
     </svg>
   );

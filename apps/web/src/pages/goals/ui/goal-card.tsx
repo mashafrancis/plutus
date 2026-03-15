@@ -1,13 +1,6 @@
-import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { DotsThreeIcon, PlusIcon } from "@phosphor-icons/react";
+import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { useState } from "react";
-
-import { CompleteGoalMenuItem } from "@/features/complete-goal/ui/complete-goal-menu-item";
-import { DeleteGoalMenuItem } from "@/features/delete-goal/ui/delete-goal-menu-item";
-import { AddGoalProgressForm } from "@/features/update-goal-progress/ui/add-goal-progress-form";
-import { formatCurrency } from "@/shared/lib/format/currency";
-import { formatDate } from "@/shared/lib/format/date";
-import { formatPercent } from "@/shared/lib/format/percent";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +17,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Progress } from "@/components/ui/progress";
+import { CompleteGoalMenuItem } from "@/features/complete-goal/ui/complete-goal-menu-item";
+import { DeleteGoalMenuItem } from "@/features/delete-goal/ui/delete-goal-menu-item";
+import { AddGoalProgressForm } from "@/features/update-goal-progress/ui/add-goal-progress-form";
+import { formatCurrency } from "@/shared/lib/format/currency";
+import { formatDate } from "@/shared/lib/format/date";
+import { formatPercent } from "@/shared/lib/format/percent";
 
 interface GoalCardProps {
   goal: {
@@ -60,11 +59,13 @@ export function GoalCard({ goal, isCompleted = false }: GoalCardProps) {
           </div>
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button aria-label="Goal options" size="icon" variant="ghost">
-              <DotsThreeIcon weight="bold" aria-hidden />
-            </Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <Button aria-label="Goal options" size="icon" variant="ghost">
+                <DotsThreeIcon aria-hidden weight="bold" />
+              </Button>
+            }
+          />
           <DropdownMenuContent align="end">
             {!isCompleted && (
               <>
@@ -94,11 +95,7 @@ export function GoalCard({ goal, isCompleted = false }: GoalCardProps) {
           {!isCompleted && remaining > 0 && (
             <span>{formatCurrency(remaining, goal.currency)} to go</span>
           )}
-          {isCompleted && (
-            <Badge variant="default">
-              Completed
-            </Badge>
-          )}
+          {isCompleted && <Badge variant="default">Completed</Badge>}
         </div>
 
         {/* Add Progress Form */}

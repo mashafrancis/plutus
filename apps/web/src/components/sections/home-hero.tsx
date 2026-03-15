@@ -1,5 +1,5 @@
-import {useRef} from "react";
 import { Image } from "@unpic/react";
+import { useRef } from "react";
 
 export default function HomeHero() {
   const ref = useRef(null);

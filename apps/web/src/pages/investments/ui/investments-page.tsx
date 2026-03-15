@@ -4,12 +4,6 @@ import {
   PlusIcon,
   TrendUpIcon,
 } from "@phosphor-icons/react";
-
-import { useInvestmentsPortfolio } from "@/entities/investment/api/use-investments-portfolio";
-import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
-import { CreateInvestmentDialog } from "@/features/create-investment/ui/create-investment-dialog";
-import { formatCurrency } from "@/shared/lib/format/currency";
-import { formatPercent } from "@/shared/lib/format/percent";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,6 +13,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useInvestmentsPortfolio } from "@/entities/investment/api/use-investments-portfolio";
+import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
+import { CreateInvestmentDialog } from "@/features/create-investment/ui/create-investment-dialog";
+import { formatCurrency } from "@/shared/lib/format/currency";
+import { formatPercent } from "@/shared/lib/format/percent";
 
 import { InvestmentItem } from "./investment-item";
 
@@ -104,7 +103,10 @@ export function InvestmentsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="font-medium text-sm">Total Value</CardTitle>
-            <TrendUpIcon className="h-4 w-4 text-muted-foreground" weight="bold" />
+            <TrendUpIcon
+              className="h-4 w-4 text-muted-foreground"
+              weight="bold"
+            />
           </CardHeader>
           <CardContent>
             <div className="font-bold text-2xl">
@@ -172,7 +174,10 @@ export function InvestmentsPage() {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center py-12">
-              <TrendUpIcon className="h-12 w-12 text-muted-foreground" weight="bold" />
+              <TrendUpIcon
+                className="h-12 w-12 text-muted-foreground"
+                weight="bold"
+              />
               <p className="mt-4 text-muted-foreground">No investments yet</p>
               <CreateInvestmentDialog>
                 <Button className="mt-4" variant="outline">

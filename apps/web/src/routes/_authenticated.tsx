@@ -1,4 +1,7 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
+import { useMutation } from "convex/react";
+import { useEffect } from "react";
 import { requireAuth } from "@/shared/lib/auth/require-auth";
 
 import { Navbar } from "@/widgets/navbar/ui/navbar";
@@ -10,6 +13,17 @@ export const Route = createFileRoute("/_authenticated")({
 });
 
 function AuthenticatedLayout() {
+  const initializeBaseCurrencyFromLocale = useMutation(
+    api.userSettings.initializeBaseCurrencyFromLocale
+  );
+
+  useEffect(() => {
+    const locale = navigator.language;
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    void initializeBaseCurrencyFromLocale({ locale, timeZone });
+  }, [initializeBaseCurrencyFromLocale]);
+
   return (
     <div className="flex h-svh bg-muted/20">
       <Sidebar />

@@ -58,7 +58,7 @@ function createAuth(
 ) {
   const googleClientId = process.env.GOOGLE_CLIENT_ID;
   const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
-  if (!googleClientId || !googleClientSecret) {
+  if (!(googleClientId && googleClientSecret)) {
     throw new Error(
       "Google OAuth is required. Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in Convex env (npx convex env set GOOGLE_CLIENT_ID=... GOOGLE_CLIENT_SECRET=...)."
     );

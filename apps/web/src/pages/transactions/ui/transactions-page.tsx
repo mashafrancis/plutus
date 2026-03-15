@@ -1,14 +1,9 @@
 import {
   FunnelIcon,
-  PlusIcon,
   MagnifyingGlassIcon,
+  PlusIcon,
 } from "@phosphor-icons/react";
 import { useState } from "react";
-
-import { useAccountsList } from "@/entities/account/api/use-accounts-list";
-import { useCategoriesList } from "@/entities/category/api/use-categories-list";
-import { useTransactionsList } from "@/entities/transaction/api/use-transactions-list";
-import { CreateTransactionDialog } from "@/features/create-transaction/ui/create-transaction-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -27,6 +22,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useAccountsList } from "@/entities/account/api/use-accounts-list";
+import { useCategoriesList } from "@/entities/category/api/use-categories-list";
+import { useTransactionsList } from "@/entities/transaction/api/use-transactions-list";
+import { CreateTransactionDialog } from "@/features/create-transaction/ui/create-transaction-dialog";
 
 import { TransactionRow } from "./transaction-row";
 import { TransactionsTableSkeleton } from "./transactions-table-skeleton";
@@ -129,7 +128,10 @@ export function TransactionsPage() {
           </CardDescription>
           <div className="flex flex-wrap items-center gap-4 pt-4">
             <div className="relative flex-1">
-              <MagnifyingGlassIcon className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" weight="bold" />
+              <MagnifyingGlassIcon
+                className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+                weight="bold"
+              />
               <Input
                 className="pl-9"
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -154,7 +156,10 @@ export function TransactionsPage() {
           {!filteredTransactions && <TransactionsTableSkeleton />}
           {filteredTransactions && filteredTransactions.length === 0 && (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <FunnelIcon className="h-12 w-12 text-muted-foreground" weight="bold" />
+              <FunnelIcon
+                className="h-12 w-12 text-muted-foreground"
+                weight="bold"
+              />
               <p className="mt-4 text-muted-foreground">
                 No transactions found
               </p>

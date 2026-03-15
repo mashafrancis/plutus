@@ -1,9 +1,9 @@
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { AccountForm } from "@/features/update-settings/ui/account-form";
 import { CurrencyForm } from "@/features/update-settings/ui/currency-form";
 import { DashboardForm } from "@/features/update-settings/ui/dashboard-form";
 import { NotificationsForm } from "@/features/update-settings/ui/notifications-form";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export function SettingsPageSkeleton() {
   return (

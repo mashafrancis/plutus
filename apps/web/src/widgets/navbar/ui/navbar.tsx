@@ -1,5 +1,5 @@
-import { Link, useLocation } from "@tanstack/react-router";
 import { HouseIcon } from "@phosphor-icons/react";
+import { Link, useLocation } from "@tanstack/react-router";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -70,10 +70,12 @@ export function Navbar() {
             {breadcrumbs[0]?.path !== "/dashboard" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link aria-label="Go to dashboard" to="/dashboard">
-                      <HouseIcon weight="bold" aria-hidden />
-                    </Link>
+                  <BreadcrumbLink
+                    render={
+                      <Link aria-label="Go to dashboard" to="/dashboard" />
+                    }
+                  >
+                    <HouseIcon aria-hidden weight="bold" />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -87,8 +89,8 @@ export function Navbar() {
                 {segment.isCurrentPage ? (
                   <BreadcrumbPage>{segment.name}</BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink asChild>
-                    <Link to={segment.path}>{segment.name}</Link>
+                  <BreadcrumbLink render={<Link to={segment.path} />}>
+                    {segment.name}
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>

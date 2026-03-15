@@ -1,13 +1,9 @@
-import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import {
   CaretDownIcon,
   CaretUpIcon,
   DotsThreeIcon,
 } from "@phosphor-icons/react";
-
-import { DeleteInvestmentMenuItem } from "@/features/delete-investment/ui/delete-investment-menu-item";
-import { formatCurrency } from "@/shared/lib/format/currency";
-import { formatPercent } from "@/shared/lib/format/percent";
+import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +11,9 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DeleteInvestmentMenuItem } from "@/features/delete-investment/ui/delete-investment-menu-item";
+import { formatCurrency } from "@/shared/lib/format/currency";
+import { formatPercent } from "@/shared/lib/format/percent";
 
 interface InvestmentItemProps {
   investment: {
@@ -73,11 +72,17 @@ export function InvestmentItem({ investment }: InvestmentItemProps) {
           </p>
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button aria-label="Investment options" size="icon" variant="ghost">
-              <DotsThreeIcon weight="bold" aria-hidden />
-            </Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <Button
+                aria-label="Investment options"
+                size="icon"
+                variant="ghost"
+              >
+                <DotsThreeIcon aria-hidden weight="bold" />
+              </Button>
+            }
+          />
           <DropdownMenuContent align="end">
             <DeleteInvestmentMenuItem investmentId={investment.id} />
           </DropdownMenuContent>

@@ -1,10 +1,9 @@
+import { PlusIcon } from "@phosphor-icons/react";
 import { useForm } from "@tanstack/react-form";
 import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { Schema } from "effect";
-import { PlusIcon } from "@phosphor-icons/react";
-import { useState } from "react";
+import { isValidElement, useState } from "react";
 import { toast } from "sonner";
-import { useCreateSubscription } from "@/entities/subscription/api/use-create-subscription";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -24,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCreateSubscription } from "@/entities/subscription/api/use-create-subscription";
 import {
   FREQUENCIES,
   SubscriptionFormSchema,
@@ -40,6 +40,14 @@ export function CreateSubscriptionDialog({
 }) {
   const [open, setOpen] = useState(false);
   const createSubscription = useCreateSubscription();
+  const triggerRender = isValidElement(children) ? (
+    children
+  ) : (
+    <Button disabled={accounts.length === 0}>
+      <PlusIcon className="mr-2" data-icon="inline-start" />
+      Add Subscription
+    </Button>
+  );
 
   const form = useForm({
     defaultValues: {
@@ -63,7 +71,7 @@ export function CreateSubscriptionDialog({
           accountId: value.accountId as Id<"accounts">,
           categoryId: value.categoryId as Id<"categories">,
           amount: Number.parseFloat(value.amount),
-          currency: selectedAccount?.currency || "USD",
+          currency: selectedAccount?.currency || "KES",
           frequency: value.frequency,
           startDate: new Date(value.startDate).getTime(),
         });
@@ -81,14 +89,7 @@ export function CreateSubscriptionDialog({
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
-      <DialogTrigger asChild>
-        {children || (
-          <Button disabled={accounts.length === 0}>
-            <PlusIcon className="mr-2" data-icon="inline-start" />
-            Add Subscription
-          </Button>
-        )}
-      </DialogTrigger>
+      <DialogTrigger render={triggerRender} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Subscription</DialogTitle>

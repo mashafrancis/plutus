@@ -3,7 +3,7 @@
  */
 export function formatCurrency(
   amount: number,
-  currency = "USD",
+  currency = "KES",
   options?: Intl.NumberFormatOptions
 ): string {
   try {
@@ -18,7 +18,7 @@ export function formatCurrency(
     // Fallback if currency code is invalid
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "USD",
+      currency: "KES",
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
       ...options,

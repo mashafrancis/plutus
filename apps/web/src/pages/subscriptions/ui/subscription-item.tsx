@@ -1,10 +1,5 @@
-import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { CalendarIcon, DotsThreeIcon } from "@phosphor-icons/react";
-
-import { DeleteSubscriptionMenuItem } from "@/features/delete-subscription/ui/delete-subscription-menu-item";
-import { ManageSubscriptionStatusMenuItems } from "@/features/manage-subscription-status/ui/manage-subscription-status-menu-items";
-import { formatCurrency } from "@/shared/lib/format/currency";
-import { formatDate } from "@/shared/lib/format/date";
+import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +7,10 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DeleteSubscriptionMenuItem } from "@/features/delete-subscription/ui/delete-subscription-menu-item";
+import { ManageSubscriptionStatusMenuItems } from "@/features/manage-subscription-status/ui/manage-subscription-status-menu-items";
+import { formatCurrency } from "@/shared/lib/format/currency";
+import { formatDate } from "@/shared/lib/format/date";
 
 type SubscriptionStatus = "active" | "paused" | "cancelled";
 
@@ -65,11 +64,17 @@ export function SubscriptionItem({ subscription }: SubscriptionItemProps) {
         </div>
       </div>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button aria-label="Subscription options" size="icon" variant="ghost">
-            <DotsThreeIcon weight="bold" aria-hidden />
-          </Button>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger
+          render={
+            <Button
+              aria-label="Subscription options"
+              size="icon"
+              variant="ghost"
+            >
+              <DotsThreeIcon aria-hidden weight="bold" />
+            </Button>
+          }
+        />
         <DropdownMenuContent align="end">
           <ManageSubscriptionStatusMenuItems
             status={subscription.status}

@@ -1,17 +1,13 @@
-import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
-import type { Doc } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
-import { useMutation } from "convex/react";
 import {
   ArchiveIcon,
   ArrowCounterClockwiseIcon,
   CreditCardIcon,
   DotsThreeIcon,
 } from "@phosphor-icons/react";
+import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
+import type { Doc } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
+import { useMutation } from "convex/react";
 import { toast } from "sonner";
-
-import { ACCOUNT_TYPES } from "@/entities/account/config/account-types";
-import { DeleteAccountMenuItem } from "@/features/delete-account/ui/delete-account-menu-item";
-import { formatCurrency } from "@/shared/lib/format/currency";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -26,6 +22,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ACCOUNT_TYPES } from "@/entities/account/config/account-types";
+import { DeleteAccountMenuItem } from "@/features/delete-account/ui/delete-account-menu-item";
+import { formatCurrency } from "@/shared/lib/format/currency";
 
 interface AccountCardProps {
   account: Doc<"accounts">;
@@ -72,20 +71,22 @@ export function AccountCard({ account, isArchived = false }: AccountCardProps) {
           </div>
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button aria-label="Account options" size="icon" variant="ghost">
-              <DotsThreeIcon weight="bold" aria-hidden />
-            </Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <Button aria-label="Account options" size="icon" variant="ghost">
+                <DotsThreeIcon aria-hidden weight="bold" />
+              </Button>
+            }
+          />
           <DropdownMenuContent align="end">
             {isArchived ? (
               <DropdownMenuItem onClick={handleUnarchive}>
-                <ArrowCounterClockwiseIcon weight="bold" className="mr-2" />
+                <ArrowCounterClockwiseIcon className="mr-2" weight="bold" />
                 Restore
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem onClick={handleArchive}>
-                <ArchiveIcon weight="bold" className="mr-2" />
+                <ArchiveIcon className="mr-2" weight="bold" />
                 Archive
               </DropdownMenuItem>
             )}

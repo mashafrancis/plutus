@@ -1,5 +1,3 @@
-import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
-import { useMutation } from "convex/react";
 import {
   ArrowDownRightIcon,
   ArrowUpRightIcon,
@@ -8,9 +6,19 @@ import {
   TrendUpIcon,
   WalletIcon,
 } from "@phosphor-icons/react";
+import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
+import { useMutation } from "convex/react";
 import { useEffect, useState } from "react";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useDashboardSummary } from "@/entities/dashboard/api/use-dashboard-summary";
 import {
   getTransactionBgClass,
@@ -21,15 +29,6 @@ import { useUserSettings } from "@/entities/user-settings/api/use-user-settings"
 import { formatCurrency } from "@/shared/lib/format/currency";
 import { formatDate } from "@/shared/lib/format/date";
 import { formatPercent } from "@/shared/lib/format/percent";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Skeleton } from "@/components/ui/skeleton";
 import { OnboardingWizard } from "@/widgets/onboarding-wizard/ui/onboarding-wizard";
 
 export function DashboardPageSkeleton() {
@@ -191,7 +190,10 @@ export function DashboardPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="font-medium text-sm">Net Change</CardTitle>
-              <TrendUpIcon className="h-4 w-4 text-muted-foreground" weight="bold" />
+              <TrendUpIcon
+                className="h-4 w-4 text-muted-foreground"
+                weight="bold"
+              />
             </CardHeader>
             <CardContent>
               <div
@@ -387,7 +389,10 @@ export function DashboardPage() {
                   {summary.upcomingSubscriptions.map((sub) => (
                     <div className="flex items-center gap-4" key={sub._id}>
                       <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
-                        <CurrencyDollarIcon className="h-4 w-4 text-primary" weight="bold" />
+                        <CurrencyDollarIcon
+                          className="h-4 w-4 text-primary"
+                          weight="bold"
+                        />
                       </div>
                       <div className="flex-1">
                         <p className="font-medium text-sm">{sub.name}</p>

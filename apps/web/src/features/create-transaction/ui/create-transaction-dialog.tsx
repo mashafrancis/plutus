@@ -1,10 +1,10 @@
+import { PlusIcon } from "@phosphor-icons/react";
 import { useForm, useStore } from "@tanstack/react-form";
 import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
 import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
 import { Schema } from "effect";
-import { PlusIcon } from "@phosphor-icons/react";
-import { useState } from "react";
+import { isValidElement, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,6 +46,14 @@ export function CreateTransactionDialog({
 }: CreateTransactionDialogProps) {
   const [open, setOpen] = useState(false);
   const createTransaction = useMutation(api.transactions.create);
+  const triggerRender = isValidElement(children) ? (
+    children
+  ) : (
+    <Button disabled={accounts.length === 0}>
+      <PlusIcon className="mr-2" data-icon="inline-start" />
+      Add Transaction
+    </Button>
+  );
 
   const form = useForm({
     defaultValues: {
@@ -65,7 +73,7 @@ export function CreateTransactionDialog({
           categoryId: value.categoryId as Id<"categories">,
           type: value.type,
           amount: Number.parseFloat(value.amount),
-          currency: selectedAccount?.currency || "USD",
+          currency: selectedAccount?.currency || "KES",
           description: value.description,
           date: new Date(value.date).getTime(),
           ...(value.type === "transfer" &&
@@ -100,14 +108,7 @@ export function CreateTransactionDialog({
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
-      <DialogTrigger asChild>
-        {children || (
-          <Button disabled={accounts.length === 0}>
-            <PlusIcon className="mr-2" data-icon="inline-start" />
-            Add Transaction
-          </Button>
-        )}
-      </DialogTrigger>
+      <DialogTrigger render={triggerRender} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Transaction</DialogTitle>

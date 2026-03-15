@@ -1,10 +1,9 @@
+import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
 import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
-import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useAccountsList } from "@/entities/account/api/use-accounts-list";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useAccountsList } from "@/entities/account/api/use-accounts-list";
 
 const ACCOUNT_TYPES = [
   { value: "checking", label: "Checking" },
@@ -25,6 +25,7 @@ const ACCOUNT_TYPES = [
 ] as const;
 
 const CURRENCIES = [
+  { value: "KES", label: "KES (KSh)" },
   { value: "USD", label: "USD ($)" },
   { value: "EUR", label: "EUR (€)" },
   { value: "GBP", label: "GBP (£)" },
@@ -38,7 +39,7 @@ export default function StepAccounts() {
 
   const [name, setName] = useState("");
   const [type, setType] = useState("checking");
-  const [currency, setCurrency] = useState("USD");
+  const [currency, setCurrency] = useState("KES");
   const [balance, setBalance] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
@@ -188,7 +189,7 @@ export default function StepAccounts() {
                   size="icon"
                   variant="ghost"
                 >
-                  <TrashIcon weight="bold" aria-hidden />
+                  <TrashIcon aria-hidden weight="bold" />
                 </Button>
               </div>
             ))}

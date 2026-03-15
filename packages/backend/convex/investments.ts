@@ -2,7 +2,7 @@ import { v } from "convex/values";
 import { Effect } from "effect";
 import type { Doc, Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server";
-import { convertCurrency } from "./lib/currency";
+import { convertCurrency, DEFAULT_BASE_CURRENCY } from "./lib/currency";
 import { startOfDay } from "./lib/dates";
 import { Policies } from "./lib/policies";
 import { runWithEffect } from "./lib/runtime";
@@ -336,7 +336,7 @@ export const getPortfolioSummary = query({
       ctx,
       Effect.gen(function* () {
         const user = yield* Policies.orFail(Policies.requireSignedIn);
-        const baseCurrency = args.baseCurrency ?? "USD";
+        const baseCurrency = args.baseCurrency ?? DEFAULT_BASE_CURRENCY;
 
         const investments = yield* Effect.tryPromise({
           try: () =>

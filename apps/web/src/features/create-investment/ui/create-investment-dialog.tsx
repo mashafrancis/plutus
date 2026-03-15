@@ -1,11 +1,8 @@
-import { useForm } from "@tanstack/react-form";
-
-import { Schema } from "effect";
 import { PlusIcon } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useForm } from "@tanstack/react-form";
+import { Schema } from "effect";
+import { isValidElement, useState } from "react";
 import { toast } from "sonner";
-
-import { useCreateInvestment } from "@/entities/investment/api/use-create-investment";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -25,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCreateInvestment } from "@/entities/investment/api/use-create-investment";
 import {
   CURRENCIES,
   INVESTMENT_TYPES,
@@ -38,6 +36,14 @@ export function CreateInvestmentDialog({
 }) {
   const [open, setOpen] = useState(false);
   const createInvestment = useCreateInvestment();
+  const triggerRender = isValidElement(children) ? (
+    children
+  ) : (
+    <Button>
+      <PlusIcon className="mr-2" data-icon="inline-start" />
+      Add Investment
+    </Button>
+  );
 
   const form = useForm({
     defaultValues: {
@@ -54,7 +60,7 @@ export function CreateInvestmentDialog({
       quantity: "",
       purchasePrice: "",
       currentPrice: "",
-      currency: "USD",
+      currency: "KES",
       purchaseDate: new Date().toISOString().split("T")[0],
     },
     onSubmit: async ({ value }) => {
@@ -85,14 +91,7 @@ export function CreateInvestmentDialog({
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
-      <DialogTrigger asChild>
-        {children || (
-          <Button>
-            <PlusIcon className="mr-2" data-icon="inline-start" />
-            Add Investment
-          </Button>
-        )}
-      </DialogTrigger>
+      <DialogTrigger render={triggerRender} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Investment</DialogTitle>

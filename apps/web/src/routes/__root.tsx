@@ -1,3 +1,4 @@
+import { Databuddy } from "@databuddy/sdk/react";
 import {
   createRootRouteWithContext,
   HeadContent,
@@ -12,10 +13,9 @@ import { IconProvider } from "@/app/providers/icon-provider";
 import { QueryProvider } from "@/app/providers/query-provider";
 import appCss from "@/app/styles/index.css?url";
 import type { RouterAppContext } from "@/app/types/router-app-context";
-import { getToken } from "@/shared/config/auth-server";
 import { Toaster } from "@/components/ui/sonner";
-import { Databuddy } from "@databuddy/sdk/react";
-import { op } from '@/lib/op';
+import { op } from "@/lib/op";
+import { getToken } from "@/shared/config/auth-server";
 
 const databuddyId = import.meta.env.VITE_DATABUDDY_CLIENT_ID;
 
@@ -105,9 +105,7 @@ function RootDocument() {
               <Outlet />
               <Toaster richColors />
               <Databuddy
-                clientId={
-                  databuddyId
-                }
+                clientId={databuddyId}
                 enableBatching={true}
                 trackAttributes={true}
                 // trackBounceRate={true}

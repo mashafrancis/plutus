@@ -1,10 +1,10 @@
-import type React from "react";
 import { Link } from "@tanstack/react-router";
 import { Authenticated, Unauthenticated } from "convex/react";
+import type React from "react";
 
 import SectionContainer from "@/components/section-container";
-import {buttonVariants} from "@/components/ui/button";
-import {cn} from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type Props = {
   h1: string | React.ReactNode;

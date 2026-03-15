@@ -26,9 +26,11 @@ function HighlightItem({ highlight }: { highlight: Highlight }) {
 
   return (
     <div className="flex flex-col">
-      <div className="relative mb-4 w-full">{Img ? <Img /> : highlight.svg}</div>
+      <div className="relative mb-4 w-full">
+        {Img ? <Img /> : highlight.svg}
+      </div>
       <div className="flex flex-col gap-2">
-        <h3 className="text-lg text-foreground">{highlight.title}</h3>
+        <h3 className="text-foreground text-lg">{highlight.title}</h3>
         <p className="text-muted-foreground">{highlight.paragraph}</p>
       </div>
     </div>

@@ -1,14 +1,13 @@
 import { CheckIcon, PlusIcon, TargetIcon } from "@phosphor-icons/react";
 import { useState } from "react";
-
-import { useGoalsList } from "@/entities/goal/api/use-goals-list";
-import { CreateGoalDialog } from "@/features/create-goal/ui/create-goal-dialog";
-import { formatCurrency } from "@/shared/lib/format/currency";
-import { formatPercent } from "@/shared/lib/format/percent";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useGoalsList } from "@/entities/goal/api/use-goals-list";
+import { CreateGoalDialog } from "@/features/create-goal/ui/create-goal-dialog";
+import { formatCurrency } from "@/shared/lib/format/currency";
+import { formatPercent } from "@/shared/lib/format/percent";
 
 import { GoalCard } from "./goal-card";
 
