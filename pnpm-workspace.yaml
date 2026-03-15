@@ -1,13 +1,13 @@
-configDependencies:
-  '@pnpm/plugin-types-fixer': 0.1.0+sha512-bLww63gRHi7siYTqFJb5qNdcXadU0jv20Et6z5AryMZ7FlLolbEJOrXLpg8+amQZNHHNW1dfFUBGVw/9ezQbFg==
-
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - '@prisma/client'
-  - '@prisma/engines'
-  - '@sentry/cli'
-  - '@tailwindcss/oxide'
-  - '@vercel/speed-insights'
-  - esbuild
-  - prisma
-  - sharp
+packages:
+  - apps/*
+  - packages/*
+catalog:
+  dotenv: ^17.3.1
+  typescript: ^5.9.3
+  convex: ^1.33.1
+  better-auth: 1.4.9
+  "@convex-dev/better-auth": ^0.11.1
+  "@types/node": ^25.5.0
+  "effect": "^3.19.19"
+  "@effect/language-service": "^0.80.0"
+  zod: ^4.3.6

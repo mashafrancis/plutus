@@ -1,0 +1,95 @@
+@font-face {
+  font-family: "plutus-mono";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../fonts/mxl-mono-light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "plutus-mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/mxl-mono-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "plutus-mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/mxl-mono-medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "plutus-mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/mxl-mono-semibold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "plutus-mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/mxl-mono-bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "plutus-sans";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("../fonts/mxl-sans-thin.woff") format("woff");
+}
+
+@font-face {
+  font-family: "plutus-sans";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../fonts/mxl-sans-light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "plutus-sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/mxl-sans-regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "plutus-sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/mxl-sans-medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "plutus-sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/mxl-sans-medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "plutus-sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/mxl-sans-bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "plutus-sans";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("../fonts/mxl-sans-black.woff") format("woff");
+}
