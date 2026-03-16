@@ -7,7 +7,7 @@
   ],
   "type": "module",
   "scripts": {
-    "format": "pnpm dlx ultracite fix",
+    "format": "vp fmt",
     "prepare": "vp config",
     "dev": "turbo dev",
     "build": "turbo build",
