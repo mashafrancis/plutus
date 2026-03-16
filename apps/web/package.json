@@ -5,8 +5,8 @@
   "scripts": {
     "build": "vite build && cp instrument.server.mjs .output/server",
     "serve": "vite preview",
-    "dev": "node ./scripts/wait-for-convex.mjs && NODE_OPTIONS='--import ./instrument.server.mjs' vite dev --port 3000",
-    "start": "node --import ./.output/server/instrument.server.mjs .output/server/index.mjs",
+    "dev": "node ./scripts/wait-for-convex.mjs && vite dev --port 3000",
+    "start": "node .output/server/index.mjs",
     "check-types": "tsc --noEmit",
     "prepare": "effect-language-service patch"
   },

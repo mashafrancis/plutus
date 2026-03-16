@@ -16,6 +16,8 @@ import type { RouterAppContext } from "@/app/types/router-app-context";
 import { Toaster } from "@/components/ui/sonner";
 import { op } from "@/lib/op";
 import { getToken } from "@/shared/config/auth-server";
+import {useEffect} from "react";
+import * as Sentry from "@sentry/tanstackstart-react";
 
 const databuddyId = import.meta.env.VITE_DATABUDDY_CLIENT_ID;
 
@@ -143,6 +145,15 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
       token,
     };
   },
+  errorComponent: ({ error }) => {
+    useEffect(() => {
+      Sentry.captureException(error)
+    }, [error])
+
+    return (
+      <div>{`Error occurred: ${error.message}`}</div>
+    )
+  }
 });
 
 function RootDocument() {
