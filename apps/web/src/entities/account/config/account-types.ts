@@ -1,9 +1,4 @@
-import {
-  CreditCardIcon,
-  PiggyBankIcon,
-  TrendUpIcon,
-  WalletIcon,
-} from "@phosphor-icons/react";
+import { CreditCardIcon, PiggyBankIcon, TrendUpIcon, WalletIcon } from "@phosphor-icons/react";
 import type { AccountType } from "../types/account-id";
 
 export const ACCOUNT_TYPES: {

@@ -22,10 +22,8 @@ type Policy<O = UserSession, E = ForbiddenError, R = never> = Effect.Effect<
  */
 const policy = <O, E = never, R = never>(
   predicate: (
-    session: CurrentSession["Type"]
-  ) =>
-    | Either.Either<O, ForbiddenError>
-    | Effect.Effect<Either.Either<O, ForbiddenError>, E, R>
+    session: CurrentSession["Type"],
+  ) => Either.Either<O, ForbiddenError> | Effect.Effect<Either.Either<O, ForbiddenError>, E, R>,
 ): Policy<O, E, R> =>
   Effect.flatMap(CurrentSession, (session) => {
     const result = predicate(session);
@@ -45,7 +43,7 @@ const policy = <O, E = never, R = never>(
         }
         return Effect.fail(error);
       }),
-      Effect.map((either) => either)
+      Effect.map((either) => either),
     );
   });
 
@@ -77,8 +75,7 @@ const allow = <T>(value: T) => Either.right(value);
  *   return deny('Calendar not found')
  * }
  */
-const deny = (reason?: string) =>
-  Either.left(new ForbiddenError({ message: reason }));
+const deny = (reason?: string) => Either.left(new ForbiddenError({ message: reason }));
 
 /**
  * Converts a policy Either into a throwing Effect.
@@ -89,21 +86,20 @@ const deny = (reason?: string) =>
  * const session = yield* Policies.orFail(requireRegularUser)
  */
 const orFail = <O, E, R>(
-  policy: Policy<O, E, R>
+  policy: Policy<O, E, R>,
 ): Effect.Effect<O, ForbiddenError | E, CurrentSession | R> =>
   Effect.flatMap(
     policy,
     Either.match({
       onLeft: (error) => Effect.fail(error),
       onRight: (value) => Effect.succeed(value),
-    })
+    }),
   );
 
 // CUSTOM POLICIES
 
-const require = <T extends UserSession>(
-  guard: (session: UserSession) => session is T
-) => policy((session) => (guard(session) ? allow(session) : deny()));
+const require = <T extends UserSession>(guard: (session: UserSession) => session is T) =>
+  policy((session) => (guard(session) ? allow(session) : deny()));
 
 function isSignedOut(session: UserSession): session is null {
   return session === null;

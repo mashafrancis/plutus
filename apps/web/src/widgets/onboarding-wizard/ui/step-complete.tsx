@@ -9,10 +9,7 @@ interface StepCompleteProps {
   onPrevious?: () => void;
 }
 
-export default function StepComplete({
-  onNext,
-  onPrevious,
-}: StepCompleteProps) {
+export default function StepComplete({ onNext, onPrevious }: StepCompleteProps) {
   const { data: accounts } = useAccountsList();
   const { data: categories } = useCategoriesList();
   const { data: transactions } = useTransactionsList();

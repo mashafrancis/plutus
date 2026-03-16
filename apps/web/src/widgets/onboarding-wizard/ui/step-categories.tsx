@@ -99,8 +99,7 @@ export default function StepCategories() {
       <div>
         <h3 className="font-semibold text-lg">Customize your categories</h3>
         <p className="text-muted-foreground text-sm">
-          We've added some default categories. You can add your own custom ones
-          too.
+          We've added some default categories. You can add your own custom ones too.
         </p>
       </div>
 
@@ -182,9 +181,7 @@ export default function StepCategories() {
               {COLOR_OPTIONS.map((c) => (
                 <button
                   className={`h-10 w-10 rounded-md border-2 transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 ${
-                    color === c
-                      ? "scale-110 border-foreground"
-                      : "border-transparent"
+                    color === c ? "scale-110 border-foreground" : "border-transparent"
                   }`}
                   key={c}
                   onClick={() => setColor(c)}

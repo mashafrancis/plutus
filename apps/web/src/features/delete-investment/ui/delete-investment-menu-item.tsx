@@ -8,9 +8,7 @@ interface DeleteInvestmentMenuItemProps {
   investmentId: InvestmentId;
 }
 
-export function DeleteInvestmentMenuItem({
-  investmentId,
-}: DeleteInvestmentMenuItemProps) {
+export function DeleteInvestmentMenuItem({ investmentId }: DeleteInvestmentMenuItemProps) {
   const deleteInvestment = useDeleteInvestment();
 
   const handleDelete = async (e: React.MouseEvent) => {
@@ -26,10 +24,7 @@ export function DeleteInvestmentMenuItem({
   };
 
   return (
-    <DropdownMenuItem
-      className="text-destructive focus:text-destructive"
-      onClick={handleDelete}
-    >
+    <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={handleDelete}>
       <TrashIcon className="mr-2" weight="bold" />
       Delete
     </DropdownMenuItem>

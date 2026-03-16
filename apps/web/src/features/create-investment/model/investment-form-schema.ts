@@ -1,29 +1,17 @@
 import { Schema } from "effect";
 
 export const InvestmentFormSchema = Schema.Struct({
-  name: Schema.String.pipe(
-    Schema.minLength(1, { message: () => "Name is required" })
-  ),
-  type: Schema.Literal(
-    "stock",
-    "etf",
-    "crypto",
-    "mutual_fund",
-    "bond",
-    "real_estate",
-    "other"
-  ),
+  name: Schema.String.pipe(Schema.minLength(1, { message: () => "Name is required" })),
+  type: Schema.Literal("stock", "etf", "crypto", "mutual_fund", "bond", "real_estate", "other"),
   symbol: Schema.String,
-  quantity: Schema.String.pipe(
-    Schema.minLength(1, { message: () => "Quantity is required" })
-  ),
+  quantity: Schema.String.pipe(Schema.minLength(1, { message: () => "Quantity is required" })),
   purchasePrice: Schema.String.pipe(
-    Schema.minLength(1, { message: () => "Purchase price is required" })
+    Schema.minLength(1, { message: () => "Purchase price is required" }),
   ),
   currentPrice: Schema.String,
   currency: Schema.String,
   purchaseDate: Schema.String.pipe(
-    Schema.minLength(1, { message: () => "Purchase date is required" })
+    Schema.minLength(1, { message: () => "Purchase date is required" }),
   ),
 });
 

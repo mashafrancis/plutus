@@ -1,12 +1,6 @@
 import { GearIcon as SettingsIcon } from "@phosphor-icons/react";
 import { toast } from "sonner";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -70,9 +64,7 @@ export function DashboardForm() {
               value: r.value.toString(),
               label: r.label,
             }))}
-            onValueChange={(val: string | null) =>
-              val && handleDateRangeChange(val)
-            }
+            onValueChange={(val: string | null) => val && handleDateRangeChange(val)}
             value={settings.dashboardDateRange.toString()}
           >
             <SelectTrigger className="w-[200px]">

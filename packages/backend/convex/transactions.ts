@@ -14,9 +14,7 @@ export const list = query({
     categoryId: v.optional(v.id("categories")),
     startDate: v.optional(v.number()),
     endDate: v.optional(v.number()),
-    type: v.optional(
-      v.union(v.literal("expense"), v.literal("income"), v.literal("transfer"))
-    ),
+    type: v.optional(v.union(v.literal("expense"), v.literal("income"), v.literal("transfer"))),
   },
   handler: (ctx, args): Promise<Doc<"transactions">[]> =>
     runWithEffect(
@@ -30,13 +28,8 @@ export const list = query({
               .query("transactions")
               .withIndex("by_userId_date", (q) => {
                 const range = q.eq("userId", user.subject);
-                if (
-                  args.startDate !== undefined &&
-                  args.endDate !== undefined
-                ) {
-                  return range
-                    .gte("date", args.startDate)
-                    .lte("date", args.endDate);
+                if (args.startDate !== undefined && args.endDate !== undefined) {
+                  return range.gte("date", args.startDate).lte("date", args.endDate);
                 }
                 if (args.startDate !== undefined) {
                   return range.gte("date", args.startDate);
@@ -53,14 +46,10 @@ export const list = query({
 
         // Apply additional filters
         if (args.accountId) {
-          transactions = transactions.filter(
-            (t) => t.accountId === args.accountId
-          );
+          transactions = transactions.filter((t) => t.accountId === args.accountId);
         }
         if (args.categoryId) {
-          transactions = transactions.filter(
-            (t) => t.categoryId === args.categoryId
-          );
+          transactions = transactions.filter((t) => t.categoryId === args.categoryId);
         }
         if (args.type) {
           transactions = transactions.filter((t) => t.type === args.type);
@@ -71,7 +60,7 @@ export const list = query({
         }
 
         return transactions;
-      })
+      }),
     ),
 });
 
@@ -93,7 +82,7 @@ export const get = query({
         }
 
         return transaction;
-      })
+      }),
     ),
 });
 
@@ -101,11 +90,7 @@ export const create = mutation({
   args: {
     accountId: v.id("accounts"),
     categoryId: v.id("categories"),
-    type: v.union(
-      v.literal("expense"),
-      v.literal("income"),
-      v.literal("transfer")
-    ),
+    type: v.union(v.literal("expense"), v.literal("income"), v.literal("transfer")),
     amount: v.number(),
     currency: v.string(),
     description: v.string(),
@@ -135,7 +120,7 @@ export const create = mutation({
           ctx,
           args.amount,
           args.currency,
-          account.currency
+          account.currency,
         );
 
         // Insert transaction
@@ -159,8 +144,7 @@ export const create = mutation({
         });
 
         // Update account balance
-        const balanceAdjustment =
-          args.type === "income" ? convertedAmount : -convertedAmount;
+        const balanceAdjustment = args.type === "income" ? convertedAmount : -convertedAmount;
 
         yield* Effect.tryPromise({
           try: () =>
@@ -183,7 +167,7 @@ export const create = mutation({
               ctx,
               args.amount,
               args.currency,
-              toAccount.currency
+              toAccount.currency,
             );
 
             yield* Effect.tryPromise({
@@ -210,7 +194,7 @@ export const create = mutation({
         });
 
         return transactionId;
-      })
+      }),
     ),
 });
 
@@ -253,7 +237,7 @@ export const update = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -309,7 +293,7 @@ export const remove = mutation({
               ctx,
               transaction.amount,
               transaction.currency,
-              toAccount.currency
+              toAccount.currency,
             );
 
             yield* Effect.tryPromise({
@@ -342,7 +326,7 @@ export const remove = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -363,6 +347,6 @@ export const getRecent = query({
               .take(args.limit ?? 10),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });

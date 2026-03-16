@@ -6,12 +6,7 @@ import { cn } from "@/lib/utils";
 
 function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
   return (
-    <nav
-      aria-label="breadcrumb"
-      className={cn(className)}
-      data-slot="breadcrumb"
-      {...props}
-    />
+    <nav aria-label="breadcrumb" className={cn(className)} data-slot="breadcrumb" {...props} />
   );
 }
 
@@ -20,7 +15,7 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
     <ol
       className={cn(
         "wrap-break-word flex flex-wrap items-center gap-1.5 text-muted-foreground text-sm",
-        className
+        className,
       )}
       data-slot="breadcrumb-list"
       {...props}
@@ -38,18 +33,14 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
   );
 }
 
-function BreadcrumbLink({
-  className,
-  render,
-  ...props
-}: useRender.ComponentProps<"a">) {
+function BreadcrumbLink({ className, render, ...props }: useRender.ComponentProps<"a">) {
   return useRender({
     defaultTagName: "a",
     props: mergeProps<"a">(
       {
         className: cn("transition-colors hover:text-foreground", className),
       },
-      props
+      props,
     ),
     render,
     state: {
@@ -71,11 +62,7 @@ function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
   );
 }
 
-function BreadcrumbSeparator({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"li">) {
+function BreadcrumbSeparator({ children, className, ...props }: React.ComponentProps<"li">) {
   return (
     <li
       aria-hidden="true"
@@ -89,17 +76,11 @@ function BreadcrumbSeparator({
   );
 }
 
-function BreadcrumbEllipsis({
-  className,
-  ...props
-}: React.ComponentProps<"span">) {
+function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       aria-hidden="true"
-      className={cn(
-        "flex size-5 items-center justify-center [&>svg]:size-4",
-        className
-      )}
+      className={cn("flex size-5 items-center justify-center [&>svg]:size-4", className)}
       data-slot="breadcrumb-ellipsis"
       role="presentation"
       {...props}

@@ -9,11 +9,7 @@ import {
   WalletIcon,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useActivitiesGet } from "@/entities/activity/api/use-activities-get";
 import { formatRelativeDate } from "@/shared/lib/format/date";
@@ -113,14 +109,8 @@ export function ActivityPopover() {
             return (
               <div className="flex flex-col">
                 {activities.map((activity) => {
-                  const Icon = getActivityIcon(
-                    activity.type,
-                    activity.entityType
-                  );
-                  const colorClass = getActivityColor(
-                    activity.type,
-                    activity.entityType
-                  );
+                  const Icon = getActivityIcon(activity.type, activity.entityType);
+                  const colorClass = getActivityColor(activity.type, activity.entityType);
 
                   return (
                     <div

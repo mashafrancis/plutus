@@ -8,9 +8,7 @@ interface DeleteAccountMenuItemProps {
   accountId: AccountId;
 }
 
-export function DeleteAccountMenuItem({
-  accountId,
-}: DeleteAccountMenuItemProps) {
+export function DeleteAccountMenuItem({ accountId }: DeleteAccountMenuItemProps) {
   const deleteAccount = useDeleteAccount();
 
   const handleDelete = async (e: React.MouseEvent) => {
@@ -26,10 +24,7 @@ export function DeleteAccountMenuItem({
   };
 
   return (
-    <DropdownMenuItem
-      className="text-destructive focus:text-destructive"
-      onClick={handleDelete}
-    >
+    <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={handleDelete}>
       <TrashIcon className="mr-2" weight="bold" />
       Delete
     </DropdownMenuItem>

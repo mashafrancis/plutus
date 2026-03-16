@@ -9,9 +9,7 @@ interface DeleteTransactionButtonProps {
   transactionId: Id<"transactions">;
 }
 
-export function DeleteTransactionButton({
-  transactionId,
-}: DeleteTransactionButtonProps) {
+export function DeleteTransactionButton({ transactionId }: DeleteTransactionButtonProps) {
   const removeTransaction = useMutation(api.transactions.remove);
 
   const handleDelete = async () => {
@@ -24,10 +22,7 @@ export function DeleteTransactionButton({
   };
 
   return (
-    <DropdownMenuItem
-      className="text-destructive focus:text-destructive"
-      onClick={handleDelete}
-    >
+    <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={handleDelete}>
       <TrashIcon className="mr-2" weight="bold" />
       Delete
     </DropdownMenuItem>

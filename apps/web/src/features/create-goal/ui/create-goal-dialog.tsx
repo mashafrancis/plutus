@@ -43,13 +43,9 @@ export function CreateGoalDialog({ children }: { children?: React.ReactNode }) {
         await createGoal({
           name: value.name,
           targetAmount: Number.parseFloat(value.targetAmount),
-          currentAmount: value.currentAmount
-            ? Number.parseFloat(value.currentAmount)
-            : undefined,
+          currentAmount: value.currentAmount ? Number.parseFloat(value.currentAmount) : undefined,
           currency: "KES",
-          targetDate: value.targetDate
-            ? new Date(value.targetDate).getTime()
-            : undefined,
+          targetDate: value.targetDate ? new Date(value.targetDate).getTime() : undefined,
           icon: value.icon || undefined,
         });
         toast.success("Goal created");
@@ -70,9 +66,7 @@ export function CreateGoalDialog({ children }: { children?: React.ReactNode }) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create Goal</DialogTitle>
-          <DialogDescription>
-            Set a new financial goal to track.
-          </DialogDescription>
+          <DialogDescription>Set a new financial goal to track.</DialogDescription>
         </DialogHeader>
         <form
           className="flex flex-col gap-4"
@@ -144,10 +138,7 @@ export function CreateGoalDialog({ children }: { children?: React.ReactNode }) {
                     value={field.state.value}
                   />
                   {field.state.meta.errors.map((error) => (
-                    <p
-                      className="text-destructive text-sm"
-                      key={error?.message}
-                    >
+                    <p className="text-destructive text-sm" key={error?.message}>
                       {error?.message}
                     </p>
                   ))}
@@ -190,11 +181,7 @@ export function CreateGoalDialog({ children }: { children?: React.ReactNode }) {
           </form.Field>
 
           <DialogFooter>
-            <Button
-              onClick={() => setOpen(false)}
-              type="button"
-              variant="outline"
-            >
+            <Button onClick={() => setOpen(false)} type="button" variant="outline">
               Cancel
             </Button>
             <form.Subscribe>

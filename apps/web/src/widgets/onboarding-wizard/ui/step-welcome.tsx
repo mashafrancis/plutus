@@ -16,8 +16,8 @@ export default function StepWelcome({ onNext, onSkip }: StepWelcomeProps) {
       <div className="flex flex-col gap-2">
         <h2 className="font-bold text-3xl">Welcome to Plutus!</h2>
         <p className="mx-auto max-w-md text-muted-foreground">
-          Let's get you set up in just a few minutes. We'll help you add your
-          accounts, customize categories, and start tracking your finances.
+          Let's get you set up in just a few minutes. We'll help you add your accounts, customize
+          categories, and start tracking your finances.
         </p>
       </div>
 

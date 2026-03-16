@@ -1,9 +1,4 @@
-import {
-  ArchiveIcon,
-  BankIcon,
-  PlusIcon,
-  WalletIcon,
-} from "@phosphor-icons/react";
+import { ArchiveIcon, BankIcon, PlusIcon, WalletIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,7 +34,7 @@ export function AccountsPageSkeleton() {
       <div>
         <Skeleton className="mb-4 h-6 w-40" />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {[...new Array(3)].map((_, i) => (
+          {new Array(3).fill().map((_, i) => (
             <Card key={i}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <div className="flex items-center gap-3">
@@ -70,7 +65,7 @@ export function AccountsPage() {
     includeArchived: showArchived,
   });
   const { data: balanceData } = useAccountsTotalBalance(
-    settings ? { baseCurrency: settings.baseCurrency } : "skip"
+    settings ? { baseCurrency: settings.baseCurrency } : "skip",
   );
 
   if (!(accounts && settings && balanceData)) {
@@ -137,14 +132,9 @@ export function AccountsPage() {
       {/* Archived Accounts Toggle */}
       {archivedAccounts.length > 0 && (
         <div>
-          <Button
-            className="mb-4"
-            onClick={() => setShowArchived(!showArchived)}
-            variant="ghost"
-          >
+          <Button className="mb-4" onClick={() => setShowArchived(!showArchived)} variant="ghost">
             <ArchiveIcon className="mr-2" weight="bold" />
-            {showArchived ? "Hide" : "Show"} Archived ({archivedAccounts.length}
-            )
+            {showArchived ? "Hide" : "Show"} Archived ({archivedAccounts.length})
           </Button>
           {showArchived && (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

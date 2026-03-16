@@ -10,9 +10,7 @@ import { NotFoundError, UnknownError } from "./schemas/errors";
 
 export const list = query({
   args: {
-    status: v.optional(
-      v.union(v.literal("active"), v.literal("paused"), v.literal("cancelled"))
-    ),
+    status: v.optional(v.union(v.literal("active"), v.literal("paused"), v.literal("cancelled"))),
   },
   handler: (ctx, args): Promise<Doc<"subscriptions">[]> =>
     runWithEffect(
@@ -27,7 +25,7 @@ export const list = query({
               ctx.db
                 .query("subscriptions")
                 .withIndex("by_userId_status", (q) =>
-                  q.eq("userId", user.subject).eq("status", status)
+                  q.eq("userId", user.subject).eq("status", status),
                 )
                 .collect(),
             catch: (error) => new UnknownError({ error }),
@@ -42,7 +40,7 @@ export const list = query({
               .collect(),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -64,7 +62,7 @@ export const get = query({
         }
 
         return subscription;
-      })
+      }),
     ),
 });
 
@@ -80,7 +78,7 @@ export const create = mutation({
       v.literal("weekly"),
       v.literal("monthly"),
       v.literal("quarterly"),
-      v.literal("yearly")
+      v.literal("yearly"),
     ),
     startDate: v.number(),
     description: v.optional(v.string()),
@@ -103,10 +101,7 @@ export const create = mutation({
           return yield* new NotFoundError({ docId: args.accountId });
         }
 
-        const nextRenewalDate = calculateNextRenewalDate(
-          args.startDate,
-          args.frequency
-        );
+        const nextRenewalDate = calculateNextRenewalDate(args.startDate, args.frequency);
 
         const subscriptionId = yield* Effect.tryPromise({
           try: () =>
@@ -142,7 +137,7 @@ export const create = mutation({
         });
 
         return subscriptionId;
-      })
+      }),
     ),
 });
 
@@ -157,8 +152,8 @@ export const update = mutation({
         v.literal("weekly"),
         v.literal("monthly"),
         v.literal("quarterly"),
-        v.literal("yearly")
-      )
+        v.literal("yearly"),
+      ),
     ),
     description: v.optional(v.string()),
     notifyDaysBefore: v.optional(v.number()),
@@ -190,7 +185,7 @@ export const update = mutation({
           updates.frequency = args.frequency;
           updates.nextRenewalDate = calculateNextRenewalDate(
             subscription.nextRenewalDate,
-            args.frequency
+            args.frequency,
           );
         }
         if (args.description !== undefined) {
@@ -209,7 +204,7 @@ export const update = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -236,7 +231,7 @@ export const pause = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -260,20 +255,16 @@ export const resume = mutation({
         // Update next renewal date if it's in the past
         let nextRenewalDate = subscription.nextRenewalDate;
         while (nextRenewalDate < Date.now()) {
-          nextRenewalDate = calculateNextRenewalDate(
-            nextRenewalDate,
-            subscription.frequency
-          );
+          nextRenewalDate = calculateNextRenewalDate(nextRenewalDate, subscription.frequency);
         }
 
         yield* Effect.tryPromise({
-          try: () =>
-            ctx.db.patch(args.id, { status: "active", nextRenewalDate }),
+          try: () => ctx.db.patch(args.id, { status: "active", nextRenewalDate }),
           catch: (error) => new UnknownError({ error }),
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -300,7 +291,7 @@ export const cancel = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -327,7 +318,7 @@ export const remove = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -346,7 +337,7 @@ export const getUpcoming = query({
             ctx.db
               .query("subscriptions")
               .withIndex("by_userId_status", (q) =>
-                q.eq("userId", user.subject).eq("status", "active")
+                q.eq("userId", user.subject).eq("status", "active"),
               )
               .collect(),
           catch: (error) => new UnknownError({ error }),
@@ -355,7 +346,7 @@ export const getUpcoming = query({
         return subscriptions
           .filter((s) => s.nextRenewalDate <= futureDate)
           .sort((a, b) => a.nextRenewalDate - b.nextRenewalDate);
-      })
+      }),
     ),
 });
 
@@ -375,7 +366,7 @@ export const getTotalMonthly = query({
             ctx.db
               .query("subscriptions")
               .withIndex("by_userId_status", (q) =>
-                q.eq("userId", user.subject).eq("status", "active")
+                q.eq("userId", user.subject).eq("status", "active"),
               )
               .collect(),
           catch: (error) => new UnknownError({ error }),
@@ -412,13 +403,13 @@ export const getTotalMonthly = query({
               ctx,
               monthlyAmount,
               sub.currency,
-              baseCurrency
+              baseCurrency,
             );
             total += converted;
           }
         }
 
         return Math.round(total * 100) / 100;
-      })
+      }),
     ),
 });

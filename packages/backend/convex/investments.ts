@@ -23,7 +23,7 @@ export const list = query({
               .collect(),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -45,7 +45,7 @@ export const get = query({
         }
 
         return investment;
-      })
+      }),
     ),
 });
 
@@ -59,7 +59,7 @@ export const create = mutation({
       v.literal("mutual_fund"),
       v.literal("bond"),
       v.literal("real_estate"),
-      v.literal("other")
+      v.literal("other"),
     ),
     symbol: v.optional(v.string()),
     quantity: v.number(),
@@ -137,7 +137,7 @@ export const create = mutation({
         });
 
         return investmentId;
-      })
+      }),
     ),
 });
 
@@ -184,7 +184,7 @@ export const update = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -214,7 +214,7 @@ export const updatePrice = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -240,9 +240,7 @@ export const remove = mutation({
           try: () =>
             ctx.db
               .query("investmentSnapshots")
-              .withIndex("by_investmentId", (q) =>
-                q.eq("investmentId", args.id)
-              )
+              .withIndex("by_investmentId", (q) => q.eq("investmentId", args.id))
               .collect(),
           catch: (error) => new UnknownError({ error }),
         });
@@ -251,7 +249,7 @@ export const remove = mutation({
           Effect.tryPromise({
             try: () => ctx.db.delete(snapshot._id),
             catch: (error) => new UnknownError({ error }),
-          })
+          }),
         );
 
         yield* Effect.tryPromise({
@@ -278,7 +276,7 @@ export const remove = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -300,13 +298,13 @@ export const getSnapshots = query({
             ctx.db
               .query("investmentSnapshots")
               .withIndex("by_userId_date", (q) =>
-                q.eq("userId", user.subject).gte("date", startDate)
+                q.eq("userId", user.subject).gte("date", startDate),
               )
               .filter((q) => q.eq(q.field("investmentId"), args.investmentId))
               .collect(),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -316,7 +314,7 @@ export const getPortfolioSummary = query({
   },
   handler: (
     ctx,
-    args
+    args,
   ): Promise<{
     totalValue: number;
     totalCost: number;
@@ -363,14 +361,9 @@ export const getPortfolioSummary = query({
               ctx,
               valueRaw,
               inv.currency,
-              baseCurrency
+              baseCurrency,
             );
-            const costConverted = yield* convertCurrency(
-              ctx,
-              costRaw,
-              inv.currency,
-              baseCurrency
-            );
+            const costConverted = yield* convertCurrency(ctx, costRaw, inv.currency, baseCurrency);
 
             // Accumulate totals
             totalValue += valueConverted;
@@ -386,7 +379,7 @@ export const getPortfolioSummary = query({
               currency: inv.currency,
               convertedValue: valueConverted, // Used for sorting
             };
-          })
+          }),
         );
 
         const totalGain = totalValue - totalCost;
@@ -401,15 +394,11 @@ export const getPortfolioSummary = query({
             .map(({ convertedValue, ...rest }) => rest)
             .sort((a, b) => {
               // Sort by converted value to keep meaningful order across currencies
-              const aConverted = details.find(
-                (d) => d.id === a.id
-              )?.convertedValue;
-              const bConverted = details.find(
-                (d) => d.id === b.id
-              )?.convertedValue;
+              const aConverted = details.find((d) => d.id === a.id)?.convertedValue;
+              const bConverted = details.find((d) => d.id === b.id)?.convertedValue;
               return (bConverted ?? 0) - (aConverted ?? 0);
             }),
         };
-      })
+      }),
     ),
 });

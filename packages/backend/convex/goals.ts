@@ -30,12 +30,12 @@ export const list = query({
             ctx.db
               .query("goals")
               .withIndex("by_userId_completed", (q) =>
-                q.eq("userId", user.subject).eq("isCompleted", false)
+                q.eq("userId", user.subject).eq("isCompleted", false),
               )
               .collect(),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -57,7 +57,7 @@ export const get = query({
         }
 
         return goal;
-      })
+      }),
     ),
 });
 
@@ -122,7 +122,7 @@ export const create = mutation({
         });
 
         return goalId;
-      })
+      }),
     ),
 });
 
@@ -184,7 +184,7 @@ export const update = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -221,7 +221,7 @@ export const addProgress = mutation({
         });
 
         return { newAmount, isCompleted };
-      })
+      }),
     ),
 });
 
@@ -248,7 +248,7 @@ export const markComplete = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -288,6 +288,6 @@ export const remove = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });

@@ -94,17 +94,12 @@ export function CreateTransactionDialog({
   });
 
   const currentType = useStore(form.store, (state) => state.values.type);
-  const currentAccountId = useStore(
-    form.store,
-    (state) => state.values.accountId
-  );
+  const currentAccountId = useStore(form.store, (state) => state.values.accountId);
 
   const filteredCategories =
     currentType === "transfer"
       ? categories
-      : categories.filter(
-          (c) => c.type === currentType || currentType === "expense"
-        );
+      : categories.filter((c) => c.type === currentType || currentType === "expense");
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
@@ -127,9 +122,7 @@ export function CreateTransactionDialog({
               <div className="flex flex-col gap-2">
                 <Label>Type</Label>
                 <Tabs
-                  onValueChange={(v) =>
-                    field.handleChange(v as typeof currentType)
-                  }
+                  onValueChange={(v) => field.handleChange(v as typeof currentType)}
                   value={field.state.value}
                 >
                   <TabsList className="grid w-full grid-cols-3">
@@ -153,9 +146,7 @@ export function CreateTransactionDialog({
                     value: a._id,
                     label: `${a.name} (${a.currency})`,
                   }))}
-                  onValueChange={(val: string | null) =>
-                    field.handleChange(val || "")
-                  }
+                  onValueChange={(val: string | null) => field.handleChange(val || "")}
                   value={field.state.value || undefined}
                 >
                   <SelectTrigger className="w-full">
@@ -163,11 +154,7 @@ export function CreateTransactionDialog({
                   </SelectTrigger>
                   <SelectContent>
                     {accounts.map((a) => (
-                      <SelectItem
-                        key={a._id}
-                        label={`${a.name} (${a.currency})`}
-                        value={a._id}
-                      >
+                      <SelectItem key={a._id} label={`${a.name} (${a.currency})`} value={a._id}>
                         {a.name} ({a.currency})
                       </SelectItem>
                     ))}
@@ -194,9 +181,7 @@ export function CreateTransactionDialog({
                         value: a._id,
                         label: `${a.name} (${a.currency})`,
                       }))}
-                    onValueChange={(val: string | null) =>
-                      field.handleChange(val || "")
-                    }
+                    onValueChange={(val: string | null) => field.handleChange(val || "")}
                     value={field.state.value || undefined}
                   >
                     <SelectTrigger className="w-full">
@@ -206,11 +191,7 @@ export function CreateTransactionDialog({
                       {accounts
                         .filter((a) => a._id !== currentAccountId)
                         .map((a) => (
-                          <SelectItem
-                            key={a._id}
-                            label={`${a.name} (${a.currency})`}
-                            value={a._id}
-                          >
+                          <SelectItem key={a._id} label={`${a.name} (${a.currency})`} value={a._id}>
                             {a.name} ({a.currency})
                           </SelectItem>
                         ))}
@@ -230,9 +211,7 @@ export function CreateTransactionDialog({
                     value: c._id,
                     label: `${c.icon} ${c.name}`,
                   }))}
-                  onValueChange={(val: string | null) =>
-                    field.handleChange(val || "")
-                  }
+                  onValueChange={(val: string | null) => field.handleChange(val || "")}
                   value={field.state.value || undefined}
                 >
                   <SelectTrigger className="w-full">
@@ -240,11 +219,7 @@ export function CreateTransactionDialog({
                   </SelectTrigger>
                   <SelectContent>
                     {filteredCategories.map((c) => (
-                      <SelectItem
-                        key={c._id}
-                        label={`${c.icon} ${c.name}`}
-                        value={c._id}
-                      >
+                      <SelectItem key={c._id} label={`${c.icon} ${c.name}`} value={c._id}>
                         {c.icon} {c.name}
                       </SelectItem>
                     ))}
@@ -323,11 +298,7 @@ export function CreateTransactionDialog({
           </form.Field>
 
           <DialogFooter>
-            <Button
-              onClick={() => setOpen(false)}
-              type="button"
-              variant="outline"
-            >
+            <Button onClick={() => setOpen(false)} type="button" variant="outline">
               Cancel
             </Button>
             <form.Subscribe>

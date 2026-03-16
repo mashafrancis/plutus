@@ -16,8 +16,7 @@ export function LoginPage() {
         callbackURL: "/dashboard",
       });
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Sign in failed. Try again.";
+      const message = error instanceof Error ? error.message : "Sign in failed. Try again.";
       toast.error(message);
     } finally {
       setIsSigningIn(false);
@@ -48,8 +47,8 @@ export function LoginPage() {
                 unleash your freedom.
               </h1>
               <p className="text-background/70 text-lg">
-                Track expenses, manage subscriptions, and watch your investments
-                grow. All in one beautiful place.
+                Track expenses, manage subscriptions, and watch your investments grow. All in one
+                beautiful place.
               </p>
             </div>
 
@@ -63,9 +62,7 @@ export function LoginPage() {
             <div className="flex w-full max-w-sm flex-col gap-6">
               <div className="mx-auto w-full max-w-md">
                 <div className="mb-8 text-center">
-                  <h1 className="font-bold text-3xl tracking-tight">
-                    Welcome to Plutus
-                  </h1>
+                  <h1 className="font-bold text-3xl tracking-tight">Welcome to Plutus</h1>
                   <p className="mt-2 text-muted-foreground text-sm">
                     Sign in with your Google account to continue
                   </p>
@@ -78,11 +75,7 @@ export function LoginPage() {
                   type="button"
                   variant="outline"
                 >
-                  <svg
-                    className="mr-2"
-                    data-icon="inline-start"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="mr-2" data-icon="inline-start" viewBox="0 0 24 24">
                     <title>Google Logo</title>
                     <path
                       d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

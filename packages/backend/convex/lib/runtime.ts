@@ -21,27 +21,23 @@ const MINIMUM_LOG_LEVEL = (() => {
   return LogLevel.Info;
 })();
 
-const RuntimeServer = (
-  ctx: GenericQueryCtx<DataModel> | GenericMutationCtx<DataModel>
-) =>
-  ManagedRuntime.make(
-    Layer.mergeAll(Layer.effect(CurrentSession, fetchCurrentSession(ctx)))
-  );
+const RuntimeServer = (ctx: GenericQueryCtx<DataModel> | GenericMutationCtx<DataModel>) =>
+  ManagedRuntime.make(Layer.mergeAll(Layer.effect(CurrentSession, fetchCurrentSession(ctx))));
 
 export const runWithEffect = <A, E>(
   ctx: GenericQueryCtx<DataModel> | GenericMutationCtx<DataModel>,
-  effect: Effect.Effect<A, E | ForbiddenError | NotFoundError, CurrentSession>
+  effect: Effect.Effect<A, E | ForbiddenError | NotFoundError, CurrentSession>,
 ) =>
   RuntimeServer(ctx).runPromise(
     effect.pipe(
       Effect.catchTag("ForbiddenError", () =>
-        Effect.die(new ConvexError({ kind: "authorization", status: 401 }))
+        Effect.die(new ConvexError({ kind: "authorization", status: 401 })),
       ),
       Effect.catchTag("NotFoundError", () =>
-        Effect.die(new ConvexError({ kind: "not-found", status: 404 }))
+        Effect.die(new ConvexError({ kind: "not-found", status: 404 })),
       ),
       // Log unknown error for visibility
       Effect.tapError((error) => Effect.logError(error)),
-      Logger.withMinimumLogLevel(MINIMUM_LOG_LEVEL)
-    )
+      Logger.withMinimumLogLevel(MINIMUM_LOG_LEVEL),
+    ),
   );

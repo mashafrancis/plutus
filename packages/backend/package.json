@@ -8,7 +8,7 @@
     "dev": "convex dev",
     "dev:setup": "convex dev --configure --until-success",
     "check-types": "tsc -p convex/tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vp test run"
   },
   "dependencies": {
     "@convex-dev/better-auth": "catalog:",
@@ -22,6 +22,7 @@
     "@tanstack-effect-convex/config": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:",
-    "vitest": "^4.1.0"
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
   }
 }

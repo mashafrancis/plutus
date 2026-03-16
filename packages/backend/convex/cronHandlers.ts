@@ -19,10 +19,7 @@ export const processSubscriptionRenewals = internalMutation({
       .query("subscriptions")
       .withIndex("by_nextRenewalDate")
       .filter((q) =>
-        q.and(
-          q.lte(q.field("nextRenewalDate"), now),
-          q.eq(q.field("status"), "active")
-        )
+        q.and(q.lte(q.field("nextRenewalDate"), now), q.eq(q.field("status"), "active")),
       )
       .collect();
 
@@ -37,12 +34,7 @@ export const processSubscriptionRenewals = internalMutation({
         if (subscription.autoRenew) {
           // Create a transaction for the renewal
           const convertedAmount = await Effect.runPromise(
-            convertCurrency(
-              ctx,
-              subscription.amount,
-              subscription.currency,
-              account.currency
-            )
+            convertCurrency(ctx, subscription.amount, subscription.currency, account.currency),
           );
 
           await ctx.db.insert("transactions", {
@@ -67,7 +59,7 @@ export const processSubscriptionRenewals = internalMutation({
         // Update next renewal date
         const nextRenewalDate = calculateNextRenewalDate(
           subscription.nextRenewalDate,
-          subscription.frequency
+          subscription.frequency,
         );
 
         await ctx.db.patch(subscription._id, { nextRenewalDate });
@@ -83,10 +75,7 @@ export const processSubscriptionRenewals = internalMutation({
           relatedId: subscription._id,
         });
       } catch (error) {
-        console.error(
-          `Failed to process subscription ${subscription._id}:`,
-          error
-        );
+        console.error(`Failed to process subscription ${subscription._id}:`, error);
       }
     }
 
@@ -99,15 +88,15 @@ export const processSubscriptionRenewals = internalMutation({
         q.and(
           q.gt(q.field("nextRenewalDate"), now),
           q.lte(q.field("nextRenewalDate"), threeDaysFromNow),
-          q.eq(q.field("status"), "active")
-        )
+          q.eq(q.field("status"), "active"),
+        ),
       )
       .collect();
 
     for (const subscription of upcomingSubscriptions) {
       // Check if we should notify based on notifyDaysBefore
       const daysUntilRenewal = Math.ceil(
-        (subscription.nextRenewalDate - now) / (24 * 60 * 60 * 1000)
+        (subscription.nextRenewalDate - now) / (24 * 60 * 60 * 1000),
       );
 
       if (daysUntilRenewal <= subscription.notifyDaysBefore) {
@@ -119,8 +108,8 @@ export const processSubscriptionRenewals = internalMutation({
             q.and(
               q.eq(q.field("type"), "subscription_renewal"),
               q.eq(q.field("relatedId"), subscription._id),
-              q.gte(q.field("createdAt"), startOfDay(now))
-            )
+              q.gte(q.field("createdAt"), startOfDay(now)),
+            ),
           )
           .first();
 
@@ -177,7 +166,7 @@ export const updateExchangeRates = internalMutation({
       const existing = await ctx.db
         .query("exchangeRates")
         .withIndex("by_currencies", (q) =>
-          q.eq("baseCurrency", "USD").eq("targetCurrency", currency)
+          q.eq("baseCurrency", "USD").eq("targetCurrency", currency),
         )
         .first();
 
@@ -213,9 +202,7 @@ export const createInvestmentSnapshots = internalMutation({
       // Check if snapshot already exists for today
       const existing = await ctx.db
         .query("investmentSnapshots")
-        .withIndex("by_userId_date", (q) =>
-          q.eq("userId", investment.userId).eq("date", today)
-        )
+        .withIndex("by_userId_date", (q) => q.eq("userId", investment.userId).eq("date", today))
         .filter((q) => q.eq(q.field("investmentId"), investment._id))
         .first();
 
@@ -246,10 +233,7 @@ export const cleanupOldNotifications = internalMutation({
     const oldNotifications = await ctx.db
       .query("notifications")
       .filter((q) =>
-        q.and(
-          q.lt(q.field("createdAt"), thirtyDaysAgo),
-          q.eq(q.field("isRead"), true)
-        )
+        q.and(q.lt(q.field("createdAt"), thirtyDaysAgo), q.eq(q.field("isRead"), true)),
       )
       .collect();
 

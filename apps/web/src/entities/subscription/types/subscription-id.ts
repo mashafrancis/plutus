@@ -2,9 +2,4 @@ import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataM
 
 export type SubscriptionId = Id<"subscriptions">;
 export type SubscriptionStatus = "active" | "paused" | "cancelled";
-export type SubscriptionFrequency =
-  | "daily"
-  | "weekly"
-  | "monthly"
-  | "quarterly"
-  | "yearly";
+export type SubscriptionFrequency = "daily" | "weekly" | "monthly" | "quarterly" | "yearly";

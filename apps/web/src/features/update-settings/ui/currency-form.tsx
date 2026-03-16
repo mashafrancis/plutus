@@ -4,13 +4,7 @@ import { useMutation } from "convex/react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -28,7 +22,7 @@ export function CurrencyForm() {
   const { data: settings } = useUserSettings();
   const updateSettings = useUpdateSettings();
   const initializeBaseCurrencyFromLocale = useMutation(
-    api.userSettings.initializeBaseCurrencyFromLocale
+    api.userSettings.initializeBaseCurrencyFromLocale,
   );
   const [isDetecting, setIsDetecting] = useState(false);
 
@@ -87,18 +81,14 @@ export function CurrencyForm() {
           <CurrencyDollarIcon className="h-5 w-5" weight="bold" />
           <CardTitle>Currency</CardTitle>
         </div>
-        <CardDescription>
-          Set your base currency for calculations and display
-        </CardDescription>
+        <CardDescription>Set your base currency for calculations and display</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <Label htmlFor="currency">Base Currency</Label>
           <Select
             items={CURRENCIES}
-            onValueChange={(val: string | null) =>
-              val && handleCurrencyChange(val)
-            }
+            onValueChange={(val: string | null) => val && handleCurrencyChange(val)}
             value={settings.baseCurrency || "KES"}
           >
             <SelectTrigger className="w-[200px]">

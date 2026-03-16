@@ -28,11 +28,7 @@ import { CURRENCIES } from "@/shared/config/currencies";
 
 import { AccountFormSchema } from "../model/account-form-schema";
 
-export function CreateAccountDialog({
-  children,
-}: {
-  children?: React.ReactNode;
-}) {
+export function CreateAccountDialog({ children }: { children?: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const createAccount = useCreateAccount();
   const triggerRender = isValidElement(children) ? (
@@ -47,12 +43,7 @@ export function CreateAccountDialog({
   const form = useForm({
     defaultValues: {
       name: "",
-      type: "checking" as
-        | "checking"
-        | "savings"
-        | "credit"
-        | "cash"
-        | "investment",
+      type: "checking" as "checking" | "savings" | "credit" | "cash" | "investment",
       currency: "KES",
       balance: "",
     },
@@ -82,9 +73,7 @@ export function CreateAccountDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create Account</DialogTitle>
-          <DialogDescription>
-            Add a new financial account to track.
-          </DialogDescription>
+          <DialogDescription>Add a new financial account to track.</DialogDescription>
         </DialogHeader>
         <form
           className="flex flex-col gap-4"
@@ -126,12 +115,7 @@ export function CreateAccountDialog({
                   onValueChange={(val: string | null) =>
                     val &&
                     field.handleChange(
-                      val as
-                        | "checking"
-                        | "savings"
-                        | "credit"
-                        | "cash"
-                        | "investment"
+                      val as "checking" | "savings" | "credit" | "cash" | "investment",
                     )
                   }
                   value={field.state.value}
@@ -157,15 +141,10 @@ export function CreateAccountDialog({
                 <Label htmlFor="create-account-currency">Currency</Label>
                 <Select
                   items={CURRENCIES}
-                  onValueChange={(val: string | null) =>
-                    val && field.handleChange(val)
-                  }
+                  onValueChange={(val: string | null) => val && field.handleChange(val)}
                   value={field.state.value}
                 >
-                  <SelectTrigger
-                    className="w-full"
-                    id="create-account-currency"
-                  >
+                  <SelectTrigger className="w-full" id="create-account-currency">
                     <SelectValue placeholder="Select currency" />
                   </SelectTrigger>
                   <SelectContent>
@@ -198,11 +177,7 @@ export function CreateAccountDialog({
           </form.Field>
 
           <DialogFooter>
-            <Button
-              onClick={() => setOpen(false)}
-              type="button"
-              variant="outline"
-            >
+            <Button onClick={() => setOpen(false)} type="button" variant="outline">
               Cancel
             </Button>
             <form.Subscribe>

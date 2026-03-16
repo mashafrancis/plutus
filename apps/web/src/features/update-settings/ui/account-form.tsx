@@ -1,13 +1,7 @@
 import { WalletIcon } from "@phosphor-icons/react";
 import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { toast } from "sonner";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -62,18 +56,14 @@ export function AccountForm() {
           <WalletIcon className="h-5 w-5" />
           <CardTitle>Accounts</CardTitle>
         </div>
-        <CardDescription>
-          Configure your default account for transactions
-        </CardDescription>
+        <CardDescription>Configure your default account for transactions</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <Label htmlFor="defaultAccount">Default Account</Label>
           <Select
             items={accounts.map((a) => ({ value: a._id, label: a.name }))}
-            onValueChange={(val: string | null) =>
-              val && handleDefaultAccountChange(val)
-            }
+            onValueChange={(val: string | null) => val && handleDefaultAccountChange(val)}
             value={settings.defaultAccountId || ""}
           >
             <SelectTrigger className="w-[200px]">

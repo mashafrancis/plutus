@@ -29,7 +29,7 @@ export function SubscriptionsPageSkeleton() {
         <Skeleton className="h-10 w-40" />
       </div>
       <div className="grid gap-4 md:grid-cols-3">
-        {[...new Array(3)].map((_, i) => (
+        {new Array(3).fill().map((_, i) => (
           <Card key={i}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <Skeleton className="h-4 w-24" />
@@ -48,11 +48,8 @@ export function SubscriptionsPageSkeleton() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-4">
-            {[...new Array(3)].map((_, i) => (
-              <div
-                className="flex items-center justify-between rounded-lg border p-4"
-                key={i}
-              >
+            {new Array(3).fill().map((_, i) => (
+              <div className="flex items-center justify-between rounded-lg border p-4" key={i}>
                 <div className="flex items-center gap-4">
                   <Skeleton className="h-10 w-10 rounded-full" />
                   <div>
@@ -74,15 +71,12 @@ export function SubscriptionsPage() {
   const { data: settings } = useUserSettings();
   const { data: subscriptions } = useSubscriptionsList();
   const { data: totalMonthly } = useSubscriptionsTotalMonthly(
-    settings ? { baseCurrency: settings.baseCurrency } : "skip"
+    settings ? { baseCurrency: settings.baseCurrency } : "skip",
   );
   const { data: accounts } = useAccountsList();
   const { data: categories } = useCategoriesList();
 
-  if (
-    !(subscriptions && accounts && categories && settings) ||
-    totalMonthly === undefined
-  ) {
+  if (!(subscriptions && accounts && categories && settings) || totalMonthly === undefined) {
     return <SubscriptionsPageSkeleton />;
   }
 
@@ -94,9 +88,7 @@ export function SubscriptionsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-bold text-2xl tracking-tight">Subscriptions</h1>
-          <p className="text-muted-foreground text-sm">
-            Track and manage your recurring payments
-          </p>
+          <p className="text-muted-foreground text-sm">Track and manage your recurring payments</p>
         </div>
         <CreateSubscriptionDialog accounts={accounts} categories={categories} />
       </div>
@@ -106,10 +98,7 @@ export function SubscriptionsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="font-medium text-sm">Monthly Cost</CardTitle>
-            <CurrencyDollarIcon
-              className="h-4 w-4 text-muted-foreground"
-              weight="bold"
-            />
+            <CurrencyDollarIcon className="h-4 w-4 text-muted-foreground" weight="bold" />
           </CardHeader>
           <CardContent>
             <div className="font-bold text-2xl">
@@ -156,10 +145,7 @@ export function SubscriptionsPage() {
             <div className="flex flex-col items-center justify-center py-12">
               <CalendarIcon className="h-12 w-12 text-muted-foreground" />
               <p className="mt-4 text-muted-foreground">No subscriptions yet</p>
-              <CreateSubscriptionDialog
-                accounts={accounts}
-                categories={categories}
-              >
+              <CreateSubscriptionDialog accounts={accounts} categories={categories}>
                 <Button className="mt-4" variant="outline">
                   <PlusIcon className="mr-2" data-icon="inline-start" />
                   Add your first subscription

@@ -31,12 +31,12 @@ export const list = query({
             ctx.db
               .query("accounts")
               .withIndex("by_userId_archived", (q) =>
-                q.eq("userId", user.subject).eq("isArchived", false)
+                q.eq("userId", user.subject).eq("isArchived", false),
               )
               .collect(),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -58,7 +58,7 @@ export const get = query({
         }
 
         return account;
-      })
+      }),
     ),
 });
 
@@ -70,7 +70,7 @@ export const create = mutation({
       v.literal("savings"),
       v.literal("credit"),
       v.literal("cash"),
-      v.literal("investment")
+      v.literal("investment"),
     ),
     currency: v.string(),
     balance: v.optional(v.number()),
@@ -112,7 +112,7 @@ export const create = mutation({
         });
 
         return accountId;
-      })
+      }),
     ),
 });
 
@@ -126,8 +126,8 @@ export const update = mutation({
         v.literal("savings"),
         v.literal("credit"),
         v.literal("cash"),
-        v.literal("investment")
-      )
+        v.literal("investment"),
+      ),
     ),
     icon: v.optional(v.string()),
     color: v.optional(v.string()),
@@ -159,7 +159,7 @@ export const update = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -189,7 +189,7 @@ export const updateBalance = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -221,7 +221,7 @@ export const adjustBalance = mutation({
         });
 
         return newBalance;
-      })
+      }),
     ),
 });
 
@@ -248,7 +248,7 @@ export const archive = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -275,7 +275,7 @@ export const unarchive = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -333,16 +333,13 @@ export const remove = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
 export const getTotalBalance = query({
   args: { baseCurrency: v.optional(v.string()) },
-  handler: (
-    ctx,
-    args
-  ): Promise<{ total: number; byCurrency: Record<string, number> }> =>
+  handler: (ctx, args): Promise<{ total: number; byCurrency: Record<string, number> }> =>
     runWithEffect(
       ctx,
       Effect.gen(function* () {
@@ -354,7 +351,7 @@ export const getTotalBalance = query({
             ctx.db
               .query("accounts")
               .withIndex("by_userId_archived", (q) =>
-                q.eq("userId", user.subject).eq("isArchived", false)
+                q.eq("userId", user.subject).eq("isArchived", false),
               )
               .collect(),
           catch: (error) => new UnknownError({ error }),
@@ -364,19 +361,18 @@ export const getTotalBalance = query({
         let total = 0;
 
         for (const account of accounts) {
-          byCurrency[account.currency] =
-            (byCurrency[account.currency] || 0) + account.balance;
+          byCurrency[account.currency] = (byCurrency[account.currency] || 0) + account.balance;
 
           const converted = yield* convertCurrency(
             ctx,
             account.balance,
             account.currency,
-            baseCurrency
+            baseCurrency,
           );
           total += converted;
         }
 
         return { total, byCurrency };
-      })
+      }),
     ),
 });

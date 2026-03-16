@@ -14,9 +14,7 @@ import { formatDate } from "@/shared/lib/format/date";
 
 type SubscriptionStatus = "active" | "paused" | "cancelled";
 
-function getStatusBadgeVariant(
-  status: SubscriptionStatus
-): "default" | "secondary" | "outline" {
+function getStatusBadgeVariant(status: SubscriptionStatus): "default" | "secondary" | "outline" {
   if (status === "active") {
     return "default";
   }
@@ -53,8 +51,7 @@ export function SubscriptionItem({ subscription }: SubscriptionItemProps) {
             </Badge>
           </div>
           <p className="text-muted-foreground text-sm">
-            {formatCurrency(subscription.amount, subscription.currency)} /{" "}
-            {subscription.frequency}
+            {formatCurrency(subscription.amount, subscription.currency)} / {subscription.frequency}
           </p>
           {subscription.status === "active" && (
             <p className="text-muted-foreground text-xs">
@@ -66,11 +63,7 @@ export function SubscriptionItem({ subscription }: SubscriptionItemProps) {
       <DropdownMenu>
         <DropdownMenuTrigger
           render={
-            <Button
-              aria-label="Subscription options"
-              size="icon"
-              variant="ghost"
-            >
+            <Button aria-label="Subscription options" size="icon" variant="ghost">
               <DotsThreeIcon aria-hidden weight="bold" />
             </Button>
           }

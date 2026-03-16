@@ -6,9 +6,7 @@ export function HomePage() {
   return (
     <HomeHeader
       {...page.heroSection}
-      footer={
-        <HighlightColumns highlights={page.highlightsSection.highlights} />
-      }
+      footer={<HighlightColumns highlights={page.highlightsSection.highlights} />}
     />
   );
 }

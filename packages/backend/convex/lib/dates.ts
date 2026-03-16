@@ -26,10 +26,7 @@ export const daysAgo = (days: number, from: number = Date.now()): number => {
 /**
  * Get timestamp for N days in the future
  */
-export const daysFromNow = (
-  days: number,
-  from: number = Date.now()
-): number => {
+export const daysFromNow = (days: number, from: number = Date.now()): number => {
   return from + days * 24 * 60 * 60 * 1000;
 };
 
@@ -38,7 +35,7 @@ export const daysFromNow = (
  */
 export const calculateNextRenewalDate = (
   currentDate: number,
-  frequency: "daily" | "weekly" | "monthly" | "quarterly" | "yearly"
+  frequency: "daily" | "weekly" | "monthly" | "quarterly" | "yearly",
 ): number => {
   const date = new Date(currentDate);
 
@@ -70,20 +67,14 @@ export const calculateNextRenewalDate = (
 /**
  * Check if a date is within range
  */
-export const isWithinRange = (
-  date: number,
-  startDate: number,
-  endDate: number
-): boolean => {
+export const isWithinRange = (date: number, startDate: number, endDate: number): boolean => {
   return date >= startDate && date <= endDate;
 };
 
 /**
  * Get date range for last N days
  */
-export const getLastNDaysRange = (
-  days: number
-): { start: number; end: number } => {
+export const getLastNDaysRange = (days: number): { start: number; end: number } => {
   const now = Date.now();
   return {
     start: startOfDay(daysAgo(days - 1, now)),
@@ -102,17 +93,14 @@ export const formatDateISO = (timestamp: number): string => {
 /**
  * Format date for display
  */
-export const formatDate = (
-  timestamp: number,
-  options?: Intl.DateTimeFormatOptions
-): string => {
+export const formatDate = (timestamp: number, options?: Intl.DateTimeFormatOptions): string => {
   return new Date(timestamp).toLocaleDateString(
     "en-US",
     options ?? {
       year: "numeric",
       month: "short",
       day: "numeric",
-    }
+    },
   );
 };
 

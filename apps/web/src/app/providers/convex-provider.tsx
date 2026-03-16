@@ -9,17 +9,9 @@ interface ConvexProviderProps {
   children: ReactNode;
 }
 
-export function ConvexProvider({
-  client,
-  initialToken,
-  children,
-}: ConvexProviderProps) {
+export function ConvexProvider({ client, initialToken, children }: ConvexProviderProps) {
   return (
-    <ConvexBetterAuthProvider
-      authClient={authClient}
-      client={client}
-      initialToken={initialToken}
-    >
+    <ConvexBetterAuthProvider authClient={authClient} client={client} initialToken={initialToken}>
       {children}
     </ConvexBetterAuthProvider>
   );

@@ -10,10 +10,7 @@ export const migrateOnboardingFields = internalMutation({
 
     for (const setting of allSettings) {
       // Only update if fields are missing
-      if (
-        setting.onboardingCompleted === undefined ||
-        setting.onboardingStep === undefined
-      ) {
+      if (setting.onboardingCompleted === undefined || setting.onboardingStep === undefined) {
         await ctx.db.patch(setting._id, {
           onboardingCompleted: setting.onboardingCompleted ?? false,
           onboardingStep: setting.onboardingStep ?? 0,

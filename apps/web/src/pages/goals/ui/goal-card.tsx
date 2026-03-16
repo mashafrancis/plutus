@@ -3,13 +3,7 @@ import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataM
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -52,9 +46,7 @@ export function GoalCard({ goal, isCompleted = false }: GoalCardProps) {
           <div>
             <CardTitle className="text-base">{goal.name}</CardTitle>
             {goal.targetDate && (
-              <CardDescription>
-                Target: {formatDate(goal.targetDate)}
-              </CardDescription>
+              <CardDescription>Target: {formatDate(goal.targetDate)}</CardDescription>
             )}
           </div>
         </div>
@@ -100,10 +92,7 @@ export function GoalCard({ goal, isCompleted = false }: GoalCardProps) {
 
         {/* Add Progress Form */}
         {showAddProgress && (
-          <AddGoalProgressForm
-            goalId={goal._id}
-            onCancel={() => setShowAddProgress(false)}
-          />
+          <AddGoalProgressForm goalId={goal._id} onCancel={() => setShowAddProgress(false)} />
         )}
       </CardContent>
     </Card>

@@ -1,12 +1,6 @@
 import { BellIcon } from "@phosphor-icons/react";
 import { toast } from "sonner";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -40,9 +34,7 @@ export function NotificationsForm() {
   const handleNotificationsChange = async (enabled: boolean) => {
     try {
       await updateSettings({ notificationsEnabled: enabled });
-      toast.success(
-        enabled ? "Notifications enabled" : "Notifications disabled"
-      );
+      toast.success(enabled ? "Notifications enabled" : "Notifications disabled");
     } catch {
       toast.error("Failed to update notifications");
     }
@@ -51,9 +43,7 @@ export function NotificationsForm() {
   const handleEmailNotificationsChange = async (enabled: boolean) => {
     try {
       await updateSettings({ emailNotifications: enabled });
-      toast.success(
-        enabled ? "Email notifications enabled" : "Email notifications disabled"
-      );
+      toast.success(enabled ? "Email notifications enabled" : "Email notifications disabled");
     } catch {
       toast.error("Failed to update email notifications");
     }
@@ -72,9 +62,7 @@ export function NotificationsForm() {
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-0.5">
             <Label htmlFor="notifications">In-App Notifications</Label>
-            <p className="text-muted-foreground text-xs">
-              Receive notifications within the app
-            </p>
+            <p className="text-muted-foreground text-xs">Receive notifications within the app</p>
           </div>
           <Checkbox
             checked={settings.notificationsEnabled}
@@ -85,9 +73,7 @@ export function NotificationsForm() {
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-0.5">
             <Label htmlFor="emailNotifications">Email Notifications</Label>
-            <p className="text-muted-foreground text-xs">
-              Receive important updates via email
-            </p>
+            <p className="text-muted-foreground text-xs">Receive important updates via email</p>
           </div>
           <Checkbox
             checked={settings.emailNotifications}

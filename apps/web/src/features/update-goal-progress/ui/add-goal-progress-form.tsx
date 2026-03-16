@@ -10,10 +10,7 @@ interface AddGoalProgressFormProps {
   onCancel: () => void;
 }
 
-export function AddGoalProgressForm({
-  goalId,
-  onCancel,
-}: AddGoalProgressFormProps) {
+export function AddGoalProgressForm({ goalId, onCancel }: AddGoalProgressFormProps) {
   const [progressAmount, setProgressAmount] = useState("");
   const addProgress = useAddGoalProgress();
 

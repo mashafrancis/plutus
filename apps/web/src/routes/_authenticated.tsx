@@ -14,7 +14,7 @@ export const Route = createFileRoute("/_authenticated")({
 
 function AuthenticatedLayout() {
   const initializeBaseCurrencyFromLocale = useMutation(
-    api.userSettings.initializeBaseCurrencyFromLocale
+    api.userSettings.initializeBaseCurrencyFromLocale,
   );
 
   useEffect(() => {

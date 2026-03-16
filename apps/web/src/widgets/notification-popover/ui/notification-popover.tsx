@@ -13,11 +13,7 @@ import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
 import type { Doc } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useNotificationsList } from "@/entities/notification/api/use-notifications-list";
 import { useNotificationsUnreadCount } from "@/entities/notification/api/use-notifications-unread-count";
@@ -63,12 +59,7 @@ export function NotificationPopover() {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button
-          aria-label="Notifications"
-          className="relative"
-          size="icon"
-          variant="outline"
-        >
+        <Button aria-label="Notifications" className="relative" size="icon" variant="outline">
           <BellIcon aria-hidden data-icon="inline-start" weight="bold" />
           {hasUnread && (
             <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary font-medium text-[10px] text-primary-foreground">
@@ -131,9 +122,7 @@ export function NotificationPopover() {
                         <Icon className="h-4 w-4" />
                       </div>
                       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                        <p className="font-medium text-sm leading-snug">
-                          {notification.title}
-                        </p>
+                        <p className="font-medium text-sm leading-snug">{notification.title}</p>
                         <p className="text-muted-foreground text-xs leading-snug">
                           {notification.message}
                         </p>
@@ -155,9 +144,7 @@ export function NotificationPopover() {
                         <Button
                           aria-label="Delete notification"
                           className="text-destructive hover:text-destructive"
-                          onClick={() =>
-                            removeNotification({ id: notification._id })
-                          }
+                          onClick={() => removeNotification({ id: notification._id })}
                           size="icon-sm"
                           variant="ghost"
                         >

@@ -1,26 +1,10 @@
-import {
-  FunnelIcon,
-  MagnifyingGlassIcon,
-  PlusIcon,
-} from "@phosphor-icons/react";
+import { FunnelIcon, MagnifyingGlassIcon, PlusIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAccountsList } from "@/entities/account/api/use-accounts-list";
 import { useCategoriesList } from "@/entities/category/api/use-categories-list";
@@ -53,7 +37,7 @@ export function TransactionsPageSkeleton() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-4">
-            {[...new Array(5)].map((_, i) => (
+            {new Array(5).fill().map((_, i) => (
               <div className="flex items-center gap-4" key={i}>
                 <Skeleton className="h-8 w-8 rounded-full" />
                 <Skeleton className="h-4 flex-1" />
@@ -70,9 +54,7 @@ export function TransactionsPageSkeleton() {
 }
 
 export function TransactionsPage() {
-  const [filter, setFilter] = useState<
-    "all" | "expense" | "income" | "transfer"
-  >("all");
+  const [filter, setFilter] = useState<"all" | "expense" | "income" | "transfer">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
   const { data: transactions } = useTransactionsList({
@@ -98,7 +80,7 @@ export function TransactionsPage() {
       return transactions;
     }
     return transactions.filter((tx) =>
-      tx.description.toLowerCase().includes(searchQuery.toLowerCase())
+      tx.description.toLowerCase().includes(searchQuery.toLowerCase()),
     );
   };
 
@@ -122,9 +104,7 @@ export function TransactionsPage() {
         <CardHeader>
           <CardTitle>Transaction History</CardTitle>
           <CardDescription>
-            {filteredTransactions
-              ? `${transactionCount} transactions`
-              : "Loading…"}
+            {filteredTransactions ? `${transactionCount} transactions` : "Loading…"}
           </CardDescription>
           <div className="flex flex-wrap items-center gap-4 pt-4">
             <div className="relative flex-1">
@@ -139,10 +119,7 @@ export function TransactionsPage() {
                 value={searchQuery}
               />
             </div>
-            <Tabs
-              onValueChange={(v) => setFilter(v as typeof filter)}
-              value={filter}
-            >
+            <Tabs onValueChange={(v) => setFilter(v as typeof filter)} value={filter}>
               <TabsList>
                 <TabsTrigger value="all">All</TabsTrigger>
                 <TabsTrigger value="expense">Expenses</TabsTrigger>
@@ -156,18 +133,10 @@ export function TransactionsPage() {
           {!filteredTransactions && <TransactionsTableSkeleton />}
           {filteredTransactions && filteredTransactions.length === 0 && (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <FunnelIcon
-                className="h-12 w-12 text-muted-foreground"
-                weight="bold"
-              />
-              <p className="mt-4 text-muted-foreground">
-                No transactions found
-              </p>
+              <FunnelIcon className="h-12 w-12 text-muted-foreground" weight="bold" />
+              <p className="mt-4 text-muted-foreground">No transactions found</p>
               {accounts.length > 0 ? (
-                <CreateTransactionDialog
-                  accounts={accounts}
-                  categories={categories}
-                >
+                <CreateTransactionDialog accounts={accounts} categories={categories}>
                   <Button className="mt-4" variant="outline">
                     <PlusIcon className="mr-2" data-icon="inline-start" />
                     Add your first transaction

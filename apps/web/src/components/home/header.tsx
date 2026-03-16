@@ -28,9 +28,7 @@ export default function HomeHeader(props: Props) {
               <div className="mb-4 flex items-center gap-3">
                 {Icon ? <Icon className="h-4 w-4 text-primary" /> : null}
                 {props.title ? (
-                  <span className="font-medium text-primary/80 uppercase">
-                    {props.title}
-                  </span>
+                  <span className="font-medium text-primary/80 uppercase">{props.title}</span>
                 ) : null}
               </div>
             )}
@@ -60,7 +58,7 @@ export default function HomeHeader(props: Props) {
                   buttonVariants({
                     size: "lg",
                     variant: "default",
-                  })
+                  }),
                 )}
                 to="/dashboard"
               >
@@ -73,7 +71,7 @@ export default function HomeHeader(props: Props) {
                   buttonVariants({
                     size: "lg",
                     variant: "default",
-                  })
+                  }),
                 )}
                 to="/login"
               >

@@ -32,11 +32,7 @@ interface OnboardingWizardProps {
   onSkip: () => void;
 }
 
-export function OnboardingWizard({
-  initialStep = 0,
-  onComplete,
-  onSkip,
-}: OnboardingWizardProps) {
+export function OnboardingWizard({ initialStep = 0, onComplete, onSkip }: OnboardingWizardProps) {
   const [currentStep, setCurrentStep] = useState(initialStep);
   const [isOpen, setIsOpen] = useState(true);
   const prefersReducedMotion = useReducedMotion();
@@ -100,9 +96,7 @@ export function OnboardingWizard({
       <DialogContent className="flex max-h-[90vh] max-w-4xl flex-col gap-0 p-0">
         {/* Fixed Header */}
         <DialogHeader className="px-6 pt-6">
-          <DialogTitle className="text-2xl">
-            Get Started with Plutus
-          </DialogTitle>
+          <DialogTitle className="text-2xl">Get Started with Plutus</DialogTitle>
           <DialogDescription>
             Let's set up your financial tracking in just a few steps
           </DialogDescription>
@@ -113,17 +107,14 @@ export function OnboardingWizard({
           <div className="flex w-full max-w-2xl items-center">
             {STEPS.map((step, index) => (
               <div
-                className={cn(
-                  "flex items-center",
-                  index < STEPS.length - 1 && "flex-1"
-                )}
+                className={cn("flex items-center", index < STEPS.length - 1 && "flex-1")}
                 key={step.id}
               >
                 <div className="flex flex-col items-center">
                   <button
                     aria-label={`Go to onboarding step ${index + 1}: ${step.title}`}
                     className={`flex size-10 items-center justify-center rounded-full border-2 transition-[background-color,color,border-color,transform] ${getStepClassName(
-                      index
+                      index,
                     )} ${index < currentStep ? "cursor-pointer hover:scale-110" : "cursor-default"}`}
                     disabled={index >= currentStep}
                     onClick={async () => {
@@ -142,9 +133,7 @@ export function OnboardingWizard({
                   </button>
                   <span
                     className={`mt-2 text-xs ${
-                      index <= currentStep
-                        ? "text-foreground"
-                        : "text-muted-foreground"
+                      index <= currentStep ? "text-foreground" : "text-muted-foreground"
                     }`}
                   >
                     {step.title}

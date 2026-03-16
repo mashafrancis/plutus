@@ -127,9 +127,7 @@ export function EditTransactionDialog({
                     value: c._id,
                     label: `${c.icon} ${c.name}`,
                   }))}
-                  onValueChange={(val: string | null) =>
-                    field.handleChange(val || "")
-                  }
+                  onValueChange={(val: string | null) => field.handleChange(val || "")}
                   value={field.state.value || undefined}
                 >
                   <SelectTrigger className="w-full">
@@ -137,11 +135,7 @@ export function EditTransactionDialog({
                   </SelectTrigger>
                   <SelectContent>
                     {filteredCategories.map((c) => (
-                      <SelectItem
-                        key={c._id}
-                        label={`${c.icon} ${c.name}`}
-                        value={c._id}
-                      >
+                      <SelectItem key={c._id} label={`${c.icon} ${c.name}`} value={c._id}>
                         {c.icon} {c.name}
                       </SelectItem>
                     ))}
@@ -192,11 +186,7 @@ export function EditTransactionDialog({
           </form.Field>
 
           <DialogFooter>
-            <Button
-              onClick={() => onOpenChange(false)}
-              type="button"
-              variant="outline"
-            >
+            <Button onClick={() => onOpenChange(false)} type="button" variant="outline">
               Cancel
             </Button>
             <form.Subscribe>

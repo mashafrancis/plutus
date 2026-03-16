@@ -8,9 +8,7 @@ interface DeleteSubscriptionMenuItemProps {
   subscriptionId: SubscriptionId;
 }
 
-export function DeleteSubscriptionMenuItem({
-  subscriptionId,
-}: DeleteSubscriptionMenuItemProps) {
+export function DeleteSubscriptionMenuItem({ subscriptionId }: DeleteSubscriptionMenuItemProps) {
   const deleteSubscription = useDeleteSubscription();
 
   const handleDelete = async () => {

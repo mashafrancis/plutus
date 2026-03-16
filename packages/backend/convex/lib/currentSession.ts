@@ -4,7 +4,7 @@ import type { DataModel } from "../_generated/dataModel";
 import type { UserSession } from "../schemas/auth";
 
 export const fetchCurrentSession = Effect.fn("fetchCurrentSession")(function* (
-  ctx: GenericQueryCtx<DataModel> | GenericMutationCtx<DataModel>
+  ctx: GenericQueryCtx<DataModel> | GenericMutationCtx<DataModel>,
 ) {
   const identityResult = yield* Effect.tryPromise({
     try: () => ctx.auth.getUserIdentity(),
@@ -14,7 +14,4 @@ export const fetchCurrentSession = Effect.fn("fetchCurrentSession")(function* (
   return identityResult;
 });
 
-export class CurrentSession extends Context.Tag("CurrentSession")<
-  CurrentSession,
-  UserSession
->() {}
+export class CurrentSession extends Context.Tag("CurrentSession")<CurrentSession, UserSession>() {}

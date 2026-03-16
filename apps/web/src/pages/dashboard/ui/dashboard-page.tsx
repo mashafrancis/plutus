@@ -10,13 +10,7 @@ import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
 import { useMutation } from "convex/react";
 import { useEffect, useState } from "react";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDashboardSummary } from "@/entities/dashboard/api/use-dashboard-summary";
@@ -39,7 +33,7 @@ export function DashboardPageSkeleton() {
         <Skeleton className="h-4 w-24" />
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {[...new Array(4)].map((_, i) => (
+        {new Array(4).fill().map((_, i) => (
           <Card key={i}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <Skeleton className="h-4 w-24" />
@@ -69,7 +63,7 @@ export function DashboardPageSkeleton() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-4">
-              {[...new Array(5)].map((_, i) => (
+              {new Array(5).fill().map((_, i) => (
                 <div className="flex items-center gap-4" key={i}>
                   <Skeleton className="h-9 w-9 rounded-full" />
                   <div className="flex flex-1 flex-col gap-2">
@@ -90,7 +84,7 @@ export function DashboardPageSkeleton() {
 export function DashboardPage() {
   const { data: settings } = useUserSettings();
   const { data: summary } = useDashboardSummary(
-    settings ? { days: 30, baseCurrency: settings.baseCurrency } : "skip"
+    settings ? { days: 30, baseCurrency: settings.baseCurrency } : "skip",
   );
   const seedCategories = useMutation(api.categories.seedDefaultCategories);
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -135,9 +129,7 @@ export function DashboardPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="font-bold text-2xl tracking-tight">Dashboard</h1>
-            <p className="text-muted-foreground text-sm">
-              Your financial overview at a glance
-            </p>
+            <p className="text-muted-foreground text-sm">Your financial overview at a glance</p>
           </div>
           <p className="text-muted-foreground text-sm">Last 30 days</p>
         </div>
@@ -146,9 +138,7 @@ export function DashboardPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="font-medium text-sm">
-                Total Balance
-              </CardTitle>
+              <CardTitle className="font-medium text-sm">Total Balance</CardTitle>
               <WalletIcon className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -190,10 +180,7 @@ export function DashboardPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="font-medium text-sm">Net Change</CardTitle>
-              <TrendUpIcon
-                className="h-4 w-4 text-muted-foreground"
-                weight="bold"
-              />
+              <TrendUpIcon className="h-4 w-4 text-muted-foreground" weight="bold" />
             </CardHeader>
             <CardContent>
               <div
@@ -225,12 +212,7 @@ export function DashboardPage() {
                         <Pie
                           cx="50%"
                           cy="50%"
-                          data={
-                            summary.spendingByCategory as unknown as Record<
-                              string,
-                              unknown
-                            >[]
-                          }
+                          data={summary.spendingByCategory as unknown as Record<string, unknown>[]}
                           dataKey="amount"
                           innerRadius={60}
                           nameKey="name"
@@ -249,16 +231,11 @@ export function DashboardPage() {
                                 <div className="rounded-lg border bg-background p-2 shadow-sm">
                                   <div className="flex items-center gap-2">
                                     <span>{data.icon}</span>
-                                    <span className="font-medium">
-                                      {data.name}
-                                    </span>
+                                    <span className="font-medium">{data.name}</span>
                                   </div>
                                   <p className="text-muted-foreground text-sm">
-                                    {formatCurrency(
-                                      data.amount,
-                                      settings.baseCurrency
-                                    )}{" "}
-                                    ({formatPercent(data.percentage)})
+                                    {formatCurrency(data.amount, settings.baseCurrency)} (
+                                    {formatPercent(data.percentage)})
                                   </p>
                                 </div>
                               );
@@ -271,10 +248,7 @@ export function DashboardPage() {
                   </div>
                   <div className="flex flex-col gap-2">
                     {summary.spendingByCategory.slice(0, 5).map((cat) => (
-                      <div
-                        className="flex items-center gap-2"
-                        key={cat.categoryId}
-                      >
+                      <div className="flex items-center gap-2" key={cat.categoryId}>
                         <div
                           className="h-3 w-3 rounded-full"
                           style={{ backgroundColor: cat.color }}
@@ -316,16 +290,10 @@ export function DashboardPage() {
                           <TransactionIcon type={tx.type} />
                         </div>
                         <div className="flex flex-1 flex-col gap-1">
-                          <p className="font-medium text-sm leading-none">
-                            {tx.description}
-                          </p>
-                          <p className="text-muted-foreground text-xs">
-                            {formatDate(tx.date)}
-                          </p>
+                          <p className="font-medium text-sm leading-none">{tx.description}</p>
+                          <p className="text-muted-foreground text-xs">{formatDate(tx.date)}</p>
                         </div>
-                        <div
-                          className={`font-medium text-sm ${getTransactionTextClass(tx.type)}`}
-                        >
+                        <div className={`font-medium text-sm ${getTransactionTextClass(tx.type)}`}>
                           {tx.type === "income" ? "+" : "-"}
                           {formatCurrency(tx.amount, tx.currency)}
                         </div>
@@ -359,9 +327,7 @@ export function DashboardPage() {
                       </div>
                       <div className="flex-1">
                         <p className="font-medium text-sm">{account.name}</p>
-                        <p className="text-muted-foreground text-xs capitalize">
-                          {account.type}
-                        </p>
+                        <p className="text-muted-foreground text-xs capitalize">{account.type}</p>
                       </div>
                       <p className="font-medium text-sm">
                         {formatCurrency(account.balance, account.currency)}
@@ -389,10 +355,7 @@ export function DashboardPage() {
                   {summary.upcomingSubscriptions.map((sub) => (
                     <div className="flex items-center gap-4" key={sub._id}>
                       <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
-                        <CurrencyDollarIcon
-                          className="h-4 w-4 text-primary"
-                          weight="bold"
-                        />
+                        <CurrencyDollarIcon className="h-4 w-4 text-primary" weight="bold" />
                       </div>
                       <div className="flex-1">
                         <p className="font-medium text-sm">{sub.name}</p>

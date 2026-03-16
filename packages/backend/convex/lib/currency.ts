@@ -26,7 +26,7 @@ const FALLBACK_RATES: Record<string, number> = {
 export const getExchangeRate = (
   ctx: GenericQueryCtx<DataModel>,
   fromCurrency: string,
-  toCurrency: string
+  toCurrency: string,
 ) =>
   Effect.gen(function* () {
     if (fromCurrency === toCurrency) {
@@ -38,14 +38,14 @@ export const getExchangeRate = (
       ctx.db
         .query("exchangeRates")
         .withIndex("by_currencies", (q) =>
-          q.eq("baseCurrency", fromCurrency).eq("targetCurrency", toCurrency)
+          q.eq("baseCurrency", fromCurrency).eq("targetCurrency", toCurrency),
         )
-        .first()
+        .first(),
     );
 
     if (directRate) {
       yield* Console.log(
-        `Found direct rate for ${fromCurrency}->${toCurrency}: ${directRate.rate}`
+        `Found direct rate for ${fromCurrency}->${toCurrency}: ${directRate.rate}`,
       );
       return directRate.rate;
     }
@@ -55,14 +55,14 @@ export const getExchangeRate = (
       ctx.db
         .query("exchangeRates")
         .withIndex("by_currencies", (q) =>
-          q.eq("baseCurrency", toCurrency).eq("targetCurrency", fromCurrency)
+          q.eq("baseCurrency", toCurrency).eq("targetCurrency", fromCurrency),
         )
-        .first()
+        .first(),
     );
 
     if (reverseRate) {
       yield* Console.log(
-        `Found reverse rate for ${fromCurrency}->${toCurrency}: ${1 / reverseRate.rate}`
+        `Found reverse rate for ${fromCurrency}->${toCurrency}: ${1 / reverseRate.rate}`,
       );
       return 1 / reverseRate.rate;
     }
@@ -76,11 +76,9 @@ export const getExchangeRate = (
             ctx.db
               .query("exchangeRates")
               .withIndex("by_currencies", (q) =>
-                q
-                  .eq("baseCurrency", USD_BASE_CURRENCY)
-                  .eq("targetCurrency", fromCurrency)
+                q.eq("baseCurrency", USD_BASE_CURRENCY).eq("targetCurrency", fromCurrency),
               )
-              .first()
+              .first(),
           ))?.rate;
 
     const toUSDRate =
@@ -90,17 +88,15 @@ export const getExchangeRate = (
             ctx.db
               .query("exchangeRates")
               .withIndex("by_currencies", (q) =>
-                q
-                  .eq("baseCurrency", USD_BASE_CURRENCY)
-                  .eq("targetCurrency", toCurrency)
+                q.eq("baseCurrency", USD_BASE_CURRENCY).eq("targetCurrency", toCurrency),
               )
-              .first()
+              .first(),
           ))?.rate;
 
     if (fromUSDRate && toUSDRate) {
       const rate = toUSDRate / fromUSDRate;
       yield* Console.log(
-        `Calculated intermediate rate for ${fromCurrency}->${toCurrency}: ${rate}`
+        `Calculated intermediate rate for ${fromCurrency}->${toCurrency}: ${rate}`,
       );
       return rate;
     }
@@ -111,15 +107,11 @@ export const getExchangeRate = (
 
     if (fromFallback && toFallback) {
       const rate = toFallback / fromFallback;
-      yield* Console.log(
-        `Using fallback rate for ${fromCurrency}->${toCurrency}: ${rate}`
-      );
+      yield* Console.log(`Using fallback rate for ${fromCurrency}->${toCurrency}: ${rate}`);
       return rate;
     }
 
-    yield* Console.warn(
-      `No exchange rate found for ${fromCurrency} -> ${toCurrency}`
-    );
+    yield* Console.warn(`No exchange rate found for ${fromCurrency} -> ${toCurrency}`);
     // No conversion available, return 1
     return 1;
   });
@@ -131,7 +123,7 @@ export const convertCurrency = (
   ctx: GenericQueryCtx<DataModel>,
   amount: number,
   fromCurrency: string,
-  toCurrency: string
+  toCurrency: string,
 ) =>
   Effect.gen(function* () {
     const rate = yield* getExchangeRate(ctx, fromCurrency, toCurrency);
@@ -282,10 +274,7 @@ const parseRegionFromLocale = (locale: string): string | null => {
   return null;
 };
 
-export const getCurrencyFromLocale = (
-  locale: string | undefined,
-  timeZone?: string
-): string => {
+export const getCurrencyFromLocale = (locale: string | undefined, timeZone?: string): string => {
   const region =
     (locale ? parseRegionFromLocale(locale) : null) ??
     (timeZone ? TIMEZONE_TO_REGION[timeZone] : undefined);

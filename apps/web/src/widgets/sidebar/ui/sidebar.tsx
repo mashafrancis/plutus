@@ -37,9 +37,7 @@ const navLinks = [
   { to: "/goals", label: "Goals", icon: TargetIcon },
 ] as const;
 
-const bottomLinks = [
-  { to: "/settings", label: "Settings", icon: GearIcon },
-] as const;
+const bottomLinks = [{ to: "/settings", label: "Settings", icon: GearIcon }] as const;
 
 export function Sidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -175,9 +173,7 @@ function SidebarUser() {
             </Avatar>
             <div className="flex-1 overflow-hidden">
               <p className="truncate font-medium text-sm">{user?.name}</p>
-              <p className="truncate text-muted-foreground text-xs">
-                {user?.email}
-              </p>
+              <p className="truncate text-muted-foreground text-xs">{user?.email}</p>
             </div>
           </button>
         </DropdownMenuTrigger>

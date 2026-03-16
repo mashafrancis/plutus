@@ -24,10 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCreateSubscription } from "@/entities/subscription/api/use-create-subscription";
-import {
-  FREQUENCIES,
-  SubscriptionFormSchema,
-} from "../model/subscription-form-schema";
+import { FREQUENCIES, SubscriptionFormSchema } from "../model/subscription-form-schema";
 
 export function CreateSubscriptionDialog({
   accounts,
@@ -55,12 +52,7 @@ export function CreateSubscriptionDialog({
       accountId: "",
       categoryId: "",
       amount: "",
-      frequency: "monthly" as
-        | "daily"
-        | "weekly"
-        | "monthly"
-        | "quarterly"
-        | "yearly",
+      frequency: "monthly" as "daily" | "weekly" | "monthly" | "quarterly" | "yearly",
       startDate: new Date().toISOString().split("T")[0],
     },
     onSubmit: async ({ value }) => {
@@ -93,9 +85,7 @@ export function CreateSubscriptionDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Subscription</DialogTitle>
-          <DialogDescription>
-            Track a recurring payment or subscription.
-          </DialogDescription>
+          <DialogDescription>Track a recurring payment or subscription.</DialogDescription>
         </DialogHeader>
         <form
           className="flex flex-col gap-4"
@@ -134,9 +124,7 @@ export function CreateSubscriptionDialog({
                     value: a._id,
                     label: `${a.name} (${a.currency})`,
                   }))}
-                  onValueChange={(val: string | null) =>
-                    val && field.handleChange(val)
-                  }
+                  onValueChange={(val: string | null) => val && field.handleChange(val)}
                   value={field.state.value || undefined}
                 >
                   <SelectTrigger className="w-full">
@@ -144,11 +132,7 @@ export function CreateSubscriptionDialog({
                   </SelectTrigger>
                   <SelectContent>
                     {accounts.map((a) => (
-                      <SelectItem
-                        key={a._id}
-                        label={`${a.name} (${a.currency})`}
-                        value={a._id}
-                      >
+                      <SelectItem key={a._id} label={`${a.name} (${a.currency})`} value={a._id}>
                         {a.name} ({a.currency})
                       </SelectItem>
                     ))}
@@ -172,9 +156,7 @@ export function CreateSubscriptionDialog({
                     value: c._id,
                     label: `${c.icon} ${c.name}`,
                   }))}
-                  onValueChange={(val: string | null) =>
-                    val && field.handleChange(val)
-                  }
+                  onValueChange={(val: string | null) => val && field.handleChange(val)}
                   value={field.state.value || undefined}
                 >
                   <SelectTrigger className="w-full">
@@ -182,11 +164,7 @@ export function CreateSubscriptionDialog({
                   </SelectTrigger>
                   <SelectContent>
                     {categories.map((c) => (
-                      <SelectItem
-                        key={c._id}
-                        label={`${c.icon} ${c.name}`}
-                        value={c._id}
-                      >
+                      <SelectItem key={c._id} label={`${c.icon} ${c.name}`} value={c._id}>
                         {c.icon} {c.name}
                       </SelectItem>
                     ))}
@@ -217,10 +195,7 @@ export function CreateSubscriptionDialog({
                     value={field.state.value}
                   />
                   {field.state.meta.errors.map((error) => (
-                    <p
-                      className="text-destructive text-sm"
-                      key={error?.message}
-                    >
+                    <p className="text-destructive text-sm" key={error?.message}>
                       {error?.message}
                     </p>
                   ))}
@@ -240,12 +215,7 @@ export function CreateSubscriptionDialog({
                     onValueChange={(val: string | null) =>
                       val &&
                       field.handleChange(
-                        val as
-                          | "daily"
-                          | "weekly"
-                          | "monthly"
-                          | "quarterly"
-                          | "yearly"
+                        val as "daily" | "weekly" | "monthly" | "quarterly" | "yearly",
                       )
                     }
                     value={field.state.value}
@@ -287,11 +257,7 @@ export function CreateSubscriptionDialog({
           </form.Field>
 
           <DialogFooter>
-            <Button
-              onClick={() => setOpen(false)}
-              type="button"
-              variant="outline"
-            >
+            <Button onClick={() => setOpen(false)} type="button" variant="outline">
               Cancel
             </Button>
             <form.Subscribe>

@@ -13,9 +13,5 @@ const defaultIconContext = {
 };
 
 export function IconProvider({ children }: IconProviderProps) {
-  return (
-    <IconContext.Provider value={defaultIconContext}>
-      {children}
-    </IconContext.Provider>
-  );
+  return <IconContext.Provider value={defaultIconContext}>{children}</IconContext.Provider>;
 }

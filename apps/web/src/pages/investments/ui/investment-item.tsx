@@ -1,8 +1,4 @@
-import {
-  CaretDownIcon,
-  CaretUpIcon,
-  DotsThreeIcon,
-} from "@phosphor-icons/react";
+import { CaretDownIcon, CaretUpIcon, DotsThreeIcon } from "@phosphor-icons/react";
 import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -58,15 +54,11 @@ export function InvestmentItem({ investment }: InvestmentItemProps) {
       </div>
       <div className="flex items-center gap-4">
         <div className="text-right">
-          <p
-            className={`font-medium ${isPositive ? "text-chart-2" : "text-destructive"}`}
-          >
+          <p className={`font-medium ${isPositive ? "text-chart-2" : "text-destructive"}`}>
             {isPositive ? "+" : ""}
             {formatCurrency(investment.gain, investment.currency)}
           </p>
-          <p
-            className={`text-sm ${isPositive ? "text-chart-2" : "text-destructive"}`}
-          >
+          <p className={`text-sm ${isPositive ? "text-chart-2" : "text-destructive"}`}>
             {isPositive ? "+" : ""}
             {formatPercent(investment.gainPercent)}
           </p>
@@ -74,11 +66,7 @@ export function InvestmentItem({ investment }: InvestmentItemProps) {
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
-              <Button
-                aria-label="Investment options"
-                size="icon"
-                variant="ghost"
-              >
+              <Button aria-label="Investment options" size="icon" variant="ghost">
                 <DotsThreeIcon aria-hidden weight="bold" />
               </Button>
             }

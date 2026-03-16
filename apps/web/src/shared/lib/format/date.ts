@@ -1,10 +1,7 @@
 /**
  * Format a date for display
  */
-export function formatDate(
-  timestamp: number,
-  options?: Intl.DateTimeFormatOptions
-): string {
+export function formatDate(timestamp: number, options?: Intl.DateTimeFormatOptions): string {
   return new Date(timestamp).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",

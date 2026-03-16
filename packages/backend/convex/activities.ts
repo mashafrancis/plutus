@@ -26,6 +26,6 @@ export const get = query({
               .take(limit),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });

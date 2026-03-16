@@ -24,10 +24,7 @@ export function DeleteGoalMenuItem({ goalId }: DeleteGoalMenuItemProps) {
   };
 
   return (
-    <DropdownMenuItem
-      className="text-destructive focus:text-destructive"
-      onClick={handleDelete}
-    >
+    <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={handleDelete}>
       <TrashIcon className="mr-2" weight="bold" />
       Delete
     </DropdownMenuItem>

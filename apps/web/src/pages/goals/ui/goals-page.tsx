@@ -35,7 +35,7 @@ export function GoalsPageSkeleton() {
       <div>
         <Skeleton className="mb-4 h-6 w-32" />
         <div className="grid gap-4 md:grid-cols-2">
-          {[...new Array(2)].map((_, i) => (
+          {new Array(2).fill().map((_, i) => (
             <Card key={i}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <div className="flex items-center gap-2">
@@ -69,21 +69,15 @@ export function GoalsPage() {
   const completedGoals = goals.filter((g) => g.isCompleted);
 
   const totalTarget = activeGoals.reduce((sum, g) => sum + g.targetAmount, 0);
-  const totalProgress = activeGoals.reduce(
-    (sum, g) => sum + g.currentAmount,
-    0
-  );
-  const overallPercent =
-    totalTarget > 0 ? (totalProgress / totalTarget) * 100 : 0;
+  const totalProgress = activeGoals.reduce((sum, g) => sum + g.currentAmount, 0);
+  const overallPercent = totalTarget > 0 ? (totalProgress / totalTarget) * 100 : 0;
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-4 lg:p-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-bold text-2xl tracking-tight">Goals</h1>
-          <p className="text-muted-foreground text-sm">
-            Set and track your savings targets
-          </p>
+          <p className="text-muted-foreground text-sm">Set and track your savings targets</p>
         </div>
         <CreateGoalDialog />
       </div>
@@ -91,24 +85,17 @@ export function GoalsPage() {
       {/* Overall Progress */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="font-medium text-sm">
-            Overall Progress
-          </CardTitle>
+          <CardTitle className="font-medium text-sm">Overall Progress</CardTitle>
           <TargetIcon className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
           <div className="flex items-baseline gap-2">
-            <span className="font-bold text-2xl">
-              {formatCurrency(totalProgress)}
-            </span>
-            <span className="text-muted-foreground text-sm">
-              of {formatCurrency(totalTarget)}
-            </span>
+            <span className="font-bold text-2xl">{formatCurrency(totalProgress)}</span>
+            <span className="text-muted-foreground text-sm">of {formatCurrency(totalTarget)}</span>
           </div>
           <Progress className="mt-2" value={overallPercent} />
           <p className="mt-1 text-muted-foreground text-xs">
-            {formatPercent(overallPercent)} complete across {activeGoals.length}{" "}
-            goals
+            {formatPercent(overallPercent)} complete across {activeGoals.length} goals
           </p>
         </CardContent>
       </Card>
@@ -141,14 +128,9 @@ export function GoalsPage() {
       {/* Completed Goals Toggle */}
       {completedGoals.length > 0 && (
         <div>
-          <Button
-            className="mb-4"
-            onClick={() => setShowCompleted(!showCompleted)}
-            variant="ghost"
-          >
+          <Button className="mb-4" onClick={() => setShowCompleted(!showCompleted)} variant="ghost">
             <CheckIcon className="mr-2" weight="bold" />
-            {showCompleted ? "Hide" : "Show"} Completed ({completedGoals.length}
-            )
+            {showCompleted ? "Hide" : "Show"} Completed ({completedGoals.length})
           </Button>
           {showCompleted && (
             <div className="grid gap-4 md:grid-cols-2">

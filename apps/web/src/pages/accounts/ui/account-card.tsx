@@ -9,13 +9,7 @@ import type { Doc } from "@tanstack-effect-convex/backend/convex/_generated/data
 import { useMutation } from "convex/react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,8 +29,7 @@ export function AccountCard({ account, isArchived = false }: AccountCardProps) {
   const archiveAccount = useMutation(api.accounts.archive);
   const unarchiveAccount = useMutation(api.accounts.unarchive);
 
-  const TypeIcon =
-    ACCOUNT_TYPES.find((t) => t.value === account.type)?.icon || CreditCardIcon;
+  const TypeIcon = ACCOUNT_TYPES.find((t) => t.value === account.type)?.icon || CreditCardIcon;
 
   const handleArchive = async () => {
     try {
@@ -65,9 +58,7 @@ export function AccountCard({ account, isArchived = false }: AccountCardProps) {
           </div>
           <div>
             <CardTitle className="text-base">{account.name}</CardTitle>
-            <CardDescription className="capitalize">
-              {account.type}
-            </CardDescription>
+            <CardDescription className="capitalize">{account.type}</CardDescription>
           </div>
         </div>
         <DropdownMenu>

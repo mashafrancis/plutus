@@ -12,7 +12,7 @@ export function SettingsPageSkeleton() {
         <Skeleton className="h-8 w-24" />
         <Skeleton className="mt-2 h-4 w-64" />
       </div>
-      {[...new Array(4)].map((_, i) => (
+      {new Array(4).fill().map((_, i) => (
         <Card key={i}>
           <CardHeader>
             <div className="flex items-center gap-2">

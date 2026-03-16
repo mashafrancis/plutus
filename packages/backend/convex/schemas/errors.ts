@@ -17,8 +17,6 @@ export class UnknownError extends Data.TaggedError("UnknownError")<{
 
 export class InvalidCtxError extends Data.TaggedError("InvalidCtxError") {}
 
-export class GetUserIdentityError extends Data.TaggedError(
-  "GetUserIdentityError"
-)<{
+export class GetUserIdentityError extends Data.TaggedError("GetUserIdentityError")<{
   error: unknown;
 }> {}

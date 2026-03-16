@@ -66,3 +66,4 @@ if [ "$STAGED_HASH" != "$NEW_STAGED_HASH" ]; then
 fi
 
 exit $FORMAT_EXIT_CODE
+vp staged

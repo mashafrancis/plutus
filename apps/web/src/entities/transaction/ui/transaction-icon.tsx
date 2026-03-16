@@ -1,8 +1,4 @@
-import {
-  ArrowDownRightIcon,
-  ArrowsClockwiseIcon,
-  ArrowUpRightIcon,
-} from "@phosphor-icons/react";
+import { ArrowDownRightIcon, ArrowsClockwiseIcon, ArrowUpRightIcon } from "@phosphor-icons/react";
 import type { TransactionType } from "../types/transaction-type";
 
 export function TransactionIcon({ type }: { type: TransactionType }) {

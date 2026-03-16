@@ -28,24 +28,13 @@ function parseDurationToMS(duration: string, fallback: number): number {
   return fallback;
 }
 
-function Loading({
-  size,
-  duration,
-  className,
-  type = "spinner",
-  ...props
-}: LoadingProps) {
+function Loading({ size, duration, className, type = "spinner", ...props }: LoadingProps) {
   if (type === "dots") {
     const durationMs = duration
       ? parseDurationToMS(duration, DEFAULT_DOTS_DURATION_MS)
       : DEFAULT_DOTS_DURATION_MS;
     return (
-      <DotsLoading
-        className={className}
-        durationMs={durationMs}
-        size={size ?? 24}
-        {...props}
-      />
+      <DotsLoading className={className} durationMs={durationMs} size={size ?? 24} {...props} />
     );
   }
 
@@ -67,12 +56,7 @@ type DotsLoadingProps = SVGProps<SVGSVGElement> & {
   durationMs: number;
 };
 
-const DotsLoading = ({
-  size,
-  className,
-  durationMs,
-  ...props
-}: DotsLoadingProps) => {
+const DotsLoading = ({ size, className, durationMs, ...props }: DotsLoadingProps) => {
   const role = props.role ?? "status";
   const ariaLabel = props["aria-label"] ?? "Loading";
   const stagger = durationMs / 3;

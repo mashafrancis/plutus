@@ -29,11 +29,7 @@ import {
   InvestmentFormSchema,
 } from "../model/investment-form-schema";
 
-export function CreateInvestmentDialog({
-  children,
-}: {
-  children?: React.ReactNode;
-}) {
+export function CreateInvestmentDialog({ children }: { children?: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const createInvestment = useCreateInvestment();
   const triggerRender = isValidElement(children) ? (
@@ -71,9 +67,7 @@ export function CreateInvestmentDialog({
           symbol: value.symbol || undefined,
           quantity: Number.parseFloat(value.quantity),
           purchasePrice: Number.parseFloat(value.purchasePrice),
-          currentPrice: value.currentPrice
-            ? Number.parseFloat(value.currentPrice)
-            : undefined,
+          currentPrice: value.currentPrice ? Number.parseFloat(value.currentPrice) : undefined,
           currency: value.currency,
           purchaseDate: new Date(value.purchaseDate).getTime(),
         });
@@ -95,9 +89,7 @@ export function CreateInvestmentDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Investment</DialogTitle>
-          <DialogDescription>
-            Track a new investment position.
-          </DialogDescription>
+          <DialogDescription>Track a new investment position.</DialogDescription>
         </DialogHeader>
         <form
           className="flex flex-col gap-4"
@@ -120,10 +112,7 @@ export function CreateInvestmentDialog({
                     value={field.state.value}
                   />
                   {field.state.meta.errors.map((error) => (
-                    <p
-                      className="text-destructive text-sm"
-                      key={error?.message}
-                    >
+                    <p className="text-destructive text-sm" key={error?.message}>
                       {error?.message}
                     </p>
                   ))}
@@ -138,9 +127,7 @@ export function CreateInvestmentDialog({
                   <Input
                     id="symbol"
                     onBlur={field.handleBlur}
-                    onChange={(e) =>
-                      field.handleChange(e.target.value.toUpperCase())
-                    }
+                    onChange={(e) => field.handleChange(e.target.value.toUpperCase())}
                     placeholder="e.g., AAPL"
                     value={field.state.value}
                   />
@@ -169,7 +156,7 @@ export function CreateInvestmentDialog({
                           | "mutual_fund"
                           | "bond"
                           | "real_estate"
-                          | "other"
+                          | "other",
                       )
                     }
                     value={field.state.value}
@@ -195,9 +182,7 @@ export function CreateInvestmentDialog({
                   <Label htmlFor="currency">Currency</Label>
                   <Select
                     items={[...CURRENCIES]}
-                    onValueChange={(val: string | null) =>
-                      val && field.handleChange(val)
-                    }
+                    onValueChange={(val: string | null) => val && field.handleChange(val)}
                     value={field.state.value}
                   >
                     <SelectTrigger className="w-full">
@@ -232,10 +217,7 @@ export function CreateInvestmentDialog({
                     value={field.state.value}
                   />
                   {field.state.meta.errors.map((error) => (
-                    <p
-                      className="text-destructive text-sm"
-                      key={error?.message}
-                    >
+                    <p className="text-destructive text-sm" key={error?.message}>
                       {error?.message}
                     </p>
                   ))}
@@ -258,10 +240,7 @@ export function CreateInvestmentDialog({
                     value={field.state.value}
                   />
                   {field.state.meta.errors.map((error) => (
-                    <p
-                      className="text-destructive text-sm"
-                      key={error?.message}
-                    >
+                    <p className="text-destructive text-sm" key={error?.message}>
                       {error?.message}
                     </p>
                   ))}
@@ -301,10 +280,7 @@ export function CreateInvestmentDialog({
                     value={field.state.value}
                   />
                   {field.state.meta.errors.map((error) => (
-                    <p
-                      className="text-destructive text-sm"
-                      key={error?.message}
-                    >
+                    <p className="text-destructive text-sm" key={error?.message}>
                       {error?.message}
                     </p>
                   ))}
@@ -314,11 +290,7 @@ export function CreateInvestmentDialog({
           </div>
 
           <DialogFooter>
-            <Button
-              onClick={() => setOpen(false)}
-              type="button"
-              variant="outline"
-            >
+            <Button onClick={() => setOpen(false)} type="button" variant="outline">
               Cancel
             </Button>
             <form.Subscribe>

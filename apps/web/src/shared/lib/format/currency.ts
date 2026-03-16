@@ -4,7 +4,7 @@
 export function formatCurrency(
   amount: number,
   currency = "KES",
-  options?: Intl.NumberFormatOptions
+  options?: Intl.NumberFormatOptions,
 ): string {
   try {
     return new Intl.NumberFormat("en-US", {

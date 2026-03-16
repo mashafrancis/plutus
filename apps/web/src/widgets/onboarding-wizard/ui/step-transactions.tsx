@@ -81,12 +81,9 @@ export default function StepTransactions() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h3 className="font-semibold text-lg">
-          Add recent transactions (Optional)
-        </h3>
+        <h3 className="font-semibold text-lg">Add recent transactions (Optional)</h3>
         <p className="text-muted-foreground text-sm">
-          Add some recent transactions to get started. You can skip this step
-          and add them later.
+          Add some recent transactions to get started. You can skip this step and add them later.
         </p>
       </div>
 
@@ -131,11 +128,7 @@ export default function StepTransactions() {
               </SelectTrigger>
               <SelectContent>
                 {categories?.map((cat) => (
-                  <SelectItem
-                    key={cat._id}
-                    label={`${cat.icon} ${cat.name}`}
-                    value={cat._id}
-                  >
+                  <SelectItem key={cat._id} label={`${cat.icon} ${cat.name}`} value={cat._id}>
                     {cat.icon} {cat.name}
                   </SelectItem>
                 ))}
@@ -211,10 +204,7 @@ export default function StepTransactions() {
           <Label>Recent Transactions ({recentTransactions.length})</Label>
           <div className="flex flex-col gap-2">
             {recentTransactions.map((tx) => (
-              <div
-                className="flex items-center justify-between rounded-md border p-3"
-                key={tx._id}
-              >
+              <div className="flex items-center justify-between rounded-md border p-3" key={tx._id}>
                 <div>
                   <p className="font-medium">{tx.description}</p>
                   <p className="text-muted-foreground text-sm">

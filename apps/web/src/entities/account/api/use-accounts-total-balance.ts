@@ -7,14 +7,9 @@ interface UseAccountsTotalBalanceParams {
   baseCurrency: string;
 }
 
-export function useAccountsTotalBalance(
-  params: UseAccountsTotalBalanceParams | "skip"
-) {
+export function useAccountsTotalBalance(params: UseAccountsTotalBalanceParams | "skip") {
   return useQuery({
-    ...convexQuery(
-      api.accounts.getTotalBalance,
-      params === "skip" ? "skip" : params
-    ),
+    ...convexQuery(api.accounts.getTotalBalance, params === "skip" ? "skip" : params),
     staleTime: STALE_TIME.SEMI_STATIC,
   });
 }

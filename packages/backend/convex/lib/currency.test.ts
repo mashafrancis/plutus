@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 import {
   DEFAULT_BASE_CURRENCY,
   getCurrencyFromLocale,
@@ -33,18 +33,13 @@ describe("currency defaults", () => {
       resolveInitialBaseCurrency({
         existingBaseCurrency: "USD",
         locale: "en-KE",
-      })
+      }),
     ).toBe("USD");
   });
 });
 
 describe("aggregate query currency fallback consistency", () => {
-  const aggregateFiles = [
-    "accounts.ts",
-    "dashboard.ts",
-    "investments.ts",
-    "subscriptions.ts",
-  ];
+  const aggregateFiles = ["accounts.ts", "dashboard.ts", "investments.ts", "subscriptions.ts"];
 
   it("uses DEFAULT_BASE_CURRENCY across aggregate modules", () => {
     for (const file of aggregateFiles) {

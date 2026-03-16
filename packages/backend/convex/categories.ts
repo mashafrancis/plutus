@@ -38,7 +38,7 @@ export const list = query({
               .collect(),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -55,12 +55,12 @@ export const listByType = query({
             ctx.db
               .query("categories")
               .withIndex("by_userId_type", (q) =>
-                q.eq("userId", user.subject).eq("type", args.type)
+                q.eq("userId", user.subject).eq("type", args.type),
               )
               .collect(),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -82,7 +82,7 @@ export const get = query({
         }
 
         return category;
-      })
+      }),
     ),
 });
 
@@ -111,7 +111,7 @@ export const create = mutation({
             }),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -148,7 +148,7 @@ export const update = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -175,7 +175,7 @@ export const remove = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -213,10 +213,10 @@ export const seedDefaultCategories = mutation({
                 isDefault: true,
               }),
             catch: (error) => new UnknownError({ error }),
-          })
+          }),
         );
 
         return null;
-      })
+      }),
     ),
 });

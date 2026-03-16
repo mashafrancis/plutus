@@ -2,10 +2,7 @@ import { v } from "convex/values";
 import { Effect } from "effect";
 import type { Doc, Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server";
-import {
-  DEFAULT_BASE_CURRENCY,
-  resolveInitialBaseCurrency,
-} from "./lib/currency";
+import { DEFAULT_BASE_CURRENCY, resolveInitialBaseCurrency } from "./lib/currency";
 import { Policies } from "./lib/policies";
 import { runWithEffect } from "./lib/runtime";
 import { UnknownError } from "./schemas/errors";
@@ -68,7 +65,7 @@ export const get = query({
               .first(),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -99,7 +96,7 @@ export const getOrCreate = query({
           userId: user.subject,
           ...DEFAULT_SETTINGS,
         } as Doc<"userSettings">;
-      })
+      }),
     ),
 });
 
@@ -169,21 +166,15 @@ export const update = mutation({
               baseCurrency: args.baseCurrency ?? DEFAULT_SETTINGS.baseCurrency,
               defaultAccountId: args.defaultAccountId,
               notificationsEnabled:
-                args.notificationsEnabled ??
-                DEFAULT_SETTINGS.notificationsEnabled,
-              emailNotifications:
-                args.emailNotifications ?? DEFAULT_SETTINGS.emailNotifications,
-              dashboardDateRange:
-                args.dashboardDateRange ?? DEFAULT_SETTINGS.dashboardDateRange,
-              onboardingCompleted:
-                args.onboardingCompleted ??
-                DEFAULT_SETTINGS.onboardingCompleted,
-              onboardingStep:
-                args.onboardingStep ?? DEFAULT_SETTINGS.onboardingStep,
+                args.notificationsEnabled ?? DEFAULT_SETTINGS.notificationsEnabled,
+              emailNotifications: args.emailNotifications ?? DEFAULT_SETTINGS.emailNotifications,
+              dashboardDateRange: args.dashboardDateRange ?? DEFAULT_SETTINGS.dashboardDateRange,
+              onboardingCompleted: args.onboardingCompleted ?? DEFAULT_SETTINGS.onboardingCompleted,
+              onboardingStep: args.onboardingStep ?? DEFAULT_SETTINGS.onboardingStep,
             }),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -206,8 +197,7 @@ export const setBaseCurrency = mutation({
 
         if (existing) {
           yield* Effect.tryPromise({
-            try: () =>
-              ctx.db.patch(existing._id, { baseCurrency: args.currency }),
+            try: () => ctx.db.patch(existing._id, { baseCurrency: args.currency }),
             catch: (error) => new UnknownError({ error }),
           });
         } else {
@@ -227,7 +217,7 @@ export const setBaseCurrency = mutation({
         }
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -278,7 +268,7 @@ export const initializeBaseCurrencyFromLocale = mutation({
         });
 
         return inferredCurrency;
-      })
+      }),
     ),
 });
 
@@ -311,8 +301,7 @@ export const setDefaultAccount = mutation({
 
         if (existing) {
           yield* Effect.tryPromise({
-            try: () =>
-              ctx.db.patch(existing._id, { defaultAccountId: args.accountId }),
+            try: () => ctx.db.patch(existing._id, { defaultAccountId: args.accountId }),
             catch: (error) => new UnknownError({ error }),
           });
         } else {
@@ -333,6 +322,6 @@ export const setDefaultAccount = mutation({
         }
 
         return null;
-      })
+      }),
     ),
 });

@@ -44,8 +44,7 @@ function getBreadcrumbs(pathname: string): BreadcrumbSegment[] {
   pathParts.forEach((part, index) => {
     currentPath += `/${part}`;
     const isLast = index === pathParts.length - 1;
-    const name =
-      ROUTE_NAMES[part] || part.charAt(0).toUpperCase() + part.slice(1);
+    const name = ROUTE_NAMES[part] || part.charAt(0).toUpperCase() + part.slice(1);
 
     segments.push({
       name,
@@ -70,11 +69,7 @@ export function Navbar() {
             {breadcrumbs[0]?.path !== "/dashboard" && (
               <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink
-                    render={
-                      <Link aria-label="Go to dashboard" to="/dashboard" />
-                    }
-                  >
+                  <BreadcrumbLink render={<Link aria-label="Go to dashboard" to="/dashboard" />}>
                     <HouseIcon aria-hidden weight="bold" />
                   </BreadcrumbLink>
                 </BreadcrumbItem>

@@ -4,7 +4,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { config as loadEnvFile } from "dotenv";
 import { nitro } from "nitro/vite";
-import { defineConfig } from "vite";
+import { defineConfig } from "vite-plus";
 import path from "node:path";
 import fs from "node:fs";
 
@@ -34,7 +34,10 @@ function syncConvexEnvFromBackend() {
     return;
   }
 
-  if (parsed.CONVEX_URL && (!process.env.VITE_CONVEX_URL || isLocalhostUrl(process.env.VITE_CONVEX_URL))) {
+  if (
+    parsed.CONVEX_URL &&
+    (!process.env.VITE_CONVEX_URL || isLocalhostUrl(process.env.VITE_CONVEX_URL))
+  ) {
     process.env.VITE_CONVEX_URL = parsed.CONVEX_URL;
   }
 

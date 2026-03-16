@@ -8,14 +8,9 @@ interface UseDashboardSummaryParams {
   baseCurrency: string;
 }
 
-export function useDashboardSummary(
-  params: UseDashboardSummaryParams | "skip"
-) {
+export function useDashboardSummary(params: UseDashboardSummaryParams | "skip") {
   return useQuery({
-    ...convexQuery(
-      api.dashboard.getSummary,
-      params === "skip" ? "skip" : params
-    ),
+    ...convexQuery(api.dashboard.getSummary, params === "skip" ? "skip" : params),
     staleTime: STALE_TIME.DYNAMIC,
   });
 }

@@ -179,8 +179,7 @@ export default function StepAccounts() {
                 <div>
                   <p className="font-medium">{account.name}</p>
                   <p className="text-muted-foreground text-sm capitalize">
-                    {account.type} • {account.currency}{" "}
-                    {account.balance.toFixed(2)}
+                    {account.type} • {account.currency} {account.balance.toFixed(2)}
                   </p>
                 </div>
                 <Button

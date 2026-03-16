@@ -7,14 +7,9 @@ interface UseSubscriptionsTotalMonthlyParams {
   baseCurrency: string;
 }
 
-export function useSubscriptionsTotalMonthly(
-  params: UseSubscriptionsTotalMonthlyParams | "skip"
-) {
+export function useSubscriptionsTotalMonthly(params: UseSubscriptionsTotalMonthlyParams | "skip") {
   return useQuery({
-    ...convexQuery(
-      api.subscriptions.getTotalMonthly,
-      params === "skip" ? "skip" : params
-    ),
+    ...convexQuery(api.subscriptions.getTotalMonthly, params === "skip" ? "skip" : params),
     staleTime: STALE_TIME.SEMI_STATIC,
   });
 }

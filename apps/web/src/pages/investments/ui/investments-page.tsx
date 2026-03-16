@@ -1,17 +1,6 @@
-import {
-  CaretDownIcon,
-  CaretUpIcon,
-  PlusIcon,
-  TrendUpIcon,
-} from "@phosphor-icons/react";
+import { CaretDownIcon, CaretUpIcon, PlusIcon, TrendUpIcon } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useInvestmentsPortfolio } from "@/entities/investment/api/use-investments-portfolio";
 import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
@@ -32,7 +21,7 @@ export function InvestmentsPageSkeleton() {
         <Skeleton className="h-10 w-40" />
       </div>
       <div className="grid gap-4 md:grid-cols-3">
-        {[...new Array(3)].map((_, i) => (
+        {new Array(3).fill().map((_, i) => (
           <Card key={i}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <Skeleton className="h-4 w-24" />
@@ -52,11 +41,8 @@ export function InvestmentsPageSkeleton() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-4">
-            {[...new Array(3)].map((_, i) => (
-              <div
-                className="flex items-center justify-between rounded-lg border p-4"
-                key={i}
-              >
+            {new Array(3).fill().map((_, i) => (
+              <div className="flex items-center justify-between rounded-lg border p-4" key={i}>
                 <div className="flex items-center gap-4">
                   <Skeleton className="h-10 w-10 rounded-full" />
                   <div>
@@ -77,7 +63,7 @@ export function InvestmentsPageSkeleton() {
 export function InvestmentsPage() {
   const { data: settings } = useUserSettings();
   const { data: portfolio } = useInvestmentsPortfolio(
-    settings ? { baseCurrency: settings.baseCurrency } : "skip"
+    settings ? { baseCurrency: settings.baseCurrency } : "skip",
   );
 
   if (!(portfolio && settings)) {
@@ -91,9 +77,7 @@ export function InvestmentsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-bold text-2xl tracking-tight">Investments</h1>
-          <p className="text-muted-foreground text-sm">
-            Monitor your portfolio performance
-          </p>
+          <p className="text-muted-foreground text-sm">Monitor your portfolio performance</p>
         </div>
         <CreateInvestmentDialog />
       </div>
@@ -103,27 +87,21 @@ export function InvestmentsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="font-medium text-sm">Total Value</CardTitle>
-            <TrendUpIcon
-              className="h-4 w-4 text-muted-foreground"
-              weight="bold"
-            />
+            <TrendUpIcon className="h-4 w-4 text-muted-foreground" weight="bold" />
           </CardHeader>
           <CardContent>
             <div className="font-bold text-2xl">
               {formatCurrency(portfolio.totalValue, settings.baseCurrency)}
             </div>
             <p className="text-muted-foreground text-xs">
-              Cost basis:{" "}
-              {formatCurrency(portfolio.totalCost, settings.baseCurrency)}
+              Cost basis: {formatCurrency(portfolio.totalCost, settings.baseCurrency)}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="font-medium text-sm">
-              Total Gain/Loss
-            </CardTitle>
+            <CardTitle className="font-medium text-sm">Total Gain/Loss</CardTitle>
             {isPositive ? (
               <CaretUpIcon className="h-4 w-4 text-chart-2" />
             ) : (
@@ -137,9 +115,7 @@ export function InvestmentsPage() {
               {isPositive ? "+" : ""}
               {formatCurrency(portfolio.totalGain, settings.baseCurrency)}
             </div>
-            <p
-              className={`text-xs ${isPositive ? "text-chart-2" : "text-destructive"}`}
-            >
+            <p className={`text-xs ${isPositive ? "text-chart-2" : "text-destructive"}`}>
               {isPositive ? "+" : ""}
               {formatPercent(portfolio.gainPercent)}
             </p>
@@ -151,9 +127,7 @@ export function InvestmentsPage() {
             <CardTitle className="font-medium text-sm">Holdings</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="font-bold text-2xl">
-              {portfolio.investments.length}
-            </div>
+            <div className="font-bold text-2xl">{portfolio.investments.length}</div>
             <p className="text-muted-foreground text-xs">investments</p>
           </CardContent>
         </Card>
@@ -174,10 +148,7 @@ export function InvestmentsPage() {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center py-12">
-              <TrendUpIcon
-                className="h-12 w-12 text-muted-foreground"
-                weight="bold"
-              />
+              <TrendUpIcon className="h-12 w-12 text-muted-foreground" weight="bold" />
               <p className="mt-4 text-muted-foreground">No investments yet</p>
               <CreateInvestmentDialog>
                 <Button className="mt-4" variant="outline">

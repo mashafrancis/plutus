@@ -1,19 +1,12 @@
 import type { Doc } from "../_generated/dataModel";
 import { calculateNextRenewalDate, daysBetween } from "./dates";
 
-export type SubscriptionFrequency =
-  | "daily"
-  | "weekly"
-  | "monthly"
-  | "quarterly"
-  | "yearly";
+export type SubscriptionFrequency = "daily" | "weekly" | "monthly" | "quarterly" | "yearly";
 
 /**
  * Check if subscription is due for renewal
  */
-export const isDueForRenewal = (
-  subscription: Doc<"subscriptions">
-): boolean => {
+export const isDueForRenewal = (subscription: Doc<"subscriptions">): boolean => {
   return (
     subscription.status === "active" &&
     subscription.autoRenew &&
@@ -29,10 +22,7 @@ export const shouldNotify = (subscription: Doc<"subscriptions">): boolean => {
     return false;
   }
 
-  const daysUntilRenewal = daysBetween(
-    Date.now(),
-    subscription.nextRenewalDate
-  );
+  const daysUntilRenewal = daysBetween(Date.now(), subscription.nextRenewalDate);
 
   return daysUntilRenewal <= subscription.notifyDaysBefore;
 };
@@ -54,10 +44,7 @@ export const getFrequencyText = (frequency: SubscriptionFrequency): string => {
 /**
  * Calculate annual cost of subscription
  */
-export const calculateAnnualCost = (
-  amount: number,
-  frequency: SubscriptionFrequency
-): number => {
+export const calculateAnnualCost = (amount: number, frequency: SubscriptionFrequency): number => {
   const multipliers: Record<SubscriptionFrequency, number> = {
     daily: 365,
     weekly: 52,
@@ -74,7 +61,7 @@ export const calculateAnnualCost = (
 export const getNextRenewalDates = (
   startDate: number,
   frequency: SubscriptionFrequency,
-  count: number
+  count: number,
 ): number[] => {
   const dates: number[] = [];
   let currentDate = startDate;

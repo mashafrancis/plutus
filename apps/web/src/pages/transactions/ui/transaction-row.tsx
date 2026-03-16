@@ -81,11 +81,7 @@ export function TransactionRow({
           <DropdownMenu>
             <DropdownMenuTrigger
               render={
-                <Button
-                  aria-label="Transaction options"
-                  size="icon"
-                  variant="ghost"
-                >
+                <Button aria-label="Transaction options" size="icon" variant="ghost">
                   <DotsThreeIcon aria-hidden weight="bold" />
                 </Button>
               }

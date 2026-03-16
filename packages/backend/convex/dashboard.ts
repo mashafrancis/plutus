@@ -54,50 +54,49 @@ export const getSummary = query({
         };
 
         // Fetch data in parallel
-        const [accounts, transactions, categories, subscriptions] =
-          yield* Effect.all([
-            Effect.tryPromise({
-              try: () =>
-                ctx.db
-                  .query("accounts")
-                  .withIndex("by_userId_archived", (q) =>
-                    q.eq("userId", user.subject).eq("isArchived", false)
-                  )
-                  .collect(),
-              catch: (error) => new UnknownError({ error }),
-            }),
-            Effect.tryPromise({
-              try: () =>
-                ctx.db
-                  .query("transactions")
-                  .withIndex("by_userId_date", (q) =>
-                    q
-                      .eq("userId", user.subject)
-                      .gte("date", dateRange.start)
-                      .lte("date", dateRange.end)
-                  )
-                  .collect(),
-              catch: (error) => new UnknownError({ error }),
-            }),
-            Effect.tryPromise({
-              try: () =>
-                ctx.db
-                  .query("categories")
-                  .withIndex("by_userId", (q) => q.eq("userId", user.subject))
-                  .collect(),
-              catch: (error) => new UnknownError({ error }),
-            }),
-            Effect.tryPromise({
-              try: () =>
-                ctx.db
-                  .query("subscriptions")
-                  .withIndex("by_userId_status", (q) =>
-                    q.eq("userId", user.subject).eq("status", "active")
-                  )
-                  .collect(),
-              catch: (error) => new UnknownError({ error }),
-            }),
-          ]);
+        const [accounts, transactions, categories, subscriptions] = yield* Effect.all([
+          Effect.tryPromise({
+            try: () =>
+              ctx.db
+                .query("accounts")
+                .withIndex("by_userId_archived", (q) =>
+                  q.eq("userId", user.subject).eq("isArchived", false),
+                )
+                .collect(),
+            catch: (error) => new UnknownError({ error }),
+          }),
+          Effect.tryPromise({
+            try: () =>
+              ctx.db
+                .query("transactions")
+                .withIndex("by_userId_date", (q) =>
+                  q
+                    .eq("userId", user.subject)
+                    .gte("date", dateRange.start)
+                    .lte("date", dateRange.end),
+                )
+                .collect(),
+            catch: (error) => new UnknownError({ error }),
+          }),
+          Effect.tryPromise({
+            try: () =>
+              ctx.db
+                .query("categories")
+                .withIndex("by_userId", (q) => q.eq("userId", user.subject))
+                .collect(),
+            catch: (error) => new UnknownError({ error }),
+          }),
+          Effect.tryPromise({
+            try: () =>
+              ctx.db
+                .query("subscriptions")
+                .withIndex("by_userId_status", (q) =>
+                  q.eq("userId", user.subject).eq("status", "active"),
+                )
+                .collect(),
+            catch: (error) => new UnknownError({ error }),
+          }),
+        ]);
 
         // Calculate total balance with currency conversion
         let totalBalance = 0;
@@ -111,7 +110,7 @@ export const getSummary = query({
             ctx,
             account.balance,
             account.currency,
-            baseCurrency
+            baseCurrency,
           );
           totalBalance += converted;
         }
@@ -126,7 +125,7 @@ export const getSummary = query({
             ctx,
             tx.convertedAmount,
             tx.currency,
-            baseCurrency
+            baseCurrency,
           );
 
           if (tx.type === "income") {
@@ -134,18 +133,13 @@ export const getSummary = query({
           } else if (tx.type === "expense") {
             totalExpenses += converted;
             const catId = tx.categoryId.toString();
-            categorySpending[catId] =
-              (categorySpending[catId] || 0) + converted;
+            categorySpending[catId] = (categorySpending[catId] || 0) + converted;
           }
         }
 
         // Build spending by category
-        const categoryMap = new Map(
-          categories.map((c) => [c._id.toString(), c])
-        );
-        const spendingByCategory: CategorySpending[] = Object.entries(
-          categorySpending
-        )
+        const categoryMap = new Map(categories.map((c) => [c._id.toString(), c]));
+        const spendingByCategory: CategorySpending[] = Object.entries(categorySpending)
           .map(([catId, amount]) => {
             const cat = categoryMap.get(catId);
             return {
@@ -154,8 +148,7 @@ export const getSummary = query({
               icon: cat?.icon ?? "❓",
               color: cat?.color ?? "#888888",
               amount,
-              percentage:
-                totalExpenses > 0 ? (amount / totalExpenses) * 100 : 0,
+              percentage: totalExpenses > 0 ? (amount / totalExpenses) * 100 : 0,
             };
           })
           .sort((a, b) => b.amount - a.amount);
@@ -197,7 +190,7 @@ export const getSummary = query({
           accountBalances,
           upcomingSubscriptions,
         };
-      })
+      }),
     ),
 });
 
@@ -206,10 +199,7 @@ export const getSpendingTrend = query({
     days: v.optional(v.number()),
     baseCurrency: v.optional(v.string()),
   },
-  handler: (
-    ctx,
-    args
-  ): Promise<Array<{ date: string; income: number; expenses: number }>> =>
+  handler: (ctx, args): Promise<Array<{ date: string; income: number; expenses: number }>> =>
     runWithEffect(
       ctx,
       Effect.gen(function* () {
@@ -230,15 +220,14 @@ export const getSpendingTrend = query({
                 q
                   .eq("userId", user.subject)
                   .gte("date", dateRange.start)
-                  .lte("date", dateRange.end)
+                  .lte("date", dateRange.end),
               )
               .collect(),
           catch: (error) => new UnknownError({ error }),
         });
 
         // Group by date
-        const dailyData: Record<string, { income: number; expenses: number }> =
-          {};
+        const dailyData: Record<string, { income: number; expenses: number }> = {};
 
         for (const tx of transactions) {
           const isoStr = new Date(tx.date).toISOString();
@@ -250,7 +239,7 @@ export const getSpendingTrend = query({
             ctx,
             tx.convertedAmount,
             tx.currency,
-            baseCurrency
+            baseCurrency,
           );
 
           if (tx.type === "income") {
@@ -281,6 +270,6 @@ export const getSpendingTrend = query({
         }
 
         return result;
-      })
+      }),
     ),
 });

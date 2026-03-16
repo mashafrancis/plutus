@@ -20,7 +20,7 @@ export const list = query({
               ctx.db
                 .query("notifications")
                 .withIndex("by_userId_unread", (q) =>
-                  q.eq("userId", user.subject).eq("isRead", false)
+                  q.eq("userId", user.subject).eq("isRead", false),
                 )
                 .order("desc")
                 .collect(),
@@ -37,7 +37,7 @@ export const list = query({
               .take(50),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -53,14 +53,14 @@ export const getUnreadCount = query({
             ctx.db
               .query("notifications")
               .withIndex("by_userId_unread", (q) =>
-                q.eq("userId", user.subject).eq("isRead", false)
+                q.eq("userId", user.subject).eq("isRead", false),
               )
               .collect(),
           catch: (error) => new UnknownError({ error }),
         });
 
         return unread.length;
-      })
+      }),
     ),
 });
 
@@ -70,7 +70,7 @@ export const create = mutation({
       v.literal("subscription_renewal"),
       v.literal("goal_reached"),
       v.literal("budget_exceeded"),
-      v.literal("general")
+      v.literal("general"),
     ),
     title: v.string(),
     message: v.string(),
@@ -95,7 +95,7 @@ export const create = mutation({
             }),
           catch: (error) => new UnknownError({ error }),
         });
-      })
+      }),
     ),
 });
 
@@ -122,7 +122,7 @@ export const markAsRead = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -138,7 +138,7 @@ export const markAllAsRead = mutation({
             ctx.db
               .query("notifications")
               .withIndex("by_userId_unread", (q) =>
-                q.eq("userId", user.subject).eq("isRead", false)
+                q.eq("userId", user.subject).eq("isRead", false),
               )
               .collect(),
           catch: (error) => new UnknownError({ error }),
@@ -148,11 +148,11 @@ export const markAllAsRead = mutation({
           Effect.tryPromise({
             try: () => ctx.db.patch(notification._id, { isRead: true }),
             catch: (error) => new UnknownError({ error }),
-          })
+          }),
         );
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -179,7 +179,7 @@ export const remove = mutation({
         });
 
         return null;
-      })
+      }),
     ),
 });
 
@@ -203,10 +203,10 @@ export const clearAll = mutation({
           Effect.tryPromise({
             try: () => ctx.db.delete(notification._id),
             catch: (error) => new UnknownError({ error }),
-          })
+          }),
         );
 
         return null;
-      })
+      }),
     ),
 });

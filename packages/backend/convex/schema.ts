@@ -27,7 +27,7 @@ export const Account = {
     v.literal("savings"),
     v.literal("credit"),
     v.literal("cash"),
-    v.literal("investment")
+    v.literal("investment"),
   ),
   currency: v.string(), // ISO 4217 code (USD, EUR, etc)
   balance: v.number(),
@@ -41,11 +41,7 @@ export const Transaction = {
   userId: v.string(),
   accountId: v.id("accounts"),
   categoryId: v.id("categories"),
-  type: v.union(
-    v.literal("expense"),
-    v.literal("income"),
-    v.literal("transfer")
-  ),
+  type: v.union(v.literal("expense"), v.literal("income"), v.literal("transfer")),
   amount: v.number(), // Always positive, type determines direction
   currency: v.string(),
   convertedAmount: v.number(), // Amount in account's currency
@@ -70,15 +66,11 @@ export const Subscription = {
     v.literal("weekly"),
     v.literal("monthly"),
     v.literal("quarterly"),
-    v.literal("yearly")
+    v.literal("yearly"),
   ),
   startDate: v.number(),
   nextRenewalDate: v.number(),
-  status: v.union(
-    v.literal("active"),
-    v.literal("paused"),
-    v.literal("cancelled")
-  ),
+  status: v.union(v.literal("active"), v.literal("paused"), v.literal("cancelled")),
   description: v.optional(v.string()),
   notifyDaysBefore: v.number(), // Days before renewal to notify
   autoRenew: v.boolean(),
@@ -95,7 +87,7 @@ export const Investment = {
     v.literal("mutual_fund"),
     v.literal("bond"),
     v.literal("real_estate"),
-    v.literal("other")
+    v.literal("other"),
   ),
   symbol: v.optional(v.string()), // Ticker symbol if applicable
   quantity: v.number(),
@@ -157,7 +149,7 @@ export const Notification = {
     v.literal("subscription_renewal"),
     v.literal("goal_reached"),
     v.literal("budget_exceeded"),
-    v.literal("general")
+    v.literal("general"),
   ),
   title: v.string(),
   message: v.string(),

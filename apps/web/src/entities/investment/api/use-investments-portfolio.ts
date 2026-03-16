@@ -7,14 +7,9 @@ interface UseInvestmentsPortfolioParams {
   baseCurrency: string;
 }
 
-export function useInvestmentsPortfolio(
-  params: UseInvestmentsPortfolioParams | "skip"
-) {
+export function useInvestmentsPortfolio(params: UseInvestmentsPortfolioParams | "skip") {
   return useQuery({
-    ...convexQuery(
-      api.investments.getPortfolioSummary,
-      params === "skip" ? "skip" : params
-    ),
+    ...convexQuery(api.investments.getPortfolioSummary, params === "skip" ? "skip" : params),
     staleTime: STALE_TIME.DYNAMIC,
   });
 }
