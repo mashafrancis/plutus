@@ -2,18 +2,18 @@ packages:
   - apps/*
   - packages/*
 allowBuilds:
-  '@sentry/cli': true
+  "@sentry/cli": true
 catalog:
-  "@convex-dev/better-auth": ^0.11.2
-  "@effect/language-service": "^0.80.0"
+  "@convex-dev/better-auth": ^0.11.3
+  "@effect/language-service": "^0.83.1"
   "@types/node": ^25.5.0
   better-auth: 1.4.9
-  convex: ^1.33.1
+  convex: ^1.34.0
   dotenv: ^17.3.1
-  "effect": "^3.19.19"
-  typescript: ^5.9.3
+  "effect": "^3.20.1"
+  typescript: ^6.0.2
   vite: npm:@voidzero-dev/vite-plus-core@latest
-  vite-plus: ^0.1.12
+  vite-plus: ^0.1.14
   vitest: npm:@voidzero-dev/vite-plus-test@latest
   zod: ^4.3.6
 overrides:
