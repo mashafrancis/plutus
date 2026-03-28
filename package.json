@@ -23,12 +23,12 @@
     "dotenv": "catalog:"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.10",
+    "@biomejs/biome": "catalog:",
     "@tanstack-effect-convex/config": "workspace:*",
     "@types/node": "catalog:",
-    "turbo": "^2.8.20",
+    "turbo": "catalog:",
     "typescript": "catalog:",
-    "ultracite": "6.5.1",
+    "ultracite": "catalog:",
     "vite-plus": "catalog:"
   },
   "packageManager": "pnpm@10.33.0"
