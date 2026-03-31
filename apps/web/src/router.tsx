@@ -1,11 +1,12 @@
 import { ConvexQueryClient } from "@convex-dev/react-query";
+import * as Sentry from "@sentry/tanstackstart-react";
+import { env } from "@tanstack-effect-convex/env/web";
 import { QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
-import { env } from "@tanstack-effect-convex/env/web";
-import * as Sentry from "@sentry/tanstackstart-react";
 
 import { Loading } from "@/components/ui/loading";
+
 import { routeTree } from "./routeTree.gen";
 
 export function getRouter() {

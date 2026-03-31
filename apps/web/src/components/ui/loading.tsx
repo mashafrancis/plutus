@@ -1,5 +1,7 @@
 import type { SVGProps } from "react";
+
 import { cn } from "@/lib/utils";
+
 import { AnimatedLoadingSpinner } from "../animated-loading-spinners";
 
 interface LoadingProps extends SVGProps<SVGSVGElement> {

@@ -1,5 +1,6 @@
 import { TrashIcon } from "@phosphor-icons/react";
 import { toast } from "sonner";
+
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useDeleteGoal } from "@/entities/goal/api/use-delete-goal";
 import type { GoalId } from "@/entities/goal/types/goal-id";

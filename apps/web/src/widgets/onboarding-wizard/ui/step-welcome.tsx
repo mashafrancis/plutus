@@ -1,4 +1,5 @@
 import { SparkleIcon } from "@phosphor-icons/react";
+
 import { Button } from "@/components/ui/button";
 
 interface StepWelcomeProps {

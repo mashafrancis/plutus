@@ -1,9 +1,10 @@
 import { PlusIcon } from "@phosphor-icons/react";
-import { useForm } from "@tanstack/react-form";
 import type { Id } from "@tanstack-effect-convex/backend/convex/_generated/dataModel";
+import { useForm } from "@tanstack/react-form";
 import { Schema } from "effect";
 import { isValidElement, useState } from "react";
 import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -24,6 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCreateSubscription } from "@/entities/subscription/api/use-create-subscription";
+
 import { FREQUENCIES, SubscriptionFormSchema } from "../model/subscription-form-schema";
 
 export function CreateSubscriptionDialog({

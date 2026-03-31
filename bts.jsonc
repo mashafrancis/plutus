@@ -10,7 +10,7 @@
   "backend": "convex",
   "runtime": "none",
   "frontend": ["tanstack-start"],
-  "addons": ["turborepo", "biome", "oxlint", "ultracite", "husky", "ruler"],
+  "addons": ["biome", "oxlint", "ultracite", "husky", "ruler"],
   "examples": ["todo"],
   "auth": "better-auth",
   "payments": "none",

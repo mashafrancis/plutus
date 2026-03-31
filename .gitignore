@@ -33,9 +33,6 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
-# Turbo
-.turbo
-
 # Better-T-Stack
 .alchemy
 
@@ -45,6 +42,7 @@ coverage
 
 # Misc
 *.tgz
+.turbo
 .cache
 tmp
 temp

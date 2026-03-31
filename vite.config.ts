@@ -12,9 +12,8 @@ export default defineConfig({
   // https://viteplus.dev/guide/run
   run: {
     cache: {
-      // Disable caching for now, since output file caching doesn't work yet:
-      // https://github.com/mugnavo/tanstarter-plus/issues/8
-      tasks: false,
+      scripts: false,
+      tasks: true,
     },
   },
 

@@ -4,8 +4,12 @@
   "type": "module",
   "scripts": {
     "build": "vp build && cp instrument.server.mjs .output/server",
+    "build:cf": "DEPLOY_CLOUDFLARE=1 vp build",
     "preview": "vp preview",
+    "preview:cf": "wrangler dev",
     "dev": "node ./scripts/wait-for-convex.mjs && vp dev --port 3000",
+    "dev:cf": "node ./scripts/wait-for-convex.mjs && vp dev --port 3000",
+    "deploy:cf": "DEPLOY_CLOUDFLARE=1 vp build && wrangler deploy",
     "start": "node .output/server/index.mjs",
     "check-types": "tsc --noEmit",
     "prepare": "effect-language-service patch",
@@ -52,6 +56,7 @@
     "vite-tsconfig-paths": "catalog:"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "catalog:",
     "@effect/language-service": "catalog:",
     "@tanstack-effect-convex/config": "workspace:*",
     "@tanstack/react-router-devtools": "catalog:",
@@ -65,6 +70,7 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:",
-    "web-vitals": "catalog:"
+    "web-vitals": "catalog:",
+    "wrangler": "catalog:"
   }
 }

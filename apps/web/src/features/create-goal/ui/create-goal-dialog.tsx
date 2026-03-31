@@ -3,6 +3,7 @@ import { useForm } from "@tanstack/react-form";
 import { Schema } from "effect";
 import { isValidElement, useState } from "react";
 import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCreateGoal } from "@/entities/goal/api/use-create-goal";
+
 import { GOAL_ICONS, GoalFormSchema } from "../model/goal-form-schema";
 
 export function CreateGoalDialog({ children }: { children?: React.ReactNode }) {

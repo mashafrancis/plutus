@@ -1,5 +1,6 @@
 import { TrashIcon } from "@phosphor-icons/react";
 import { toast } from "sonner";
+
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useDeleteAccount } from "@/entities/account/api/use-delete-account";
 import type { AccountId } from "@/entities/account/types/account-id";

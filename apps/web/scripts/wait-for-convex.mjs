@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
 import { config as loadEnvFile } from "dotenv";
 
 const DEFAULT_CONVEX_URL = "http://127.0.0.1:3210";

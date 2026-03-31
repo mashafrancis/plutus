@@ -1,9 +1,9 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { api } from "@tanstack-effect-convex/backend/convex/_generated/api";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { useMutation } from "convex/react";
 import { useEffect } from "react";
-import { requireAuth } from "@/shared/lib/auth/require-auth";
 
+import { requireAuth } from "@/shared/lib/auth/require-auth";
 import { Navbar } from "@/widgets/navbar/ui/navbar";
 import { Sidebar } from "@/widgets/sidebar/ui/sidebar";
 

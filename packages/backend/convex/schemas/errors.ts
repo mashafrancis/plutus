@@ -1,4 +1,5 @@
 import { Data } from "effect";
+
 import type { Id, TableNames } from "../_generated/dataModel";
 
 export class NotFoundError extends Data.TaggedError("NotFoundError")<{

@@ -2,6 +2,7 @@ import { WalletIcon } from "@phosphor-icons/react";
 import { Authenticated, Unauthenticated } from "convex/react";
 import { useState } from "react";
 import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/shared/config/auth-client";
 

@@ -1,5 +1,6 @@
 import type { GenericQueryCtx } from "convex/server";
 import { Console, Effect } from "effect";
+
 import type { DataModel } from "../_generated/dataModel";
 
 export const DEFAULT_BASE_CURRENCY = "KES";

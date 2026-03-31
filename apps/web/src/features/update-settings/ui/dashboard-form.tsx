@@ -1,5 +1,6 @@
 import { GearIcon as SettingsIcon } from "@phosphor-icons/react";
 import { toast } from "sonner";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
@@ -12,6 +13,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useUpdateSettings } from "@/entities/user-settings/api/use-update-settings";
 import { useUserSettings } from "@/entities/user-settings/api/use-user-settings";
+
 import { DATE_RANGES } from "../model/constants";
 
 export function DashboardForm() {

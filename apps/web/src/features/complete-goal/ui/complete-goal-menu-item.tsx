@@ -1,5 +1,6 @@
 import { CheckIcon } from "@phosphor-icons/react";
 import { toast } from "sonner";
+
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useCompleteGoal } from "@/entities/goal/api/use-complete-goal";
 import type { GoalId } from "@/entities/goal/types/goal-id";

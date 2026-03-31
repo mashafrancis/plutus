@@ -1,4 +1,5 @@
 import { Databuddy } from "@databuddy/sdk/react";
+import * as Sentry from "@sentry/tanstackstart-react";
 import {
   createRootRouteWithContext,
   HeadContent,
@@ -8,16 +9,17 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { createServerFn } from "@tanstack/react-start";
+import { useEffect } from "react";
+
 import { ConvexProvider } from "@/app/providers/convex-provider";
 import { IconProvider } from "@/app/providers/icon-provider";
 import { QueryProvider } from "@/app/providers/query-provider";
-import appCss from "@/app/styles/index.css?url";
 import type { RouterAppContext } from "@/app/types/router-app-context";
 import { Toaster } from "@/components/ui/sonner";
 import { op } from "@/lib/op";
 import { getToken } from "@/shared/config/auth-server";
-import { useEffect } from "react";
-import * as Sentry from "@sentry/tanstackstart-react";
+
+import appCss from "@/app/styles/index.css?url";
 
 const databuddyId = import.meta.env.VITE_DATABUDDY_CLIENT_ID;
 

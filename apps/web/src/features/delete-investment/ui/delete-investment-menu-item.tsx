@@ -1,5 +1,6 @@
 import { TrashIcon } from "@phosphor-icons/react";
 import { toast } from "sonner";
+
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useDeleteInvestment } from "@/entities/investment/api/use-delete-investment";
 import type { InvestmentId } from "@/entities/investment/types/investment-id";
