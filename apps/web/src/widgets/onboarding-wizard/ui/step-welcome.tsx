@@ -1,5 +1,3 @@
-import { SparkleIcon } from "@phosphor-icons/react";
-
 import { Button } from "@/components/ui/button";
 
 interface StepWelcomeProps {
@@ -10,10 +8,6 @@ interface StepWelcomeProps {
 export default function StepWelcome({ onNext, onSkip }: StepWelcomeProps) {
   return (
     <div className="flex flex-col items-center justify-center gap-6 py-8 text-center">
-      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
-        <SparkleIcon className="h-10 w-10 text-primary" weight="fill" />
-      </div>
-
       <div className="flex flex-col gap-2">
         <h2 className="font-bold text-3xl">Welcome to Plutus!</h2>
         <p className="mx-auto max-w-md text-muted-foreground">

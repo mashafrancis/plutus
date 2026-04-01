@@ -62,7 +62,7 @@ export function Navbar() {
   const breadcrumbs = getBreadcrumbs(location.pathname);
 
   return (
-    <header className="flex h-14 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur-sm lg:px-6">
+    <header className="flex h-14 items-center gap-4 bg-background/95 px-4 backdrop-blur-sm lg:px-6">
       <div className="flex flex-1 items-center gap-2">
         <Breadcrumb>
           <BreadcrumbList>
@@ -71,7 +71,7 @@ export function Navbar() {
               <>
                 <BreadcrumbItem>
                   <BreadcrumbLink render={<Link aria-label="Go to dashboard" to="/dashboard" />}>
-                    <HouseIcon aria-hidden weight="bold" />
+                    Home
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />

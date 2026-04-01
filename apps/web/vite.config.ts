@@ -71,12 +71,13 @@ export default defineConfig({
     nitro({ preset: nitroPreset }),
     tanstackStart(),
     viteReact(),
-    sentryTanstackStart({
-      org: "plutus-finance",
-      project: "plutus-finance",
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-    }),
-  ],
+    !isCloudflareRuntime &&
+      sentryTanstackStart({
+        org: "plutus-finance",
+        project: "plutus-finance",
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+      }),
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

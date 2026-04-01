@@ -4,16 +4,16 @@
   "type": "module",
   "scripts": {
     "build": "vp build && cp instrument.server.mjs .output/server",
-    "build:cf": "DEPLOY_CLOUDFLARE=1 vp build",
+    "build:cf": "DEPLOY_CLOUDFLARE=1 vp build && node ./scripts/patch-cloudflare-runtime.mjs",
     "preview": "vp preview",
     "preview:cf": "wrangler dev",
     "dev": "node ./scripts/wait-for-convex.mjs && vp dev --port 3000",
     "dev:cf": "node ./scripts/wait-for-convex.mjs && vp dev --port 3000",
-    "deploy:cf": "DEPLOY_CLOUDFLARE=1 vp build && wrangler deploy",
+    "deploy:cf": "DEPLOY_CLOUDFLARE=1 vp build && node ./scripts/patch-cloudflare-runtime.mjs && wrangler deploy",
     "start": "node .output/server/index.mjs",
     "check-types": "tsc --noEmit",
     "prepare": "effect-language-service patch",
-    "ui": "vpx shadcn@latest"
+    "ui": "pnpm dlx shadcn@latest add --all --overwrite"
   },
   "dependencies": {
     "@base-ui/react": "catalog:",
@@ -21,6 +21,7 @@
     "@convex-dev/react-query": "catalog:",
     "@databuddy/sdk": "catalog:",
     "@fontsource-variable/geist": "catalog:",
+    "@fontsource-variable/geist-mono": "^5.2.7",
     "@openpanel/web": "catalog:",
     "@phosphor-icons/react": "catalog:",
     "@sentry/tanstackstart-react": "catalog:",

@@ -7,12 +7,12 @@ import {
   SignOutIcon,
   TargetIcon,
   TrendUpIcon,
-  WalletIcon,
   XIcon,
 } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { Authenticated } from "convex/react";
 import { useState } from "react";
+import { Image } from "@unpic/react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -57,7 +57,7 @@ export function Sidebar() {
           <ListIcon aria-hidden weight="bold" />
         </Button>
         <Link className="flex items-center gap-2 font-semibold" to="/">
-          <WalletIcon className="h-6 w-6 text-primary" />
+          <Image className="h-6 w-6" src="/logo.svg" priority height={12} width={12} />
           <span className="text-lg">Plutus</span>
         </Link>
       </div>
@@ -93,7 +93,7 @@ export function Sidebar() {
 
         {/* Logo */}
         <div className="flex h-14 items-center gap-2 px-4">
-          <WalletIcon className="h-6 w-6 text-primary" />
+          <Image className="h-6 w-6" src="/logo.svg" priority height={12} width={12} />
           <span className="font-bold text-lg">Plutus</span>
         </div>
 
