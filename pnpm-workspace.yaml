@@ -14,30 +14,30 @@ peerDependencyRules:
     vite: "*"
     vitest: "*"
 catalog:
-  "@base-ui/react": ^1.3.0
+  "@base-ui/react": ^1.4.1
   "@biomejs/biome": 2.3.10
-  "@convex-dev/better-auth": ^0.11.4
+  "@convex-dev/better-auth": ^0.11.5
   "@convex-dev/react-query": ^0.1.0
-  "@cloudflare/vite-plugin": ^1.30.3
-  "@databuddy/sdk": ^2.4.0
-  "@effect/language-service": ^0.84.2
+  "@cloudflare/vite-plugin": ^1.33.2
+  "@databuddy/sdk": ^2.4.11
+  "@effect/language-service": ^0.84.3
   "@fontsource-variable/geist": ^5.2.8
-  "@openpanel/web": ^1.3.0
+  "@openpanel/web": ^1.4.0
   "@phosphor-icons/react": ^2.1.10
-  "@sentry/tanstackstart-react": ^10.47.0
+  "@sentry/tanstackstart-react": ^10.50.0
   "@t3-oss/env-core": ^0.13.11
-  "@tailwindcss/vite": ^4.2.2
-  "@tanstack/react-form": ^1.28.6
-  "@tanstack/react-query": ^5.96.1
-  "@tanstack/react-router": ^1.168.10
-  "@tanstack/react-router-devtools": ^1.166.11
-  "@tanstack/react-router-ssr-query": ^1.166.10
+  "@tailwindcss/vite": ^4.2.4
+  "@tanstack/react-form": ^1.29.1
+  "@tanstack/react-query": ^5.96.2
+  "@tanstack/react-router": ^1.168.25
+  "@tanstack/react-router-devtools": ^1.166.13
+  "@tanstack/react-router-ssr-query": ^1.166.12
   "@tanstack/react-router-with-query": ^1.130.17
-  "@tanstack/react-start": ^1.167.16
-  "@tanstack/router-plugin": ^1.167.12
+  "@tanstack/react-start": ^1.167.50
+  "@tanstack/router-plugin": ^1.167.28
   "@testing-library/dom": ^10.4.1
   "@testing-library/react": ^16.3.2
-  "@types/node": ^25.5.0
+  "@types/node": ^25.5.2
   "@types/react": 19.2.7
   "@types/react-dom": 19.2.3
   "@unpic/react": ^1.0.2
@@ -45,31 +45,31 @@ catalog:
   better-auth: 1.4.9
   class-variance-authority: ^0.7.1
   clsx: ^2.1.1
-  convex: ^1.34.1
+  convex: ^1.36.1
   date-fns: ^4.1.0
-  dotenv: ^17.3.1
-  effect: ^3.21.0
+  dotenv: ^17.4.2
+  effect: ^3.21.2
   framer-motion: ^12.38.0
-  jsdom: ^29.0.1
+  jsdom: ^29.0.2
   next-themes: ^0.4.6
   nitro: 3.0.260311-beta
   react: 19.2.3
   react-day-picker: ^9.14.0
   react-dom: 19.2.3
   recharts: ^3.8.1
-  shadcn: ^4.1.2
+  shadcn: ^4.5.0
   sonner: ^2.0.7
   tailwind-merge: ^3.5.0
-  tailwindcss: ^4.2.2
+  tailwindcss: ^4.2.4
   tw-animate-css: ^1.4.0
-  typescript: ^6.0.2
+  typescript: ^6.0.3
   ultracite: 6.5.1
   vite: npm:@voidzero-dev/vite-plus-core@latest
-  vite-plus: ^0.1.15
+  vite-plus: ^0.1.19
   vite-tsconfig-paths: ^6.1.1
   vitest: npm:@voidzero-dev/vite-plus-test@latest
   web-vitals: ^5.2.0
-  wrangler: ^4.79.0
+  wrangler: ^4.85.0
   zod: ^4.3.6
 
 #catalogMode: prefer
