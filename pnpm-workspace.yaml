@@ -3,22 +3,16 @@ packages:
   - packages/*
 allowBuilds:
   "@sentry/cli": true
-overrides:
-  vite: "catalog:"
-  vitest: "catalog:"
-peerDependencyRules:
-  allowAny:
-    - vite
-    - vitest
-  allowedVersions:
-    vite: "*"
-    vitest: "*"
+  esbuild: true
+  msw: true
+  sharp: true
+  workerd: true
 catalog:
   "@base-ui/react": ^1.4.1
   "@biomejs/biome": 2.3.10
+  "@cloudflare/vite-plugin": ^1.33.2
   "@convex-dev/better-auth": ^0.11.5
   "@convex-dev/react-query": ^0.1.0
-  "@cloudflare/vite-plugin": ^1.33.2
   "@databuddy/sdk": ^2.4.11
   "@effect/language-service": ^0.84.3
   "@fontsource-variable/geist": ^5.2.8
@@ -37,7 +31,7 @@ catalog:
   "@tanstack/router-plugin": ^1.167.28
   "@testing-library/dom": ^10.4.1
   "@testing-library/react": ^16.3.2
-  "@types/node": ^25.5.2
+  "@types/node": ^25.9.2
   "@types/react": 19.2.7
   "@types/react-dom": 19.2.3
   "@unpic/react": ^1.0.2
@@ -65,12 +59,22 @@ catalog:
   typescript: ^6.0.3
   ultracite: 6.5.1
   vite: npm:@voidzero-dev/vite-plus-core@latest
-  vite-plus: ^0.1.19
+  vite-plus: ^0.1.24
   vite-tsconfig-paths: ^6.1.1
   vitest: npm:@voidzero-dev/vite-plus-test@latest
   web-vitals: ^5.2.0
   wrangler: ^4.85.0
   zod: ^4.3.6
+overrides:
+  vite: "catalog:"
+  vitest: "catalog:"
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: "*"
+    vitest: "*"
 
 #catalogMode: prefer
 #minimumReleaseAge: 1440
