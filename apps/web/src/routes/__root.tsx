@@ -7,9 +7,8 @@ import {
   Scripts,
   useRouteContext,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { createServerFn } from "@tanstack/react-start";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 
 import { ConvexProvider } from "@/app/providers/convex-provider";
 import { IconProvider } from "@/app/providers/icon-provider";
@@ -20,6 +19,14 @@ import { op } from "@/lib/op";
 import { getToken } from "@/shared/config/auth-server";
 
 import appCss from "@/app/styles/index.css?url";
+
+const TanStackRouterDevtools = import.meta.env.PROD
+  ? () => null
+  : lazy(() =>
+      import("@tanstack/react-router-devtools").then((res) => ({
+        default: res.TanStackRouterDevtools,
+      })),
+    );
 
 const databuddyId = import.meta.env.VITE_DATABUDDY_CLIENT_ID;
 
@@ -187,7 +194,9 @@ function RootDocument() {
                 trackScrollDepth={true}
                 trackWebVitals={true}
               />
-              <TanStackRouterDevtools position="bottom-left" />
+              <Suspense fallback={null}>
+                <TanStackRouterDevtools position="bottom-left" />
+              </Suspense>
               <Scripts />
             </IconProvider>
           </body>
