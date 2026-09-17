@@ -2,7 +2,7 @@ import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentation
 import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-http";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
-import { Resource } from "@opentelemetry/resources";
+import { resourceFromAttributes } from "@opentelemetry/resources";
 import { BatchLogRecordProcessor, LoggerProvider } from "@opentelemetry/sdk-logs";
 import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 import { NodeSDK } from "@opentelemetry/sdk-node";
@@ -67,7 +67,9 @@ export function initNodeObservability() {
   }
 
   const headers = superlogHeaders(SUPERLOG_PUBLIC_TOKEN);
-  const resource = new Resource(buildResourceAttributes("plutus-web-server"));
+  const resource = resourceFromAttributes(
+    buildResourceAttributes("plutus-web-server"),
+  );
 
   const traceExporter = new OTLPTraceExporter({
     url: `${SUPERLOG_ENDPOINT}/v1/traces`,

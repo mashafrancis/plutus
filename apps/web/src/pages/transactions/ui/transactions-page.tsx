@@ -38,7 +38,7 @@ export function TransactionsPageSkeleton() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-4">
-            {new Array(5).fill().map((_, i) => (
+            {Array.from({ length: 5 }).map((_, i) => (
               <div className="flex items-center gap-4" key={i}>
                 <Skeleton className="h-8 w-8 rounded-full" />
                 <Skeleton className="h-4 flex-1" />

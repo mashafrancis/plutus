@@ -162,7 +162,9 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
       Sentry.captureException(error);
     }, [error]);
 
-    return <div>{`Error occurred: ${error.message}`}</div>;
+    return (
+      <div>{`Error occurred: ${error instanceof Error ? error.message : String(error)}`}</div>
+    );
   },
 });
 
@@ -194,7 +196,6 @@ function RootDocument() {
                 trackHashChanges={true}
                 trackInteractions={true}
                 trackOutgoingLinks={true}
-                trackScrollDepth={true}
                 trackWebVitals={true}
               />
               {TanStackRouterDevtools ? (

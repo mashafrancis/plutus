@@ -34,7 +34,7 @@ export function DashboardPageSkeleton() {
         <Skeleton className="h-4 w-24" />
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {new Array(4).fill().map((_, i) => (
+        {Array.from({ length: 4 }).map((_, i) => (
           <Card key={i}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <Skeleton className="h-4 w-24" />
@@ -64,7 +64,7 @@ export function DashboardPageSkeleton() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-4">
-              {new Array(5).fill().map((_, i) => (
+              {Array.from({ length: 5 }).map((_, i) => (
                 <div className="flex items-center gap-4" key={i}>
                   <Skeleton className="h-9 w-9 rounded-full" />
                   <div className="flex flex-1 flex-col gap-2">

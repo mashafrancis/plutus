@@ -1,5 +1,5 @@
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
-import { Resource } from "@opentelemetry/resources";
+import { resourceFromAttributes } from "@opentelemetry/resources";
 import { BatchSpanProcessor, WebTracerProvider } from "@opentelemetry/sdk-trace-web";
 import { FetchInstrumentation } from "@opentelemetry/instrumentation-fetch";
 import { registerInstrumentations } from "@opentelemetry/instrumentation";
@@ -26,7 +26,7 @@ export function initBrowserObservability(): void {
   });
 
   const provider = new WebTracerProvider({
-    resource: new Resource(buildResourceAttributes("plutus-web-browser")),
+    resource: resourceFromAttributes(buildResourceAttributes("plutus-web-browser")),
     spanProcessors: [new BatchSpanProcessor(exporter)],
   });
 

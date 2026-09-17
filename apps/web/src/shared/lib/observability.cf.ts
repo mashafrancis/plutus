@@ -26,7 +26,7 @@ type CloudflareHandler = {
   fetch: (
     request: Request,
     env?: Record<string, unknown>,
-    ctx?: ExecutionContext,
+    ctx?: { waitUntil(promise: Promise<unknown>): void; passThroughOnException(): void },
   ) => Response | Promise<Response>;
 };
 

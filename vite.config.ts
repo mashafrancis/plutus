@@ -113,10 +113,9 @@ export default defineConfig({
       // Recommended-latest rules (from LintRulePreset.RecommendedLatest)
       "react-hooks-js/void-use-memo": "error",
       // Off rules (LintRulePreset.Off) - not enabled by default
-      "react-hooks-js/automatic-effect-dependencies": "off",
       "react-hooks-js/capitalized-calls": "off",
+      "react-hooks-js/exhaustive-effect-dependencies": "off",
       "react-hooks-js/fbt": "off",
-      "react-hooks-js/fire": "off",
       "react-hooks-js/hooks": "off",
       "react-hooks-js/invariant": "off",
       "react-hooks-js/memoized-effect-dependencies": "off",
@@ -134,6 +133,13 @@ export default defineConfig({
       "build/",
       "worker-configuration.d.ts",
       "scripts/",
+      "apps/web/src/components/ui/calendar.tsx",
+      "apps/web/src/components/ui/carousel.tsx",
+      "apps/web/src/components/ui/command.tsx",
+      "apps/web/src/components/ui/drawer.tsx",
+      "apps/web/src/components/ui/input-otp.tsx",
+      "apps/web/src/components/ui/resizable.tsx",
+      "apps/web/src/components/ui/sidebar.tsx",
     ],
   },
 });

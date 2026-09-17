@@ -1,4 +1,3 @@
-import { HouseIcon } from "@phosphor-icons/react";
 import { Link, useLocation } from "@tanstack/react-router";
 
 import {

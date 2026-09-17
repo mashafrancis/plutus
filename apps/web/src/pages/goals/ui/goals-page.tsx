@@ -36,7 +36,7 @@ export function GoalsPageSkeleton() {
       <div>
         <Skeleton className="mb-4 h-6 w-32" />
         <div className="grid gap-4 md:grid-cols-2">
-          {new Array(2).fill().map((_, i) => (
+          {Array.from({ length: 2 }).map((_, i) => (
             <Card key={i}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <div className="flex items-center gap-2">

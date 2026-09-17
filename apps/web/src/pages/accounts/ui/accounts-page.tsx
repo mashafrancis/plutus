@@ -35,7 +35,7 @@ export function AccountsPageSkeleton() {
       <div>
         <Skeleton className="mb-4 h-6 w-40" />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {new Array(3).fill().map((_, i) => (
+          {Array.from({ length: 3 }).map((_, i) => (
             <Card key={i}>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <div className="flex items-center gap-3">

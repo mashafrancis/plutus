@@ -5,6 +5,7 @@ allowBuilds:
   "@sentry/cli": true
   esbuild: true
   msw: true
+  protobufjs: true
   sharp: true
   workerd: true
 catalog:

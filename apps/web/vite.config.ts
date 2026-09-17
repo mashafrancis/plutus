@@ -89,5 +89,15 @@ export default defineConfig({
   },
   ssr: {
     noExternal: ["@convex-dev/better-auth"],
+    external: isCloudflareRuntime
+      ? []
+      : ["cloudflare:workers", "@microlabs/otel-cf-workers"],
+  },
+  build: {
+    rolldownOptions: {
+      external: isCloudflareRuntime
+        ? []
+        : ["cloudflare:workers", "@microlabs/otel-cf-workers"],
+    },
   },
 });

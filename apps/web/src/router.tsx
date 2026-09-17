@@ -43,15 +43,9 @@ export function getRouter() {
     queryClient,
   });
 
-<<<<<<< Updated upstream
-  if (!import.meta.env.SSR) {
-=======
   if (!router.isServer) {
     initBrowserObservability();
-
->>>>>>> Stashed changes
     Sentry.init({
-      enabled: router.isServer,
       dsn: "https://cffb9ca2b0b24bb1bef9ca6d4a038571@o319034.ingest.us.sentry.io/1807584",
       // Adds request headers and IP for users, for more info visit:
       // https://docs.sentry.io/platforms/javascript/guides/tanstackstart-react/configuration/options/#sendDefaultPii
