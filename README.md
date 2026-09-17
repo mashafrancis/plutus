@@ -78,7 +78,7 @@ The web app can deploy to **Vercel** (Nitro `vercel` preset when `VERCEL` is set
 
 ### Vercel
 
-[`apps/web/vercel.json`](apps/web/vercel.json) bootstraps Vite+ and runs `vp run build:web`. Set the Vercel project Root Directory to match where that config is applied (typically `apps/web` with monorepo install from root, or repo root per your Vercel project settings).
+[`apps/web/vercel.json`](apps/web/vercel.json) bootstraps Vite+ and runs `vp build`. Set the Vercel project Root Directory to `apps/web`.
 
 ### Cloudflare Publish
 
