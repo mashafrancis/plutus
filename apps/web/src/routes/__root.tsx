@@ -7,9 +7,8 @@ import {
   Scripts,
   useRouteContext,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { createServerFn } from "@tanstack/react-start";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 
 import { ConvexProvider } from "@/app/providers/convex-provider";
 import { IconProvider } from "@/app/providers/icon-provider";
@@ -20,6 +19,17 @@ import { op } from "@/lib/op";
 import { getToken } from "@/shared/config/auth-server";
 
 import appCss from "@/app/styles/index.css?url";
+
+// The devtools package touches `window` while its module body is evaluated, so it must
+// never be imported on the server - resolving it here keeps it out of the SSR bundle.
+const TanStackRouterDevtools =
+  import.meta.env.DEV && typeof window !== "undefined"
+    ? lazy(async () => {
+        const mod = await import("@tanstack/react-router-devtools");
+
+        return { default: mod.TanStackRouterDevtools };
+      })
+    : null;
 
 const databuddyId = import.meta.env.VITE_DATABUDDY_CLIENT_ID;
 
@@ -187,7 +197,11 @@ function RootDocument() {
                 trackScrollDepth={true}
                 trackWebVitals={true}
               />
-              <TanStackRouterDevtools position="bottom-left" />
+              {TanStackRouterDevtools ? (
+                <Suspense fallback={null}>
+                  <TanStackRouterDevtools position="bottom-left" />
+                </Suspense>
+              ) : null}
               <Scripts />
             </IconProvider>
           </body>
