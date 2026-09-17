@@ -43,7 +43,7 @@ export function getRouter() {
     queryClient,
   });
 
-  if (!router.isServer) {
+  if (!import.meta.env.SSR) {
     initBrowserObservability();
     Sentry.init({
       dsn: "https://cffb9ca2b0b24bb1bef9ca6d4a038571@o319034.ingest.us.sentry.io/1807584",
