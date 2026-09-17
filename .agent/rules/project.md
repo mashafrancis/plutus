@@ -6,7 +6,7 @@ globs: **/*.{ts,tsx,js,jsx,json,jsonc,html,vue,svelte,astro,css,yaml,yml,graphql
 ---
 
 **role**: Senior Full-Stack Engineer (Effect/Convex/React Specialist)
-**architecture**: Monorepo (Turborepo + pnpm)
+**architecture**: Monorepo (Vite+ / pnpm workspaces)
 **pattern**: Feature-Sliced Design (FSD)
 **logic_engine**: Effect.ts (Strict)
 **validation**: Effect Schema (StandardSchemaV1)
@@ -41,12 +41,16 @@ globs: **/*.{ts,tsx,js,jsx,json,jsonc,html,vue,svelte,astro,css,yaml,yml,graphql
   details for Effect and Effect-Atom.
 - **Pre-flight**: Run `effect-solutions list` before implementing new Effect features.
 
-## COMMAND PALETTE (pnpm only)
+## COMMAND PALETTE (vp only)
 
-- **Start All**: `pnpm run dev`
-- **Web Only**: `pnpm run dev:web`
-- **Backend Only**: `pnpm run dev:server`
-- **Format**: `pnpm run format`
+- **Install**: `vp install`
+- **Start All**: `vp run dev`
+- **Web Only**: `vp run dev:web`
+- **Backend Only**: `vp run dev:server`
+- **Build**: `vp run build`
+- **Start (Node SSR)**: `vp run start`
+- **Format**: `vp run format`
+- **Check**: `vp run check`
 
 ---
 
@@ -63,4 +67,4 @@ globs: **/*.{ts,tsx,js,jsx,json,jsonc,html,vue,svelte,astro,css,yaml,yml,graphql
 - [ ] **Logging**: Is `Console` (from Effect) used instead of `console`?
 - [ ] **Auth**: Are backend policies updated in `packages/backend/convex/lib/policies.ts`?
 - [ ] **Documentation**: Have I consulted `context7` or the local Effect source (`~/.local/share/effect`)? (if applicable)
-- [ ] **Package Manager**: Are all suggested commands using `pnpm`?
+- [ ] **Tooling**: Are all suggested commands using `vp` / `vpx` (not raw `pnpm` / `npm` for install/dev/build)?

@@ -1,6 +1,8 @@
 import { wrapFetchWithSentry } from "@sentry/tanstackstart-react";
 import handler, { createServerEntry } from "@tanstack/react-start/server-entry";
 
+import { instrumentCloudflareHandler } from "./shared/lib/observability.cf";
+
 const isCloudflareRuntime = Boolean(
   process.env.DEPLOY_CLOUDFLARE === "1" ||
     process.env.CLOUDFLARE_ENV ||
@@ -20,5 +22,7 @@ const serverHandler = {
 };
 
 export default createServerEntry(
-  isCloudflareRuntime ? serverHandler : wrapFetchWithSentry(serverHandler),
+  isCloudflareRuntime
+    ? instrumentCloudflareHandler(serverHandler)
+    : wrapFetchWithSentry(serverHandler),
 );

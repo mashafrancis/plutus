@@ -8,13 +8,13 @@
   "type": "module",
   "scripts": {
     "check-types": "vp run --filter=./apps/* --filter=./packages/* check-types",
-    "dev:native": "vp run --filter=native dev",
     "dev:server": "vp run --filter=@tanstack-effect-convex/backend dev",
     "dev:setup": "vp run --filter=@tanstack-effect-convex/backend dev:setup",
-    "update": "pnpm dlx taze -r -I patch",
+    "update": "vpx taze@latest -r -I patch",
     "cached-build": "vp run --cache --filter=./apps/* --filter=./packages/* build",
     "build": "vp run --cache --filter=./apps/* --filter=./packages/* build",
     "build:web": "vp run --filter=web build",
+    "start": "vp run --filter=web start",
     "dev": "vp run --filter=./apps/* --filter=./packages/* dev",
     "dev:web": "vp run --filter=web dev",
     "lint": "vp lint --type-aware --type-check",
@@ -27,14 +27,10 @@
     "deps": "vpx taze@latest -Ilwr",
     "deps:major": "vpx taze@latest major -Ilwr",
     "tanstack": "vpx @tanstack/cli@latest",
-    "db": "vp run --filter=@repo/db db",
-    "ui": "vp run --filter=@repo/ui ui",
-    "ui:web": "vp run --filter=@repo/web ui",
     "build:cloudflare": "vp run --filter=web build:cf",
     "deploy:cloudflare": "vp run --filter=web deploy:cf",
     "preview:cloudflare": "vp run --filter=web preview:cf",
     "auth:secret": "vpx auth@latest secret",
-    "auth:generate": "vp run --filter=@repo/db auth:generate",
     "skills": "vpx skills@latest",
     "intent": "vpx @tanstack/intent@latest"
   },
@@ -48,7 +44,8 @@
     "@types/node": "catalog:",
     "typescript": "catalog:",
     "ultracite": "catalog:",
+    "vite": "catalog:",
     "vite-plus": "catalog:"
   },
-  "packageManager": "pnpm@10.33.2"
+  "packageManager": "pnpm@12.4.2"
 }

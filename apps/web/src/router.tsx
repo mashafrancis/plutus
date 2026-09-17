@@ -5,6 +5,8 @@ import { QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 
+import { initBrowserObservability } from "@/shared/lib/observability.browser";
+
 import { routeTree } from "./routeTree.gen";
 
 export function getRouter() {
@@ -41,7 +43,13 @@ export function getRouter() {
     queryClient,
   });
 
+<<<<<<< Updated upstream
   if (!import.meta.env.SSR) {
+=======
+  if (!router.isServer) {
+    initBrowserObservability();
+
+>>>>>>> Stashed changes
     Sentry.init({
       enabled: router.isServer,
       dsn: "https://cffb9ca2b0b24bb1bef9ca6d4a038571@o319034.ingest.us.sentry.io/1807584",

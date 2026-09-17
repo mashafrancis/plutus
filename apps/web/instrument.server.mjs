@@ -1,4 +1,7 @@
+import { initNodeObservability } from "./observability.node.mjs";
 import * as Sentry from "@sentry/tanstackstart-react";
+
+initNodeObservability();
 
 Sentry.init({
   dsn: "https://cffb9ca2b0b24bb1bef9ca6d4a038571@o319034.ingest.us.sentry.io/1807584",

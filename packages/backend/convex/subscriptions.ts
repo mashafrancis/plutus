@@ -7,6 +7,7 @@ import { convertCurrency, DEFAULT_BASE_CURRENCY } from "./lib/currency";
 import { calculateNextRenewalDate } from "./lib/dates";
 import { Policies } from "./lib/policies";
 import { runWithEffect } from "./lib/runtime";
+import { incrementCounter } from "./lib/telemetry";
 import { NotFoundError, UnknownError } from "./schemas/errors";
 
 export const list = query({
@@ -137,8 +138,16 @@ export const create = mutation({
           catch: (error) => new UnknownError({ error }),
         });
 
+        yield* Effect.sync(() => {
+          incrementCounter("subscriptions.created", 1, {
+            "subscription.frequency": args.frequency,
+            outcome: "success",
+          });
+        });
+
         return subscriptionId;
       }),
+      "subscription.create",
     ),
 });
 

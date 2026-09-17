@@ -6,6 +6,7 @@ import { mutation, query } from "./_generated/server";
 import { convertCurrency } from "./lib/currency";
 import { Policies } from "./lib/policies";
 import { runWithEffect } from "./lib/runtime";
+import { incrementCounter, recordLog } from "./lib/telemetry";
 import { NotFoundError, UnknownError } from "./schemas/errors";
 
 export const list = query({
@@ -194,8 +195,20 @@ export const create = mutation({
           catch: (error) => new UnknownError({ error }),
         });
 
+        yield* Effect.sync(() => {
+          incrementCounter("transactions.created", 1, {
+            "transaction.type": args.type,
+            outcome: "success",
+          });
+          recordLog("Transaction created", "INFO", {
+            "transaction.type": args.type,
+            outcome: "success",
+          });
+        });
+
         return transactionId;
       }),
+      "transaction.create",
     ),
 });
 
@@ -237,8 +250,13 @@ export const update = mutation({
           catch: (error) => new UnknownError({ error }),
         });
 
+        yield* Effect.sync(() => {
+          incrementCounter("transactions.updated", 1, { outcome: "success" });
+        });
+
         return null;
       }),
+      "transaction.update",
     ),
 });
 

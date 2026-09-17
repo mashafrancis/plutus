@@ -3,6 +3,7 @@ import { Effect } from "effect";
 import { internalMutation } from "./_generated/server";
 import { convertCurrency } from "./lib/currency";
 import { calculateNextRenewalDate, startOfDay } from "./lib/dates";
+import { incrementCounter, withSpan } from "./lib/telemetry";
 
 /**
  * Process subscription renewals
@@ -12,7 +13,8 @@ import { calculateNextRenewalDate, startOfDay } from "./lib/dates";
  * - Sends notifications
  */
 export const processSubscriptionRenewals = internalMutation({
-  handler: async (ctx) => {
+  handler: async (ctx) =>
+    withSpan("cron.process_subscription_renewals", { "cron.job": "subscription_renewals" }, async () => {
     const now = Date.now();
 
     // Get all subscriptions due for renewal
@@ -128,11 +130,16 @@ export const processSubscriptionRenewals = internalMutation({
       }
     }
 
+    incrementCounter("cron.jobs.completed", 1, {
+      "cron.job": "subscription_renewals",
+      outcome: "success",
+    });
+
     return {
       processed: dueSubscriptions.length,
       upcoming: upcomingSubscriptions.length,
     };
-  },
+  }),
 });
 
 /**
@@ -141,7 +148,8 @@ export const processSubscriptionRenewals = internalMutation({
  * For now, we update with slightly randomized rates to simulate market movement
  */
 export const updateExchangeRates = internalMutation({
-  handler: async (ctx) => {
+  handler: async (ctx) =>
+    withSpan("cron.update_exchange_rates", { "cron.job": "exchange_rates" }, async () => {
     const now = Date.now();
 
     // Base rates relative to USD (in production, fetch from API)
@@ -183,15 +191,21 @@ export const updateExchangeRates = internalMutation({
       }
     }
 
+    incrementCounter("cron.jobs.completed", 1, {
+      "cron.job": "exchange_rates",
+      outcome: "success",
+    });
+
     return { updated: Object.keys(baseRates).length };
-  },
+  }),
 });
 
 /**
  * Create daily investment snapshots
  */
 export const createInvestmentSnapshots = internalMutation({
-  handler: async (ctx) => {
+  handler: async (ctx) =>
+    withSpan("cron.create_investment_snapshots", { "cron.job": "investment_snapshots" }, async () => {
     const today = startOfDay(Date.now());
 
     // Get all investments
@@ -219,15 +233,21 @@ export const createInvestmentSnapshots = internalMutation({
       }
     }
 
+    incrementCounter("cron.jobs.completed", 1, {
+      "cron.job": "investment_snapshots",
+      outcome: "success",
+    });
+
     return { created, total: investments.length };
-  },
+  }),
 });
 
 /**
  * Cleanup old notifications (older than 30 days)
  */
 export const cleanupOldNotifications = internalMutation({
-  handler: async (ctx) => {
+  handler: async (ctx) =>
+    withSpan("cron.cleanup_old_notifications", { "cron.job": "cleanup_notifications" }, async () => {
     const thirtyDaysAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
 
     // Get old read notifications
@@ -242,6 +262,11 @@ export const cleanupOldNotifications = internalMutation({
       await ctx.db.delete(notification._id);
     }
 
+    incrementCounter("cron.jobs.completed", 1, {
+      "cron.job": "cleanup_notifications",
+      outcome: "success",
+    });
+
     return { deleted: oldNotifications.length };
-  },
+  }),
 });

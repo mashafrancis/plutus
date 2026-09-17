@@ -1,4 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "pnpm install"
+  "installCommand": "curl -fsSL https://vite.plus | bash && vp install --frozen-lockfile",
+  "buildCommand": "vp run build:web"
 }

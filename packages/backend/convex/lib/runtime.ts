@@ -6,6 +6,7 @@ import type { DataModel } from "../_generated/dataModel";
 import type { ForbiddenError, NotFoundError } from "../schemas/errors";
 import { parseCurrentConvexEnvironment } from "./constants";
 import { CurrentSession, fetchCurrentSession } from "./currentSession";
+import { recordLog, withSpan } from "./telemetry";
 
 const MINIMUM_LOG_LEVEL = (() => {
   const environment = parseCurrentConvexEnvironment();
@@ -27,17 +28,24 @@ const RuntimeServer = (ctx: GenericQueryCtx<DataModel> | GenericMutationCtx<Data
 export const runWithEffect = <A, E>(
   ctx: GenericQueryCtx<DataModel> | GenericMutationCtx<DataModel>,
   effect: Effect.Effect<A, E | ForbiddenError | NotFoundError, CurrentSession>,
+  operationName = "convex.handler",
 ) =>
-  RuntimeServer(ctx).runPromise(
-    effect.pipe(
-      Effect.catchTag("ForbiddenError", () =>
-        Effect.die(new ConvexError({ kind: "authorization", status: 401 })),
+  withSpan(operationName, { "convex.operation": operationName }, async () => {
+    recordLog(`Starting ${operationName}`, "INFO", {
+      "operation.name": operationName,
+    });
+
+    return RuntimeServer(ctx).runPromise(
+      effect.pipe(
+        Effect.catchTag("ForbiddenError", () =>
+          Effect.die(new ConvexError({ kind: "authorization", status: 401 })),
+        ),
+        Effect.catchTag("NotFoundError", () =>
+          Effect.die(new ConvexError({ kind: "not-found", status: 404 })),
+        ),
+        // Log unknown error for visibility
+        Effect.tapError((error) => Effect.logError(error)),
+        Logger.withMinimumLogLevel(MINIMUM_LOG_LEVEL),
       ),
-      Effect.catchTag("NotFoundError", () =>
-        Effect.die(new ConvexError({ kind: "not-found", status: 404 })),
-      ),
-      // Log unknown error for visibility
-      Effect.tapError((error) => Effect.logError(error)),
-      Logger.withMinimumLogLevel(MINIMUM_LOG_LEVEL),
-    ),
-  );
+    );
+  });
