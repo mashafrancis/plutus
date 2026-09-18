@@ -110,16 +110,24 @@ function toOtelAttributes(
 }
 
 async function postOtlp(path: string, body: unknown): Promise<number> {
-  const response = await fetch(`${SUPERLOG_ENDPOINT}${path}`, {
-    method: "POST",
-    headers: {
-      ...superlogHeaders(),
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  try {
+    const response = await fetch(`${SUPERLOG_ENDPOINT}${path}`, {
+      method: "POST",
+      headers: {
+        ...superlogHeaders(),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
 
-  return response.status;
+    return response.status;
+  } catch {
+    // Telemetry export is best-effort. `flush` runs inside `withSpan`'s
+    // `finally`, so a rejected transport here would otherwise replace the
+    // handler's result with a transport error and fail the Convex operation.
+    // Report no export instead of surfacing the collector failure.
+    return 0;
+  }
 }
 
 function enqueueSpan(span: ActiveSpan): void {
