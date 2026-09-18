@@ -1,7 +1,8 @@
 /**
  * TanStack Start answers any non-document request to a page route with
  * `500 {"error":"Only HTML requests are supported here"}` when the `Accept`
- * header does not include `text/html` or `*​/*`.
+ * header is not an HTML document request (it includes neither `text/html`
+ * nor a wildcard media range).
  *
  * Returning 5xx for a client-side content negotiation failure is wrong: it
  * reports a healthy server as broken, pollutes error telemetry, and invites
@@ -11,7 +12,14 @@
 const UNSUPPORTED_ACCEPT_ERROR = "Only HTML requests are supported here";
 
 export async function normalizeUnsupportedAcceptResponse(response: Response): Promise<Response> {
-  if (response.status !== 500) {
+  // The framework builds this response with `Response.json`, so it always
+  // carries an `application/json` content type. Checking it before reading the
+  // body keeps streamed 500s (for example HTML render-error pages) untouched
+  // rather than buffering them into a new response.
+  if (
+    response.status !== 500 ||
+    !response.headers.get("content-type")?.includes("application/json")
+  ) {
     return response;
   }
 

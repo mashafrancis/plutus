@@ -36,12 +36,15 @@ describe("normalizeUnsupportedAcceptResponse", () => {
     expect(response.status).toBe(200);
   });
 
-  it("preserves a non-JSON 500 body", async () => {
-    const response = await normalizeUnsupportedAcceptResponse(
-      new Response("upstream exploded", { status: 500 }),
-    );
+  it("returns a streamed non-JSON 500 untouched instead of buffering it", async () => {
+    const original = new Response("<html>render error</html>", {
+      status: 500,
+      headers: { "content-type": "text/html" },
+    });
+    const response = await normalizeUnsupportedAcceptResponse(original);
 
+    expect(response).toBe(original);
     expect(response.status).toBe(500);
-    await expect(response.text()).resolves.toBe("upstream exploded");
+    await expect(response.text()).resolves.toBe("<html>render error</html>");
   });
 });
