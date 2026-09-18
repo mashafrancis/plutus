@@ -32,7 +32,7 @@ const unsupportedAcceptAttributes = (request: Request): Attributes => {
 
   const accept = request.headers.get("accept");
   if (accept) {
-    attributes["http.request.header.accept"] = accept;
+    attributes["http.request.header.accept"] = [accept];
   }
 
   const userAgent = request.headers.get("user-agent");
@@ -44,7 +44,7 @@ const unsupportedAcceptAttributes = (request: Request): Attributes => {
   // simply omit it.
   const asn = (request as Request & { cf?: { asn?: unknown } }).cf?.asn;
   if (typeof asn === "number") {
-    attributes["client.asn"] = asn;
+    attributes["net.asn"] = asn;
   }
 
   return attributes;
