@@ -12,6 +12,7 @@
     "deploy:cf": "DEPLOY_CLOUDFLARE=1 vp build && node ./scripts/patch-cloudflare-runtime.mjs && wrangler deploy",
     "start": "node .output/server/index.mjs",
     "check-types": "tsc --noEmit",
+    "test": "vp test run",
     "prepare": "effect-language-service patch || true",
     "ui": "vpx shadcn@latest add --all --overwrite"
   },

@@ -1,6 +1,8 @@
 import { wrapFetchWithSentry } from "@sentry/tanstackstart-react";
 import handler, { createServerEntry } from "@tanstack/react-start/server-entry";
 
+import { normalizeUnsupportedAcceptResponse } from "./shared/lib/normalize-accept-response";
+
 const isCloudflareRuntime = Boolean(
   process.env.DEPLOY_CLOUDFLARE === "1" ||
     process.env.CLOUDFLARE_ENV ||
@@ -14,8 +16,8 @@ if (!isCloudflareRuntime) {
 }
 
 const serverHandler = {
-  fetch(request: Request) {
-    return handler.fetch(request);
+  async fetch(request: Request) {
+    return normalizeUnsupportedAcceptResponse(await handler.fetch(request));
   },
 };
 
