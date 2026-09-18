@@ -17,7 +17,7 @@ if (!isCloudflareRuntime) {
 
 const serverHandler = {
   async fetch(request: Request) {
-    return normalizeUnsupportedAcceptResponse(await handler.fetch(request));
+    return normalizeUnsupportedAcceptResponse(await handler.fetch(request), request);
   },
 };
 
