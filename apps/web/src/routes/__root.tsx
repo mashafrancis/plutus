@@ -91,7 +91,11 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 
   component: RootDocument,
   beforeLoad: async (ctx) => {
-    const token = await loadAuthTokenSafely(getAuth);
+    const token = await loadAuthTokenSafely(getAuth, {
+      // The bound keeps a stalled auth fetch from 504-ing every route; reporting the
+      // terminal failure keeps the resulting unauthenticated degradation visible.
+      onTerminalError: (error) => Sentry.captureException(error),
+    });
     if (token) {
       ctx.context.convexQueryClient.serverHttpClient?.setAuth(token);
     }

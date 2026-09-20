@@ -6,7 +6,9 @@
  * the Vercel Lambda until the platform ceiling (~10s) and the visitor would get
  * a 504. Each attempt is therefore raced against a timeout, and any bootstrap
  * failure degrades to an unauthenticated render instead of throwing into the
- * root error component and replacing every route with an error page.
+ * root error component and replacing every route with an error page. Terminal
+ * failures are handed to the caller's `onTerminalError` sink so the degradation
+ * stays observable without an error page.
  *
  * Worst case: 3 attempts x 2500ms timeout + 400ms + 800ms backoff = 8700ms,
  * which stays under the Lambda ceiling.
@@ -21,6 +23,12 @@ export interface AuthBootstrapOptions {
   timeoutMs?: number;
   attempts?: number;
   retryDelayMs?: number;
+  /**
+   * Sink for terminal bootstrap failures, so the caller can report them to its
+   * observability layer (Sentry/OTel). The module stays dependency-free and
+   * unit-testable because reporting is injected rather than imported.
+   */
+  onTerminalError?: (error: unknown) => void;
 }
 
 type AuthTokenFetcher = () => Promise<string | null | undefined>;
@@ -77,6 +85,17 @@ async function fetchAuthTokenWithTimeout(
   }
 }
 
+function reportTerminalAuthBootstrapError(
+  error: unknown,
+  onTerminalError?: (error: unknown) => void,
+): void {
+  console.warn(
+    "[auth] Falling back to unauthenticated startup after auth bootstrap failure.",
+    error,
+  );
+  onTerminalError?.(error);
+}
+
 export async function loadAuthTokenSafely(
   getToken: AuthTokenFetcher,
   options: AuthBootstrapOptions = {},
@@ -85,6 +104,7 @@ export async function loadAuthTokenSafely(
     timeoutMs = AUTH_BOOTSTRAP_TIMEOUT_MS,
     attempts = AUTH_BOOTSTRAP_RETRY_ATTEMPTS,
     retryDelayMs = AUTH_BOOTSTRAP_RETRY_DELAY_MS,
+    onTerminalError,
   } = options;
 
   for (let attempt = 1; attempt <= attempts; attempt++) {
@@ -98,10 +118,7 @@ export async function loadAuthTokenSafely(
         continue;
       }
 
-      console.warn(
-        "[auth] Falling back to unauthenticated startup after auth bootstrap failure.",
-        error,
-      );
+      reportTerminalAuthBootstrapError(error, onTerminalError);
       return null;
     }
   }

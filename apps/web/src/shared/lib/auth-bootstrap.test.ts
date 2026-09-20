@@ -67,6 +67,46 @@ describe("loadAuthTokenSafely", () => {
     expect(warn).toHaveBeenCalledOnce();
   });
 
+  it("reports a terminal non-network auth failure to the caller's error sink", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const onTerminalError = vi.fn();
+
+    const token = await loadAuthTokenSafely(
+      async () => {
+        throw new Error("Convex auth endpoint responded 500");
+      },
+      { attempts: 3, timeoutMs: 100, retryDelayMs: 1, onTerminalError },
+    );
+
+    expect(token).toBeNull();
+    expect(onTerminalError).toHaveBeenCalledOnce();
+    expect(onTerminalError.mock.calls[0]?.[0]).toBeInstanceOf(Error);
+  });
+
+  it("reports a terminal failure once the bounded retry budget is spent", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const onTerminalError = vi.fn();
+
+    const token = await loadAuthTokenSafely(() => new Promise<never>(() => {}), {
+      attempts: 2,
+      timeoutMs: 20,
+      retryDelayMs: 1,
+      onTerminalError,
+    });
+
+    expect(token).toBeNull();
+    expect(onTerminalError).toHaveBeenCalledOnce();
+  });
+
+  it("does not touch the error sink when the auth endpoint responds", async () => {
+    const onTerminalError = vi.fn();
+
+    await expect(loadAuthTokenSafely(async () => "token-123", { onTerminalError })).resolves.toBe(
+      "token-123",
+    );
+    expect(onTerminalError).not.toHaveBeenCalled();
+  });
+
   it("keeps the worst-case retry budget under the Lambda ceiling", () => {
     const backoffMs =
       (AUTH_BOOTSTRAP_RETRY_DELAY_MS *
