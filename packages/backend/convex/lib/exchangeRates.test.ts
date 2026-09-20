@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 
+import { CURRENCY_INFO } from "./currency";
 import { parseExchangeRateFeed, SUPPORTED_CURRENCIES } from "./exchangeRates";
 
 describe("parseExchangeRateFeed", () => {
@@ -60,18 +61,14 @@ describe("parseExchangeRateFeed", () => {
     expect(parseExchangeRateFeed([])).toEqual([]);
   });
 
-  it("covers the currencies the app can present", () => {
-    const rates: Record<string, number> = {};
-    for (const currency of SUPPORTED_CURRENCIES) {
-      rates[currency] = 1.5;
-    }
+  it("stays in sync with the currencies the app can present", () => {
+    // Guards against drift: a currency added to CURRENCY_INFO but not to
+    // SUPPORTED_CURRENCIES would silently stop being fetched, and conversions
+    // would fall through to the hardcoded FALLBACK_RATES rather than the feed.
+    const appCurrencies = Object.keys(CURRENCY_INFO)
+      .filter((currency) => currency !== "USD")
+      .sort();
 
-    const quotes = parseExchangeRateFeed({
-      result: "success",
-      base_code: "USD",
-      rates,
-    });
-
-    expect(quotes).toHaveLength(SUPPORTED_CURRENCIES.length);
+    expect([...SUPPORTED_CURRENCIES].sort()).toEqual(appCurrencies);
   });
 });

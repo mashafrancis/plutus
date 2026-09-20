@@ -157,6 +157,10 @@ export const processSubscriptionRenewals = internalMutation({
  * and the last known good rates stay in place. Rates are never synthesized or
  * randomized here, because every value persisted to `exchangeRates` is used to
  * compute and store real user financial figures.
+ *
+ * `throw` is deliberate here, against the `.agent/rules/project.md` ban on it:
+ * a Convex action that throws is recorded as failed, whereas `Effect.fail`
+ * would let the run report success and leave stale rates in place silently.
  */
 const FEED_TIMEOUT_MS = 10_000;
 
