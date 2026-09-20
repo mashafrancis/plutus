@@ -34,32 +34,45 @@ export interface AuthBootstrapOptions {
 type AuthTokenFetcher = () => Promise<string | null | undefined>;
 
 export function isRetryableAuthBootstrapError(error: unknown): boolean {
-  if (!(error instanceof Error)) {
-    return false;
+  // Walk the `cause` chain iteratively, remembering what has been seen, so a
+  // circular or very deep chain cannot exhaust the stack. A `RangeError` here
+  // would be thrown from inside `loadAuthTokenSafely`'s catch block and escape
+  // the loop's safety net, turning the intended degrade-to-anonymous render back
+  // into the error page this module exists to prevent.
+  const visited = new WeakSet<object>();
+  let current: unknown = error;
+
+  while (current instanceof Error) {
+    if (visited.has(current)) {
+      return false;
+    }
+    visited.add(current);
+
+    // A per-attempt timeout is treated as a transient failure so the next
+    // attempt still gets a chance to reach the auth endpoint.
+    if (current.message === AUTH_BOOTSTRAP_TIMEOUT_MESSAGE) {
+      return true;
+    }
+
+    const errorCode = "code" in current ? String((current as { code?: string }).code ?? "") : "";
+    const message = current.message.toLowerCase();
+
+    if (
+      message.includes("fetch failed") ||
+      message.includes("failed to fetch") ||
+      message.includes("networkerror") ||
+      errorCode === "ECONNREFUSED" ||
+      errorCode === "ECONNRESET" ||
+      errorCode === "ENOTFOUND" ||
+      errorCode === "ETIMEDOUT"
+    ) {
+      return true;
+    }
+
+    current = current.cause;
   }
 
-  // A per-attempt timeout is treated as a transient failure so the next
-  // attempt still gets a chance to reach the auth endpoint.
-  if (error.message === AUTH_BOOTSTRAP_TIMEOUT_MESSAGE) {
-    return true;
-  }
-
-  const errorCode = "code" in error ? String((error as { code?: string }).code ?? "") : "";
-  const message = error.message.toLowerCase();
-
-  if (
-    message.includes("fetch failed") ||
-    message.includes("failed to fetch") ||
-    message.includes("networkerror") ||
-    errorCode === "ECONNREFUSED" ||
-    errorCode === "ECONNRESET" ||
-    errorCode === "ENOTFOUND" ||
-    errorCode === "ETIMEDOUT"
-  ) {
-    return true;
-  }
-
-  return isRetryableAuthBootstrapError(error.cause);
+  return false;
 }
 
 async function sleep(ms: number): Promise<void> {

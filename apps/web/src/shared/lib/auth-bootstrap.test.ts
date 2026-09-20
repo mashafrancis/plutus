@@ -4,6 +4,7 @@ import {
   AUTH_BOOTSTRAP_RETRY_ATTEMPTS,
   AUTH_BOOTSTRAP_RETRY_DELAY_MS,
   AUTH_BOOTSTRAP_TIMEOUT_MS,
+  isRetryableAuthBootstrapError,
   loadAuthTokenSafely,
 } from "./auth-bootstrap";
 
@@ -117,5 +118,49 @@ describe("loadAuthTokenSafely", () => {
 
     expect(worstCaseMs).toBe(8700);
     expect(worstCaseMs).toBeLessThan(10_000);
+  });
+  it("treats a circular cause chain as non-retryable without overflowing the stack", () => {
+    const first = new Error("first");
+    const second = new Error("second");
+    (first as { cause?: unknown }).cause = second;
+    (second as { cause?: unknown }).cause = first;
+
+    expect(isRetryableAuthBootstrapError(first)).toBe(false);
+  });
+
+  it("detects a retryable error nested behind a cause chain", () => {
+    const inner = new Error("fetch failed");
+    const outer = new Error("auth bootstrap wrapper");
+    (outer as { cause?: unknown }).cause = inner;
+
+    expect(isRetryableAuthBootstrapError(outer)).toBe(true);
+  });
+
+  it("stays bounded on a deep cause chain", () => {
+    let current: Error = new Error("root");
+    for (let i = 0; i < 10_000; i++) {
+      const wrapper = new Error(`wrapper-${i}`);
+      (wrapper as { cause?: unknown }).cause = current;
+      current = wrapper;
+    }
+
+    expect(isRetryableAuthBootstrapError(current)).toBe(false);
+  });
+
+  it("degrades to null instead of rejecting when the failure has a circular cause", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const first = new Error("first");
+    const second = new Error("second");
+    (first as { cause?: unknown }).cause = second;
+    (second as { cause?: unknown }).cause = first;
+
+    const token = await loadAuthTokenSafely(
+      async () => {
+        throw first;
+      },
+      { attempts: 1, timeoutMs: 100, retryDelayMs: 1 },
+    );
+
+    expect(token).toBeNull();
   });
 });
