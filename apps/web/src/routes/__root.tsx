@@ -1,4 +1,5 @@
 import { Databuddy } from "@databuddy/sdk/react";
+import { trace } from "@opentelemetry/api";
 import * as Sentry from "@sentry/tanstackstart-react";
 import {
   createRootRouteWithContext,
@@ -92,6 +93,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
   component: RootDocument,
   beforeLoad: async (ctx) => {
     const token = await loadAuthTokenSafely(getAuth);
+    trace.getActiveSpan()?.setAttribute("auth.bootstrap.authenticated", !!token);
     if (token) {
       ctx.context.convexQueryClient.serverHttpClient?.setAuth(token);
     }

@@ -7,6 +7,17 @@ import {
   loadAuthTokenSafely,
 } from "./auth-bootstrap";
 
+const activeSpan = vi.hoisted(() => ({
+  addEvent: vi.fn(),
+  setAttributes: vi.fn(),
+}));
+
+vi.mock("@opentelemetry/api", () => ({
+  trace: {
+    getActiveSpan: () => activeSpan,
+  },
+}));
+
 afterEach(() => {
   vi.restoreAllMocks();
 });
@@ -51,6 +62,42 @@ describe("loadAuthTokenSafely", () => {
 
     expect(calls).toBe(3);
     expect(token).toBe("token-after-retry");
+  });
+
+  it("records the per-attempt timeout on the span when a later attempt succeeds", async () => {
+    activeSpan.addEvent.mockClear();
+    activeSpan.setAttributes.mockClear();
+
+    let calls = 0;
+
+    const token = await loadAuthTokenSafely(
+      async () => {
+        calls += 1;
+        if (calls === 1) {
+          return new Promise<never>(() => {});
+        }
+        return "token-after-timeout";
+      },
+      { attempts: 3, timeoutMs: 20, retryDelayMs: 1 },
+    );
+
+    expect(token).toBe("token-after-timeout");
+    expect(activeSpan.addEvent).toHaveBeenCalledWith(
+      "auth.bootstrap.attempt_timeout",
+      expect.objectContaining({
+        "auth.bootstrap.attempt": 1,
+        "auth.bootstrap.attempt_elapsed_ms": expect.any(Number),
+        "auth.bootstrap.timed_out": true,
+      }),
+    );
+    expect(activeSpan.setAttributes).toHaveBeenCalledWith(
+      expect.objectContaining({
+        "auth.bootstrap.outcome": "success",
+        "auth.bootstrap.attempts": 2,
+        "auth.bootstrap.timed_out_attempts": 1,
+        "auth.bootstrap.total_elapsed_ms": expect.any(Number),
+      }),
+    );
   });
 
   it("degrades to unauthenticated startup on a non-network auth failure", async () => {
