@@ -1,8 +1,15 @@
+import { v } from "convex/values";
 import { Effect } from "effect";
 
-import { internalMutation } from "./_generated/server";
+import { internal } from "./_generated/api";
+import { internalAction, internalMutation } from "./_generated/server";
 import { convertCurrency } from "./lib/currency";
 import { calculateNextRenewalDate, startOfDay } from "./lib/dates";
+import {
+  EXCHANGE_RATE_FEED_URL,
+  type ExchangeRateQuote,
+  parseExchangeRateFeed,
+} from "./lib/exchangeRates";
 import { incrementCounter, withSpan } from "./lib/telemetry";
 
 /**
@@ -143,61 +150,93 @@ export const processSubscriptionRenewals = internalMutation({
 });
 
 /**
- * Update exchange rates
- * In a production app, this would fetch from an API like exchangeratesapi.io
- * For now, we update with slightly randomized rates to simulate market movement
+ * Update exchange rates.
+ *
+ * Rates are pulled from a live USD-based feed. If the feed is unavailable or
+ * returns no usable rates, nothing is written: the job fails so it is visible,
+ * and the last known good rates stay in place. Rates are never synthesized or
+ * randomized here, because every value persisted to `exchangeRates` is used to
+ * compute and store real user financial figures.
+ *
+ * `throw` is deliberate here, against the `.agent/rules/project.md` ban on it:
+ * a Convex action that throws is recorded as failed, whereas `Effect.fail`
+ * would let the run report success and leave stale rates in place silently.
  */
-export const updateExchangeRates = internalMutation({
+const FEED_TIMEOUT_MS = 10_000;
+
+export const updateExchangeRates = internalAction({
   handler: async (ctx) =>
     withSpan("cron.update_exchange_rates", { "cron.job": "exchange_rates" }, async () => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), FEED_TIMEOUT_MS);
+
+      let quotes: ExchangeRateQuote[];
+      try {
+        const response = await fetch(EXCHANGE_RATE_FEED_URL, { signal: controller.signal });
+
+        if (!response.ok) {
+          throw new Error(`Exchange rate feed returned HTTP ${response.status}`);
+        }
+
+        quotes = parseExchangeRateFeed(await response.json());
+      } finally {
+        clearTimeout(timeout);
+      }
+
+      if (quotes.length === 0) {
+        throw new Error("Exchange rate feed returned no usable USD rates");
+      }
+
+      await ctx.runMutation(internal.cronHandlers.applyExchangeRates, { quotes });
+
+      incrementCounter("cron.jobs.completed", 1, {
+        "cron.job": "exchange_rates",
+        outcome: "success",
+      });
+
+      return { updated: quotes.length };
+    }),
+});
+
+/**
+ * Persist the USD-based rates fetched by `updateExchangeRates`.
+ *
+ * Kept separate from the action because Convex actions cannot write to the
+ * database directly. Only the currencies present in the payload are touched, so
+ * a partial feed leaves the existing rows for the other currencies intact.
+ */
+export const applyExchangeRates = internalMutation({
+  args: {
+    quotes: v.array(v.object({ currency: v.string(), rate: v.number() })),
+  },
+  handler: async (ctx, args) => {
     const now = Date.now();
+    let updated = 0;
 
-    // Base rates relative to USD (in production, fetch from API)
-    const baseRates: Record<string, number> = {
-      KES: 129.5,
-      EUR: 0.92,
-      GBP: 0.79,
-      JPY: 149.5,
-      CAD: 1.36,
-      AUD: 1.53,
-      CHF: 0.88,
-      CNY: 7.24,
-      BRL: 4.97,
-      INR: 83.12,
-    };
-
-    for (const [currency, baseRate] of Object.entries(baseRates)) {
-      // Add small random variation (±0.5%)
-      const variation = 1 + (Math.random() - 0.5) * 0.01;
-      const rate = Math.round(baseRate * variation * 10_000) / 10_000;
-
-      // Check if rate exists
+    for (const quote of args.quotes) {
       const existing = await ctx.db
         .query("exchangeRates")
         .withIndex("by_currencies", (q) =>
-          q.eq("baseCurrency", "USD").eq("targetCurrency", currency),
+          q.eq("baseCurrency", "USD").eq("targetCurrency", quote.currency),
         )
         .first();
 
       if (existing) {
-        await ctx.db.patch(existing._id, { rate, timestamp: now });
+        await ctx.db.patch(existing._id, { rate: quote.rate, timestamp: now });
       } else {
         await ctx.db.insert("exchangeRates", {
           baseCurrency: "USD",
-          targetCurrency: currency,
-          rate,
+          targetCurrency: quote.currency,
+          rate: quote.rate,
           timestamp: now,
         });
       }
+
+      updated++;
     }
 
-    incrementCounter("cron.jobs.completed", 1, {
-      "cron.job": "exchange_rates",
-      outcome: "success",
-    });
-
-    return { updated: Object.keys(baseRates).length };
-  }),
+    return { updated };
+  },
 });
 
 /**
