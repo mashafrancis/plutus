@@ -43,6 +43,10 @@ const getAuth = createServerFn({ method: "GET" }).handler(async () => {
 
 const AUTH_BOOTSTRAP_RETRY_ATTEMPTS = 3;
 const AUTH_BOOTSTRAP_RETRY_DELAY_MS = 400;
+// Per-attempt timeout keeps the total worst-case budget (timeout * attempts + all sleep delays)
+// safely under the 10-second Vercel Lambda limit.
+// Worst case: 2500ms * 3 attempts + 400ms + 800ms = 8700ms < 10s.
+const AUTH_FETCH_TIMEOUT_MS = 2500;
 
 function isAuthBootstrapNetworkError(error: unknown): boolean {
   if (!(error instanceof Error)) {
@@ -73,9 +77,19 @@ async function sleep(ms: number): Promise<void> {
 
 async function loadAuthTokenSafely(): Promise<string | null> {
   for (let attempt = 1; attempt <= AUTH_BOOTSTRAP_RETRY_ATTEMPTS; attempt++) {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
     try {
-      return (await getAuth()) ?? null;
+      const timeoutPromise = new Promise<never>((_, reject) => {
+        timeoutId = setTimeout(
+          () => reject(new Error("fetch failed: auth token request timed out")),
+          AUTH_FETCH_TIMEOUT_MS,
+        );
+      });
+      const result = await Promise.race([getAuth(), timeoutPromise]);
+      clearTimeout(timeoutId);
+      return result ?? null;
     } catch (error) {
+      clearTimeout(timeoutId);
       const shouldRetry =
         isAuthBootstrapNetworkError(error) && attempt < AUTH_BOOTSTRAP_RETRY_ATTEMPTS;
 
