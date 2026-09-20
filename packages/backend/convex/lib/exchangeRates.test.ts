@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 
-import { parseExchangeRateFeed, SUPPORTED_CURRENCIES } from "./exchangeRates";
+import { missingCurrencies, parseExchangeRateFeed, SUPPORTED_CURRENCIES } from "./exchangeRates";
 
 describe("parseExchangeRateFeed", () => {
   it("extracts and rounds supported USD-based rates", () => {
@@ -73,5 +73,41 @@ describe("parseExchangeRateFeed", () => {
     });
 
     expect(quotes).toHaveLength(SUPPORTED_CURRENCIES.length);
+  });
+});
+
+describe("missingCurrencies", () => {
+  it("names the supported currencies a partial feed omits", () => {
+    const quotes = parseExchangeRateFeed({
+      result: "success",
+      base_code: "USD",
+      rates: { EUR: 0.87, GBP: 0.75 },
+    });
+
+    expect(missingCurrencies(quotes)).toEqual([
+      "KES",
+      "JPY",
+      "CAD",
+      "AUD",
+      "CHF",
+      "CNY",
+      "BRL",
+      "INR",
+    ]);
+  });
+
+  it("is empty when every supported currency is present and valid", () => {
+    const rates: Record<string, number> = {};
+    for (const currency of SUPPORTED_CURRENCIES) {
+      rates[currency] = 1.5;
+    }
+
+    const quotes = parseExchangeRateFeed({
+      result: "success",
+      base_code: "USD",
+      rates,
+    });
+
+    expect(missingCurrencies(quotes)).toEqual([]);
   });
 });

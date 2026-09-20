@@ -77,3 +77,16 @@ export const parseExchangeRateFeed = (payload: unknown): ExchangeRateQuote[] => 
 
   return quotes;
 };
+
+/**
+ * Supported currencies absent from a parsed feed payload.
+ *
+ * `parseExchangeRateFeed` skips a currency whose rate is missing or unusable, so
+ * its previously stored rate silently stays in place. Callers surface this set
+ * alongside the cron job telemetry, making per-currency staleness queryable
+ * instead of only whether the job as a whole succeeded or threw.
+ */
+export const missingCurrencies = (quotes: ExchangeRateQuote[]): string[] => {
+  const present = new Set(quotes.map((quote) => quote.currency));
+  return SUPPORTED_CURRENCIES.filter((currency) => !present.has(currency));
+};

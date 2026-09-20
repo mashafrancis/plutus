@@ -8,9 +8,10 @@ import { calculateNextRenewalDate, startOfDay } from "./lib/dates";
 import {
   EXCHANGE_RATE_FEED_URL,
   type ExchangeRateQuote,
+  missingCurrencies,
   parseExchangeRateFeed,
 } from "./lib/exchangeRates";
-import { incrementCounter, withSpan } from "./lib/telemetry";
+import { incrementCounter, recordLog, withSpan } from "./lib/telemetry";
 
 /**
  * Process subscription renewals
@@ -184,6 +185,17 @@ export const updateExchangeRates = internalAction({
       }
 
       await ctx.runMutation(internal.cronHandlers.applyExchangeRates, { quotes });
+
+      const missing = missingCurrencies(quotes);
+
+      if (missing.length > 0) {
+        recordLog("Exchange rate feed is missing supported currencies", "ERROR", {
+          "cron.job": "exchange_rates",
+          "exchange_rates.missing_currencies": missing.join(","),
+          "exchange_rates.missing_count": missing.length,
+          "exchange_rates.received_count": quotes.length,
+        });
+      }
 
       incrementCounter("cron.jobs.completed", 1, {
         "cron.job": "exchange_rates",
