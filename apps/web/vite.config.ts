@@ -12,7 +12,7 @@ import { defineConfig } from "vite-plus";
 
 const isCloudflareRuntime = Boolean(
   process.env.DEPLOY_CLOUDFLARE === "1" ||
-    process.env.CLOUDFLARE_ENV ||
+  process.env.CLOUDFLARE_ENV ||
   process.env.CF_PAGES ||
   process.env.CF_ACCOUNT_ID ||
   process.env.WORKERS_CI,
@@ -78,6 +78,9 @@ export default defineConfig({
         authToken: process.env.SENTRY_AUTH_TOKEN,
       }),
   ].filter(Boolean),
+  define: {
+    __DEPLOY_CLOUDFLARE__: JSON.stringify(isCloudflareRuntime),
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -89,15 +92,11 @@ export default defineConfig({
   },
   ssr: {
     noExternal: ["@convex-dev/better-auth"],
-    external: isCloudflareRuntime
-      ? []
-      : ["cloudflare:workers", "@microlabs/otel-cf-workers"],
+    external: isCloudflareRuntime ? [] : ["cloudflare:workers", "@microlabs/otel-cf-workers"],
   },
   build: {
     rolldownOptions: {
-      external: isCloudflareRuntime
-        ? []
-        : ["cloudflare:workers", "@microlabs/otel-cf-workers"],
+      external: isCloudflareRuntime ? [] : ["cloudflare:workers", "@microlabs/otel-cf-workers"],
     },
   },
 });

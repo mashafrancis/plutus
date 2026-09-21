@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vp build && cp instrument.server.mjs observability.node.mjs .output/server",
+    "build": "vp build",
     "build:cf": "DEPLOY_CLOUDFLARE=1 vp build && node ./scripts/patch-cloudflare-runtime.mjs",
     "preview": "vp preview",
     "preview:cf": "wrangler dev",
