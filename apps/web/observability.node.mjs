@@ -1,3 +1,4 @@
+import { logs } from "@opentelemetry/api-logs";
 import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
 import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-http";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
@@ -6,11 +7,9 @@ import { resourceFromAttributes } from "@opentelemetry/resources";
 import { BatchLogRecordProcessor, LoggerProvider } from "@opentelemetry/sdk-logs";
 import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 import { NodeSDK } from "@opentelemetry/sdk-node";
-import { logs } from "@opentelemetry/api-logs";
 
 const SUPERLOG_ENDPOINT = "https://intake.superlog.sh";
-const SUPERLOG_PUBLIC_TOKEN =
-  "sl_public_uNk-VyQWrcw5A__1Ea3Yo0N5rk_8eU3Whm8Sh-jK02s";
+const SUPERLOG_PUBLIC_TOKEN = "sl_public_uNk-VyQWrcw5A__1Ea3Yo0N5rk_8eU3Whm8Sh-jK02s";
 const VCS_REPOSITORY_URL = "https://github.com/mashafrancis/plutus";
 
 function superlogHeaders(token) {
@@ -67,9 +66,7 @@ export function initNodeObservability() {
   }
 
   const headers = superlogHeaders(SUPERLOG_PUBLIC_TOKEN);
-  const resource = resourceFromAttributes(
-    buildResourceAttributes("plutus-web-server"),
-  );
+  const resource = resourceFromAttributes(buildResourceAttributes("plutus-web-server"));
 
   const traceExporter = new OTLPTraceExporter({
     url: `${SUPERLOG_ENDPOINT}/v1/traces`,
@@ -86,8 +83,10 @@ export function initNodeObservability() {
     headers,
   });
 
-  const loggerProvider = new LoggerProvider({ resource });
-  loggerProvider.addLogRecordProcessor(new BatchLogRecordProcessor(logExporter));
+  const loggerProvider = new LoggerProvider({
+    resource,
+    processors: [new BatchLogRecordProcessor(logExporter)],
+  });
   logs.setGlobalLoggerProvider(loggerProvider);
 
   sdk = new NodeSDK({
