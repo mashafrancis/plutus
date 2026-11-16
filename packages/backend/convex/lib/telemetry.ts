@@ -3,6 +3,7 @@ const SUPERLOG_PUBLIC_TOKEN =
   "sl_public_uNk-VyQWrcw5A__1Ea3Yo0N5rk_8eU3Whm8Sh-jK02s";
 const VCS_REPOSITORY_URL = "https://github.com/mashafrancis/plutus";
 const SERVICE_NAME = "plutus-convex";
+const SUPERLOG_EXPORT_TIMEOUT_MS = 5_000;
 
 type AttributeValue = string | number | boolean;
 
@@ -110,16 +111,25 @@ function toOtelAttributes(
 }
 
 async function postOtlp(path: string, body: unknown): Promise<number> {
-  const response = await fetch(`${SUPERLOG_ENDPOINT}${path}`, {
-    method: "POST",
-    headers: {
-      ...superlogHeaders(),
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  try {
+    const response = await fetch(`${SUPERLOG_ENDPOINT}${path}`, {
+      method: "POST",
+      headers: {
+        ...superlogHeaders(),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(SUPERLOG_EXPORT_TIMEOUT_MS),
+    });
 
-  return response.status;
+    return response.status;
+  } catch {
+    // Telemetry export is best-effort. `flush` runs inside `withSpan`'s
+    // `finally`, so a rejected or stalled transport here would otherwise
+    // replace the handler's result with a transport error and fail the
+    // Convex operation. Report no export instead of surfacing it.
+    return 0;
+  }
 }
 
 function enqueueSpan(span: ActiveSpan): void {
