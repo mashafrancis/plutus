@@ -86,8 +86,10 @@ export function initNodeObservability() {
     headers,
   });
 
-  const loggerProvider = new LoggerProvider({ resource });
-  loggerProvider.addLogRecordProcessor(new BatchLogRecordProcessor(logExporter));
+  const loggerProvider = new LoggerProvider({
+    resource,
+    processors: [new BatchLogRecordProcessor({ exporter: logExporter })],
+  });
   logs.setGlobalLoggerProvider(loggerProvider);
 
   sdk = new NodeSDK({

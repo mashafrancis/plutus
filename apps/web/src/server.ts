@@ -10,7 +10,8 @@ const isCloudflareRuntime = Boolean(
 );
 
 if (!isCloudflareRuntime) {
-  await import("../instrument.server.mjs");
+  const { initServerObservability } = await import("../instrument.server.mjs");
+  initServerObservability();
 }
 
 const serverHandler = {
