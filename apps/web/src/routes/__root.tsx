@@ -17,6 +17,7 @@ import type { RouterAppContext } from "@/app/types/router-app-context";
 import { Toaster } from "@/components/ui/sonner";
 import { op } from "@/lib/op";
 import { getToken } from "@/shared/config/auth-server";
+import { loadAuthTokenSafely } from "@/shared/lib/auth-bootstrap";
 
 import appCss from "@/app/styles/index.css?url";
 
@@ -38,71 +39,45 @@ if (import.meta.env.VITE_OP_CLIENT_ID) {
 }
 
 const getAuth = createServerFn({ method: "GET" }).handler(async () => {
+  const { getRequestHeaders } = await import("@tanstack/react-start/server");
+  const { getSessionCookie } = await import("better-auth/cookies");
+
+  // The Convex token endpoint answers 401 for any request without a session, and this
+  // server function runs on every server render. Skip the outbound call when the request
+  // carries no session cookie, so anonymous traffic neither depends on nor floods the
+  // auth endpoint. The token endpoint sees the same cookie header, so the result does
+  // not change for requests that do carry a session.
+  if (!getSessionCookie(new Headers(getRequestHeaders()))) {
+    return null;
+  }
+
   return await getToken();
 });
-
-const AUTH_BOOTSTRAP_RETRY_ATTEMPTS = 3;
-const AUTH_BOOTSTRAP_RETRY_DELAY_MS = 400;
-
-function isAuthBootstrapNetworkError(error: unknown): boolean {
-  if (!(error instanceof Error)) {
-    return false;
-  }
-
-  const errorCode = "code" in error ? String((error as { code?: string }).code ?? "") : "";
-  const message = error.message.toLowerCase();
-
-  if (
-    message.includes("fetch failed") ||
-    message.includes("failed to fetch") ||
-    message.includes("networkerror") ||
-    errorCode === "ECONNREFUSED" ||
-    errorCode === "ECONNRESET" ||
-    errorCode === "ENOTFOUND" ||
-    errorCode === "ETIMEDOUT"
-  ) {
-    return true;
-  }
-
-  return isAuthBootstrapNetworkError(error.cause);
-}
-
-async function sleep(ms: number): Promise<void> {
-  await new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-async function loadAuthTokenSafely(): Promise<string | null> {
-  for (let attempt = 1; attempt <= AUTH_BOOTSTRAP_RETRY_ATTEMPTS; attempt++) {
-    try {
-      return (await getAuth()) ?? null;
-    } catch (error) {
-      const shouldRetry =
-        isAuthBootstrapNetworkError(error) && attempt < AUTH_BOOTSTRAP_RETRY_ATTEMPTS;
-
-      if (shouldRetry) {
-        await sleep(AUTH_BOOTSTRAP_RETRY_DELAY_MS * attempt);
-        continue;
-      }
-
-      if (isAuthBootstrapNetworkError(error)) {
-        console.warn(
-          "[auth] Falling back to unauthenticated startup after transient fetch failure.",
-          error,
-        );
-        return null;
-      }
-
-      throw error;
-    }
-  }
-
-  return null;
-}
 
 // Re-export for other routes that may need it
 export type { RouterAppContext } from "@/app/types/router-app-context";
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({
+  beforeLoad: async (ctx) => {
+    const token = await loadAuthTokenSafely({
+      getToken: async () => (await getAuth()) ?? null,
+      onTransientFailure: (error) => {
+        console.warn(
+          "[auth] Falling back to unauthenticated startup after transient fetch failure.",
+          error,
+        );
+      },
+    });
+    if (token) {
+      ctx.context.convexQueryClient.serverHttpClient?.setAuth(token);
+    }
+    return {
+      isAuthenticated: !!token,
+      token,
+    };
+  },
+
+  component: RootDocument,
   head: () => ({
     meta: [
       {
@@ -145,26 +120,12 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
       },
     ],
   }),
-
-  component: RootDocument,
-  beforeLoad: async (ctx) => {
-    const token = await loadAuthTokenSafely();
-    if (token) {
-      ctx.context.convexQueryClient.serverHttpClient?.setAuth(token);
-    }
-    return {
-      isAuthenticated: !!token,
-      token,
-    };
-  },
   errorComponent: ({ error }) => {
     useEffect(() => {
       Sentry.captureException(error);
     }, [error]);
 
-    return (
-      <div>{`Error occurred: ${error instanceof Error ? error.message : String(error)}`}</div>
-    );
+    return <div>{`Error occurred: ${error instanceof Error ? error.message : String(error)}`}</div>;
   },
 });
 
